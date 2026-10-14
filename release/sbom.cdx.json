@@ -6,7 +6,7 @@
     "component": {
       "type": "application",
       "name": "aural-library",
-      "version": "0.207.0",
+      "version": "0.208.0",
       "licenses": [
         {
           "license": {
@@ -3880,19 +3880,19 @@
         },
         {
           "name": "aural:metadata-release-context-parser-source-sha256",
-          "value": "8da24f6ed30a0bee556cec7a820c1ce034ab7a9ed8c7feb952cecadd2c5b9d6a"
+          "value": "ad233df1ff9df9635fe1a2e7d65a340af13cca774981e63ae2c6dcc319dc2ed3"
         },
         {
           "name": "aural:metadata-release-context-contract-source-sha256",
-          "value": "ecdc6ab606575f760f2b5d3b46ee601ecc3b14dfae0379673f78d96c57a5d6bc"
+          "value": "0b6e70cb5d02eff41bf33d830eda1f6758651d725c3509a0aadf40a83f20b109"
         },
         {
           "name": "aural:metadata-release-context-panel-source-sha256",
-          "value": "511011b10714484707d11b20e4d315c9b006bf1c8dafac480cec8388f26c6778"
+          "value": "ff3adec37a069e148ebd01113c8a1a7af501ce65bb6237a74a9e6346b169d0bd"
         },
         {
           "name": "aural:metadata-release-fields-repository-source-sha256",
-          "value": "bc3d2461c01f6cf5733cee7ffe564b6dd4a5f6dcb5e15e51f970e2486138dbd9"
+          "value": "688e6da474aa74419d1a2db1414291941c3443507df115290c2e58464c117bcc"
         },
         {
           "name": "aural:metadata-release-fields-contract-source-sha256",
@@ -3904,23 +3904,23 @@
         },
         {
           "name": "aural:metadata-album-review-repository-source-sha256",
-          "value": "1364b5b9405d581d9a3fe8c57649b0f3353ed12b0c86950301e4b413737067a4"
+          "value": "40dd2d9c685904b861446bd48418ef77041df10a405f106ead451fef8683837f"
         },
         {
           "name": "aural:metadata-album-matcher-source-sha256",
-          "value": "e2cb56202c2145038919896412d56e2b18dfc0762536200b67fa8ccb8291dfdd"
+          "value": "6d8524ca731e29702223243e39cd36a49baacd048cea249e62a18ed2e6d30664"
         },
         {
           "name": "aural:metadata-album-contract-source-sha256",
-          "value": "304a2275d77dd95b13cc5f1be8a9f172ab543ec53d47a89e168065ed50341d4e"
+          "value": "ea951bf2f0ab3870f83f76504b182b8a83466dca2de0e2b22a68bb058e144941"
         },
         {
           "name": "aural:metadata-album-dialog-source-sha256",
-          "value": "1c38facdc0e369552abba4953fa986f64c4032109b2ecff3e25ec58bccbbc88a"
+          "value": "af0261b47163bcffcc763cc80f9cd9832dd540bdc8380d31592d97f18c5eeee7"
         },
         {
           "name": "aural:metadata-identities-repository-source-sha256",
-          "value": "fbe17dbb46dda88382b6b8dd9936eb240ae8f1cac9e401ee4223bf0d6567952c"
+          "value": "7b6a8a85d93ab1b2a03d23281ac60fd50535f97ad2b0d17c9cb34d384dda632d"
         },
         {
           "name": "aural:metadata-identities-contract-source-sha256",
@@ -3936,7 +3936,7 @@
         },
         {
           "name": "aural:metadata-album-review-scope",
-          "value": "0.197 source: explicit per-file album-context track mapping with title/position/duration/known-recording comparison, bounded local25/source50 pages, 4 review snapshots/16MiB serialized budget/5000 local versions, source-specific per-track credit without album-artist substitution, 100-item durable reviewed text batch with immutable source/track context and compensating undo; no automatic external identity binding or file writeback"
+          "value": "0.208 source/schema75/media16: bounded distinct pregap0/TOC audio/data parsing, cross-list identity/position validation and missing-position/offset completeness; audio-only matching with hidden0 segment fencing, data evidence excluded from text/credit/identity authority; persistent pregap-kind bindings and independent offline compensation; 0.197 source: explicit per-file album-context track mapping with title/position/duration/known-recording comparison, bounded local25/source50 pages, 4 review snapshots/16MiB serialized budget/5000 local versions, source-specific per-track credit without album-artist substitution, 100-item durable reviewed text batch with immutable source/track context and compensating undo; no automatic external identity binding or file writeback"
         },
         {
           "name": "aural:metadata-release-fields-scope",
@@ -3944,7 +3944,7 @@
         },
         {
           "name": "aural:metadata-context-scope",
-          "value": "0.195 source: item-snapshot context-v1 ranking of bounded raw recording/release candidates by title/artist/album/duration plus provider score; not calibrated probability; strict selected-release context/artist/group/label/medium/track identities, manual narrow IPC with before/after song and local-release checks, expiry/cancellation; partial and hidden/data track lists explicitly unreviewed; context preview plus separate checked scalar release review; no inferred identity application"
+          "value": "0.195 source: item-snapshot context-v1 ranking of bounded raw recording/release candidates by title/artist/album/duration plus provider score; not calibrated probability; strict selected-release context/artist/group/label/medium/track identities, manual narrow IPC with before/after song and local-release checks, expiry/cancellation; partial lists explicitly unreviewed; 0.208 distinguishes fully loaded pregap/audio/data evidence, with only audio eligible for mapping; context preview plus separate checked scalar release review; no inferred identity application"
         },
         {
           "name": "aural:recording-editions-provider-source-sha256",

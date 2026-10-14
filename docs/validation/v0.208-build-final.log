@@ -1,0 +1,77 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.208.0 build
+> npm run build:main && npm run build:renderer
+
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.208.0 build:main
+> node scripts/generate-release.cjs && tsc -p tsconfig.main.json
+
+release files generated
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.208.0 build:renderer
+> vite build
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 218 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/renderer/index.html                                           0.70 kB │ gzip:   0.41 kB
+dist/renderer/assets/metadata-undo-dialog-Pcp14N8-.css             0.94 kB │ gzip:   0.40 kB
+dist/renderer/assets/cue-history-B1yDqBkt.css                      1.15 kB │ gzip:   0.50 kB
+dist/renderer/assets/catalog-restore-recovery-6nqQiN3R.css         1.59 kB │ gzip:   0.54 kB
+dist/renderer/assets/smart-playlist-history-dialog-h8BlcdUI.css    2.17 kB │ gzip:   0.69 kB
+dist/renderer/assets/provider-manager-DYcHYAOE.css                 2.53 kB │ gzip:   0.81 kB
+dist/renderer/assets/tag-write-dialog-jehLl_AT.css                 2.55 kB │ gzip:   0.86 kB
+dist/renderer/assets/scan-tasks-B0laYMgS.css                       2.60 kB │ gzip:   0.79 kB
+dist/renderer/assets/rule-transfer-dialog-CHAafhXc.css             2.75 kB │ gzip:   0.71 kB
+dist/renderer/assets/metadata-credit-B_MyWTd0.css                  2.95 kB │ gzip:   0.79 kB
+dist/renderer/assets/lyrics-documents-B7s_5J9L.css                 3.80 kB │ gzip:   1.08 kB
+dist/renderer/assets/playback-history-dialog-DwIM8wO8.css          3.81 kB │ gzip:   0.96 kB
+dist/renderer/assets/music-filters-dialog-DEzXYzgm.css             4.66 kB │ gzip:   1.12 kB
+dist/renderer/assets/metadata-batch-fxb87uN_.css                   4.71 kB │ gzip:   1.10 kB
+dist/renderer/assets/metadata-review-dialogs-BtMLDGki.css          5.30 kB │ gzip:   1.06 kB
+dist/renderer/assets/index-BSRh1bUt.css                          116.86 kB │ gzip:  23.28 kB
+dist/renderer/assets/lyrics-documents-Dzopq7HN.js                  1.82 kB │ gzip:   0.88 kB
+dist/renderer/assets/collections-B-cC9akb.js                       3.59 kB │ gzip:   1.59 kB
+dist/renderer/assets/appearance-dialog-DOboKTgn.js                 4.31 kB │ gzip:   1.91 kB
+dist/renderer/assets/metadata-undo-dialog-COWVtbkV.js              4.48 kB │ gzip:   1.99 kB
+dist/renderer/assets/entity-references-dialog-Q7hEINVb.js          5.08 kB │ gzip:   2.14 kB
+dist/renderer/assets/file-policy-dialog-CtD1UslZ.js                5.49 kB │ gzip:   2.25 kB
+dist/renderer/assets/library-watch-dialog-CcJfVYQ5.js              6.09 kB │ gzip:   2.59 kB
+dist/renderer/assets/local-lyrics-browser-d_l4HACQ.js              6.69 kB │ gzip:   2.69 kB
+dist/renderer/assets/smart-playlist-dialog-DsnKygx8.js             6.73 kB │ gzip:   2.92 kB
+dist/renderer/assets/scan-tasks-gy9QvCjs.js                        6.85 kB │ gzip:   2.72 kB
+dist/renderer/assets/recording-profile-dialog-DYYdiP_k.js          7.10 kB │ gzip:   2.92 kB
+dist/renderer/assets/artist-dialog-C0CfKmOi.js                     7.57 kB │ gzip:   3.00 kB
+dist/renderer/assets/metadata-release-fields-dialog-CQgZkh7A.js    8.79 kB │ gzip:   3.16 kB
+dist/renderer/assets/jsx-runtime-D3jfb0Ew.js                       8.90 kB │ gzip:   3.38 kB
+dist/renderer/assets/artist-manager-at5d2Ot-.js                    9.32 kB │ gzip:   3.36 kB
+dist/renderer/assets/metadata-credit-dialog-D-txjON4.js            9.62 kB │ gzip:   3.68 kB
+dist/renderer/assets/catalog-dialog-CENZAz75.js                    9.78 kB │ gzip:   3.34 kB
+dist/renderer/assets/saved-lyrics-D_TTcMst.js                     10.28 kB │ gzip:   3.52 kB
+dist/renderer/assets/catalog-restore-recovery-C7bTL6ZQ.js         11.47 kB │ gzip:   4.01 kB
+dist/renderer/assets/metadata-album-review-dialog-BwELxxqO.js     12.65 kB │ gzip:   4.48 kB
+dist/renderer/assets/release-dialog-BXzbSRHy.js                   12.70 kB │ gzip:   4.33 kB
+dist/renderer/assets/provider-manager-BzfRuBcp.js                 13.41 kB │ gzip:   4.60 kB
+dist/renderer/assets/embedded-cue-history-dialog-CnSDIzV1.js      13.95 kB │ gzip:   4.25 kB
+dist/renderer/assets/smart-playlist-history-dialog-BvMq7KMr.js    14.36 kB │ gzip:   5.14 kB
+dist/renderer/assets/lyrics-documents-B6Iihymi.js                 15.38 kB │ gzip:   5.01 kB
+dist/renderer/assets/catalog-restore-dialog-DOH1MGZU.js           15.42 kB │ gzip:   5.41 kB
+dist/renderer/assets/metadata-batch-dialog-CDb6Jgup.js            18.98 kB │ gzip:   6.37 kB
+dist/renderer/assets/metadata-sources-dialog-vmMvryVO.js          19.95 kB │ gzip:   6.30 kB
+dist/renderer/assets/playback-history-dialog-C07QfsdH.js          22.89 kB │ gzip:   7.75 kB
+dist/renderer/assets/rule-transfer-dialog-0d4uVlI_.js             24.97 kB │ gzip:   8.53 kB
+dist/renderer/assets/cue-history-dialog-B7DhYp75.js               28.99 kB │ gzip:   8.77 kB
+dist/renderer/assets/metadata-identities-dialog-CL5oWfNs.js       31.35 kB │ gzip:   7.33 kB
+dist/renderer/assets/music-filters-dialog-BOajjw99.js             34.22 kB │ gzip:  10.44 kB
+dist/renderer/assets/tag-write-dialog--lpDd30F.js                 34.32 kB │ gzip:   8.41 kB
+dist/renderer/assets/audio-output-dialog-DV9pcmyC.js              42.82 kB │ gzip:  12.90 kB
+dist/renderer/assets/index-BBWts9B8.js                           493.33 kB │ gzip: 151.14 kB
+
+✓ built in 335ms

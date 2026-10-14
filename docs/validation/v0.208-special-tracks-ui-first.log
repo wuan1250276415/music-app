@@ -1,0 +1,16 @@
+{"version":"0.208.0","completed":false,"cases":1,"scratch":"D:\\CodexTestData\\aural-special-tracks-ui-p7rmzo"}
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '44.4.5'
+- '0.208.0'
+
+    at launch (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-special-tracks-mvp.smoke.cjs:9:476)
+    at async main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-special-tracks-mvp.smoke.cjs:16:3) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '44.4.5',
+  expected: '0.208.0',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

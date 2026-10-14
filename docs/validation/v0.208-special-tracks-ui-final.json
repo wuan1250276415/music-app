@@ -1,0 +1,22 @@
+{
+  "version": "0.208.0",
+  "completed": true,
+  "scope": "actual WAV/CUE scan with supervised worker, real Main/preload/Service/renderer matching and explicit review; fetch-only network fixture; offline execution/compensation/restart; no live truth, installer or hardware certification",
+  "cases": [
+    "actual supervised WAV/CUE scan creates separate1-second hidden0 and2-second ordinary audio in the same local release",
+    "actual renderer displays pregap0 and separate data-track evidence with complete audio count",
+    "real hiddenCUE row explicitly chooses pregap0 while ordinary row selects ordinary track; no automatic candidate selection",
+    "all-track picker excludes data recording and disables pregap adoption for an ordinary audio row",
+    "trusted Main/Service rejects forged data and wrong-segment identity mappings against genuine provider review",
+    "complete mixed-mode source permits real release-identity review and two audio track targets without accepting data identity",
+    "actual checkbox/range/title/save route persists source kind and position0 in a two-row explicit plan",
+    "offline rendered execute and undo restore both real CUE segments without changing source audio",
+    "media-offline restart retains hidden source kind/position and independent compensation; original WAV hash unchanged"
+  ],
+  "fingerprints": {
+    "src/renderer/metadata-release-context-panel.tsx": "ff3adec37a069e148ebd01113c8a1a7af501ce65bb6237a74a9e6346b169d0bd",
+    "src/renderer/metadata-album-review-dialog.tsx": "af0261b47163bcffcc763cc80f9cd9832dd540bdc8380d31592d97f18c5eeee7",
+    "src/library/metadata-album-review.ts": "40dd2d9c685904b861446bd48418ef77041df10a405f106ead451fef8683837f",
+    "tests/electron-special-tracks-mvp.smoke.cjs": "c490254d61b7c292fa72408b4a05bbea3fb43b3e262719ce666e698ee16877f7"
+  }
+}

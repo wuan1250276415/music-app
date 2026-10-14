@@ -1,0 +1,12 @@
+{
+  "version": "0.208.0",
+  "completed": false,
+  "scope": "actual WAV/CUE scan with supervised worker, real Main/preload/Service/renderer matching and explicit review; fetch-only network fixture; offline execution/compensation/restart; no live truth, installer or hardware certification",
+  "cases": [
+    "actual supervised WAV/CUE scan creates separate1-second hidden0 and2-second ordinary audio in the same local release",
+    "actual renderer displays pregap0 and separate data-track evidence with complete audio count",
+    "real hiddenCUE row explicitly chooses pregap0 while ordinary row selects ordinary track; no automatic candidate selection",
+    "all-track picker excludes data recording and disables pregap adoption for an ordinary audio row",
+    "trusted Main/Service rejects forged data and wrong-segment identity mappings against genuine provider review"
+  ]
+}

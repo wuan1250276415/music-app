@@ -1,0 +1,8 @@
+{
+  "version": "0.208.0",
+  "completed": false,
+  "scope": "actual WAV/CUE scan with supervised worker, real Main/preload/Service/renderer matching and explicit review; fetch-only network fixture; offline execution/compensation/restart; no live truth, installer or hardware certification",
+  "cases": [
+    "actual supervised WAV/CUE scan creates separate1-second hidden0 and2-second ordinary audio in the same local release"
+  ]
+}

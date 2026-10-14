@@ -1,0 +1,6 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.208.0 check:distribution
+> node scripts/generate-distribution-inventory.cjs --check
+
+verified distribution inventory: 19 npm runtime packages, 5 vendored components, Electron 44.4.5

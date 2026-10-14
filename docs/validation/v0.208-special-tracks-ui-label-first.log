@@ -1,0 +1,11 @@
+{"version":"0.208.0","completed":false,"cases":5,"scratch":"D:\\CodexTestData\\aural-special-tracks-ui-MPjRca"}
+locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+  - waiting for getByRole('dialog', { name: '在线音乐身份审核', exact: true }).locator('[data-identity-kind="release"] select') to be visible
+
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-special-tracks-mvp.smoke.cjs:20:202) {
+  log: [
+    `  - waiting for getByRole('dialog', { name: '在线音乐身份审核', exact: true }).locator('[data-identity-kind="release"] select') to be visible`
+  ],
+  name: 'TimeoutError'
+}

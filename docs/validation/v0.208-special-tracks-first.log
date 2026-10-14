@@ -1,0 +1,17 @@
+{"version":"0.208.0","completed":false,"cases":0}
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ undefined
+- '00000000-0000-0000-0000-000000000090'
+
+    at C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\metadata-special-tracks-mvp.smoke.cjs:10:567
+    at ok (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\metadata-special-tracks-mvp.smoke.cjs:6:23)
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\metadata-special-tracks-mvp.smoke.cjs:10:3) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: '00000000-0000-0000-0000-000000000090',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

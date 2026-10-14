@@ -5,7 +5,7 @@ import {normalizedReferences,referenceOrder,safeReferenceUrl} from './external-r
 import {readCredit} from './artist-credit.js';
 import {requireOnlineRetention} from './provider-retention.js';
 import {readMetadataIdentityApply,type MetadataIdentityApplyRequest,type MetadataIdentityResult} from '../shared/metadata-identities.js';
-export interface IdentityTrackContext {releaseId:string;recordingId:string;discNumber:number;position:number;printedNumber:string;groupId:string|null}
+export interface IdentityTrackContext {trackKind?:'audio'|'pregap';releaseId:string;recordingId:string;discNumber:number;position:number;printedNumber:string;groupId:string|null}
 export interface ReviewedIdentityTarget {key:string;entity:EntityReferences;reference:ExternalReference;positions:string[];trackContext?:IdentityTrackContext}
 export interface IdentityAcceptanceSource {provider:'musicbrainz';rightsId:'musicbrainz-core-cc0-2026-09-30';releaseId:string;sourceUrl:string;fetchedAt:string}
 export const entityReferenceSchema=`

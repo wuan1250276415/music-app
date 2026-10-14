@@ -6,7 +6,7 @@ export class MetadataAlbumMatcher {
  private readonly keyed:Array<{track:MetadataAlbumRemoteTrack;key:string;grams:Set<string>}>;
  constructor(private readonly tracks:MetadataAlbumRemoteTrack[]){this.keyed=tracks.map(track=>{const value=key(track.title);return {track,key:value,grams:grams(value)};});}
  suggestions(local:Omit<MetadataAlbumReviewRow,'suggestions'>):MetadataAlbumSuggestion[]{
-  const name=key(local.title),parts=grams(name),rated=this.keyed.map(remote=>{
+  const name=key(local.title),parts=grams(name),rated=this.keyed.filter(remote=>(remote.track.kind==='pregap')===(local.trackNumber===0)).map(remote=>{
    let common=0;for(const v of parts)if(remote.grams.has(v))common++;
    const similarity=name&&name===remote.key?1:parts.size&&remote.grams.size?2*common/(parts.size+remote.grams.size):0;
    const positionMatch=local.discNumber!==null&&local.trackNumber!==null&&local.discNumber===remote.track.discNumber&&local.trackNumber===remote.track.position;

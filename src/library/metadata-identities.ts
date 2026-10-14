@@ -23,7 +23,7 @@ export class MetadataIdentityRepository {
   for(const [entityId,matches] of groups){const ids=new Set(matches.map(m=>m.track.recordingId!)),first=matches[0];add('recording',entityId,first.track.recordingId!,first.track.recordingTitle??first.track.title,matches.map(m=>`第${m.discNumber}碟／第${m.track.position}轨 ${m.track.title}`),ids.size>1?'同一本地录音对应多个不同在线录音，请先核对本地关联':'');}
   const covered=new Set(selection.matches.map(m=>m.local.localTrackId)),all=new Set(selection.rows.map(r=>r.localTrackId));let releaseReason='';
   if(covered.size!==all.size)releaseReason=`尚有${all.size-covered.size}个本地发行曲目未确认对应；录音身份可单独确认`;
-  if(selection.context.media.some(m=>!m.trackListComplete))releaseReason='发行曲目表不完整或含未审核隐藏／数据轨，发行身份暂不能确认';
+  if(selection.context.media.some(m=>!m.trackListComplete))releaseReason='发行曲目表不完整，发行身份暂不能确认';
   add('release',selection.header.localReleaseId,selection.context.releaseId,selection.context.title,selection.matches.map(m=>`第${m.discNumber}碟／第${m.track.position}轨 ${m.track.title}`),releaseReason);
   if(request.includeReleaseTracks){
    const tracks=new Map<string,typeof selection.matches>();
@@ -34,7 +34,7 @@ export class MetadataIdentityRepository {
      `来源：第${first.discNumber}碟／第${first.track.position}轨，印刷编号 ${first.track.number}`,
      ...matches.map(m=>`本地：第${m.local.discNumber??'?'}碟／第${m.local.trackNumber??'?'}轨 ${m.local.title}`),
     ],ids.size>1?'同一本地发行曲目对应多个在线轨目，请先核对本地关联':'',{
-     releaseId:selection.context.releaseId,recordingId:first.track.recordingId!,discNumber:first.discNumber,position:first.track.position,printedNumber:first.track.number,groupId:selection.context.group?.id??null,
+     ...(first.track.kind==='pregap'?{trackKind:'pregap' as const}:{}),releaseId:selection.context.releaseId,recordingId:first.track.recordingId!,discNumber:first.discNumber,position:first.track.position,printedNumber:first.track.number,groupId:selection.context.group?.id??null,
     });
    }
   }

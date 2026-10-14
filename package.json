@@ -1,7 +1,7 @@
 {
   "name": "aural-library",
   "private": true,
-  "version": "0.207.0",
+  "version": "0.208.0",
   "description": "Local-first desktop music library prototype",
   "license": "GPL-3.0-only",
   "main": "dist/main/main/main.js",
@@ -55,7 +55,8 @@
     "test:metadata-context-mvp": "npm run build && node tests/metadata-match-context-mvp.smoke.cjs && node tests/electron-online-artwork-e2e.smoke.cjs",
     "test:metadata-release-fields-mvp": "npm run build && node tests/metadata-release-fields-mvp.smoke.cjs && node scripts/run-release-fields-e2e.cjs",
     "test:metadata-album-mvp": "npm run build && node tests/metadata-album-mvp.smoke.cjs && node scripts/run-metadata-album-e2e.cjs",
-    "test:metadata-identities-mvp": "npm run build && node tests/metadata-identities-mvp.smoke.cjs && node tests/release-track-identities-mvp.smoke.cjs && node tests/metadata-group-link-mvp.smoke.cjs && node tests/metadata-album-credits-mvp.smoke.cjs && node tests/metadata-recording-lookup-mvp.smoke.cjs && node tests/metadata-isrc-mvp.smoke.cjs && node tests/metadata-batch-review-mvp.smoke.cjs && node scripts/run-metadata-identities-e2e.cjs"
+    "test:metadata-identities-mvp": "npm run build && node tests/metadata-identities-mvp.smoke.cjs && node tests/release-track-identities-mvp.smoke.cjs && node tests/metadata-group-link-mvp.smoke.cjs && node tests/metadata-album-credits-mvp.smoke.cjs && node tests/metadata-recording-lookup-mvp.smoke.cjs && node tests/metadata-isrc-mvp.smoke.cjs && node tests/metadata-batch-review-mvp.smoke.cjs && node tests/metadata-special-tracks-mvp.smoke.cjs && node scripts/run-metadata-identities-e2e.cjs && node tests/electron-special-tracks-mvp.smoke.cjs",
+    "test:metadata-special-tracks-mvp": "npm run build && node tests/metadata-special-tracks-mvp.smoke.cjs && node tests/electron-special-tracks-mvp.smoke.cjs"
   },
   "dependencies": {
     "music-metadata": "11.16.1",
@@ -76,4 +77,3 @@
     "vite": "8.3.1"
   }
 }
-

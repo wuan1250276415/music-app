@@ -1,0 +1,10 @@
+actual supervised WAV/CUE scan creates separate1-second hidden0 and2-second ordinary audio in the same local release
+actual renderer displays pregap0 and separate data-track evidence with complete audio count
+real hiddenCUE row explicitly chooses pregap0 while ordinary row selects ordinary track; no automatic candidate selection
+all-track picker excludes data recording and disables pregap adoption for an ordinary audio row
+trusted Main/Service rejects forged data and wrong-segment identity mappings against genuine provider review
+complete mixed-mode source permits real release-identity review and two audio track targets without accepting data identity
+actual checkbox/range/title/save route persists source kind and position0 in a two-row explicit plan
+offline rendered execute and undo restore both real CUE segments without changing source audio
+media-offline restart retains hidden source kind/position and independent compensation; original WAV hash unchanged
+{"version":"0.208.0","completed":true,"cases":9}

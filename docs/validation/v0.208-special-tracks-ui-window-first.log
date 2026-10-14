@@ -1,0 +1,15 @@
+{"version":"0.208.0","completed":false,"cases":6,"scratch":"D:\\CodexTestData\\aural-special-tracks-ui-skadQl"}
+page.screenshot: Timeout 15000ms exceeded.
+Call log:
+  - taking page screenshot
+  - waiting for fonts to load...
+  - fonts loaded
+
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-special-tracks-mvp.smoke.cjs:21:380) {
+  log: [
+    '  - taking page screenshot',
+    '  - waiting for fonts to load...',
+    '  - fonts loaded'
+  ],
+  name: 'TimeoutError'
+}

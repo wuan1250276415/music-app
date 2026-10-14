@@ -1,0 +1,28 @@
+{
+  "version": "0.208.0",
+  "completed": true,
+  "scope": "production provider/broker/parser and SQLite review/identity/batch/backup; synthetic network and file observations; actual CUE scan/desktop checked separately; no real matching or hardware proof",
+  "cases": [
+    "production provider preserves separate pregap/audio/data with original positions, titles, lengths and credits; only ordinary audio contributes TOC count",
+    "data-first media keep physical numbering and complete audio count",
+    "empty and data-only media are valid without an invented playable track",
+    "missing audio, positional holes and nonzero offsets remain incomplete",
+    "duplicate IDs and positions across audio/pregap/data or across media are rejected",
+    "invalid pregap/data objects and wrong positions fail closed",
+    "all audio and data entries share the total1000 preview budget",
+    "album pages count two audio tracks; data remains version evidence and never enters playable candidates",
+    "forged data mappings and cross-kind hidden/ordinary mappings are rejected for text, credits and identity authority",
+    "explicit hidden selection saves durable position0 and kind; legacy ordinary bindings preserve original shape",
+    "complete mixed-mode source allows separately reviewed recording/release/track identities; data recording never becomes an identity target",
+    "offline execution and independent compensation preserve hidden positions and untouched peer values",
+    "schema75 backup and reopen preserve hidden source kind, position0 and durable receipt",
+    "SQLite integrity and foreign keys remain valid without schema migration"
+  ],
+  "fingerprints": {
+    "src/library/metadata-release-context.ts": "ad233df1ff9df9635fe1a2e7d65a340af13cca774981e63ae2c6dcc319dc2ed3",
+    "src/library/metadata-album-review.ts": "40dd2d9c685904b861446bd48418ef77041df10a405f106ead451fef8683837f",
+    "src/shared/metadata-album-review.ts": "ea951bf2f0ab3870f83f76504b182b8a83466dca2de0e2b22a68bb058e144941",
+    "src/shared/metadata-release-context.ts": "0b6e70cb5d02eff41bf33d830eda1f6758651d725c3509a0aadf40a83f20b109",
+    "tests/metadata-special-tracks-mvp.smoke.cjs": "e5ffef0edc751e359b52b81f9a8aa529e9f2684fde76a9a4a2a416c69f492b1d"
+  }
+}

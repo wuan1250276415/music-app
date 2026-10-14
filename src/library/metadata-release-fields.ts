@@ -1,4 +1,5 @@
 import {createHash,randomUUID} from 'node:crypto';
+import {releaseAudioTracks} from '../shared/metadata-release-context.js';
 import type {DatabaseSync} from 'node:sqlite';
 import type {CatalogChangeResult,ReleaseRef,MetadataPolicyRef} from '../shared/contracts.js';
 import type {MetadataReleaseContext} from '../shared/metadata-release-context.js';
@@ -19,7 +20,7 @@ export class MetadataReleaseFieldsRepository {
  private scheduleExpiry():void{if(this.expiryTimer)clearTimeout(this.expiryTimer);this.expiryTimer=undefined;if(!this.grants.size)return;const next=Math.min(...[...this.grants.values()].map(g=>Date.parse(g.review.expiresAt)));this.expiryTimer=setTimeout(()=>{this.expiryTimer=undefined;for(const [token,g] of this.grants)if(Date.parse(g.review.expiresAt)<=Date.now())this.grants.delete(token);this.scheduleExpiry();},Math.max(1,next-Date.now()));this.expiryTimer.unref();}
  review(input:{itemId:string;releaseId:string;itemFingerprint:string;candidateToken:string;requestId:string;recordingId:string;context:MetadataReleaseContext;fetchedAt:string;expiresAt:string}):ReleaseFieldsReview|null{
   const now=Date.now();for(const [token,g] of this.grants)if(Date.parse(g.review.expiresAt)<=now)this.grants.delete(token);
-  if(!Number.isFinite(Date.parse(input.expiresAt))||Date.parse(input.expiresAt)<=now||!Number.isFinite(Date.parse(input.fetchedAt))||!input.context.media.some(m=>m.tracks.some(t=>t.recordingId===input.recordingId.toLowerCase())))return null;
+  if(!Number.isFinite(Date.parse(input.expiresAt))||Date.parse(input.expiresAt)<=now||!Number.isFinite(Date.parse(input.fetchedAt))||!input.context.media.some(m=>releaseAudioTracks(m).some(t=>t.recordingId===input.recordingId.toLowerCase())))return null;
   const release=this.releases.summary(input.releaseId);if(!release.fileCount||release.fileCount>5000)return null;
   const policy=this.provenance.get('release',input.releaseId),values=scalarValues(this.db,'release',input.releaseId),review:ReleaseFieldsReview={reviewToken:randomUUID(),itemId:input.itemId,releaseId:input.releaseId,title:release.title,fileCount:release.fileCount,sourceUrl:`https://musicbrainz.org/release/${input.context.releaseId}`,expiresAt:input.expiresAt,current:Object.fromEntries(releaseOnlineFields.map(f=>[f,values[f]])) as ReleaseFieldsReview['current'],locked:releaseOnlineFields.filter(f=>fieldLocked(this.db,'release',input.releaseId,f)),proposed:{date:input.context.date,country:input.context.country,barcode:input.context.barcode,labels:input.context.labels.filter(v=>v.id!==null).map(v=>({name:v.name,catalogNumber:v.catalogNumber}))}};
   while(this.grants.size>=128)this.grants.delete(this.grants.keys().next().value!);
