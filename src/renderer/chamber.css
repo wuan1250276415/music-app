@@ -1,0 +1,433 @@
+/* Listening room: warm ink, clay highlights, editorial titles, quieter chrome. */
+:root {
+  --chamber-display: "Palatino Linotype", "PMingLiU", "Microsoft YaHei UI", serif;
+  --chamber-text: "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  --aural-player-height: 112px;
+  font-family: var(--chamber-text);
+}
+
+::selection {
+  background: var(--aural-accent);
+  color: var(--aural-tone-172422);
+}
+
+body {
+  background:
+    radial-gradient(1100px 420px at 88% -12%, var(--aural-tone-24304755), transparent 58%),
+    var(--aural-surface-page);
+}
+
+.app-shell {
+  grid-template-columns: 228px minmax(0, 1fr);
+  background: transparent;
+}
+
+.sidebar {
+  background: color-mix(in srgb, var(--aural-surface-sidebar) 88%, transparent);
+  border-right: 1px solid var(--aural-tone-ffffff14);
+  padding: 22px 12px 14px;
+}
+
+.brand {
+  gap: 12px;
+  padding: 2px 10px 26px;
+}
+
+.brand strong,
+.hero h1,
+.section-heading h2,
+.detail-album h3,
+.detail-header h2,
+.collection-dialog h2,
+.lyrics-head h2,
+.queue-head h2,
+.playlist-card strong,
+.empty-state h3 {
+  font-family: var(--chamber-display);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.brand strong {
+  font-size: 28px;
+}
+
+.brand small {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  box-shadow: none;
+}
+
+.side-caption {
+  letter-spacing: 0.16em;
+  margin-bottom: 8px;
+}
+
+.nav-item,
+.root-item {
+  height: 38px;
+  border-radius: 999px;
+}
+
+.nav-item.active {
+  font-weight: 650;
+}
+
+.sidebar > .add-folder {
+  border: 0;
+  background: transparent;
+  color: var(--aural-ink-muted);
+  border-radius: 999px;
+  margin: 1px 4px;
+  padding: 8px 12px;
+}
+
+.sidebar > .add-folder:hover {
+  background: var(--aural-tone-ffffff0b);
+  color: var(--aural-ink-primary);
+  border-color: transparent;
+}
+
+.sidebar > .add-folder:first-of-type {
+  margin-top: 8px;
+  background: var(--aural-tone-243b35);
+  color: var(--aural-ink-primary);
+  border: 1px solid var(--aural-tone-ffffff14);
+}
+
+.sidebar-footer {
+  border-top-color: var(--aural-tone-ffffff14);
+  letter-spacing: 0.04em;
+}
+
+.main-panel {
+  background: transparent;
+}
+
+.topbar {
+  height: 72px;
+  padding: 0 36px;
+}
+
+.search-wrap {
+  height: 42px;
+  border-radius: 999px;
+  background: var(--aural-tone-ffffff08);
+  border-color: var(--aural-tone-ffffff14);
+}
+
+.lyrics-toggle,
+.facet-chip,
+.primary-button,
+.metadata-primary,
+.detail-panel-switch button,
+.queue-options button,
+.detail-modes button,
+.catalog-undo,
+.batch-selection-actions button,
+.collection-toolbar button {
+  border-radius: 999px;
+}
+
+.lyrics-toggle {
+  background: transparent;
+}
+
+.content-scroll {
+  padding: 0 36px 28px;
+}
+
+.hero {
+  height: auto;
+  min-height: 0;
+  margin: 0 0 18px;
+  padding: 2px 2px 4px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.hero-decoration {
+  display: none;
+}
+
+.hero-kicker,
+.lyrics-head small,
+.queue-head small,
+.detail-header small {
+  letter-spacing: 0.22em;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 4vw, 46px);
+  margin: 8px 0 6px;
+}
+
+.hero p {
+  font-size: 13px;
+  line-height: 1.65;
+  max-width: 48ch;
+}
+
+.section-heading h2 {
+  font-size: 22px;
+}
+
+.catalog-display,
+.batch-selection-actions,
+.collection-toolbar {
+  gap: 8px;
+}
+
+.catalog-undo,
+.batch-selection-actions button,
+.collection-toolbar button,
+.catalog-cover-toolbar button,
+.catalog-clear-filter {
+  border: 1px solid var(--aural-tone-ffffff14);
+  background: transparent;
+  color: var(--aural-ink-primary);
+}
+
+.track-table {
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.track-header {
+  background: transparent;
+  border-bottom: 1px solid var(--aural-tone-ffffff14);
+  letter-spacing: 0.14em;
+}
+
+.track-row,
+.virtual-library-row .track-row {
+  background: transparent;
+  border-bottom: 0;
+  border-radius: 14px;
+}
+
+.track-row:hover,
+.virtual-library-row .track-row:hover {
+  background: var(--aural-tone-ffffff08);
+}
+
+.track-row.is-playing,
+.virtual-library-row .track-row.is-playing {
+  background: var(--aural-tone-273b35);
+  box-shadow: inset 3px 0 0 var(--aural-accent);
+}
+
+.virtual-library {
+  border: 0;
+}
+
+.track-art,
+.player-cover,
+.player-detail-button,
+.catalog-card-art {
+  border-radius: 12px;
+}
+
+.track-names strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.empty-state {
+  background: transparent;
+  border-color: var(--aural-tone-ffffff18);
+  border-radius: 22px;
+}
+
+.empty-state h3 {
+  font-size: 22px;
+}
+
+.playlist-card {
+  border-radius: 18px;
+  min-height: 132px;
+  background: var(--aural-surface-sidebar);
+  border-color: var(--aural-tone-ffffff14);
+}
+
+.playlist-card strong {
+  font-size: 20px;
+}
+
+.catalog-cover-card {
+  border-radius: 16px;
+  border-color: var(--aural-tone-ffffff14);
+  background: color-mix(in srgb, var(--aural-surface-sidebar) 82%, transparent);
+}
+
+.catalog-card-info strong {
+  font-family: var(--chamber-display);
+  font-weight: 500;
+}
+
+.player-bar {
+  margin: 10px 16px 12px;
+  align-self: stretch;
+  height: auto;
+  border-radius: 22px;
+  border: 1px solid var(--aural-tone-ffffff14);
+  box-shadow: 0 18px 40px var(--aural-shadow-00000066);
+  background: color-mix(in srgb, var(--aural-surface-player) 86%, var(--aural-tone-243b35));
+  padding: 0 18px 0 12px;
+}
+
+.player-meta strong {
+  font-family: var(--chamber-display);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.player-controls .play-toggle {
+  width: 40px;
+  height: 40px;
+  box-shadow: none;
+}
+
+.progress-rail,
+.progress-rail.seek-slider {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--aural-tone-4a6652);
+}
+
+.detail-view {
+  background:
+    radial-gradient(820px 380px at 8% 0%, var(--aural-tone-243b35), transparent 55%),
+    var(--aural-surface-page);
+}
+
+.detail-album h3 {
+  font-size: 28px;
+}
+
+.detail-art {
+  border-radius: 18px;
+}
+
+.detail-lyric-line.active {
+  font-family: var(--chamber-display);
+  font-weight: 500;
+}
+
+.lyrics-panel,
+.queue-panel,
+.metadata-panel {
+  border-radius: 20px;
+  border-color: var(--aural-tone-ffffff18);
+}
+
+.collection-backdrop {
+  background: color-mix(in srgb, var(--aural-black) 46%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.collection-dialog {
+  border-radius: 22px;
+  border-color: var(--aural-tone-ffffff18);
+  box-shadow: 0 28px 80px var(--aural-shadow-00000099);
+}
+
+.collection-dialog h2 {
+  font-size: 24px;
+}
+
+.primary-button,
+.metadata-primary {
+  background: var(--aural-accent);
+  color: var(--aural-tone-172422);
+  border: 0;
+}
+
+* {
+  scrollbar-color: var(--aural-tone-3a4751) transparent;
+}
+
+@media (max-width: 1100px) {
+  .content-scroll,
+  .topbar {
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+}
+
+@media (max-width: 800px) {
+  .hero {
+    min-height: 0;
+    height: auto;
+    margin: 2px 0 14px;
+    padding: 2px 0;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .navigation-open .sidebar {
+    background: var(--aural-surface-sidebar);
+  }
+}
+
+@media (max-width: 580px) {
+  :root {
+    --aural-player-height: 168px;
+  }
+
+  .player-bar {
+    margin: 6px 8px 8px;
+    border-radius: 16px;
+    padding: 8px 12px;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+  }
+}
+
+@media (max-height: 520px) {
+  .hero {
+    min-height: 0;
+    padding: 2px 0;
+  }
+
+  .hero h1 {
+    font-size: 22px;
+    margin: 4px 0;
+  }
+}
+
+@media (forced-colors: active) {
+  body,
+  .app-shell,
+  .sidebar,
+  .main-panel,
+  .player-bar,
+  .detail-view,
+  .collection-dialog,
+  .catalog-cover-card,
+  .playlist-card,
+  .empty-state,
+  .navigation-open .sidebar {
+    background: Canvas;
+    color: CanvasText;
+    box-shadow: none;
+  }
+
+  .collection-backdrop {
+    backdrop-filter: none;
+    background: Canvas;
+  }
+}

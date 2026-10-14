@@ -1,0 +1,11 @@
+.collection-dialog.smart-playlist-dialog{width:min(620px,100%)}
+.smart-playlist-dialog>button,.smart-playlist-dialog footer button,.smart-playlist-browser>.section-heading button{border:1px solid var(--aural-tone-496152);background:var(--aural-tone-22332f);color:var(--aural-tone-cfe4c6);border-radius:8px;padding:8px 12px;font-size:12px}
+.smart-playlist-dialog>button{margin-bottom:16px}
+.smart-playlist-dialog .smart-rule-collapse{flex-direction:row;align-items:center}
+.smart-playlist-dialog .smart-rule-collapse input{width:auto;accent-color:var(--aural-tone-bff298)}
+.smart-playlist-dialog footer{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;margin-top:20px}
+.smart-playlist-dialog button:disabled{opacity:.5}
+.smart-playlist-dialog footer .collection-danger{border-color:var(--aural-tone-8c515a);background:var(--aural-tone-432b32);color:var(--aural-tone-ffd6dc)}
+.smart-playlist-dialog :is(button,input,select):focus-visible,.smart-playlist-browser button:focus-visible{outline:2px solid var(--aural-tone-bff298);outline-offset:2px}
+
+.smart-browser-actions{display:flex;flex-wrap:wrap;gap:10px}

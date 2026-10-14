@@ -1,0 +1,59 @@
+{
+  "version": "0.194.0",
+  "completed": true,
+  "scope": "actual rendered MusicBrainz search/recording-linked JP edition selection and real CAA empty-index UI; no image download or save acceptance",
+  "live": true,
+  "cases": [
+    "actual renderer search produces valid candidates through production provider and live item fingerprint",
+    "real MusicBrainz recording-linked release browse explicitly selects album JP edition",
+    "real JP edition has no CAA image; UI shows empty result and saves no unrelated cover"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-e2e-BAF3nc",
+  "originalTags": {
+    "title": "晴天",
+    "artist": "周杰伦",
+    "album": "叶惠美 (环球日版)"
+  },
+  "candidates": [
+    "晴天周杰倫2004無與倫比演唱會 · 2005 · 匹配排序 100",
+    "晴天周杰倫周杰倫2004無與倫比演唱會 · 2005-01-21 · 匹配排序 100",
+    "晴天周杰倫Jay Chou 2004 Incomparable Concert Live · 2005-01-21 · 匹配排序 100",
+    "晴天周杰倫Jay Chou 2004 Incomparable Concert Live · 2008-05-12 · 匹配排序 100",
+    "晴天周杰倫未关联发行版 · 匹配排序 100",
+    "晴天周杰倫說好不哭 SACD珍藏版 · 匹配排序 100",
+    "晴天周杰倫未关联发行版 · 匹配排序 100",
+    "晴天周杰倫Jay Chou Carnival World Tour Japan Special Edition · 2024-04-03 · 匹配排序 100",
+    "晴天周杰倫未关联发行版 · 匹配排序 100",
+    "晴天周杰倫葉惠美 · 2026-03-25 · 匹配排序 99",
+    "晴天周杰倫葉惠美 · 2008-01-23 · 匹配排序 99",
+    "晴天周杰倫尋找周杰倫 · 2003-11-12 · 匹配排序 99",
+    "晴天周杰倫葉惠美 · 2008-01-23 · 匹配排序 99"
+  ],
+  "selectedRecordingCandidate": "晴天\n周杰倫\n葉惠美 · 2026-03-25 · 匹配排序 99",
+  "selectedEdition": "葉惠美\n2008-01-23 · JP · CD / DVD · Official\n条码 4547366035704\n选择此发行版",
+  "outcome": "no-image-available",
+  "sourceUnchanged": true,
+  "emptySourceText": "在线封面来源\n\n查询您选定的专辑发行版，预览时发送发行与图片编号。选定图片后可确认保存到本机曲库。\n\n发行版：葉惠美 · 2008-01-23 · JP · CD / DVD\n\n数据源设置\n查询封面来源\n重新查询来源\n\n该发行版暂无封面条目\n\n社区编辑确认表示来源整理状态，不代表图片使用许可。\n\n查看该发行版的封面来源\n曲库封面\n\n内嵌和同目录封面优先，尚未保存在线封面\n\n刷新封面状态",
+  "fingerprints": {
+    "src/main/main.ts": "3d56b7651afe9749834d5bd0ec3484d5b88d9221969401f3743dad7b5ec6f59b",
+    "src/main/preload.ts": "9af40613f4bf5e3d6b48b08e37080a579c938d626a1e04bd0a475477523aa1a0",
+    "src/library/service.ts": "03ed01c07dcc97d38b8203921e9e97a491f5bdb98b5f3806036f236856f0affe",
+    "src/library/musicbrainz.ts": "dd4766bd8acade7b48e41f655d145f07e4c966c8ecc8b5080ed3786c6a6e8886",
+    "src/library/cover-art-archive.ts": "677c5c57ec545f8ed338fb962032c04161970b71592863d2107761dfff30e4b6",
+    "src/library/online-artwork-store.ts": "1bec947ded8dfbce39a2d88a29f7a3785c1027fb3d912a17b26533507159212c",
+    "src/renderer/main.tsx": "5c443e524dd70157b729b9e4ea96dfbafd6a9cca9d1447c6c0f9ab7c9354e34f",
+    "src/renderer/cover-art-source-panel.tsx": "8892fa3753e52af5da1afec8a5fe1f96ac8aa31fdb324db9c7c906394b6a200d",
+    "src/renderer/online-artwork-controls.tsx": "efba327443fd693268aa59f894c3d88636a51cae18eff3f8b0e8c9ffdeb01fd3",
+    "src/renderer/metadata-editions-panel.tsx": "1ac019979c54e797d17dfbd44c7a54fbce836f8b6ed0c97046b2792c18fbb027",
+    "src/shared/metadata-editions.ts": "d9070f3a48815da1f899563305ee5cd0fbfb2f1877db83c768315f0f643cf8c3",
+    "src/shared/contracts.ts": "70ba3162fb292bb8a3b228afe48f18e0fe6a5e21ac8e3a7643d0e6f053a4cb71",
+    "src/main/artwork-resources.ts": "4d4c8164d6590386bc7353cf88c1a9419baa92744b6ff2410f83b3820afb6ae9",
+    "dist/renderer/index.html": "53af1c9bab01e76547975325a7d6dd1446ab06df103496ab760f6a39b51107e5",
+    "dist/main/main/preload.js": "e6a38cd7982cde2ca99f02d9b9b6d185924c0a7a973f551b2cd3508a362ea702",
+    "dist/main/library/musicbrainz.js": "b90f349d7e8284038007022caebf4ff56dd5fd69bafcd4ba97da13e54daa2e80",
+    "dist/main/main/main.js": "f112d3e5df374665084f5f3b02bfd6cb17fbf1947b58b104a3d5502b92808ea3",
+    "dist/main/library/service.js": "eb1cd9594c6ec57ad5dfb37dc2197ba6bc2b04667c6d3c135ca063d0aac748e3",
+    "native/media-worker/build/media-worker.exe": "76d8b3593226dbcaf9330ded150a22422e19d911b58771d8a088f791dd2c4b07",
+    "tests/electron-online-artwork-e2e.smoke.cjs": "5e9a1d0b25e24619c3c9c7a5e432577e3f1d7ab8f5deebe4986a1a418a6cbd6e"
+  }
+}

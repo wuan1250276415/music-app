@@ -1,0 +1,38 @@
+{
+  "version": "0.196.0",
+  "completed": true,
+  "scope": "actual SQLite schema73 fixture migration, source-selected store, native synthetic images, Main preview authority, production independent database snapshot/domain inspector; candidates supplied internally, no real MusicBrainz/service save E2E",
+  "cases": [
+    "independent prior schema73 definitions and schema74 migration preserve songs/favorite/rating/repeated playlist",
+    "real upgrade snapshot retains full schema73 and original song observations",
+    "mid-DDL failure rolls back new objects and schema label",
+    "Main opaque preview is save authority; foreign item cannot retrieve bytes/provenance",
+    "preview-only setting rejects persistence without partial assets/history",
+    "explicit local-retention setting, bound source/rights, command replay does not need surviving preview",
+    "released preview, changed command and stale revision rejected",
+    "cover-only cleanup removes changed item previews without clearing another item or document authority",
+    "background context audit retains unchanged previews, purges only changed context and handles unavailable/synchronous failures",
+    "separate content-addressed storage, item ownership and default fallback priority",
+    "explicit preferred selection, offline lookup and rejected source exclusion",
+    "clear and undo preserve source assets; paused new saving still permits existing history undo; old changes cannot overwrite newer selection",
+    "immutable source/action history and complete source/selection/receipt domain checks",
+    "production SQLite snapshot includes online bytes/provenance/history; independent schema/domain inspector accepts current schema74",
+    "same schema and recomputed snapshot digest cannot hide changed image content",
+    "reopen retains selection/content/history without repeated migration; original upgrade snapshot unchanged"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-art-mvp-XPhIAY",
+  "fingerprints": {
+    "src/library/online-artwork-store.ts": "1bec947ded8dfbce39a2d88a29f7a3785c1027fb3d912a17b26533507159212c",
+    "src/shared/online-artwork.ts": "f33e00ebd0f686fa4975e4b783ca223561efdabbcc839d4feef7a57c5ac9d0e4",
+    "src/library/database.ts": "d602ae54789f31228e7fce55ca1806de4f913d63ed966f60cd644d32db78d06d",
+    "src/library/query-index-migration.ts": "cff627eb31e7a103c86cb67eb1dce1d5d1edeb5be6e830e34719f3c8f3ce4540",
+    "src/main/artwork-resources.ts": "4d4c8164d6590386bc7353cf88c1a9419baa92744b6ff2410f83b3820afb6ae9",
+    "src/library/provider-retention.ts": "6865b30e6c9f8a8e79f7c3b8c289f8d719468964e619b09c4fdf021d98685a67",
+    "src/library/catalog-restore-compatibility.ts": "ccd9a4fe0d5b686faed20b824160a15e3baeab10d1cb47c69a0bb7a5b62d7505",
+    "src/shared/catalog-backup.ts": "76f84f6127e3274c7088258dd9006543f820cca4740f732a5dca08b53094880b",
+    "dist/main/library/online-artwork-store.js": "efecfd4fb3170237f0a0f23a5e240ee17cd6fde44aeefec9a7c3d9b465815b7a",
+    "dist/main/library/database.js": "4ac300894cafcc4b76423e081e7398644fed10b9c228126464f104c4f136af44",
+    "native/media-worker/build/media-worker.exe": "c835e50d063e0b378e448f96c3514a2a4b96e002f55de4e2e83a6d15c32360f4",
+    "tests/fixtures/migration-v74-prior-schema.json": "e092f205f90ac7730265d842e327612da98225b4e54ad8948f5058c989237f57"
+  }
+}

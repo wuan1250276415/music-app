@@ -1,0 +1,32 @@
+{
+  "appVersion": "0.188.0",
+  "scope": "actual startup document exit during snapshot save; private synthetic100k copy integrity after real process exit; no resumed migration or full fault matrix proof",
+  "scratch": "D:\\CodexTestData\\aural-startup-exit-mvp-pi3uV9",
+  "completed": true,
+  "originalSha256": "691a92e6e78b9d91947d7265863a032573fb7385aa0794dcc4f7f67c01064f93",
+  "libraryPid": 39268,
+  "quitMs": 2120.7803000000004,
+  "utilityExited": true,
+  "privateCopyAfterExit": {
+    "schema": 72,
+    "counts": {
+      "media_file": 100000,
+      "playable_item": 100000,
+      "recording": 100000,
+      "release": 5009,
+      "release_track": 100000,
+      "artist": 1008,
+      "metadata_override": 0,
+      "item_user_state": 0,
+      "playlist_item": 0,
+      "playback_history": 0,
+      "cue_document": 0,
+      "search_latin": 100000,
+      "item_sort_key": 100000
+    },
+    "integrity": "ok",
+    "foreignKeyViolation": null
+  },
+  "originalUnchanged": true,
+  "diagnostics": "Waiting for the debugger to disconnect...\r\n"
+}

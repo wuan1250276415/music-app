@@ -1,0 +1,9 @@
+export const cueSourceRegistrationSchema=`
+ ALTER TABLE cue_source_file ADD COLUMN registered_at TEXT NOT NULL DEFAULT '';
+ CREATE INDEX cue_source_file_activity_page ON cue_source_file(COALESCE(NULLIF(observed_at,''),registered_at) DESC,id DESC);
+ CREATE TABLE cue_source_register_command(command_id TEXT PRIMARY KEY,root_id TEXT NOT NULL,target_file_id TEXT REFERENCES cue_source_file(id),archive_sha TEXT REFERENCES cue_source_import_asset(id),version_id TEXT REFERENCES cue_source_version(id),request_json TEXT NOT NULL CHECK(json_valid(request_json) AND length(CAST(request_json AS BLOB))<=262144),result_json TEXT NOT NULL CHECK(json_valid(result_json) AND length(CAST(result_json AS BLOB))<=262144),created_at TEXT NOT NULL,CHECK(json_extract(result_json,'$.status') IN('saved','rejected')),CHECK(json_extract(result_json,'$.status')!='saved' OR (target_file_id IS NOT NULL AND archive_sha IS NOT NULL AND version_id IS NOT NULL)));
+ CREATE INDEX cue_source_register_version ON cue_source_register_command(version_id,target_file_id);
+ CREATE TRIGGER cue_source_register_owned BEFORE INSERT ON cue_source_register_command WHEN json_extract(NEW.request_json,'$.commandId')!=NEW.command_id OR json_extract(NEW.request_json,'$.rootId')!=NEW.root_id OR (NEW.version_id IS NOT NULL AND NOT EXISTS(SELECT 1 FROM cue_source_version v JOIN cue_source_file f ON f.id=v.file_id WHERE v.id=NEW.version_id AND v.file_id=NEW.target_file_id AND f.root_id=NEW.root_id)) OR (NEW.archive_sha IS NOT NULL AND json_extract(NEW.request_json,'$.archiveSha256')!=NEW.archive_sha) BEGIN SELECT RAISE(ABORT,'新CUE来源登记与原请求或目标不一致'); END;
+ CREATE TRIGGER cue_source_register_command_immutable BEFORE UPDATE ON cue_source_register_command BEGIN SELECT RAISE(ABORT,'新CUE来源登记回执不可修改'); END;
+ CREATE TRIGGER cue_source_register_command_no_delete BEFORE DELETE ON cue_source_register_command BEGIN SELECT RAISE(ABORT,'新CUE来源登记回执不可删除'); END;
+`;

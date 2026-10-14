@@ -1,0 +1,41 @@
+{
+  "version": "0.194.0",
+  "completed": false,
+  "scope": "actual rendered matching -> fixture network -> supervised image -> production Main/Service save -> restart/offline; only fetch boundary replaced, no candidate/preview/repository seeded",
+  "live": false,
+  "cases": [
+    "actual renderer search produces valid candidates through production provider and live item fingerprint"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-e2e-w96T9U",
+  "originalTags": {
+    "title": "封面测试",
+    "artist": "测试歌手",
+    "album": "测试专辑"
+  },
+  "candidates": [
+    "确定的测试歌曲确定的测试歌手确定的测试专辑 · 匹配排序 100"
+  ],
+  "error": "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('complementary', { name: '元数据面板' }).getByRole('region', { name: '封面来源条目' }).getByRole('button', { name: '查询封面来源', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled class=\"metadata-primary\">查询封面来源</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not enabled\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-online-artwork-e2e.smoke.cjs:31:140)",
+  "events": [
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged"
+    }
+  ],
+  "panelText": "MUSICBRAINZ\n匹配元数据\n\n封面测试 · 测试歌手\n\n×\n公开维护者联系信息\n\nMusicBrainz 要求应用提供可联系的标识。仅在主动匹配时发送曲名与歌手，不发送文件路径或音频。\n\n启用在线查询\n\n仅在点击搜索后查询 · 1 条短期候选缓存\n\n清除候选缓存\n使用系统网络设置。清除缓存会取消查询和已有候选预览，已确认的曲库资料保留。\n查看来源与字段锁文件标签预览搜索候选\n跳过缓存重新搜索"
+}

@@ -1,0 +1,20 @@
+{
+  "version": "0.191.0",
+  "scope": "actual production React source panel in isolated Electron harness with mocked preload API; not real Main/Service/network E2E",
+  "completed": false,
+  "cases": [
+    "default disabled and settings entry",
+    "validated text, escaped comment, source button, no image",
+    "cancel discards delayed response",
+    "empty release index",
+    "failure shown with retry",
+    "foreign response rejected",
+    "source disable discards late response",
+    "candidate switch cancels old request",
+    "library change discards late response",
+    "no release candidate",
+    "expired candidate"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-caa-ui-mvp-uIioJ5",
+  "cancelCount": 3
+}

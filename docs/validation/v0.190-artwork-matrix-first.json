@@ -1,0 +1,96 @@
+{
+  "appVersion": "0.190.0",
+  "scope": "actual supervised media worker and painted Electron artwork on generated WAV/DSF/RF64; sparse RF64 metadata beyond4GiB; only short WAV/DSF PCM playback, no RF64 long playback or ASIO/DSD bitstream hardware certification",
+  "scratch": "D:\\CodexTestData\\aural-artwork-matrix-mvp-1TcZyY",
+  "completed": false,
+  "workerCases": [
+    {
+      "name": "WAV-v3-front",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    },
+    {
+      "name": "WAV-v4-front",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    },
+    {
+      "name": "DSF-v3-front",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    },
+    {
+      "name": "DSF-v4-other",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    },
+    {
+      "name": "WAV-no-picture",
+      "sourceKind": "sidecar",
+      "token": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d"
+    },
+    {
+      "name": "DSF-no-picture",
+      "sourceKind": "sidecar",
+      "token": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d"
+    },
+    {
+      "name": "RF64-table-front",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    },
+    {
+      "name": "RF64-no-picture",
+      "sourceKind": "sidecar",
+      "token": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d"
+    },
+    {
+      "name": "RF64-rejected-image",
+      "sourceKind": "sidecar",
+      "token": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d"
+    },
+    {
+      "name": "WAV-invalid-tag",
+      "incompleteRejected": true
+    },
+    {
+      "name": "DSF-invalid-pointer",
+      "incompleteRejected": true
+    },
+    {
+      "name": "RF64-missing-ds64",
+      "incompleteRejected": true
+    },
+    {
+      "name": "RF64-unsupported-apic",
+      "incompleteRejected": true
+    },
+    {
+      "name": "RF64-large-front",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    }
+  ],
+  "uiCases": [],
+  "sourceFingerprint": {
+    "src/library/id3-artwork.ts": "31bf51dd1048c989b94c40371471888b9ba49644bfdd76f97665c9647d37da15",
+    "src/library/artwork-worker.ts": "4bc158efe51aa67f4307715394abb85852dd7b31e7c61e8400a6cfb01cf61733",
+    "src/library/artwork.ts": "9afbedbab31edf44a766be4e9ebb66be3e4f0553f79274d6e48d15e7dcf470f3",
+    "dist/main/library/id3-artwork.js": "b94bfe41bd496cc2e0f4184f5e664d346b57bf446658d3b6af513464a689d8c5",
+    "dist/main/library/artwork-worker.js": "c17fc17df3857ccf33fde47e4295f8f09a0c19c3047d8f87372501918469d90b",
+    "dist/main/library/artwork.js": "46b70c5c8bf4c4ccbd9e734a1a3728b5e8498728671cc19f494884a136c3b5cc",
+    "native/media-worker/build/media-worker.exe": "b7653720f3bf8681fb8d5e1f85aafe92b258af7b450c3820dad0a07055c4f086",
+    "native/audio-host/build/audio-host.exe": "640abf1264450c0ac78b67d5b2aecabde5cc0aa271e048ae6e15bb857ab3afd4"
+  },
+  "largeFixture": {
+    "audioBytes": 4294967312,
+    "metadataAt": 4294967392,
+    "fileBytes": 4294967722
+  },
+  "import": {
+    "rows": 10,
+    "issues": 0
+  },
+  "error": "locator.waitFor: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-item-id=\"47165e32-072d-4d39-9c65-a9334d8009e9\"]').locator('.track-art img') to be visible\u001b[22m\n\n    at painted (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-artwork-formats.smoke.cjs:51:52)\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-artwork-formats.smoke.cjs:53:150)",
+  "diagnostics": "Debugger ending on ws://127.0.0.1:54150/34620ab1-dbf7-4642-b115-f14781668545\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\n"
+}

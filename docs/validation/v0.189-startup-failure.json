@@ -1,0 +1,33 @@
+{
+  "appVersion": "0.189.0",
+  "scope": "actual Electron startup, visible DOM/first rows and UI search; copied synthetic100k schema73 catalog, instrumented method timing, no OS cold or full performance acceptance",
+  "scratch": "D:\\CodexTestData\\aural-startup-profile-mvp-opV8nk",
+  "completed": true,
+  "runs": [],
+  "originalSha256": "fbc38ce2a29ba460f416ea56cb3f9b61a20f7e00e08e37f7afbfd02156eaaf89",
+  "sourceFingerprint": {
+    "src/main/main.ts": "ab2e6b96bec29ed1a8ed3b2f49a3761b0c9f4ea0ec39ba4c6765e9d8307d5083",
+    "src/main/startup-window.ts": "d12bd9e66be2ea957e1f43d5cbfc556241e5564e5679e9fc079f0b7b7fc8ed77",
+    "src/main/preload.ts": "12b2a1df0d31e66449c1350c700770280a62a22a61612512bfabde961cf6a0e8",
+    "src/main/catalog-library-lifecycle.ts": "9f30dd8d8b1b94f238723e22e52c09b7666bc73079c0ec0dae7b7b4900cd15fb",
+    "src/platform/startup-rpc-trace.ts": "87a00b6f9edfe948e42cb0cee51950d1e01a59aca8d03dc9efc73663953bdbba",
+    "src/library/service.ts": "207c1ab6e0419e3dc9c2368f86a1bbe173af86dddcb7a5c69426ede26db711d1",
+    "src/library/database.ts": "eb6d6f06b54b44be9e8d540d7b90a8c57240f3a365663f6c9c8ab83c2c74c64e",
+    "src/library/catalog.ts": "3631472c1999c8cdaaa72af0477e744c7bd4c42b9038fa8319b2ccfc1f571d83",
+    "src/library/library-stats.ts": "691ebff7d93f51eb42dc46efb72528278a2bb8238bd495c36ffef75f299fee6f",
+    "src/renderer/main.tsx": "6948f2a4b84ec6f708f14229928deb5627c392edf335d43925d0f1eed4ce7a45",
+    "dist/main/main/main.js": "c2cec33fe13f19e030843a7c211a3ed4ebf24778baec8adb6e828799726a4e91",
+    "dist/main/library/service.js": "ec5853afa87101154ed14799f09320c735d9574eb70ac759d2fcdb713f76fe4a",
+    "dist/main/library/database.js": "f0798009af859969632d894d7808f3bc4330aff66c137c9588391c8b3c654f3b",
+    "dist/main/library/library-stats.js": "2cba69d1b1faf773b9343eec2aa3604f07c9e94c4704a41e21e9e3f6f5a12b53",
+    "dist/main/library/catalog.js": "6fbd137ef01e04be6e034f0b4005090776915549a5f3ed7b48e87c1e67283a97"
+  },
+  "rendererFailure": {
+    "actualOwnedRendererTermination": true,
+    "startupFailed": true,
+    "isolatedBridge": true,
+    "quitCompleted": true,
+    "failureObservedMs": 121517.6973
+  },
+  "originalUnchanged": true
+}

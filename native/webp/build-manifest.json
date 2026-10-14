@@ -1,0 +1,19 @@
+{
+    "version":  "1.6.0",
+    "configuration":  "MSVC x64; release-static; RTLIBCFG=static; decoder+demux only",
+    "recipeSha256":  "46e2976d1ea3ab0014e79602a177e4ff0624c28046fdd3a0851c9be8974f1df4",
+    "sourceSha256":  "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564",
+    "libraries":  [
+                      {
+                          "sha256":  "625607f4b11009800d5fbff3e4dec69c2e8cf1284e6d829db795e05da8817063",
+                          "file":  "libwebpdecoder.lib",
+                          "bytes":  862002
+                      },
+                      {
+                          "sha256":  "bc94f996db5075c800410755b78f35c257df7b85f2b738d6da3195d367ed70cf",
+                          "file":  "libwebpdemux.lib",
+                          "bytes":  43674
+                      }
+                  ],
+    "certification":  "unverified"
+}

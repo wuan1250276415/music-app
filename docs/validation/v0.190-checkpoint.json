@@ -1,0 +1,83 @@
+{
+  "appVersion": "0.190.0",
+  "librarySchema": 73,
+  "goalComplete": false,
+  "fullScalePerformanceAccepted": false,
+  "exits": {
+    "v190-artwork-matrix-first": 1,
+    "v190-artwork-matrix": 0,
+    "v190-asio-probe-build": 0,
+    "v190-build": 0,
+    "v190-contracts": 0,
+    "v190-detail": 0,
+    "v190-flac-cue": 0,
+    "v190-main-final": 0,
+    "v190-native": 0,
+    "v190-package": 0,
+    "v190-packaged-artwork-matrix": 0,
+    "v190-typecheck": 0,
+    "v190-unpacked-verify": 0
+  },
+  "sourceFingerprint": {
+    "package.json": "ac3b681b5c368703b4abe85b026b9215b338b805a53872e5b6e1b9867e46b298",
+    "package-lock.json": "eb8073d3fbbcfd013b34f916d6b8957099278a993b236ace2ed20d84ed9e5a7e",
+    "release/manifest.json": "2c874e958ac37f42df4e1833d444662704f5afbab6e2e9ed6c62ab1ca8b002f8",
+    "release/sbom.cdx.json": "f8eed743b3edaf0db717f7e39d8226bd6376df90b4d0886db15b940e7cfd22e3",
+    "scripts/generate-distribution-inventory.cjs": "e420b543fa05da54524865c167922da81c6ccbc1d9816febad3c876cffc95187",
+    "src/library/id3-artwork.ts": "31bf51dd1048c989b94c40371471888b9ba49644bfdd76f97665c9647d37da15",
+    "src/library/artwork-worker.ts": "4bc158efe51aa67f4307715394abb85852dd7b31e7c61e8400a6cfb01cf61733",
+    "src/library/artwork.ts": "9afbedbab31edf44a766be4e9ebb66be3e4f0553f79274d6e48d15e7dcf470f3",
+    "dist/main/library/id3-artwork.js": "b94bfe41bd496cc2e0f4184f5e664d346b57bf446658d3b6af513464a689d8c5",
+    "dist/main/library/artwork-worker.js": "c17fc17df3857ccf33fde47e4295f8f09a0c19c3047d8f87372501918469d90b",
+    "dist/main/library/artwork.js": "46b70c5c8bf4c4ccbd9e734a1a3728b5e8498728671cc19f494884a136c3b5cc",
+    "tests/helpers/artwork-containers.cjs": "a2cd471eb1d45803de719a5f2994d04fe2cc2610627f3ac82954df6d23a46450",
+    "tests/electron-artwork-formats.smoke.cjs": "76d0b6237bd5c8eb1eb01e6c096b8c88c84b2a34980b1166e12b3c3838ab8afb",
+    "docs/current-progress.md": "83bc47d68759ffdf745e5643580b8b69b2ded785fcb938bcd5346fb4a6839008",
+    "docs/ADR-196-rf64-artwork-and-wav-dsf-format-mvp.md": "791076e7d05cac24678bf1c249de570ed6df678bee2931330952ebb168ec68f7"
+  },
+  "evidenceFingerprint": {
+    "v0.190-artwork-matrix-first.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "v0.190-artwork-matrix-first.json": "6084eeffaede07fd337155eba5ba1eb40132b311fb9ec8094dda623111df75cf",
+    "v0.190-artwork-matrix-first.log": "01667aaf0a839ca38c9c672d3144652fde1d4e14c8002359d22c017ff6696f6d",
+    "v0.190-artwork-matrix.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "v0.190-artwork-matrix.json": "0465d930e3dbeb2a0bdf31bfc653e91bb312979cd361970bbb6429a1095c7b80",
+    "v0.190-artwork-matrix.log": "027557c6da1778d36e119db0010722be33c01459124aba4ca74de5de7434a0b6",
+    "v0.190-detail.log": "3bc3c2874efe1ba5e1bcf3df47a6240e635a9b5fbd1abbaba1880cd5ff5d349b",
+    "v0.190-distribution-hashes.json": "32dfe22068786ccce70bddc1ed5f6b045df99ee6a9edf5074eedc7fe270538e3",
+    "v0.190-flac-cue.log": "70907d2bc60edc5580eaf666cae68de79eb73d0eb06f5c2976518a97fc2a8e49",
+    "v0.190-packaged-artwork-matrix.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "v0.190-packaged-artwork-matrix.json": "8417ea8dd57640d47f21dc3f2a6197b511f59a1d180a3c9242c3d32bb86c5ade",
+    "v0.190-packaged-artwork-matrix.log": "027557c6da1778d36e119db0010722be33c01459124aba4ca74de5de7434a0b6",
+    "v0.190-unpacked-verify.log": "ba141583fff2d3751fa547ad2985ca72b7c85068d333eb5bbf36cb3c2d701b6c"
+  },
+  "workerCases": 14,
+  "paintedLibraryCases": 10,
+  "wavDsfTagCases": 4,
+  "wavDsfPlaybackCases": 2,
+  "packagedInterfaceVerified": true,
+  "largeRf64": {
+    "audioBytes": 4294967312,
+    "metadataAt": 4294967392,
+    "fileBytes": 4294967722
+  },
+  "mediaObservationScope": "generated-file size and mtime only, not whole-audio SHA",
+  "compiledAppFiles": 423,
+  "binaryFiles": 24,
+  "installer": {
+    "file": "Aural-Setup-0.190.0-x64.exe",
+    "bytes": 269663169,
+    "sha256": "376dfe43d48c36a4b3fdc0e74b888627428b98dec5106aa9d0b1fb2e99707a7a",
+    "signed": false,
+    "installUpgradeUninstallTested": false
+  },
+  "newASIOHardwareTest": false,
+  "nativeDsdDopHardwareAccepted": false,
+  "formalPerformanceRerun": false,
+  "remaining": [
+    "real100k physical scan; complete search/end-to-end/cold/memory/8h",
+    "complete artwork containers/images/cache/online and RF64 tags/decoding/seek",
+    "complete sources/writeback/complex CUE/DSD/lyrics/visualization/tasks",
+    "restore continue/rollback/restart/history/fault matrix",
+    "Windows install/upgrade/uninstall/compatibility/signing/update, macOS/Linux and all FR/WP/G/AC"
+  ]
+}

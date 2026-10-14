@@ -1,0 +1,33 @@
+{
+  "version": "0.204.0",
+  "completed": true,
+  "scope": "production SQLite/identity repositories; complete legacy schema74 reference-table fixture and source-context fixture; no actual old installer, network truth or audio hardware proof",
+  "cases": [
+    "schema74 fixture uses the actual old closed reference definitions and retains previous audit/receipt",
+    "migration rejects unowned calls and rolls back a late table/trigger replacement fault",
+    "normal startup upgrades74to75 with exactly one verified74 snapshot and preserves every reference/audit/receipt",
+    "schema75 reopen is idempotent and does not manufacture another upgrade snapshot",
+    "track targets are separate from recording IDs and include all local file versions and printed source numbers",
+    "closed readers reject forged track context and wrong optional booleans while retaining old receipt tuple",
+    "a second track audit fault rolls back earlier references, entity audits and aggregate receipt",
+    "recording/release/two-track acceptance retains local graph/text and saves typed source context per track",
+    "offline restart replays the same aggregate command and independent track undo preserves recording/release and other track",
+    "track-only replacement retains other providers and later manual reference edit prevents old undo",
+    "foreign track ownership gained after review rejects all selected tracks without overwriting prior sources",
+    "medium disc/format changes invalidate the same track reference snapshot even when its medium ID is unchanged",
+    "schema75 backup inspection/reopen retain typed track contexts, all references and legacy/current receipts",
+    "schema75 integrity and foreign keys valid after upgrade, acceptance, compensation and conflicts"
+  ],
+  "upgradeSnapshots": [
+    "library.db.pre-v75-1791961803492.bak"
+  ],
+  "fingerprints": {
+    "src/library/release-track-references-migration.ts": "cb3e01b0bd341f16b10e7c77f91796e87214ba970f3f283ede88f45cff10c055",
+    "src/library/metadata-identities.ts": "fbe17dbb46dda88382b6b8dd9936eb240ae8f1cac9e401ee4223bf0d6567952c",
+    "src/library/entity-references.ts": "4ce54d53eb9566991cf440ad7cb5c7272c0fc36c4f07f0ea11bc1611e3b1a973",
+    "src/library/database.ts": "3b699c0932b7d05dc843726d95879b353153ba53f9ee316b3e9900860547968b",
+    "src/shared/metadata-identities.ts": "4536fe0aeea36d3f04170e15f2f5a4624589f90d60cd40dcdd4f05c6f93dfd82",
+    "src/library/external-references.ts": "2c53ae9e3b38e98980a3295e69bc38c2b2f7bd7f6caf9d2fb96c01f08ff02549",
+    "tests/release-track-identities-mvp.smoke.cjs": "55cbeced96e696bf0ec9de9d591506bb0c6778c8bd833928a37378eb4e45c917"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": "0.196.0",
+  "completed": false,
+  "scope": "production SQLite repositories and provenance; server review input fixture, not real network or desktop proof",
+  "cases": [
+    "narrow requests reject arbitrary text, foreign properties, duplicate fields, false acknowledgement and unsafe labels",
+    "review requires matching recording, unexpired context and bounded member scope",
+    "candidate authority and explicit pair required before persistence",
+    "all five checked fields use chosen label pair, affect members, preserve identities, emit immutable source and receipt",
+    "retention counts/history include release audit, use persisted ISO order and existing catalog records",
+    "catalog generic undo cannot bypass field confirmation",
+    "partial undo restores selected field and its previous provenance, preserving other online fields"
+  ]
+}

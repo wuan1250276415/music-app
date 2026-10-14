@@ -1,0 +1,62 @@
+{
+  "version": "0.197.0",
+  "completed": false,
+  "scope": "actual rendered matching -> fixture network -> supervised image -> production Main/Service save -> restart/offline; only fetch boundary replaced, no candidate/preview/repository seeded",
+  "live": false,
+  "cases": [
+    "actual renderer search produces valid candidates through production provider and live item fingerprint",
+    "explicit recording-release browse uses actual short-page count for next offset and selects JP edition",
+    "actual context traverses Main/preload/Service/provider; two local/remote tracks agree and chosen recording position shown",
+    "actual Main rejects context cursor before service/network",
+    "selected front entry downloads and displays actual supervised JPEG through Main opaque preview protocol",
+    "actual confirmation button traverses Main preview authority and Service candidate validation; source/selection/history committed once",
+    "cover-only change preserves current matching candidate/source index and closes only saved preview",
+    "default fallback selects original embedded image when present, online image when missing",
+    "actual metadata edit invalidates prior preview/application; stale source cannot replace saved cover",
+    "actual context -> root review modal starts unchecked, explicit label pair + five fields + shared scope -> Main/Service authority -> immutable provenance/retention history; modal survives own library event",
+    "actual confirmation-only partial undo restores date, leaves country/label/catalog/barcode, appends compensation audit",
+    "actual trusted Main still rejects caller-supplied arbitrary release text",
+    "actual full album button reads two local versions, defaults to no mapping/fields, source track picker searches per-track credits, explicit title/artist/album choices create durable source-bound batch",
+    "actual existing batch execution applies both reviewed tracks, per-track artist rather than album artist, release-sourced track title and immutable recording/track context",
+    "actual batch undo restores both selected entries through compensating field records",
+    "actual Main rejects caller-supplied album field values before Service",
+    "actual app restart/offline preserves saved online asset/provenance/revision without candidate recreation"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-e2e-n45Iir",
+  "originalTags": {
+    "title": "封面测试",
+    "artist": "测试歌手",
+    "album": "测试专辑"
+  },
+  "candidates": [
+    "确定的测试歌曲确定的测试歌手确定的测试专辑 · 匹配排序 46",
+    "确定的测试歌曲确定的测试歌手确定的测试专辑 · 2003-07-31 · 匹配排序 46"
+  ],
+  "releaseContextText": "读取专辑上下文\n确定的测试专辑\n\n2003-07-31 · JP · Official\n\n专辑艺人：确定的测试歌手\n\n专辑概念：确定的测试专辑 · Album\n\n条码：1234567890123\n\n测试唱片公司 · 目录号 TEST-001\n\n发行版：1 碟／2 轨；本地专辑：1 碟／2 轨\n\n当前录音位置：第 1 碟／第 2 轨\n\n第 1 碟 · CD · 2 轨\n审核整张专辑曲目审核并更新发行资料\n\n曲库比较基于本次查询时的专辑信息。此处只供审核，不修改曲目归属或文件。",
+  "selectedCandidate": "确定的测试歌曲确定的测试歌手确定的测试专辑 · 2003-07-31 · 匹配排序 46",
+  "savedSource": {
+    "id": "78d34244-a83c-4037-b513-a34cfd753096",
+    "assetId": "cfb36e1794c029aec30106eb51014cb020f741044eedc42b21b86240a2bb0010",
+    "sourceToken": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d",
+    "releaseId": "76df3287-6cda-33eb-8e9a-044b5e15ffdd",
+    "imageId": "829521842",
+    "sourceUrl": "https://musicbrainz.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/cover-art",
+    "fetchedAt": "2026-10-13T08:16:38.495Z",
+    "confirmedAt": "2026-10-13T08:16:38.898Z",
+    "width": 64,
+    "height": 64,
+    "rights": {
+      "status": "unverified",
+      "display": true,
+      "persist": true,
+      "export": false,
+      "writeback": false,
+      "basis": "user-selected-local-v1"
+    }
+  },
+  "releaseFieldsChangeId": "2aa144b8-6c9c-441a-983a-d18a4f948d84",
+  "albumBatchId": "3c1274ac-8866-4830-8a76-6c205875be52",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'ready'\n- 'conflict'\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-online-artwork-e2e.smoke.cjs:69:930)",
+  "events": [],
+  "panelText": null
+}

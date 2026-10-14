@@ -1,0 +1,81 @@
+{
+  "version": "0.206.0",
+  "completed": true,
+  "scope": "production MusicBrainz broker/provider and narrow reader with fetch fixture; confirmed-reference authority callback; no real metadata truth, desktop or hardware proof",
+  "cases": [
+    "narrow request normalizes MBID and rejects arbitrary URL, supplied values and authority",
+    "known recording lookup works without usable local title and never performs text search",
+    "confirmed identity preserves visible text/duration evidence and does not fabricate provider confidence",
+    "all derived release candidates inherit private reference authority and reranking keeps retrieval reason",
+    "changed authority rejects before network and caller-selected stale state cannot mint candidates",
+    "mismatched returned recording identity is rejected",
+    "incomplete direct lookup is rejected",
+    "duplicate release identities reject lookup",
+    "over-budget linked release list rejects lookup",
+    "missing source recording reports failure without text fallback",
+    "recording without a linked edition stays unassigned and retains separate edition browsing",
+    "reference change while lookup is in flight rejects before candidate publication",
+    "full-credit derived candidate also retains retrieval reason and private authority",
+    "no confirmed ID retains normal text search while later reference changes invalidate its candidates"
+  ],
+  "requests": [
+    {
+      "path": "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+      "inc": "artist-credits+releases"
+    },
+    {
+      "path": "/ws/2/release",
+      "inc": "media"
+    },
+    {
+      "path": "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+      "inc": "artist-credits+releases"
+    },
+    {
+      "path": "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+      "inc": "artist-credits+releases"
+    },
+    {
+      "path": "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+      "inc": "artist-credits+releases"
+    },
+    {
+      "path": "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+      "inc": "artist-credits+releases"
+    },
+    {
+      "path": "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+      "inc": "artist-credits+releases"
+    },
+    {
+      "path": "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+      "inc": "artist-credits+releases"
+    },
+    {
+      "path": "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+      "inc": "artist-credits+releases"
+    },
+    {
+      "path": "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+      "inc": "artist-credits+releases"
+    },
+    {
+      "path": "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+      "inc": "artist-credits"
+    },
+    {
+      "path": "/ws/2/release/33333333-3333-3333-3333-333333333333",
+      "inc": "artist-credits"
+    },
+    {
+      "path": "/ws/2/recording/",
+      "inc": null
+    }
+  ],
+  "fingerprints": {
+    "src/shared/metadata-match-request.ts": "ccc0f4ebefae8f46b181680e8e0a7a5be3b72d90a217ea88cc286af0dbbfe829",
+    "src/library/musicbrainz.ts": "40792f2b715862b6dc3e01f1b02909ed41ff5a641c65fb23fba0cdd519496075",
+    "src/library/metadata-match-ranking.ts": "e550752356851379c5636aab33d127dd37940f5b474e5bc30dd311e8883ac9e3",
+    "tests/metadata-recording-lookup-mvp.smoke.cjs": "c5e7803662c38a3ac7ff13cb03dce8fb025d8e28e7150cd5c33e87ab647cb659"
+  }
+}

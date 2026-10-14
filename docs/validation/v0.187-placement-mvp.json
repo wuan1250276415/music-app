@@ -1,0 +1,39 @@
+{
+  "appVersion": "0.187.0",
+  "scope": "actual Main geometry persistence and application reopening; isolated copied synthetic100k schema73 catalog, no installer or cold certification",
+  "scratch": "D:\\CodexTestData\\aural-placement-mvp-V9Q0vX",
+  "completed": true,
+  "originalSha256": "fbc38ce2a29ba460f416ea56cb3f9b61a20f7e00e08e37f7afbfd02156eaaf89",
+  "saved": {
+    "version": 1,
+    "revision": 2,
+    "enabled": true,
+    "placement": {
+      "bounds": {
+        "x": 20,
+        "y": 20,
+        "width": 1080,
+        "height": 720
+      },
+      "maximized": false,
+      "display": {
+        "id": "1306507634",
+        "label": "",
+        "workArea": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 852
+        },
+        "scaleFactor": 2
+      }
+    }
+  },
+  "restored": {
+    "x": 20,
+    "y": 20,
+    "width": 1080,
+    "height": 720
+  },
+  "originalUnchanged": true
+}

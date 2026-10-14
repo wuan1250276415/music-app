@@ -1,0 +1,18 @@
+{
+  "version": "0.192.0",
+  "scope": "production React panel + Main preview resources/protocol + real native synthetic red image in isolated Electron; candidate/API mocked, not real Main/Service/network E2E",
+  "completed": false,
+  "cases": [
+    "default disabled and settings entry",
+    "validated text, escaped comment, source button, no image",
+    "no automatic image download",
+    "actual native JPEG/protocol pixel under unchanged application CSP, no-store response",
+    "closing image purges protocol resource"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-caa-ui-mvp-aMakO0",
+  "previewPixel": {
+    "red": 253,
+    "green": 1,
+    "blue": 0
+  }
+}

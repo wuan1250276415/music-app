@@ -1,0 +1,42 @@
+{
+  "version": "0.194.0",
+  "completed": true,
+  "scope": "read-only full FLAC metadata block and Vorbis comment inspection of user source; no image added or file written",
+  "source": "D:\\BaiduNetdiskDownload\\周杰伦 - 03.晴天.flac",
+  "bytes": 31414008,
+  "sha256": "b648dfa3538c5e2e5159f38cbf356cc6dfa6796f7058f48631adafaf8e63dbbb",
+  "blocks": [
+    {
+      "type": 0,
+      "bytes": 34
+    },
+    {
+      "type": 4,
+      "bytes": 228
+    },
+    {
+      "type": 3,
+      "bytes": 486
+    },
+    {
+      "type": 1,
+      "bytes": 7514
+    }
+  ],
+  "pictureBlocks": 0,
+  "coverTagCounts": {
+    "COVERART": 0,
+    "METADATA_BLOCK_PICTURE": 0
+  },
+  "tags": {
+    "TITLE": [
+      "晴天"
+    ],
+    "ARTIST": [
+      "周杰伦"
+    ],
+    "ALBUM": [
+      "叶惠美 (环球日版)"
+    ]
+  }
+}

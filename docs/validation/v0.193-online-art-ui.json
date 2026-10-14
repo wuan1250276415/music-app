@@ -1,0 +1,54 @@
+{
+  "version": "0.193.0",
+  "completed": true,
+  "scope": "actual Main/preload/Library Service/Electron/source priority/mode/clear/undo/offline and image pixels; initial confirmed online image seeded through production repository with synthetic provenance, not actual valid-candidate preview/apply or real network E2E",
+  "cases": [
+    "actual service default embedded artwork wins over confirmed online fallback",
+    "actual detail mode command immediately refreshes player/detail to preferred online image pixels",
+    "actual clear command returns to embedded artwork pixels",
+    "actual history undo restores previous preferred image pixels",
+    "actual IPC rejects nonlatest undo, remote URL persistence and missing preview",
+    "actual process restart and unavailable source retain confirmed image bytes and original history",
+    "actual Main/service replay applies an existing selection command only once while offline"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-art-ui-Nn4bMa",
+  "initialPixel": {
+    "red": 253,
+    "green": 1,
+    "blue": 0
+  },
+  "preferredPixel": {
+    "red": 0,
+    "green": 0,
+    "blue": 254
+  },
+  "clearPixel": {
+    "red": 253,
+    "green": 1,
+    "blue": 0
+  },
+  "undoPixel": {
+    "red": 0,
+    "green": 0,
+    "blue": 254
+  },
+  "offlinePixel": {
+    "red": 76,
+    "green": 77,
+    "blue": 246
+  },
+  "mediaUnchanged": true,
+  "fingerprints": {
+    "src/main/main.ts": "03357df28b4e85aa47195fee52435c2cb6ffffcc52b19f90a32a88329029cbf7",
+    "src/main/preload.ts": "b6319ed2caf3fcd7733006a91a2bbc9574413e7d332589f5384ecbb20e76de18",
+    "src/main/artwork-resources.ts": "6873cc87fb317daaf36b7114a91b8be0ee1983ba613985743b57a1659ddbff5d",
+    "src/library/service.ts": "b69144e8be9585ebaf6a8aa4ab4c1532944f20872f5a120e5465b5368dafdab4",
+    "src/library/online-artwork-store.ts": "1bec947ded8dfbce39a2d88a29f7a3785c1027fb3d912a17b26533507159212c",
+    "src/renderer/online-artwork-controls.tsx": "efba327443fd693268aa59f894c3d88636a51cae18eff3f8b0e8c9ffdeb01fd3",
+    "src/renderer/main.tsx": "34b7266d426568f944aeaffaa836604b07d30e19746b3af07c5921029ebab0d6",
+    "dist/main/main/main.js": "5209768b3aa7ee80f80d56d9d7dd103ecf6376ad0953d37059e788d3eeaf6bdd",
+    "dist/main/library/service.js": "b6d8ae6a7e4bea79dc2016dc64ddbfb93776c05d193697dc8d5125bdeb615499",
+    "dist/main/library/online-artwork-store.js": "efecfd4fb3170237f0a0f23a5e240ee17cd6fde44aeefec9a7c3d9b465815b7a",
+    "native/media-worker/build/media-worker.exe": "2d9ea5543c26bdfdbf062c45cf4f3105782a178c0b716324e6643e3b03f32f28"
+  }
+}

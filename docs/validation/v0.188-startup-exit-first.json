@@ -1,0 +1,12 @@
+{
+  "appVersion": "0.188.0",
+  "scope": "actual startup document exit during snapshot save; private synthetic100k copy integrity after real process exit; no resumed migration or full fault matrix proof",
+  "scratch": "D:\\CodexTestData\\aural-startup-exit-mvp-UXYToT",
+  "completed": false,
+  "originalSha256": "691a92e6e78b9d91947d7265863a032573fb7385aa0794dcc4f7f67c01064f93",
+  "libraryPid": 19964,
+  "quitMs": 2142.345799999999,
+  "utilityExited": true,
+  "error": "Error: unknown function: aural_cue_path_key_v1()\n    at inspect (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-startup-exit.smoke.cjs:8:319)\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-startup-exit.smoke.cjs:32:15)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:502:9)",
+  "diagnostics": "Waiting for the debugger to disconnect...\r\n"
+}

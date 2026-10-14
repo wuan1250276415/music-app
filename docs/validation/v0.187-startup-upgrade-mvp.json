@@ -1,0 +1,17 @@
+{
+  "appVersion": "0.187.0",
+  "scope": "actual Electron Main/Library startup; copied synthetic 100k schema72 catalog, no physical scan, OS cold or hardware certification",
+  "sourceName": "aural-benchmark-100000.db.pre-v73-1791771486646.bak",
+  "scratch": "D:\\CodexTestData\\aural-startup-upgrade-mvp-4PtDWI",
+  "completed": true,
+  "originalSha256": "691a92e6e78b9d91947d7265863a032573fb7385aa0794dcc4f7f67c01064f93",
+  "upgradeReadyMs": 148219.9055,
+  "snapshot": {
+    "name": "library.db.pre-v73-1791783799642.bak",
+    "bytes": 1728020480,
+    "sha256": "7da03a090dc6b36750671a2ac2fa194f81478b601a8c5be4a34f6a9cbdf7af7d"
+  },
+  "reopenReadyMs": 6780.3475000000035,
+  "originalUnchanged": true,
+  "diagnostics": "Debugger ending on ws://127.0.0.1:64740/757e8430-4d89-47b1-9ac1-203a35c2237d\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\nDebugger ending on ws://127.0.0.1:49292/f73f0fe0-c2ca-4fc0-9a47-d18533dbb24d\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\n"
+}

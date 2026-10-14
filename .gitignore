@@ -1,0 +1,19 @@
+node_modules/
+dist/
+*.log
+*.db
+*.db-wal
+*.db-shm
+native/**/build/
+build-out/
+
+# Local credentials and development caches
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

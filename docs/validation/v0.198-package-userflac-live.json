@@ -1,0 +1,76 @@
+{
+  "version": "0.198.0",
+  "completed": true,
+  "scope": "actual rendered MusicBrainz search/recording-linked JP edition selection and real CAA empty-index UI; no image download or save acceptance",
+  "live": true,
+  "cases": [
+    "actual renderer search produces valid candidates through production provider and live item fingerprint",
+    "real MusicBrainz recording-linked release browse explicitly selects album JP edition",
+    "real JP edition has no CAA image; UI shows empty result and saves no unrelated cover"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-e2e-x668rw",
+  "originalTags": {
+    "title": "晴天",
+    "artist": "周杰伦",
+    "album": "叶惠美 (环球日版)"
+  },
+  "launches": [
+    {
+      "packaged": true,
+      "phase": "online-review"
+    }
+  ],
+  "packagedExecutableSha256": "0982395066bf80ee6397debdbcf6f475908a120e39f340a02e35ea261efb3861",
+  "packagedAsarSha256": "ad0db909056c06c65bfea9dda828fb2db3c82f94f66b8ce2bf6a3b5e5fb5a137",
+  "packagedInterface": true,
+  "candidates": [
+    "晴天周杰倫葉惠美 · 2008-01-23 · 匹配排序 98",
+    "晴天周杰倫葉惠美 · 2020-11-06 · 匹配排序 98",
+    "晴天周杰倫葉惠美 · 2008 · 匹配排序 98",
+    "晴天周杰倫葉惠美 · 2008-01-23 · 匹配排序 88",
+    "晴天周杰倫葉惠美 · 2026-03-25 · 匹配排序 88",
+    "晴天周杰倫Jay Chou Carnival World Tour Japan Special Edition · 2024-04-03 · 匹配排序 75",
+    "晴天周杰倫未关联发行版 · 匹配排序 75",
+    "晴天周杰倫未关联发行版 · 匹配排序 75",
+    "晴天周杰倫2004無與倫比演唱會 · 2005 · 匹配排序 73",
+    "晴天周杰倫尋找周杰倫 · 2003-11-12 · 匹配排序 65",
+    "晴天周杰倫2004无与伦比 演唱会 Live CD · 2005-01-21 · 匹配排序 65",
+    "晴天周杰倫2004無與倫比演唱會 · 匹配排序 65",
+    "晴天周杰倫Jay Chou 2004 Incomparable Concert Live · 2005-01-21 · 匹配排序 65",
+    "晴天周杰倫說好不哭 SACD珍藏版 · 匹配排序 65",
+    "晴天周杰倫葉惠美 · 2008-01-23 · 匹配排序 98"
+  ],
+  "topCandidate": "晴天周杰倫葉惠美 · 2008-01-23 · 匹配排序 98",
+  "selectedRecordingCandidate": "晴天\n周杰倫\n葉惠美 · 2008-01-23 · 匹配排序 98",
+  "selectedEdition": "葉惠美\n2008-01-23 · JP · CD / DVD · Official\n条码 4547366035704\n选择此发行版",
+  "outcome": "no-image-available",
+  "sourceUnchanged": true,
+  "emptySourceText": "在线封面来源\n\n查询您选定的专辑发行版，预览时发送发行与图片编号。选定图片后可确认保存到本机曲库。\n\n发行版：葉惠美 · 2008-01-23 · JP · CD / DVD\n\n数据源设置\n查询封面来源\n重新查询来源\n\n该发行版暂无封面条目\n\n社区编辑确认表示来源整理状态，不代表图片使用许可。\n\n查看该发行版的封面来源\n曲库封面\n\n内嵌和同目录封面优先，尚未保存在线封面\n\n刷新封面状态",
+  "fingerprints": {
+    "src/main/main.ts": "e0709cbe9293044cd10ab38b627978fcddf51247f3361063d9a5f2719bdb7744",
+    "src/main/preload.ts": "e2cf87a6b1bcda13946b630f627cc7aa4df09657a1d8d78ca7f0845e40b7d6b0",
+    "src/library/service.ts": "3b6b31d81986c436a70ae39f7edddedbf648259aa1d5c385f47f795b6a02c994",
+    "src/library/musicbrainz.ts": "0f97efc735c8ea010e07b9b0b5e805cafa1b77330caac2908cba6e4d4721ab9a",
+    "src/library/cover-art-archive.ts": "677c5c57ec545f8ed338fb962032c04161970b71592863d2107761dfff30e4b6",
+    "src/library/online-artwork-store.ts": "1bec947ded8dfbce39a2d88a29f7a3785c1027fb3d912a17b26533507159212c",
+    "src/renderer/main.tsx": "7de601c44aaf3c7d8301a274e7b03c8a6f0a0ba3e1084a7189f754fbb5930805",
+    "src/renderer/cover-art-source-panel.tsx": "8892fa3753e52af5da1afec8a5fe1f96ac8aa31fdb324db9c7c906394b6a200d",
+    "src/renderer/online-artwork-controls.tsx": "efba327443fd693268aa59f894c3d88636a51cae18eff3f8b0e8c9ffdeb01fd3",
+    "src/renderer/metadata-editions-panel.tsx": "1ac019979c54e797d17dfbd44c7a54fbce836f8b6ed0c97046b2792c18fbb027",
+    "src/shared/metadata-editions.ts": "d9070f3a48815da1f899563305ee5cd0fbfb2f1877db83c768315f0f643cf8c3",
+    "src/shared/contracts.ts": "0280917f7cd7995c6e84be2f01a4e27630679520d1644bb97d13619a8d05c08c",
+    "src/shared/metadata-release-context.ts": "f65289760a7d34c0577590e8048624d2dc9e269356336ebb29d22d5e8caa4e33",
+    "src/library/metadata-match-ranking.ts": "a47a876ccb76858a7cdcdf52646232b550a443dab276d62722325d26a68d41e7",
+    "src/library/metadata-release-context.ts": "f9270e1c27d00990f3ea6b1e142710b7125be3e720a0537093f512f88b6e8840",
+    "src/renderer/metadata-match-reasons.tsx": "15b47ad458d8dc1a08c9c87a119d780ff5d1ee569ea99d75cccf8758817759e5",
+    "src/renderer/metadata-release-context-panel.tsx": "ec6551414f2bde6d8d7a7f2ce8bf1007ef5dca013d78d2931c84c35ea3a009c8",
+    "src/main/artwork-resources.ts": "4d4c8164d6590386bc7353cf88c1a9419baa92744b6ff2410f83b3820afb6ae9",
+    "dist/renderer/index.html": "5fba4a61a5c66c175824cfc60e44eabb68c43171760f1c557270d0ab86d5ca45",
+    "dist/main/main/preload.js": "d4582d639decc7121d9f003f8bef48731506460b2b5d7ca48235bc69db0592ed",
+    "dist/main/library/musicbrainz.js": "977ab981a30198e1c220323ca77d79ca3bb19095584c793fc9880f58bcab42fa",
+    "dist/main/main/main.js": "794fd55c97dfaa8bc958bef771f938b8ac422a2fc561179b06cbae27f1619843",
+    "dist/main/library/service.js": "bc50ea6394d8f2ffe212c3ce75218075253b4d2f8ec3c20da401046938d26cee",
+    "native/media-worker/build/media-worker.exe": "a157801cc6699839b56c7f9e667324380148e319837c57d65e6a6181ed5556de",
+    "tests/electron-online-artwork-e2e.smoke.cjs": "cb69d051029728506ae169acc70bfac8ab37dca83c192cca58162157168eee69"
+  }
+}

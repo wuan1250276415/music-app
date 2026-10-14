@@ -1,0 +1,18 @@
+{
+  "version": "0.197.0",
+  "completed": false,
+  "scope": "production provider/parser, album authority and SQLite batch/undo/backup; fixture fetch boundary, not real network or hardware",
+  "cases": [
+    "production release parser retains strict per-track credits independently of album artists",
+    "malformed track artist MBID rejected by actual provider credit parser",
+    "narrow album request readers reject caller values, repeated items, foreign fields, unsafe cursors and missing confirmation",
+    "known recording evidence, simplified/traditional title and position/duration remain separate; repeated recording positions warned",
+    "album summary shows incomplete local counts, sources missing track credits are not replaced by album artist",
+    "remote track pagination is bounded50 and search is local without new fetch; review objects are isolated",
+    "different local tracks cannot claim one source track; foreign members, source IDs and false candidate authorization reject entire plan",
+    "explicit two-track three-field plan preserves source track and recording separately, writes nothing until execution",
+    "offline batch execution applies per-track artist rather than album artist, stores release-sourced track title, leaves unselected files",
+    "batch plan retry after restart survives lost review and offline state",
+    "partial field compensation works for album-created plans and retains other checked fields"
+  ]
+}

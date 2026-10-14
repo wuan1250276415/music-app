@@ -1,0 +1,475 @@
+{
+  "version": "0.204.0",
+  "completed": false,
+  "scope": "actual rendered matching -> fixture network -> supervised image -> production Main/Service save -> restart/offline; only fetch boundary replaced, no candidate/preview/repository seeded",
+  "live": false,
+  "cases": [
+    "actual renderer search produces valid candidates through production provider and live item fingerprint",
+    "explicit recording-release browse uses actual short-page count for next offset and selects JP edition",
+    "actual context traverses Main/preload/Service/provider; two local/remote tracks agree and chosen recording position shown",
+    "actual Main rejects context cursor before service/network",
+    "selected front entry downloads and displays actual supervised JPEG through Main opaque preview protocol",
+    "actual confirmation button traverses Main preview authority and Service candidate validation; source/selection/history committed once",
+    "cover-only change preserves current matching candidate/source index and closes only saved preview",
+    "default fallback selects original embedded image when present, online image when missing",
+    "actual metadata edit invalidates prior preview/application; stale source cannot replace saved cover",
+    "actual context -> root review modal starts unchecked, explicit label pair + five fields + shared scope -> Main/Service authority -> immutable provenance/retention history; modal survives own library event",
+    "actual confirmation-only partial undo restores date, leaves country/label/catalog/barcode, appends compensation audit",
+    "actual trusted Main still rejects caller-supplied arbitrary release text",
+    "actual full album button reads two local versions, defaults to no mapping/fields, source track picker searches per-track credits, explicit title/artist/album choices create durable source-bound batch",
+    "actual existing batch execution applies both reviewed tracks, per-track artist rather than album artist, release-sourced track title and immutable recording/track context",
+    "actual batch undo restores both selected entries through compensating field records",
+    "actual Main rejects caller-supplied album field values before Service",
+    "actual album credit review starts empty and preserves an explicitly retained local singer beside a track-source artist with a chosen join",
+    "actual trusted Main/Service commit imports complete multi-person album credit and canonical recording credit with independent roles/scopes and collection history",
+    "actual Main rejects caller-supplied artist IDs for album credit adoption",
+    "actual independent recording/song/release credit compensation remains available despite overlapping sibling catalogue revisions",
+    "actual missing-local-concept review proposes create with separate default-unchecked release/target scope and no second edition requirement",
+    "actual create traverses trusted Main/Service/SQL and records group identity, one edition, two items and provider association history",
+    "actual trusted Main rejects supplied target concept IDs before source authority",
+    "actual concept association undo restores null membership, retains provenance history and permits a fresh identity review",
+    "actual existing-concept dialog adopts a second edition into the same source-owned group with preserved separate release IDs and complete scope",
+    "actual controlled reference editor can clear only the adopted group reference before separate manual grouping/identity regression, with history retained",
+    "actual Main/Service grouping creates a local concept spanning two explicit editions before online group review",
+    "actual group card shows both editions/all three playable items; saving stays disabled until independent concept scope acknowledgement",
+    "actual two track identity cards require their own acknowledged disc/position/file-version scope independently of recording/release/concept",
+    "actual track acceptance saves edition-specific track IDs separately from the two source recording IDs",
+    "actual identity button works without text fields, defaults to no confirmation, separately acknowledged two recordings/release commit atomically with preserved local graph/text",
+    "actual source-retention history and counters expose every selected source-bound identity confirmation",
+    "actual source-bound concept confirmation retained independently after release undo",
+    "actual individual concept undo preserves edition membership and the two recording confirmations",
+    "actual independent single-track undo preserves the other edition-track confirmation and recording identities",
+    "actual individual release-identity undo restores only release references, preserves recording confirmations",
+    "actual trusted Main still rejects caller-supplied external identity values",
+    "actual Main/Service uses current confirmed recording reference before text search",
+    "actual trusted Main/Service rejects caller MBID that is not owned by the local recording",
+    "actual reference edit invalidates prior direct-lookup candidate before contextual reads",
+    "actual multi-reference UI requires explicit choice and does not query a default alias or text candidate",
+    "actual explicit alias selection performs recording lookup and renders separate identity and edition evidence",
+    "actual derived edition candidate retains selected alias evidence and is invalidated when references are restored",
+    "actual Main/Service rescan reads two FLAC source codes and rendered UI requires explicit code choice",
+    "actual source-owned ISRC choice shows both nonunique recordings and separate edition/identity evidence",
+    "actual trusted Main/Service rejects a valid but non-owned caller ISRC",
+    "actual empty ISRC result retains local data and does not issue a title fallback query"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-e2e-eJxJaL",
+  "originalTags": {
+    "title": "封面测试",
+    "artist": "测试歌手",
+    "album": "测试专辑"
+  },
+  "launches": [
+    {
+      "packaged": false,
+      "phase": "online-review"
+    }
+  ],
+  "candidates": [
+    "确定的测试歌曲确定的测试歌手确定的测试专辑 · 匹配排序 46",
+    "确定的测试歌曲确定的测试歌手确定的测试专辑 · 2003-07-31 · 匹配排序 46"
+  ],
+  "releaseContextText": "读取专辑上下文\n确定的测试专辑\n\n2003-07-31 · JP · Official\n\n专辑艺人：确定的测试歌手 & 合作专辑署名\n\n专辑概念：确定的测试专辑 · Album\n\n条码：1234567890123\n\n测试唱片公司 · 目录号 TEST-001\n\n发行版：1 碟／2 轨；本地专辑：1 碟／2 轨\n\n当前录音位置：第 1 碟／第 2 轨\n\n第 1 碟 · CD · 2 轨\n审核整张专辑曲目审核并更新发行资料\n\n曲库比较基于本次查询时的专辑信息。此处只供审核，不修改曲目归属或文件。",
+  "selectedCandidate": "确定的测试歌曲确定的测试歌手确定的测试专辑 · 2003-07-31 · 匹配排序 46",
+  "savedSource": {
+    "id": "db38a6fe-ea75-4e5d-9312-1fbb77162b17",
+    "assetId": "cfb36e1794c029aec30106eb51014cb020f741044eedc42b21b86240a2bb0010",
+    "sourceToken": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d",
+    "releaseId": "76df3287-6cda-33eb-8e9a-044b5e15ffdd",
+    "imageId": "829521842",
+    "sourceUrl": "https://musicbrainz.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/cover-art",
+    "fetchedAt": "2026-10-14T07:06:45.452Z",
+    "confirmedAt": "2026-10-14T07:06:45.859Z",
+    "width": 64,
+    "height": 64,
+    "rights": {
+      "status": "unverified",
+      "display": true,
+      "persist": true,
+      "export": false,
+      "writeback": false,
+      "basis": "user-selected-local-v1"
+    }
+  },
+  "releaseFieldsChangeId": "661e5fc9-cd42-4c75-9dea-95f73cb5fbda",
+  "albumBatchId": "671a346d-df45-48cc-9036-75f7accd2db5",
+  "albumCreditChangeIds": [
+    "f9614cc1-a53f-40e2-a085-e758c69b2859",
+    "a5ad85ca-b4f1-4aae-bd68-143facda8252",
+    "9f08d147-6362-4a17-84dd-34bdae4979c8"
+  ],
+  "groupLinkChangeId": "abbd21b9-edce-4797-a61c-401cdf9f4a7c",
+  "localGroupId": "ec09aee4-b7a6-4611-bfbf-3efb09645618",
+  "identityChangeIds": [
+    "5cc94240-5f60-4e03-a400-bdc820e1f0db",
+    "1e43668e-b29e-4395-aecf-6b3271c7c806",
+    "5b86a63c-d551-4697-8761-236eab3433d6",
+    "2e5c5e92-bd46-4067-bad8-0df7e8b7f224",
+    "e5459b15-8864-44dc-b2e3-e05bc63cf1c1",
+    "ac9e1256-0fdd-4ea5-acea-c7f693f55b70"
+  ],
+  "recordingLookupReference": "55555555-5555-5555-5555-555555555555",
+  "isrcGoldSha": "8ea1886417ca18503efa929a395082da16340784e909f03fcd88eb5d1254d37c",
+  "isrcSourceSha": "c9ed39db96cb54b1488f719cdc68aa145e8268f0a6a452e0d9a739fc10600d4d",
+  "isrcItemId": "dd40bfba-2f97-49f6-9a31-b5e797e78f3e",
+  "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /^确定的测试歌曲 · 编码本地歌手$/. Input:\n\n'确定的测试歌曲 · 确定的测试歌手'\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-online-artwork-e2e.smoke.cjs:122:776)",
+  "events": [
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged",
+      "reason": "online-artwork-changed"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged",
+      "reason": "album-credits"
+    },
+    {
+      "event": "providersChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged",
+      "reason": "online-group-link"
+    },
+    {
+      "event": "providersChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged",
+      "reason": "online-group-link"
+    },
+    {
+      "event": "providersChanged"
+    },
+    {
+      "event": "libraryChanged",
+      "reason": "online-group-link"
+    },
+    {
+      "event": "providersChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged",
+      "reason": "local-files-changed"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged"
+    }
+  ],
+  "panelText": "MUSICBRAINZ\n匹配元数据\n\n确定的测试歌曲 · 确定的测试歌手\n\n×\n公开维护者联系信息\n\nMusicBrainz 要求应用提供可联系的标识。仅发送本次查询使用的曲名、歌手或选定录音标识／编码，不发送文件路径或音频。\n\n启用在线查询\n\n请求暂缓，约 25 秒后可继续尝试 · 11 条短期候选缓存\n\n清除候选缓存\n使用系统网络设置。清除缓存会取消查询和已有候选预览，已确认的曲库资料保留。\n查看来源与字段锁文件标签预览搜索候选\n跳过缓存重新搜索\n曲库元数据已更新。\n撤销本次修改"
+}

@@ -1,0 +1,19 @@
+{
+  "appVersion": "0.184.0",
+  "sourceName": "周杰伦 - 03.晴天.flac",
+  "sourceSha256": "b648dfa3538c5e2e5159f38cbf356cc6dfa6796f7058f48631adafaf8e63dbbb",
+  "flacPictureBlocks": 0,
+  "scope": "isolated copied FLAC, local artwork and actual Electron library/player/detail; no online cover lookup or tag write",
+  "completed": true,
+  "item": {
+    "title": "晴天",
+    "artist": "周杰伦",
+    "album": "叶惠美 (环球日版)",
+    "sampleRate": 44100,
+    "bits": 16
+  },
+  "artwork": null,
+  "detailStatus": "未找到可显示的本地封面，可重新读取",
+  "sourceUnchanged": true,
+  "shutdownDiagnostics": "Debugger ending on ws://127.0.0.1:61059/6d7ba241-1e6f-4711-b6d8-7aefd553cb1b\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\n"
+}

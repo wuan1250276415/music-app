@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "schema": 72,
+  "objects": 634,
+  "schemaSha256": "07d062213451ced8fe0f7276599db63041c160f49963cd70832fde171a50d8f9",
+  "referenceIncludingOptionalStatisticsSha256": "d7362af5a613824753e19c832e5f15dd3153f34fbc4d1c15e07070a9c40e3968",
+  "optionalStatistics": ["sqlite_stat1", "sqlite_stat4"],
+  "source": "0.185.0 production LibraryDatabase.restoreSchemaReference before schema73 changes",
+  "scope": "fresh schema definition; synthetic migration fixture, not a historical user database"
+}

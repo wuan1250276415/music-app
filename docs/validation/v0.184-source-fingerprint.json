@@ -1,0 +1,29 @@
+{
+  "appVersion": "0.184.0",
+  "files": {
+    "src/main/main.ts": "f9ff8bb2fb65d15bf23db41b99590def68fb864c6ef0fcc6426b966959f01428",
+    "src/main/artwork-resources.ts": "ce146e2478ab73d8d8ba286693cc7d693bd171137bf558c6a78ea1fe45dd41e3",
+    "native/audio-host/main.cpp": "f9ddb5b9f94d736214372357b28b01874589557633a44ffa8bb0a4638af3a9b9",
+    "native/audio-host/vendor/miniaudio.h": "4fa501173fbd953de25330ff03b6de14aa54edc057233d20ef297c32f7467295",
+    "native/audio-host/vendor/patches/wasapi-requested-integer-format.patch": "77bcb77eb189f97e5afd5cf39d1bfd5355fea73aa0a2c40f7c5c318e49f17d63",
+    "scripts/generate-distribution-inventory.cjs": "1400c9f181920d4caa386d8ee188b79d09032876d242af0e4a7c3630e7dbeff8",
+    "tests/electron-wasapi-output.smoke.cjs": "973fab3b488abaa528d1d2c7af8594308645d9aeb2c34c26da1e73fecb6a1608",
+    "tests/electron-local-artwork.smoke.cjs": "d9c9e1058fa2c3b91e5a229d0d5bce8435608e64140cdb77a15107df6746b1c7",
+    "tests/electron-detail.smoke.cjs": "4e1d45ff10feb0779dd4f0da76b5632482200ee873d03166e98d49b65a318cb0",
+    "tests/electron-flac-cue.smoke.cjs": "2dcf15393a209cb3d49be3eeaa640d682c7e00e00c0c87a01e735b57a5dc722d",
+    "tests/library-performance.smoke.cjs": "d3ef22dffc636824d1b48a7d0c92445cab124e56f571da825d38464cdfc9e795",
+    "native/audio-host/build/audio-host.exe": "510eb605b911490c6a16f91ba4c8dcb8d2a6511b1d4656b4b9b0ab644ff0216c",
+    "dist/main/main/main.js": "983b63ca862eb2512804262469e70b8d28d8e9fdd5f2c06bc777542fb866ce79",
+    "dist/renderer/index.html": "404ea22d64f4fd1bbf4dcaca9b02ec06ee4cabdc3f9d81bc8a9355d91901ba9f",
+    "native/audio-host/vendor/SOURCE.txt": "e3274e5ea214da8f0008ef8db2bbb3d31f7b97e19b6a1da38a409240a303c3f0"
+  },
+  "finalMvpExitCodes": {
+    "v184-wasapi-final-pcm": 0,
+    "v184-user-flac-artwork-final": 0,
+    "v184-detail-final": 0,
+    "v184-flac-cue-final": 0
+  },
+  "nativeFirstAttemptExit": 1,
+  "finalAudioBuildExit": 0,
+  "synthetic100kBudgetAccepted": false
+}

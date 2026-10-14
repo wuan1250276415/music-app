@@ -1,0 +1,19 @@
+import type {ArtistRole,CatalogChangeResult,MetadataCollectionRef,MetadataCollectionMember,MetadataCreditMember} from './contracts';
+import {readMetadataIdentityPreview,type MetadataIdentityPreviewRequest} from './metadata-identities';
+export type MetadataAlbumCreditsPreviewRequest=MetadataIdentityPreviewRequest;
+export interface MetadataAlbumCreditTarget {key:string;ref:MetadataCollectionRef;title:string;sourceTitle:string;sourceUrl:string;positions:string[];affectedItems:number;current:MetadataCollectionMember[];candidates:MetadataCreditMember[];blocked:boolean;reason:string}
+export interface MetadataAlbumCreditsPreview {previewToken:string;expiresAt:string;releaseTitle:string;sourceTitle:string;warnings:string[];targets:MetadataAlbumCreditTarget[]}
+export interface AlbumCreditEntry {source:'current'|'candidate';ordinal:number;role:ArtistRole;joinPhrase:string}
+export interface MetadataAlbumCreditsApplyRequest {commandId:string;previewToken:string;targets:Array<{key:string;entries:AlbumCreditEntry[]}>;confirmedSongScope:boolean;confirmedRecordingScope:boolean;confirmedReleaseScope:boolean}
+export interface MetadataAlbumCreditChange {changeId:string;kind:MetadataCollectionRef['kind'];entityId:string;field:MetadataCollectionRef['field'];title:string}
+export interface MetadataAlbumCreditsResult extends CatalogChangeResult {changes:MetadataAlbumCreditChange[]}
+export interface MetadataAlbumCreditUndoPreview {changeId:string;kind:MetadataCollectionRef['kind'];title:string;affectedItems:number;before:MetadataCollectionMember[];current:MetadataCollectionMember[];status:'ready'|'conflict'|'undone';reason:string}
+export const readMetadataAlbumCreditsPreview=readMetadataIdentityPreview;
+const uuid=(v:unknown):string=>{if(typeof v!=='string'||!/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(v))throw new Error('无效整专辑署名标识');return v;};
+function obj(v:unknown,keys:string[]):Record<string,unknown>{if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).length!==keys.length||keys.some(k=>!Object.hasOwn(v,k)))throw new Error('无效整专辑署名请求');return v as Record<string,unknown>;}
+export function readMetadataAlbumCreditsApply(raw:unknown):MetadataAlbumCreditsApplyRequest {
+ const v=obj(raw,['commandId','previewToken','targets','confirmedSongScope','confirmedRecordingScope','confirmedReleaseScope']);
+ if(!Array.isArray(v.targets)||!v.targets.length||v.targets.length>6001||['confirmedSongScope','confirmedRecordingScope','confirmedReleaseScope'].some(k=>typeof v[k]!=='boolean'))throw new Error('请确认所选署名范围');
+ const seen=new Set<string>();const targets=v.targets.map(raw=>{const t=obj(raw,['key','entries']),key=uuid(t.key);if(seen.has(key)||!Array.isArray(t.entries)||!t.entries.length||t.entries.length>64)throw new Error('无效或重复署名目标');seen.add(key);const positions=new Set<string>();const entries=t.entries.map(raw=>{const e=obj(raw,['source','ordinal','role','joinPhrase']);if(!['current','candidate'].includes(String(e.source))||!Number.isSafeInteger(e.ordinal)||Number(e.ordinal)<0||Number(e.ordinal)>63||!['performer','composer','conductor','orchestra','album_artist'].includes(String(e.role))||typeof e.joinPhrase!=='string'||e.joinPhrase.length>80||/[\u0000-\u001f\u007f]/.test(e.joinPhrase))throw new Error('无效署名成员、角色或连接词');const id=e.source+':'+e.ordinal;if(positions.has(id))throw new Error('署名来源成员重复');positions.add(id);return {source:e.source as AlbumCreditEntry['source'],ordinal:Number(e.ordinal),role:e.role as ArtistRole,joinPhrase:e.joinPhrase};});return {key,entries};}).sort((a,b)=>a.key.localeCompare(b.key,'en'));
+ return {commandId:uuid(v.commandId),previewToken:uuid(v.previewToken),targets,confirmedSongScope:v.confirmedSongScope as boolean,confirmedRecordingScope:v.confirmedRecordingScope as boolean,confirmedReleaseScope:v.confirmedReleaseScope as boolean};
+}

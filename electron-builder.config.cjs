@@ -1,0 +1,43 @@
+const path=require('node:path');
+const release=require('./release/manifest.json');
+
+module.exports={
+  appId:release.appId,
+  productName:'Aural',
+  asar:true,
+  electronFuses:{runAsNode:true},
+  allowMissingDependencies:false,
+  directories:{output:path.resolve(process.env.AURAL_BUILD_OUTPUT||path.join(__dirname,'build-out'))},
+  files:['dist/**/*','release/manifest.json','release/media-formats.json','release/tag-write-certification.json','release/tag-restore-certification.json','package.json','!**/*.map'],
+  extraResources:[
+    {from:'native/tag-write-worker/build/catalog-directory-mover.exe',to:'catalog-directory-mover.exe'},
+    {from:'native/system-media/build/system-media.exe',to:'system-media.exe'},
+    {from:'native/audio-host/build/waveform-worker.exe',to:'waveform-worker.exe'},
+    {from:'native/audio-host/build/dsd-analysis-worker.exe',to:'dsd-analysis-worker.exe'},
+    {from:'native/media-worker/build/media-worker.exe',to:'media-worker.exe'},
+    {from:'native/tag-write-worker/build/tag-write-worker.exe',to:'tag-write-worker.exe'},
+    {from:'native/tag-write-worker/build/tag-file-inspector.exe',to:'tag-file-inspector.exe'},
+    {from:'native/tag-write-worker/build/tag-file-committer.exe',to:'tag-file-committer.exe'},
+    {from:'native/tag-write-worker/build/tag-file-restorer.exe',to:'tag-file-restorer.exe'},
+    {from:'native/audio-host/build/audio-host.exe',to:'audio-host.exe'},
+    ...require('./native/ffmpeg/lock.json').libraries.map(file=>({
+      from:`native/audio-host/build/${file}`,to:file
+    })),
+    {from:'native/ffmpeg',to:'ffmpeg-source',filter:[
+      'vendor/**/*','lock.json','source-patches.json','build-manifest.json',
+      '*.ps1','*.py','*.sh','*.mak','*.awk'
+    ]},
+    {from:'native/webp',to:'webp-source',filter:['vendor/**/*','lock.json','build-manifest.json','build.ps1']},
+    {from:'native/asio-probe/build/asio-probe.exe',to:'asio-probe.exe'},
+    {from:'native/credential-vault/build/credential-vault.exe',to:'credential-vault.exe'},
+    {from:'release/sbom.cdx.json',to:'sbom.cdx.json'},
+    {from:'release/THIRD_PARTY_NOTICES.txt',to:'THIRD_PARTY_NOTICES.txt'},
+    {from:'LICENSE',to:'AURAL_LICENSE.txt'}
+  ],
+  win:{target:[{target:'nsis',arch:['x64']}],executableName:'Aural'},
+  nsis:{oneClick:false,perMachine:false,allowElevation:false,allowToChangeInstallationDirectory:true,
+    include:path.join(__dirname,'scripts/windows-file-open.nsh'),
+    createDesktopShortcut:false,createStartMenuShortcut:false,
+    artifactName:'Aural-Setup-${version}-${arch}.${ext}'},
+  publish:null
+};

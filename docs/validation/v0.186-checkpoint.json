@@ -1,0 +1,59 @@
+{
+  "appVersion": "0.186.0",
+  "schema": 73,
+  "goalComplete": false,
+  "exits": {
+    "v0.186-source-build": 0,
+    "v0.186-typecheck": 0,
+    "v0.186-native-build": 0,
+    "v0.186-asio-probe-build": 0,
+    "v0.186-query-mvp": 0,
+    "v0.186-query-mvp-recheck": 0,
+    "v0.186-migration-fixture-first-attempt": 1,
+    "v0.186-migration-backup-mvp": 0,
+    "v0.186-library-100k-first": 1,
+    "v0.186-library-100k-final": 1,
+    "v0.186-search-mvp": 0,
+    "v0.186-detail": 0,
+    "v0.186-flac-cue": 0,
+    "v0.186-inventory": 0,
+    "v0.186-package": 0,
+    "v0.186-package-verification-first": 1,
+    "v0.186-package-verification": 0,
+    "v0.186-packaged-detail": 0
+  },
+  "sourceFingerprint": {
+    "src/library/database.ts": "b62d24d5a42093a5b850099b2f1b899c949cc9462176ffe6960059a2c26445f6",
+    "src/library/library-query-plan.ts": "fd2996c33015a31eca99a67ea0e00e1a433194101ad265617ea1a50572099860",
+    "src/library/genre-query.ts": "9063e95f9f182b73a32b056ca7fbfb677a58e35377c6928f14cf92944639afcd",
+    "src/library/natural-sort.ts": "3bb953df1f33427648c34e49449e382466821930da5eaf7986d1583607242cd1",
+    "src/library/search-spelling.ts": "5bdd791490bc93bdcf2a1d3ad232c775474b037f5459f69b5f88591a94dec11b",
+    "src/library/query-index-migration.ts": "f885b5121204131f2012ff57a81d0742a01ba1e889ecfb2215195a979b6d0895",
+    "dist/main/library/library-query-plan.js": "c324c224da2bfd311059f4efc3d2ad8a47442b8ec1654728c0a7353c6b6f464b",
+    "dist/main/library/search-spelling.js": "e4ee8b404aedf87162ae9095a752a9a602b93023034b170b70663b80a349ab53",
+    "src/main/catalog-library-lifecycle.ts": "02e3cab690235837ac99d1ac2807ae47bcefc0e2eff5a77246830b2b1f275e30",
+    "scripts/verify-unpacked-release.cjs": "c8809bd2c74ac54c4b42bc49f0226701e3f75092f431699a858d7028865eb9cc",
+    "tests/library-migration-v73.smoke.cjs": "c3e9799f726785354f71c18454bf08512e4116c458fe275a25a530499ef3a3a6",
+    "tests/library-performance.smoke.cjs": "2b28ee2cc654d6258f46bf7fb2df2700246c50144285ac1455371edfbf7ee0cd",
+    "release/manifest.json": "4f541010bbda4502074346b196bb705b946e4cf012d36f60f17a7f03bf798733",
+    "release/sbom.cdx.json": "b64331fa77befb0420c195aba1202630eefa258ed22b6fca460cd39b353cb560",
+    "docs/current-progress.md": "84c6431527c9ab4abd070b3a4c595a60f395befc99958c04c4b0be5363e7d035"
+  },
+  "performanceAccepted": false,
+  "regularFilterP95Ms": 231.70669999999518,
+  "migrationMs": 294563.7321,
+  "installer": {
+    "name": "Aural-Setup-0.186.0-x64.exe",
+    "sha256": "1f134627b2529c611198c79e8d01399b289f18250738d273bd746c793edd8359",
+    "bytes": 269647988,
+    "signed": false,
+    "installationTested": false,
+    "unpackedDetailMvpPassed": true
+  },
+  "limitations": [
+    "synthetic corpus, no 100k physical media scan or full application upgrade",
+    "warm SQL timings, not OS cold or end to end",
+    "no full process memory or 8h run",
+    "full V1/G/AC not complete; only ASIO hardware paused"
+  ]
+}

@@ -1,0 +1,64 @@
+--- a/miniaudio.h
++++ b/miniaudio.h
+@@ -23693,8 +23693,35 @@
+     result = MA_FORMAT_NOT_SUPPORTED;
+     if (pData->shareMode == ma_share_mode_exclusive) {
+     #if defined(MA_WIN32_DESKTOP) || defined(MA_WIN32_GDK)
+-        /* In exclusive mode on desktop we always use the backend's native format. */
++        /* Aural local patch: prefer the requested integer stream format. The endpoint's
++        stored default is only a fallback; it is not its sole supported format.
++        Keep the caller's raw-output validation responsible for rejecting fallback
++        conversion. See SOURCE.txt for the upstream identity and patch record. */
+         ma_IPropertyStore* pStore = NULL;
++        hr = S_FALSE;
++        if ((pData->formatIn == ma_format_u8 || pData->formatIn == ma_format_s16 || pData->formatIn == ma_format_s24 || pData->formatIn == ma_format_s32) && pData->channelsIn > 0 && pData->sampleRateIn > 0) {
++            wf.wFormatTag = WAVE_FORMAT_EXTENSIBLE;
++            /* MA_WAVEFORMATEX has two padding bytes; the Windows descriptor is 18 bytes. */
++            wf.cbSize = sizeof(MA_WAVEFORMATEXTENSIBLE) - 18;
++            wf.nChannels = (WORD)pData->channelsIn;
++            wf.nSamplesPerSec = pData->sampleRateIn;
++            wf.wBitsPerSample = (WORD)(ma_get_bytes_per_sample(pData->formatIn) * 8);
++            wf.nBlockAlign = (WORD)(wf.nChannels * wf.wBitsPerSample / 8);
++            wf.nAvgBytesPerSec = wf.nSamplesPerSec * wf.nBlockAlign;
++            wf.Samples.wValidBitsPerSample = wf.wBitsPerSample;
++            wf.dwChannelMask = ma_channel_map_to_channel_mask__win32(pData->channelMapIn, pData->channelsIn);
++            wf.SubFormat = pData->formatIn == ma_format_f32 ? MA_GUID_KSDATAFORMAT_SUBTYPE_IEEE_FLOAT : MA_GUID_KSDATAFORMAT_SUBTYPE_PCM;
++            hr = ma_IAudioClient_IsFormatSupported(pData->pAudioClient, MA_AUDCLNT_SHAREMODE_EXCLUSIVE, (MA_WAVEFORMATEX*)&wf, NULL);
++            /* Some stereo drivers only accept the legacy PCM/float descriptor.
++            Do not discard an explicit nonstandard channel layout. */
++            if (hr != S_OK && pData->channelsIn <= 2 && wf.dwChannelMask == (pData->channelsIn == 1 ? SPEAKER_FRONT_CENTER : (SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT))) {
++                wf.wFormatTag = pData->formatIn == ma_format_f32 ? WAVE_FORMAT_IEEE_FLOAT : WAVE_FORMAT_PCM;
++                wf.cbSize = 0;
++                hr = ma_IAudioClient_IsFormatSupported(pData->pAudioClient, MA_AUDCLNT_SHAREMODE_EXCLUSIVE, (MA_WAVEFORMATEX*)&wf, NULL);
++            }
++        }
++        if (hr != S_OK) {
++        MA_ZERO_OBJECT(&wf);
+         hr = ma_IMMDevice_OpenPropertyStore(pDeviceInterface, STGM_READ, &pStore);
+         if (SUCCEEDED(hr)) {
+             MA_PROPVARIANT prop;
+@@ -23702,15 +23729,21 @@
+             hr = ma_IPropertyStore_GetValue(pStore, &MA_PKEY_AudioEngine_DeviceFormat, &prop);
+             if (SUCCEEDED(hr)) {
+                 MA_WAVEFORMATEX* pActualFormat = (MA_WAVEFORMATEX*)prop.blob.pBlobData;
+-                hr = ma_IAudioClient_IsFormatSupported((ma_IAudioClient*)pData->pAudioClient, MA_AUDCLNT_SHAREMODE_EXCLUSIVE, pActualFormat, NULL);
+-                if (SUCCEEDED(hr)) {
+-                    MA_COPY_MEMORY(&wf, pActualFormat, sizeof(MA_WAVEFORMATEXTENSIBLE));
++                hr = S_FALSE;
++                if (pActualFormat != NULL && prop.blob.cbSize >= 18 &&
++                    pActualFormat->cbSize <= prop.blob.cbSize - 18 &&
++                    (pActualFormat->wFormatTag != WAVE_FORMAT_EXTENSIBLE || prop.blob.cbSize >= sizeof(MA_WAVEFORMATEXTENSIBLE))) {
++                    hr = ma_IAudioClient_IsFormatSupported((ma_IAudioClient*)pData->pAudioClient, MA_AUDCLNT_SHAREMODE_EXCLUSIVE, pActualFormat, NULL);
+                 }
++                if (hr == S_OK) {
++                    MA_COPY_MEMORY(&wf, pActualFormat, ma_min(prop.blob.cbSize, sizeof(MA_WAVEFORMATEXTENSIBLE)));
++                }
+ 
+                 ma_PropVariantClear(pContext, &prop);
+             }
+ 
+             ma_IPropertyStore_Release(pStore);
++        }
+         }
+     #else
+         /*

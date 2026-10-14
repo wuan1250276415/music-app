@@ -1,0 +1,35 @@
+{
+  "path": "D:\\BaiduNetdiskDownload\\周杰伦 - 03.晴天.flac",
+  "bytes": 31414008,
+  "sha256": "b648dfa3538c5e2e5159f38cbf356cc6dfa6796f7058f48631adafaf8e63dbbb",
+  "blocks": [
+    {
+      "type": 0,
+      "bytes": 34
+    },
+    {
+      "type": 4,
+      "bytes": 228
+    },
+    {
+      "type": 3,
+      "bytes": 486
+    },
+    {
+      "type": 1,
+      "bytes": 7514
+    }
+  ],
+  "embeddedPictures": 0,
+  "comments": [
+    "DATE=2003",
+    "DISCID=950B460B",
+    "COMMENT=ExactAudioCopy v1.8",
+    "album=叶惠美 (环球日版)",
+    "title=晴天",
+    "artist=周杰伦",
+    "isrc=TWK970300503",
+    "tracknumber=3",
+    "TRACKTOTAL=11"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "version": "0.195.0",
+  "completed": true,
+  "scope": "production MusicBrainz provider/broker, synthetic recording-linked release network; actual short-page pagination and candidate/cursor isolation/cancellation; no live metadata or desktop claim",
+  "cases": [
+    "recording-linked browse returns bounded validated editions and item-owned candidates without changing original song",
+    "short page advances by actual two releases instead of limit25; JP/CD candidate, parent expiry and production shared rate retained",
+    "reviewed page cache issues new item-owned candidate tokens without another request",
+    "foreign item and forged cursor rejected before network",
+    "same item cannot use another recording pagination cursor",
+    "malformed page rejected: duplicate",
+    "malformed page rejected: too-many",
+    "malformed page rejected: bad-count",
+    "malformed page rejected: wrong-offset",
+    "cancelling page identity invalidates its issued candidates and cursor",
+    "late page cannot mint candidates after parent search was invalidated"
+  ],
+  "requests": [
+    {
+      "path": "/ws/2/recording/",
+      "offset": null,
+      "time": 1791854882591
+    },
+    {
+      "path": "/ws/2/release",
+      "offset": "0",
+      "time": 1791854883694
+    },
+    {
+      "path": "/ws/2/release",
+      "offset": "2",
+      "time": 1791854884799
+    },
+    {
+      "path": "/ws/2/recording/",
+      "offset": null,
+      "time": 1791854885903
+    },
+    {
+      "path": "/ws/2/recording/",
+      "offset": null,
+      "time": 1791854885904
+    },
+    {
+      "path": "/ws/2/release",
+      "offset": "0",
+      "time": 1791854885904
+    },
+    {
+      "path": "/ws/2/release",
+      "offset": "0",
+      "time": 1791854885918
+    },
+    {
+      "path": "/ws/2/release",
+      "offset": "0",
+      "time": 1791854885919
+    },
+    {
+      "path": "/ws/2/release",
+      "offset": "0",
+      "time": 1791854885934
+    },
+    {
+      "path": "/ws/2/release",
+      "offset": "0",
+      "time": 1791854885949
+    },
+    {
+      "path": "/ws/2/release",
+      "offset": "0",
+      "time": 1791854885950
+    }
+  ],
+  "fingerprints": {
+    "src/library/musicbrainz.ts": "0f97efc735c8ea010e07b9b0b5e805cafa1b77330caac2908cba6e4d4721ab9a",
+    "src/library/provider-broker.ts": "3346b782455992e145aef24c2f7d6cbaf5299e7c59aa10d403d0e461e1b474f1",
+    "src/shared/metadata-editions.ts": "d9070f3a48815da1f899563305ee5cd0fbfb2f1877db83c768315f0f643cf8c3",
+    "dist/main/library/musicbrainz.js": "977ab981a30198e1c220323ca77d79ca3bb19095584c793fc9880f58bcab42fa",
+    "tests/musicbrainz-editions-mvp.smoke.cjs": "2bd33d67ef6fde5fd5a9e6c72e14cc731602692c6d2caed1becf0f7da4a9a7b0"
+  }
+}

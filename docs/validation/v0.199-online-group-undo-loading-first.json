@@ -1,0 +1,258 @@
+{
+  "version": "0.199.0",
+  "completed": false,
+  "scope": "actual rendered matching -> fixture network -> supervised image -> production Main/Service save -> restart/offline; only fetch boundary replaced, no candidate/preview/repository seeded",
+  "live": false,
+  "cases": [
+    "actual renderer search produces valid candidates through production provider and live item fingerprint",
+    "explicit recording-release browse uses actual short-page count for next offset and selects JP edition",
+    "actual context traverses Main/preload/Service/provider; two local/remote tracks agree and chosen recording position shown",
+    "actual Main rejects context cursor before service/network",
+    "selected front entry downloads and displays actual supervised JPEG through Main opaque preview protocol",
+    "actual confirmation button traverses Main preview authority and Service candidate validation; source/selection/history committed once",
+    "cover-only change preserves current matching candidate/source index and closes only saved preview",
+    "default fallback selects original embedded image when present, online image when missing",
+    "actual metadata edit invalidates prior preview/application; stale source cannot replace saved cover",
+    "actual context -> root review modal starts unchecked, explicit label pair + five fields + shared scope -> Main/Service authority -> immutable provenance/retention history; modal survives own library event",
+    "actual confirmation-only partial undo restores date, leaves country/label/catalog/barcode, appends compensation audit",
+    "actual trusted Main still rejects caller-supplied arbitrary release text",
+    "actual full album button reads two local versions, defaults to no mapping/fields, source track picker searches per-track credits, explicit title/artist/album choices create durable source-bound batch",
+    "actual existing batch execution applies both reviewed tracks, per-track artist rather than album artist, release-sourced track title and immutable recording/track context",
+    "actual batch undo restores both selected entries through compensating field records",
+    "actual Main rejects caller-supplied album field values before Service",
+    "actual Main/Service grouping creates a local concept spanning two explicit editions before online group review",
+    "actual group card shows both editions/all three playable items; saving stays disabled until independent concept scope acknowledgement",
+    "actual identity button works without text fields, defaults to no confirmation, separately acknowledged two recordings/release commit atomically with preserved local graph/text",
+    "actual source-retention history and counters expose every selected source-bound identity confirmation",
+    "actual source-bound concept confirmation retained independently after release undo"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-e2e-DoODVk",
+  "originalTags": {
+    "title": "封面测试",
+    "artist": "测试歌手",
+    "album": "测试专辑"
+  },
+  "launches": [
+    {
+      "packaged": false,
+      "phase": "online-review"
+    }
+  ],
+  "candidates": [
+    "确定的测试歌曲确定的测试歌手确定的测试专辑 · 匹配排序 46",
+    "确定的测试歌曲确定的测试歌手确定的测试专辑 · 2003-07-31 · 匹配排序 46"
+  ],
+  "releaseContextText": "读取专辑上下文\n确定的测试专辑\n\n2003-07-31 · JP · Official\n\n专辑艺人：确定的测试歌手\n\n专辑概念：确定的测试专辑 · Album\n\n条码：1234567890123\n\n测试唱片公司 · 目录号 TEST-001\n\n发行版：1 碟／2 轨；本地专辑：1 碟／2 轨\n\n当前录音位置：第 1 碟／第 2 轨\n\n第 1 碟 · CD · 2 轨\n审核整张专辑曲目审核并更新发行资料\n\n曲库比较基于本次查询时的专辑信息。此处只供审核，不修改曲目归属或文件。",
+  "selectedCandidate": "确定的测试歌曲确定的测试歌手确定的测试专辑 · 2003-07-31 · 匹配排序 46",
+  "savedSource": {
+    "id": "706aff3b-7bab-4e31-946c-0a92ab626e62",
+    "assetId": "cfb36e1794c029aec30106eb51014cb020f741044eedc42b21b86240a2bb0010",
+    "sourceToken": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d",
+    "releaseId": "76df3287-6cda-33eb-8e9a-044b5e15ffdd",
+    "imageId": "829521842",
+    "sourceUrl": "https://musicbrainz.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/cover-art",
+    "fetchedAt": "2026-10-13T10:44:19.993Z",
+    "confirmedAt": "2026-10-13T10:44:20.409Z",
+    "width": 64,
+    "height": 64,
+    "rights": {
+      "status": "unverified",
+      "display": true,
+      "persist": true,
+      "export": false,
+      "writeback": false,
+      "basis": "user-selected-local-v1"
+    }
+  },
+  "releaseFieldsChangeId": "c4112b4c-ab31-40e2-ac6e-550124a8315b",
+  "albumBatchId": "f67f7c62-790b-44d2-a4c5-c2e57526e8f0",
+  "localGroupId": "aa162b0c-17b3-4bb8-a46c-54d0cb177269",
+  "identityScreenshot": "C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\work\\v199-identity-review.png",
+  "identityChangeIds": [
+    "bc3054fa-d399-4660-b25a-aaf92f974f1a",
+    "870ab5a2-151f-483a-838b-c77b1dccfba5",
+    "b47d056f-a389-439d-a437-3ea4305ded77",
+    "8053e207-9b60-4d90-b7df-24abc7708384"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /专辑概念/. Input:\n\n'撤销在线身份确认\\n×\\n\\n正在读取身份修订…\\n\\n关闭\\n重新读取身份撤销\\n确认撤销此身份'\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-online-artwork-e2e.smoke.cjs:77:1233)",
+  "events": [
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged",
+      "reason": "online-artwork-changed"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "libraryChanged"
+    }
+  ],
+  "panelText": "MUSICBRAINZ\n匹配元数据\n\n确定的测试歌曲 · 测试歌手\n\n×\n公开维护者联系信息\n\nMusicBrainz 要求应用提供可联系的标识。仅在主动匹配时发送曲名与歌手，不发送文件路径或音频。\n\n启用在线查询\n\n仅在点击搜索后查询 · 5 条短期候选缓存\n\n清除候选缓存\n使用系统网络设置。清除缓存会取消查询和已有候选预览，已确认的曲库资料保留。\n查看来源与字段锁文件标签预览搜索候选\n跳过缓存重新搜索\n候选结果 · 1 · 来自短期缓存\n确定的测试歌曲\n确定的测试歌手\n确定的测试专辑 · 匹配排序 73\n\n排序参考歌名、歌手、专辑和时长；分数不是正确概率，仍需确认发行版与字段。\n\n歌名：一致\n歌手：有差异\n专辑：有差异\n时长：信息不足\n\n时长信息不足；歌手存在差异；专辑存在差异\n\n读取专辑上下文\n确定的测试专辑\n\n2003-07-31 · JP · Official\n\n专辑艺人：确定的测试歌手\n\n专辑概念：确定的测试专辑 · Album\n\n条码：1234567890123\n\n测试唱片公司 · 目录号 TEST-001\n\n发行版：1 碟／2 轨；本地专辑：1 碟／2 轨\n\n当前录音位置：第 1 碟／第 2 轨\n\n第 1 碟 · CD · 2 轨\n审核整张专辑曲目审核并更新发行资料\n\n曲库比较基于本次查询时的专辑信息。此处只供审核，不修改曲目归属或文件。资料来自短期缓存。\n\n查看其他发行版\n在线封面来源\n\n查询您选定的专辑发行版，预览时发送发行与图片编号。选定图片后可确认保存到本机曲库。\n\n发行版：确定的测试专辑\n\n数据源设置\n查询封面来源\n重新查询来源\n曲库封面\n\n内嵌和同目录封面优先，在线封面补缺 · 图片 829521842\n\n保存在本机曲库，不修改音乐文件。图片授权状态未核实，未开放图片导出。\n\n查看已保存图片来源\n将已保存图片设为首选\n恢复本地封面优先\n封面修改记录\n刷新封面状态\n读取并审核完整艺人署名\n确认字段差异\n歌名\n确定的测试歌曲 → 确定的测试歌曲\n歌手\n测试歌手 → 确定的测试歌手\n专辑\n测试专辑 → 确定的测试专辑\n确认更新曲库\n\n仅修改曲库展示值，可撤销；不会写入音乐文件。\n查看 MusicBrainz 来源"
+}

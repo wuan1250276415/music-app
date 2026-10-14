@@ -1,0 +1,7 @@
+{
+  "version": "0.191.0",
+  "scope": "actual production React source panel in isolated Electron harness with mocked preload API; not real Main/Service/network E2E",
+  "completed": false,
+  "cases": [],
+  "scratch": "D:\\CodexTestData\\aural-caa-ui-mvp-2oCOm2"
+}

@@ -1,0 +1,59 @@
+{
+  "version": "8.1.3",
+  "commit": "1041abdc962f4cc4f394aa8de9dc5236c0c3b9e7",
+  "sourceSha256": "a516d39ac7a92ff7c6f2c44b0338aaecf708c42f3d4febc8cb9203de6b1e2603",
+  "license": "LGPL-2.1-or-later",
+  "recipe": {
+    "lock.json": "38cd408a3bf64f5e5f30faf810d7068042ae1ff5d590d283838cdec8e354cbfb",
+    "source-patches.json": "1158b2052a112ed763a7bbc9b570ffbb668f769fe1836e9d4df1c4ed5dd80912",
+    "prepare.py": "efa12808498e247c6552325ce15b2afcf01e37271ef9e58af1886236bfe0c015",
+    "build.ps1": "8be9f192ca72c71f4a2f2cd1bd88a3d18579662b7d5cf00386549d9b4bec60dc",
+    "build-source.sh": "49c6965f2659d95cb71f85d9e9a0647112256dd337670e790de785bbcbea00c8",
+    "mslink.sh": "36eb25a57fb7e881ca192025e7ae114256f250a8015fb93fb8d0e402ef5821e8",
+    "dependencies.mak": "0f81c0019dbb22a0bf57960d0425827b0c2b4f505b6302a554f99ef70c23d420",
+    "dependency.awk": "360c2e3f810d53ced6b42f7ae9350f924b4f5b57580a7ecc21a47988fc06e692",
+    "verify-build.py": "e914240209cd34802b1116f7e3bc29270309bc7190b3f6b4671c6e9630cd9695"
+  },
+  "libraries": [
+    {
+      "file": "avutil-60.dll",
+      "sha256": "3cb04fda030a2328a7617b945e8d76081edf1ebdff6d732255d67406bf114459",
+      "bytes": 700928
+    },
+    {
+      "file": "swresample-6.dll",
+      "sha256": "5438f1d328ec7fec3877e927b2ff1c7f3e54df402be6e885abc3d620b1ac580f",
+      "bytes": 165376
+    },
+    {
+      "file": "avcodec-62.dll",
+      "sha256": "70211fe0a39a51e7bf486e5060ea55e22dd8817ad0112e28b3f0e9600c4061fc",
+      "bytes": 768000
+    },
+    {
+      "file": "avformat-62.dll",
+      "sha256": "96fbbb0a1e4f03bc70145b7d3e4974686d42fbd0d6fca638b1660d55d8cc3008",
+      "bytes": 521216
+    }
+  ],
+  "registeredDecoders": [
+    "aac",
+    "alac",
+    "dsd_lsbf",
+    "dsd_lsbf_planar",
+    "dsd_msbf",
+    "dsd_msbf_planar",
+    "opus",
+    "vorbis"
+  ],
+  "registeredDemuxers": [
+    "aac",
+    "dsf",
+    "iff",
+    "mov",
+    "ogg"
+  ],
+  "certification": "unverified",
+  "certifications": [],
+  "configuration": "--toolchain=msvc --cc=clang-cl.exe --host-cc=clang-cl.exe --ld=../../../mslink.sh --host-ld=../../../mslink.sh --arch=x86_64 --target-os=win64 --prefix=../../install --disable-autodetect --disable-everything --disable-programs --disable-doc --disable-debug --disable-network --disable-x86asm --disable-static --enable-shared --disable-avdevice --disable-avfilter --disable-swscale --enable-small --enable-avcodec --enable-avformat --enable-swresample --enable-decoder='aac,alac,vorbis,opus,dsd_lsbf,dsd_msbf,dsd_lsbf_planar,dsd_msbf_planar' --enable-demuxer='aac,mov,ogg,dsf,iff' --enable-parser='aac,vorbis,opus' --extra-cflags=-MT"
+}

@@ -1,0 +1,81 @@
+{
+  "version": "0.191.0",
+  "scope": "actual Main/preload/Library Service new IPC/provider setting guards and persistence; no valid MusicBrainz candidate/network match",
+  "completed": true,
+  "cases": [
+    "real narrow preload route",
+    "default source disabled",
+    "source setting command replay is idempotent",
+    "real service rejects unavailable candidate",
+    "malformed request and size guard",
+    "source URL domain and suffix guard",
+    "network pause disables source query",
+    "actual app source settings text"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-caa-ipc-mvp-Qc7LG9",
+  "results": {
+    "disabled": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 请先启用元数据查询和 Cover Art Archive 来源查询",
+    "saved": {
+      "manifest": {
+        "id": "cover-art-archive",
+        "name": "Cover Art Archive",
+        "version": "1",
+        "ready": true,
+        "capabilities": [
+          {
+            "kind": "artwork",
+            "ready": true,
+            "label": "封面来源条目查询",
+            "retention": "仅短期内存预览文字索引；不显示、保存或导出在线图片"
+          }
+        ],
+        "termsUrl": "https://musicbrainz.org/doc/Cover_Art_Archive",
+        "credentialSlots": [],
+        "note": "按您选定的发行版查询封面条目。图片权限与曲库封面应用尚待接入。"
+      },
+      "enabled": true,
+      "revision": 1,
+      "vaultAvailable": true,
+      "credentials": []
+    },
+    "expired": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 候选已过期或取消，请重新匹配",
+    "malformed": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 无效封面来源查询",
+    "oversized": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 无效封面来源查询",
+    "badSource": "Error: Error invoking remote method 'metadata:openSource': Error: 无效来源地址",
+    "badSuffix": "Error: Error invoking remote method 'metadata:openSource': Error: 无效来源地址",
+    "paused": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 请先启用元数据查询和 Cover Art Archive 来源查询",
+    "settingRevision": 0,
+    "manifest": {
+      "id": "cover-art-archive",
+      "name": "Cover Art Archive",
+      "version": "1",
+      "ready": true,
+      "capabilities": [
+        {
+          "kind": "artwork",
+          "ready": true,
+          "label": "封面来源条目查询",
+          "retention": "仅短期内存预览文字索引；不显示、保存或导出在线图片"
+        }
+      ],
+      "termsUrl": "https://musicbrainz.org/doc/Cover_Art_Archive",
+      "credentialSlots": [],
+      "note": "按您选定的发行版查询封面条目。图片权限与曲库封面应用尚待接入。"
+    }
+  },
+  "fingerprints": {
+    "src/main/main.ts": "d1933cebf7207925a55bdf7dab8cab97eaa29951435468441c2152c6eb9f4760",
+    "src/main/preload.ts": "a2110881bc33315327ca9bdd2b38061dd68353395c2c5460b9454a42b1b764c5",
+    "src/library/service.ts": "04e8dcbe30dff07c34908cfd746da460482f12af54fad3b4c263e42677bb4250",
+    "src/library/providers.ts": "7e5d4394d83327fd74aa1eb2aca175acfbeb2787ed567f68b8c1f343fbd824c6",
+    "src/shared/contracts.ts": "e88e48d20c9c12b9cf0b711ac60d64e02f88eae931d99e444f2d13df858b5a06",
+    "dist/main/main/main.js": "756d8dc74de16b1f4ac1856dd62b3d2b3e2df96f21a1b049ad98f356ea9e4d80",
+    "dist/main/main/preload.js": "95b7a96ce12ddf3cc75b77f27958a06293f6c41ce8f0d1ea2eb0e01552cfd71e",
+    "dist/main/library/service.js": "95081cf17ffe62e56f1b13644a6dbedcf9bb0bf8ec0ef1336a33db5eef505b1b"
+  },
+  "persistedSetting": {
+    "enabled": 1,
+    "revision": 1
+  },
+  "schema": 73
+}

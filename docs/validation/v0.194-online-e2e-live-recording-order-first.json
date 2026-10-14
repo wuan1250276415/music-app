@@ -1,0 +1,68 @@
+{
+  "version": "0.194.0",
+  "completed": false,
+  "scope": "actual rendered matching -> real MusicBrainz/CAA network -> supervised image -> production Main/Service save -> restart/offline; original media copied and unchanged",
+  "live": true,
+  "cases": [
+    "actual renderer search produces valid candidates through production provider and live item fingerprint"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-e2e-gqtVjI",
+  "originalTags": {
+    "title": "晴天",
+    "artist": "周杰伦",
+    "album": "叶惠美 (环球日版)"
+  },
+  "candidates": [
+    "晴天周杰倫2004無與倫比演唱會 · 2005 · 匹配排序 100",
+    "晴天周杰倫周杰倫2004無與倫比演唱會 · 2005-01-21 · 匹配排序 100",
+    "晴天周杰倫Jay Chou 2004 Incomparable Concert Live · 2005-01-21 · 匹配排序 100",
+    "晴天周杰倫Jay Chou 2004 Incomparable Concert Live · 2008-05-12 · 匹配排序 100",
+    "晴天周杰倫未关联发行版 · 匹配排序 100",
+    "晴天周杰倫說好不哭 SACD珍藏版 · 匹配排序 100",
+    "晴天周杰倫未关联发行版 · 匹配排序 100",
+    "晴天周杰倫Jay Chou Carnival World Tour Japan Special Edition · 2024-04-03 · 匹配排序 100",
+    "晴天周杰倫未关联发行版 · 匹配排序 100",
+    "晴天周杰倫葉惠美 · 2026-03-25 · 匹配排序 99",
+    "晴天周杰倫葉惠美 · 2008-01-23 · 匹配排序 99",
+    "晴天周杰倫尋找周杰倫 · 2003-11-12 · 匹配排序 99"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: no JP album edition found within live MVP bound; do not select a different release\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-online-artwork-e2e.smoke.cjs:31:712)",
+  "events": [
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "libraryChanged"
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    },
+    {
+      "event": "metadataNetwork",
+      "enabled": true
+    }
+  ],
+  "panelText": "MUSICBRAINZ\n匹配元数据\n\n晴天 · 周杰伦\n\n×\n公开维护者联系信息\n\nMusicBrainz 要求应用提供可联系的标识。仅在主动匹配时发送曲名与歌手，不发送文件路径或音频。\n\n启用在线查询\n\n请求暂缓，约 4 秒后可继续尝试 · 2 条短期候选缓存\n\n清除候选缓存\n使用系统网络设置。清除缓存会取消查询和已有候选预览，已确认的曲库资料保留。\n查看来源与字段锁文件标签预览搜索候选\n跳过缓存重新搜索\n候选结果 · 12\n晴天\n周杰倫\n2004無與倫比演唱會 · 2005 · 匹配排序 100\n晴天\n周杰倫\n周杰倫2004無與倫比演唱會 · 2005-01-21 · 匹配排序 100\n晴天\n周杰倫\nJay Chou 2004 Incomparable Concert Live · 2005-01-21 · 匹配排序 100\n晴天\n周杰倫\nJay Chou 2004 Incomparable Concert Live · 2008-05-12 · 匹配排序 100\n晴天\n周杰倫\n未关联发行版 · 匹配排序 100\n晴天\n周杰倫\n說好不哭 SACD珍藏版 · 匹配排序 100\n晴天\n周杰倫\n未关联发行版 · 匹配排序 100\n晴天\n周杰倫\nJay Chou Carnival World Tour Japan Special Edition · 2024-04-03 · 匹配排序 100\n晴天\n周杰倫\n未关联发行版 · 匹配排序 100\n晴天\n周杰倫\n葉惠美 · 2026-03-25 · 匹配排序 99\n晴天\n周杰倫\n葉惠美 · 2008-01-23 · 匹配排序 99\n晴天\n周杰倫\n尋找周杰倫 · 2003-11-12 · 匹配排序 99\n查看其他发行版\n\n发行版 1–1 / 1\n\n选择实际发行版；相同录音可能出现在不同地区、介质和再版中。\n\n2004無與倫比演唱會\n2005 · TW · DVD · Official\n条码 4710635380397\n选择此发行版\n上一页发行版\n下一页发行版\n在线封面来源\n\n查询您选定的专辑发行版，预览时发送发行与图片编号。选定图片后可确认保存到本机曲库。\n\n发行版：2004無與倫比演唱會\n\n数据源设置\n查询封面来源\n重新查询来源\n曲库封面\n\n内嵌和同目录封面优先，尚未保存在线封面\n\n刷新封面状态\n读取并审核完整艺人署名\n确认字段差异\n歌名\n晴天 → 晴天\n歌手\n周杰伦 → 周杰倫\n专辑\n叶惠美 (环球日版) → 2004無與倫比演唱會\n确认更新曲库\n\n仅修改曲库展示值，可撤销；不会写入音乐文件。\n查看 MusicBrainz 来源"
+}

@@ -1,0 +1,89 @@
+{
+  "version": "0.194.0",
+  "scope": "actual Main/preload/Library Service new IPC/provider setting guards and persistence; no valid MusicBrainz candidate/network match",
+  "completed": true,
+  "cases": [
+    "real narrow preload route",
+    "default source disabled",
+    "source setting command replay is idempotent",
+    "real service rejects unavailable candidate",
+    "malformed request and size guard",
+    "source URL domain and suffix guard",
+    "network pause disables source query",
+    "real image preview route disabled/expired candidate guards",
+    "image identity shape guard",
+    "preview release cannot address external or local library assets",
+    "actual app source settings text"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-caa-ipc-mvp-sEYNs4",
+  "results": {
+    "disabled": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 请先启用元数据查询和 Cover Art Archive 来源查询",
+    "imageDisabled": "Error: Error invoking remote method 'metadata:cover-art-preview': Error: 请先启用元数据查询和 Cover Art Archive 来源查询",
+    "imageExpired": "Error: Error invoking remote method 'metadata:cover-art-preview': Error: 候选已过期或取消，请重新匹配",
+    "imageMalformed": "Error: Error invoking remote method 'metadata:cover-art-preview': Error: 无效封面图片预览",
+    "badPreviewRelease": "Error: Error invoking remote method 'metadata:cover-art-preview-release': Error: 无效在线图片预览地址",
+    "badLocalRelease": "Error: Error invoking remote method 'metadata:cover-art-preview-release': Error: 无效在线图片预览地址",
+    "saved": {
+      "manifest": {
+        "id": "cover-art-archive",
+        "name": "Cover Art Archive",
+        "version": "2",
+        "ready": true,
+        "capabilities": [
+          {
+            "kind": "artwork",
+            "ready": true,
+            "label": "封面来源查询与图片选择",
+            "retention": "文字索引短期缓存；图片先预览，再明确保存为本机曲库封面，导出未开放"
+          }
+        ],
+        "termsUrl": "https://musicbrainz.org/doc/Cover_Art_Archive",
+        "credentialSlots": [],
+        "note": "按选定发行版查询和预览图片。明确保存后保留来源与修改记录；逐图片许可未核实，不声明开放授权。"
+      },
+      "enabled": true,
+      "revision": 1,
+      "vaultAvailable": true,
+      "credentials": []
+    },
+    "expired": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 候选已过期或取消，请重新匹配",
+    "malformed": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 无效封面来源查询",
+    "oversized": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 无效封面来源查询",
+    "badSource": "Error: Error invoking remote method 'metadata:openSource': Error: 无效来源地址",
+    "badSuffix": "Error: Error invoking remote method 'metadata:openSource': Error: 无效来源地址",
+    "paused": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 请先启用元数据查询和 Cover Art Archive 来源查询",
+    "settingRevision": 0,
+    "manifest": {
+      "id": "cover-art-archive",
+      "name": "Cover Art Archive",
+      "version": "2",
+      "ready": true,
+      "capabilities": [
+        {
+          "kind": "artwork",
+          "ready": true,
+          "label": "封面来源查询与图片选择",
+          "retention": "文字索引短期缓存；图片先预览，再明确保存为本机曲库封面，导出未开放"
+        }
+      ],
+      "termsUrl": "https://musicbrainz.org/doc/Cover_Art_Archive",
+      "credentialSlots": [],
+      "note": "按选定发行版查询和预览图片。明确保存后保留来源与修改记录；逐图片许可未核实，不声明开放授权。"
+    }
+  },
+  "fingerprints": {
+    "src/main/main.ts": "3d56b7651afe9749834d5bd0ec3484d5b88d9221969401f3743dad7b5ec6f59b",
+    "src/main/preload.ts": "9af40613f4bf5e3d6b48b08e37080a579c938d626a1e04bd0a475477523aa1a0",
+    "src/library/service.ts": "03ed01c07dcc97d38b8203921e9e97a491f5bdb98b5f3806036f236856f0affe",
+    "src/library/providers.ts": "84a49675a47ba5835869e7fdcc10b979ce344e60b155aaeaa42f213b799ab7bc",
+    "src/shared/contracts.ts": "70ba3162fb292bb8a3b228afe48f18e0fe6a5e21ac8e3a7643d0e6f053a4cb71",
+    "dist/main/main/main.js": "f112d3e5df374665084f5f3b02bfd6cb17fbf1947b58b104a3d5502b92808ea3",
+    "dist/main/main/preload.js": "e6a38cd7982cde2ca99f02d9b9b6d185924c0a7a973f551b2cd3508a362ea702",
+    "dist/main/library/service.js": "eb1cd9594c6ec57ad5dfb37dc2197ba6bc2b04667c6d3c135ca063d0aac748e3"
+  },
+  "persistedSetting": {
+    "enabled": 1,
+    "revision": 1
+  },
+  "schema": 74
+}

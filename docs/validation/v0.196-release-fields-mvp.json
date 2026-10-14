@@ -1,0 +1,30 @@
+{
+  "version": "0.196.0",
+  "completed": true,
+  "scope": "production SQLite repositories and provenance; server review input fixture, not real network or desktop proof",
+  "cases": [
+    "narrow requests reject arbitrary text, foreign properties, duplicate fields, false acknowledgement and unsafe labels",
+    "review requires matching recording, unexpired context and bounded member scope",
+    "candidate authority and explicit pair required before persistence",
+    "all five checked fields use chosen label pair, affect members, preserve identities, emit immutable source and receipt",
+    "retention counts/history include release audit, use persisted ISO order and existing catalog records",
+    "catalog generic undo cannot bypass field confirmation",
+    "partial undo restores selected field and its previous provenance, preserving other online fields",
+    "later manual field and lock conflict, unrelated remaining fields still undoable",
+    "receipt survives repository restart and review cache clear without new authority",
+    "stale source/lock preview rejects whole save; locked and malformed source roll back every field",
+    "preview-only policy rejects new write while receipt replay and eligible undo remain available",
+    "independent grant clone rejects preview tampering and expired/cleared foreign grants",
+    "production quiesced SQLite snapshot/independent inspection/reopen preserve release sources, receipts and compensation audits",
+    "existing schema retained at74, integrity/foreign keys valid after apply and compensations"
+  ],
+  "schema": 74,
+  "fingerprints": {
+    "src/library/metadata-release-fields.ts": "880b0797823732217e91779b81c6f5b178e75bbfdfef580d64024707d3d74981",
+    "src/library/metadata-provenance.ts": "a68cef2833b4974d4e1ce5795f23af362da48dc49330efec617b795589502504",
+    "src/library/provider-retention.ts": "6865b30e6c9f8a8e79f7c3b8c289f8d719468964e619b09c4fdf021d98685a67",
+    "src/shared/metadata-release-fields.ts": "b786b7db9e62957cb807181b3cb6f37ba1af7c02013c88c51ab3e666ebba4731",
+    "dist/main/library/metadata-release-fields.js": "cdead35cb4a5f70bf34f9ad823d421cc87df605fb914058621fe689ee1c2ac82",
+    "tests/metadata-release-fields-mvp.smoke.cjs": "30b7c9ecd5433721fba76a6e9dc1532ef3f1d4b2535efd8315164d6af2ea98cc"
+  }
+}

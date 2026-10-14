@@ -1,0 +1,19 @@
+{
+  "license": "LGPL-2.1-or-later",
+  "patches": [
+    {
+      "file": "libavformat/mov.c",
+      "beforeSha256": "9c56ef3c8c3cae88a48a0e194f74591ef74a942ea5c8177a313650a1a65d47d5",
+      "afterSha256": "f76dfdfbe76a4f2c27742de163bc09bcdde80bf5c49d83d5929c7e932ce5c147",
+      "old": "    ff_mov_read_chnl(c->fc, pb, st);",
+      "new": "    ret = ff_mov_read_chnl(c->fc, pb, st);\n    if (ret < 0)\n        return ret;"
+    },
+    {
+      "file": "libavcodec/aac_ac3_parser.c",
+      "beforeSha256": "b45b473c1537fc761ab72788654bb47da8427903af8899b0f77ecab22d8906f8",
+      "afterSha256": "192d9be71ac2a3c3cdd72cf487ed1dfda976162599f309ae7cc6814d4dc998fa",
+      "old": "            bit_rate = hdr.bit_rate;\n#endif\n        } else {\n#if CONFIG_AAC_PARSER",
+      "new": "            bit_rate = hdr.bit_rate;\n#else\n            return i; /* This controlled build does not register an AC3 parser. */\n#endif\n        } else {\n#if CONFIG_AAC_PARSER"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "version": "1.6.0",
+  "tag": "v1.6.0",
+  "tagObject": "b7e29b9d75bd31422b00c2a446d49d7af06c328d",
+  "upstreamCommit": "4fa21912338357f89e4fd51cf2368325b59e9bd9",
+  "source": "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz",
+  "archive": "libwebp-1.6.0.tar.gz",
+  "sha256": "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564",
+  "sourceDirectory": "libwebp-1.6.0",
+  "license": "BSD-3-Clause",
+  "licenseSha256": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf",
+  "patentsSha256": "cc3273e0694ea5896145e0677699b53471b03ea43021ddc50e7923fbb9f5023c",
+  "libraries": [
+    "libwebpdecoder.lib",
+    "libwebpdemux.lib"
+  ]
+}

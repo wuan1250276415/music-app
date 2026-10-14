@@ -1,0 +1,94 @@
+import React,{useEffect,useRef,useState} from 'react';
+import {CUE_ENCODINGS,CUE_GAP_LABELS,type CueGapPolicy,type CueEncoding,type CueSourceSummary,type CueSourcePage,type CueVersionPage,type CueSourcePreview,type CueInterpretRequest} from '../shared/cue-history';
+import {CueSourceBackupPreview} from './cue-source-backup-preview';
+import {CueVersionReviewPreview} from './cue-version-review';
+import type {CueVersionReview} from '../shared/cue-version-review';
+import type {CueSourceSelectionRequest} from '../shared/cue-source-selection';
+import type {CueSourceImportRequest} from '../shared/cue-source-import';
+import type {CueSourceRegisterRequest} from '../shared/cue-source-registration';
+import type {CueSourceOriginsPage,CueSourceOriginRequest} from '../shared/cue-source-origins';
+import type {RootStatus} from '../shared/contracts';
+import {CueSourceOriginHistory} from './cue-source-origin-history';
+import {CueSourceRegisterForm} from './cue-source-register-form';
+import type {CueBundleInspection,CueSourceExportKind} from '../shared/cue-source-export';
+import {useFocus,trap} from './dialog-focus';
+import './scan-tasks.css';
+import './cue-history.css';
+const label:Record<CueEncoding,string>={auto:'自动检测', 'utf-8':'UTF-8','utf-16le':'UTF-16 LE','utf-16be':'UTF-16 BE',gb18030:'GB18030（中文旧编码）'};
+export function CueHistoryDialog({itemId,onClose,onTasks,onEmbedded}:{itemId:string|null;onClose:()=>void;onTasks:()=>void;onEmbedded:()=>void}):React.JSX.Element{
+ const [page,setPage]=useState<CueSourcePage|null>(null),[source,setSource]=useState<CueSourceSummary|null>(null),[versions,setVersions]=useState<CueVersionPage|null>(null),[preview,setPreview]=useState<CueSourcePreview|null>(null);
+ const [backup,setBackup]=useState<CueBundleInspection|null>(null);
+ const [origins,setOrigins]=useState<CueSourceOriginsPage|null>(null),[roots,setRoots]=useState<Array<{id:string;path:string;status:RootStatus}>>([]),[registerRoot,setRegisterRoot]=useState(''),[registerPath,setRegisterPath]=useState('');
+ const [registerConflict,setRegisterConflict]=useState<string|null>(null);
+ const [review,setReview]=useState<CueVersionReview|null>(null),reviewButton=useRef<HTMLButtonElement|null>(null);
+ const [query,setQuery]=useState(''),[encoding,setEncoding]=useState<CueEncoding>('auto'),[gapPolicy,setGapPolicy]=useState<CueGapPolicy>('previous'),[busy,setBusy]=useState(false),[pending,setPending]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState(''),[stale,setStale]=useState(false);
+ const dialog=useRef<HTMLDivElement|null>(null),alive=useRef(false),working=useRef(false),attempt=useRef<CueInterpretRequest|null>(null),selectionAttempt=useRef<CueSourceSelectionRequest|null>(null),importAttempt=useRef<CueSourceImportRequest|null>(null),registerAttempt=useRef<CueSourceRegisterRequest|null>(null),fileId=useRef<string|null>(null),versionId=useRef<string|null>(null);
+ useFocus(dialog);const disabled=busy||pending;
+ async function loadPreview(id:string,mode:CueEncoding,policy?:CueGapPolicy):Promise<void>{
+  const target=fileId.current;if(!target)return;const result=await window.music.cueSourcePreview(target,id,mode);
+  if(!alive.current)return;versionId.current=id;setPreview(result);setReview(null);setOrigins(null);setEncoding(mode);if(policy)setGapPolicy(policy);
+  if(result.version.imported){const value=await window.music.cueSourceOrigins({fileId:target,versionId:id});if(alive.current&&fileId.current===target&&versionId.current===id)setOrigins(value);}
+ }
+
+ async function choose(id:string):Promise<void>{const result=await window.music.cueSource(id);if(!alive.current)return;fileId.current=id;setSource(result);setPreview(null);setReview(null);setOrigins(null);const history=await window.music.cueSourceVersions(id);if(!alive.current)return;setVersions(history);const target=result.selectedVersion??result.latestVersion??history.items[0]?.id;if(target)await loadPreview(target,result.encoding,result.gapPolicy);else throw new Error('来源没有可读取的历史版本');}
+ async function refresh():Promise<void>{if(fileId.current)await choose(fileId.current);else{const result=await window.music.cueSources(query);if(alive.current)setPage(result);}if(alive.current)setStale(false);}
+ async function reading(action:()=>Promise<void>):Promise<void>{if(working.current||attempt.current||selectionAttempt.current||importAttempt.current||registerAttempt.current)return;working.current=true;setBusy(true);setError('');try{await action();}catch(e){if(alive.current)setError(e instanceof Error?e.message:String(e));}finally{working.current=false;if(alive.current)setBusy(false);}}
+ useEffect(()=>{alive.current=true;void reading(async()=>{if(itemId){const result=await window.music.cueSourceForItem(itemId);if(result)await choose(result.id);else{setNotice('此曲目尚无保存的 CUE 原文；重新扫描后可查阅。');await refresh();}}else await refresh();});const stop=window.music.onEvent(event=>{if(event.event==='libraryChanged')setStale(true);});return()=>{alive.current=false;stop();};},[]);
+ async function saveSource(kind:CueSourceExportKind):Promise<void>{if(!preview||!source)return;const request={fileId:source.id,versionId:preview.version.id,kind};await reading(async()=>{setNotice('');const result=await window.music.exportCueSource(request);if(alive.current)setNotice(result?`已保存 ${result.name}（${result.bytes} 字节），摘要 ${result.sha256}`:'已取消导出。');});}
+ async function readRoots():Promise<void>{const value=await window.music.roots();if(alive.current){setRoots(value);setRegisterRoot(current=>value.some(root=>root.id===current)?current:'');}}
+ async function prepareBackup(value:CueBundleInspection):Promise<void>{if(!alive.current)return;setBackup(value);setRegisterPath(current=>current||value.relativePath.split(/[\\/]/).at(-1)||'album.cue');await readRoots();}
+ async function openBackup():Promise<void>{await reading(async()=>{setNotice('');const result=await window.music.pickCueSourceBundle();if(result)await prepareBackup(result);else if(alive.current)setNotice('已取消打开来源备份。');});}
+ async function reviewVersion(offset=0):Promise<void>{if(!source||!preview)return;const request=offset&&review?{...review.request,offset,expectedMappingSha256:review.mappingSha256}:{fileId:source.id,versionId:preview.version.id,baseRevision:source.revision,latestVersion:source.latestVersion,encoding,gapPolicy,offset:0};await reading(async()=>{const result=await window.music.reviewCueVersion(request);if(alive.current)setReview(result);});}
+ async function registerBackup():Promise<void>{
+  if(working.current||attempt.current||selectionAttempt.current||importAttempt.current)return;
+  const root=roots.find(value=>value.id===registerRoot),request=registerAttempt.current??(backup&&root&&!stale?{commandId:crypto.randomUUID(),rootId:root.id,rootPath:root.path,relativePath:registerPath,archiveSha256:backup.archiveSha256}:null);if(!request)return;
+  working.current=true;registerAttempt.current=request;setBusy(true);setPending(true);setError('');setNotice('');setRegisterConflict(null);
+  try{const result=await window.music.registerCueSource(request);if(!alive.current)return;registerAttempt.current=null;setPending(false);if(result.status==='rejected'){setError(result.error);setRegisterConflict(result.source?.id??null);}else if(result.source&&result.versionId){setNotice('新来源和导入历史已保存，尚未读取磁盘CUE，也未选择或应用编排。请复审此版本，再明确选择历史原文。');await choose(result.source.id);if(backup)await loadPreview(result.versionId,backup.requestedEncoding,backup.gapPolicy);setStale(false);}await readRoots();}
+  catch(e){if(alive.current)setError(e instanceof Error?e.message:String(e));}
+  finally{working.current=false;if(alive.current)setBusy(false);}
+ }
+ function originRequest(commandId:string):CueSourceOriginRequest|null{return source&&preview?{fileId:source.id,versionId:preview.version.id,commandId}:null;}
+ async function inspectOrigin(commandId:string):Promise<void>{const request=originRequest(commandId);if(request)await reading(async()=>{await prepareBackup(await window.music.inspectCueOrigin(request));});}
+ async function exportOrigin(commandId:string):Promise<void>{const request=originRequest(commandId);if(request)await reading(async()=>{const result=await window.music.exportCueOrigin(request);if(alive.current)setNotice(result?`原备份已保存 ${result.name}（${result.bytes} 字节），摘要 ${result.sha256}`:'已取消原备份导出。');});}
+ async function nextOrigins():Promise<void>{if(!source||!preview||!origins?.nextCursor)return;const request={fileId:source.id,versionId:preview.version.id,cursor:origins.nextCursor};await reading(async()=>{const result=await window.music.cueSourceOrigins(request);if(alive.current)setOrigins(result);});}
+ async function importBackup():Promise<void>{
+  if(working.current||attempt.current||selectionAttempt.current||registerAttempt.current)return;
+  const request=importAttempt.current??(source&&backup&&!stale?{commandId:crypto.randomUUID(),fileId:source.id,baseRevision:source.revision,latestVersion:source.latestVersion,archiveSha256:backup.archiveSha256}:null);if(!request)return;
+  working.current=true;importAttempt.current=request;setBusy(true);setPending(true);setError('');setNotice('');
+  try{const result=await window.music.importCueSource(request);if(!alive.current)return;importAttempt.current=null;setPending(false);if(result.status==='rejected')setError(result.error);else setNotice('备份已添加到目标来源的历史，原文选择和播放编排保持；请复审导入版本后明确选择。');await refresh();if(result.status==='saved'&&result.versionId&&backup)await loadPreview(result.versionId,backup.requestedEncoding,backup.gapPolicy);}
+  catch(e){if(alive.current)setError(e instanceof Error?e.message:String(e));}
+  finally{working.current=false;if(alive.current)setBusy(false);}
+ }
+ async function selectSource(followDisk=false):Promise<void>{
+  if(working.current||attempt.current||importAttempt.current||registerAttempt.current)return;
+  const request=selectionAttempt.current??(review&&source&&!stale?{commandId:crypto.randomUUID(),fileId:source.id,baseRevision:review.request.baseRevision,latestVersion:review.request.latestVersion,selectedVersion:followDisk?null:review.request.versionId,encoding:review.request.encoding,gapPolicy:review.request.gapPolicy,reviewSha256:review.mappingSha256}:null);
+  if(!request)return;if(followDisk&&!selectionAttempt.current&&review?.request.versionId!==review?.request.latestVersion)return;
+  working.current=true;selectionAttempt.current=request;setBusy(true);setPending(true);setError('');setNotice('');
+  try{const result=await window.music.selectCueSource(request);if(!alive.current)return;selectionAttempt.current=null;setPending(false);if(result.status==='rejected')setError(result.error);else setNotice('原文选择已保存，等待扫描重新核对；此回执不表示编排已经应用。');await refresh();}
+  catch(e){if(alive.current)setError(e instanceof Error?e.message:String(e));}
+  finally{working.current=false;if(alive.current)setBusy(false);}
+ }
+ async function submit():Promise<void>{if(working.current||selectionAttempt.current||importAttempt.current||registerAttempt.current)return;const request=attempt.current??(source&&preview?.version.id===source.latestVersion?{commandId:crypto.randomUUID(),fileId:source.id,baseRevision:source.revision,latestVersion:source.latestVersion,encoding,gapPolicy}:null);if(!request)return;
+  working.current=true;attempt.current=request;setBusy(true);setPending(true);setError('');setNotice('');
+  try{const result=await window.music.configureCueSource(request);if(!alive.current)return;attempt.current=null;setPending(false);if(result.status==='rejected')setError(result.error);else setNotice('编码和前间隙选择已保存；待当前扫描结束后重新核对，验证通过才更新编排。');await refresh();}
+  catch(e){if(alive.current)setError(e instanceof Error?e.message:String(e));}
+  finally{working.current=false;if(alive.current)setBusy(false);}
+ }
+ return <div className="collection-backdrop"><div className="collection-dialog scan-tasks-dialog cue-history-dialog" ref={dialog} tabIndex={-1} role="dialog" aria-modal="true" aria-label="CUE 原文历史" onKeyDown={event=>trap(event,dialog.current,onClose,disabled)}>
+  <header><div><h2>CUE 原文与编排解释</h2><p>保存原始字节及解析历史，选择编码和前间隙归属后重新核对编排，原文件保留。</p></div><button disabled={disabled} onClick={onClose} aria-label="关闭 CUE 原文历史">×</button></header>
+  {error&&<p className="scan-task-error" role="alert">{error}</p>}{notice&&<p className="scan-task-notice" role="status">{notice}</p>}{stale&&<p className="scan-task-notice">曲库状态已变化，请重新读取。</p>}{pending&&<p role="status">上次提交结果尚未确认；保留原操作，可核对后继续。</p>}
+  <div className="scan-task-body">{review&&<CueVersionReviewPreview value={review} disabled={disabled} stale={stale} onSelect={follow=>void selectSource(follow)} onPage={offset=>void reviewVersion(offset)} onClose={()=>{setReview(null);reviewButton.current?.focus();}}/>}{backup&&<CueSourceBackupPreview value={backup} disabled={disabled} importDisabled={stale} target={source?{rootPath:source.rootPath,relativePath:source.relativePath}:null} onImport={()=>void importBackup()} onClose={()=>setBackup(null)}/>}{backup&&<CueSourceRegisterForm roots={roots} rootId={registerRoot} relativePath={registerPath} disabled={disabled||stale} onRoot={setRegisterRoot} onPath={setRegisterPath} onReload={()=>void reading(readRoots)} onSubmit={()=>void registerBackup()}/>}{registerConflict&&<button disabled={disabled} onClick={()=>void reading(()=>choose(registerConflict))}>打开已存在的来源，再明确添加备份</button>}<div className="cue-history-export-actions"><button disabled={disabled} onClick={()=>void openBackup()}>打开 CUE 来源备份</button></div>{source?<>
+   <section className="scan-task-detail"><h3>{source.relativePath}</h3><p className="scan-task-path">{source.rootPath}</p><p>原文来源：{source.selectedVersion?'选中的历史原文':'跟随磁盘 CUE'}{source.selectedApplied?' · 当前编排记录匹配':''}<br/>当前设置：{label[source.encoding]} · {CUE_GAP_LABELS[source.gapPolicy]}<br/>{source.latestVersion?<>最近读取：{source.observedEncoding?label[source.observedEncoding]:'未记录'} · {source.observedGapPolicy?CUE_GAP_LABELS[source.observedGapPolicy]:'未记录'} · {source.trackCount} 轨 · {source.parserVersion}</>:<>尚未读取磁盘 CUE，仅保存了导入历史</>}{source.registeredAt&&<><br/>来源登记：{new Date(source.registeredAt).toLocaleString()}</>}</p>{source.error&&<p className="scan-task-error">最近诊断：{source.error}</p>}{source.pendingScan&&<p role="status">等待重新核对，此编排暂不可播放。失败／取消／中断后请处理扫描任务，或明确再次提交。</p>}
+    <button disabled={disabled} onClick={()=>void reading(async()=>{fileId.current=null;versionId.current=null;setSource(null);setPreview(null);setReview(null);setOrigins(null);setVersions(null);await refresh();})}>查看全部 CUE 来源</button>
+   </section>
+   <section className="scan-task-detail"><h3>保存的解析版本</h3>{versions?.items.map(v=><button className={`cue-version-button ${preview?.version.id===v.id?'selected':''}`} key={v.id} disabled={disabled} onClick={()=>void reading(()=>loadPreview(v.id,v.requestedEncoding,v.gapPolicy))}>{v.createdAt} · {label[v.encoding]} · {CUE_GAP_LABELS[v.gapPolicy]} · {v.trackCount} 轨{v.latest?' · 最近观察':''}{v.id===source.selectedVersion?' · 持久选择':''}{v.imported?' · 导入来源':''}{v.applied?' · 编排记录匹配':''}{v.error?' · 有诊断':''}</button>)}{versions?.nextCursor&&<button disabled={disabled} onClick={()=>void reading(async()=>{const value=await window.music.cueSourceVersions(source.id,versions.nextCursor!);if(alive.current)setVersions(value);})}>下一页版本</button>}</section>
+   {origins&&<CueSourceOriginHistory value={origins} disabled={disabled} onNext={()=>void nextOrigins()} onInspect={id=>void inspectOrigin(id)} onExport={id=>void exportOrigin(id)}/>}<section className="scan-task-detail"><h3>原文解码预览</h3><label>预览编码<select aria-label="CUE 预览编码" value={encoding} disabled={disabled||!preview} onChange={event=>void reading(()=>loadPreview(preview!.version.id,event.target.value as CueEncoding))}>{CUE_ENCODINGS.map(v=><option value={v} key={v}>{label[v]}</option>)}</select></label>
+    <label>文件内 INDEX 00 前间隙<select aria-label="CUE 前间隙归属" value={gapPolicy} disabled={disabled||!preview} onChange={event=>{setGapPolicy(event.target.value as CueGapPolicy);setReview(null);}}><option value="previous">{CUE_GAP_LABELS.previous}</option><option value="current">{CUE_GAP_LABELS.current}</option></select></label>
+    <p>该选择作用于此 CUE 的全部音轨；只重新分配文件中已有的前间隙，不生成 PREGAP／POSTGAP 静音。首轨前导条目随实际起点调整。曲目同名歌词以 INDEX 01 对齐；个人歌词和偏好按原播放范围保留，可在版本管理中明确复制。</p>
+    {preview&&<><button ref={reviewButton} disabled={disabled} onClick={()=>void reviewVersion()}>复审此版本的当前解释与曲库引用</button><p>{preview.version.rawBytes} 字节 · SHA-256 <code title={preview.version.sourceHash}>{preview.version.sourceHash.slice(0,16)}…</code></p><p>这里只预览原文解码，尚未验证所选编码和前间隙归属下的播放范围与文件引用。提交会停止此编排的播放或预备轨，核对完成前暂不可播放；历史版本仅用于查阅。</p>{preview.error?<p className="scan-task-error">无法按此编码解码：{preview.error}</p>:<pre className="cue-source-text" tabIndex={0} aria-label="CUE 原文预览">{preview.text||'（空文件）'}</pre>}{preview.truncated&&<p>显示前 131072 个字符，完整原始字节仍保存在历史中。</p>}
+     <div className="cue-history-export-actions"><button disabled={disabled} onClick={()=>void saveSource('raw')}>导出完整原文（原编码）</button><button disabled={disabled} onClick={()=>void saveSource('bundle')}>导出来源备份</button></div><p>导出保留所选版本的全部原始字节，包含原编码与文件引用；预览编码选择不会转换导出文件。来源备份同时保留当时的解析结果和设置。请使用新的保存文件名；保存中断时可能留下未完成文件。</p><button disabled={disabled||Boolean(preview.error)||preview.version.id!==source.latestVersion} onClick={()=>void submit()}>跟随磁盘并按此解释重新扫描</button>{preview.version.id!==source.latestVersion&&<p>历史版本请先点击“复审此版本的引用与范围”，再选择此历史原文。跟随磁盘的操作需要预览最近观察版本。</p>}</>}
+   </section>
+  </>:<><form className="cue-source-search" onSubmit={event=>{event.preventDefault();void reading(refresh);}}><label>CUE 路径检索<input aria-label="CUE 来源路径检索" value={query} maxLength={256} disabled={disabled} onChange={event=>setQuery(event.target.value)}/></label><button type="submit" disabled={disabled}>检索／第一页</button></form>{page?.error&&<p className="scan-task-error">{page.error}</p>}{!page?<p>正在读取…</p>:!page.items.length?<p>尚无 CUE 原文历史，扫描后可查阅；无法解码的已读取原文也会保留。</p>:page.items.map(v=><section className="scan-task-detail" key={v.id}><button disabled={disabled} onClick={()=>void reading(()=>choose(v.id))}>{v.relativePath} · {v.latestVersion?`${v.trackCount} 轨（最近观察）`:'仅导入历史，尚未读取磁盘'}{v.error?' · 有诊断':''}{v.pendingScan?' · 待重新核对':''}</button><p className="scan-task-path">{v.rootPath}</p></section>)}{page?.nextCursor&&<button disabled={disabled} onClick={()=>void reading(async()=>{const value=await window.music.cueSources(query,page.nextCursor!);if(alive.current)setPage(value);})}>下一页来源</button>}</>}
+  </div><footer><button disabled={disabled} onClick={()=>void reading(refresh)}>重新读取状态／第一页</button>{pending&&<button disabled={busy} onClick={()=>void (registerAttempt.current?registerBackup():importAttempt.current?importBackup():selectionAttempt.current?selectSource():submit())}>核对上次操作</button>}<button disabled={disabled} onClick={onEmbedded}>内嵌 CUE 来源历史</button><button disabled={disabled} onClick={onTasks}>扫描任务</button><button disabled={disabled} onClick={onClose}>关闭</button></footer>
+ </div></div>;
+}

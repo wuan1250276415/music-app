@@ -1,0 +1,43 @@
+FFmpeg 8.1.3 controlled source build
+Official mirror: https://github.com/FFmpeg/FFmpeg
+Tag: n8.1.3
+Tag object: 23151b11c75aa44d9ab8db796a53c76acf00f6c0
+Commit: 1041abdc962f4cc4f394aa8de9dc5236c0c3b9e7
+Archive: ffmpeg-8.1.3-source.tar.gz
+SHA-256: a516d39ac7a92ff7c6f2c44b0338aaecf708c42f3d4febc8cb9203de6b1e2603
+URL: https://api.github.com/repos/FFmpeg/FFmpeg/tarball/1041abdc962f4cc4f394aa8de9dc5236c0c3b9e7
+
+tag-verification.json records the GitHub API's verified=true / reason=valid
+assertion for this tag and commit. It is not a local GPG verification.
+Download used verified HTTPS; no TLS verification bypass was used.
+
+License for this configuration: LGPL-2.1-or-later.
+Full upstream archive, COPYING.LGPLv2.1, LICENSE.md, source-patches.json,
+lock.json and the build recipe accompany distributed libraries.
+Two first-party LGPL-2.1-or-later source patches initialize/validate MOV
+channel-layout parsing results and reject AC3 in the AAC-only parser build.
+Patch file hashes and exact replacements are checked by prepare.py.
+
+Shared libraries: avutil-60.dll, swresample-6.dll, avcodec-62.dll,
+avformat-62.dll. Registered decoders: AAC, ALAC, Vorbis, Opus,
+DSD LSBF/MSBF (interleaved and planar); DST is not registered.
+Registered demuxers: AAC, MOV, OGG, DSF, IFF (DFF). Network, CLI programs, encoders,
+muxers, hardware accelerators and external codecs are disabled.
+The host uses its own read-only Windows handle and custom AVIO callbacks.
+First-party DSD PCM profile: FFmpeg's DSD FIR followed by SWR lowpass/SRC
+to 176400 Hz, filter_size=128, Kaiser beta=9, cutoff=0.5, gain=0 dB.
+Container bounds/source bit samples are inspected before conversion;
+Native DSD/DoP is not implemented, and filter delay/quality remain unverified.
+
+Build: powershell -NoProfile -ExecutionPolicy Bypass -File native/ffmpeg/build.ps1
+Prerequisites: Windows x64, Python 3.14, VS C++ Build Tools + Windows SDK,
+Git for Windows (Bash), and a full 7-Zip extractor for the first tool setup.
+Set AURAL_SEVEN_ZIP to its 7z.exe when it is not on PATH.
+Pinned LLVM 20.1.8 is extracted without running its installer; GNU Make
+4.4.1 is built with the existing VS tools. These are development tools,
+excluded from the application and source archive's build directories.
+Their pinned sources/hashes are recorded in lock.json and prepare.py.
+
+build-manifest.json records this build's DLL hashes, recipe and registry.
+Certification is unverified; compilation is not playback, seek, gapless,
+device or format capability certification. Runtime validation is pending MVP.

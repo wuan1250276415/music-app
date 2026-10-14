@@ -1,0 +1,231 @@
+{
+  "appVersion": "0.198.0",
+  "scope": "actual supervised media worker and painted Electron artwork on generated WAV/DSF/RF64; sparse RF64 metadata beyond4GiB; only short WAV/DSF PCM playback, no RF64 long playback or ASIO/DSD bitstream hardware certification",
+  "scratch": "D:\\CodexTestData\\aural-artwork-matrix-mvp-07VKVP",
+  "completed": true,
+  "workerCases": [
+    {
+      "name": "WAV-v3-front",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    },
+    {
+      "name": "WAV-v4-front",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    },
+    {
+      "name": "DSF-v3-front",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    },
+    {
+      "name": "DSF-v4-other",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    },
+    {
+      "name": "WAV-no-picture",
+      "sourceKind": "sidecar",
+      "token": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d"
+    },
+    {
+      "name": "DSF-no-picture",
+      "sourceKind": "sidecar",
+      "token": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d"
+    },
+    {
+      "name": "RF64-table-front",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    },
+    {
+      "name": "RF64-no-picture",
+      "sourceKind": "sidecar",
+      "token": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d"
+    },
+    {
+      "name": "RF64-rejected-image",
+      "sourceKind": "sidecar",
+      "token": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d"
+    },
+    {
+      "name": "WAV-invalid-tag",
+      "incompleteRejected": true
+    },
+    {
+      "name": "DSF-invalid-pointer",
+      "incompleteRejected": true
+    },
+    {
+      "name": "RF64-missing-ds64",
+      "incompleteRejected": true
+    },
+    {
+      "name": "RF64-unsupported-apic",
+      "incompleteRejected": true
+    },
+    {
+      "name": "RF64-large-front",
+      "sourceKind": "embedded",
+      "token": "e5c6ceaf74b436266a9b2731c113651cc3aa60ac87e4073e3b5ff30c756bf329"
+    }
+  ],
+  "uiCases": [
+    {
+      "name": "WAV-v3-front",
+      "libraryPixels": true,
+      "largeThumbnail": true,
+      "sourceKind": "embedded"
+    },
+    {
+      "name": "WAV-v4-front",
+      "libraryPixels": true,
+      "largeThumbnail": true,
+      "sourceKind": "embedded"
+    },
+    {
+      "name": "DSF-v3-front",
+      "libraryPixels": true,
+      "largeThumbnail": true,
+      "sourceKind": "embedded"
+    },
+    {
+      "name": "DSF-v4-other",
+      "libraryPixels": true,
+      "largeThumbnail": true,
+      "sourceKind": "embedded"
+    },
+    {
+      "name": "WAV-no-picture",
+      "libraryPixels": true,
+      "largeThumbnail": true,
+      "sourceKind": "sidecar"
+    },
+    {
+      "name": "DSF-no-picture",
+      "libraryPixels": true,
+      "largeThumbnail": true,
+      "sourceKind": "sidecar"
+    },
+    {
+      "name": "RF64-table-front",
+      "libraryPixels": true,
+      "largeThumbnail": true,
+      "sourceKind": "embedded"
+    },
+    {
+      "name": "RF64-no-picture",
+      "libraryPixels": true,
+      "largeThumbnail": true,
+      "sourceKind": "sidecar"
+    },
+    {
+      "name": "RF64-rejected-image",
+      "libraryPixels": true,
+      "largeThumbnail": true,
+      "sourceKind": "sidecar"
+    },
+    {
+      "name": "RF64-large-front",
+      "libraryPixels": true,
+      "largeThumbnail": true,
+      "sourceKind": "embedded"
+    }
+  ],
+  "sourceFingerprint": {
+    "src/library/id3-artwork.ts": "31bf51dd1048c989b94c40371471888b9ba49644bfdd76f97665c9647d37da15",
+    "src/library/artwork-worker.ts": "5eeaadded7282d37a8857e952739c99da5fd88de5dfb847036764af9994ad2dd",
+    "src/library/artwork.ts": "9afbedbab31edf44a766be4e9ebb66be3e4f0553f79274d6e48d15e7dcf470f3",
+    "dist/main/library/id3-artwork.js": "b94bfe41bd496cc2e0f4184f5e664d346b57bf446658d3b6af513464a689d8c5",
+    "dist/main/library/artwork-worker.js": "cde98b84f5c23ce79a1ecd8ebdcd88a9bce94dcaf800e5440df42c056f5237ec",
+    "dist/main/library/artwork.js": "46b70c5c8bf4c4ccbd9e734a1a3728b5e8498728671cc19f494884a136c3b5cc",
+    "native/media-worker/build/media-worker.exe": "a157801cc6699839b56c7f9e667324380148e319837c57d65e6a6181ed5556de",
+    "native/audio-host/build/audio-host.exe": "5f2bf860050298eb9982684b64adf4238d634d2f9d6406d7eccb68622f14135d"
+  },
+  "largeFixture": {
+    "audioBytes": 4294967312,
+    "metadataAt": 4294967392,
+    "fileBytes": 4294967722
+  },
+  "import": {
+    "rows": 10,
+    "issues": 0
+  },
+  "packagedExecutableSha256": "0982395066bf80ee6397debdbcf6f475908a120e39f340a02e35ea261efb3861",
+  "packagedInterface": true,
+  "tagMetadata": [
+    {
+      "name": "WAV-v3-front",
+      "title": "WAV 正面优先",
+      "artist": "格式验证歌手",
+      "album": "格式验证专辑"
+    },
+    {
+      "name": "WAV-v4-front",
+      "title": "WAV 四版标签",
+      "artist": "格式验证歌手",
+      "album": "格式验证专辑"
+    },
+    {
+      "name": "DSF-v3-front",
+      "title": "DSF 正面优先",
+      "artist": "格式验证歌手",
+      "album": "格式验证专辑"
+    },
+    {
+      "name": "DSF-v4-other",
+      "title": "DSF 其他内嵌图",
+      "artist": "格式验证歌手",
+      "album": "格式验证专辑"
+    }
+  ],
+  "playback": [
+    {
+      "name": "WAV-v3-front",
+      "playing": true,
+      "playerPixels": true,
+      "detailPixels": true,
+      "actualOutput": {
+        "backend": "wasapi",
+        "deviceId": "{0.0.0.00000000}.{5bc4d76e-ea83-4994-ae57-efe048eb299f}",
+        "deviceName": "扬声器 (Realtek(R) Audio)",
+        "mode": "shared",
+        "format": "f32",
+        "deviceFormat": "f32",
+        "sampleRate": 44100,
+        "deviceSampleRate": 44100,
+        "channels": 2,
+        "deviceChannels": 2,
+        "adapterConversion": false,
+        "allowConversion": true,
+        "applicationIntegerPath": false,
+        "hardwareVerified": false
+      }
+    },
+    {
+      "name": "DSF-v3-front",
+      "playing": true,
+      "playerPixels": true,
+      "detailPixels": true,
+      "actualOutput": {
+        "backend": "wasapi",
+        "deviceId": "{0.0.0.00000000}.{5bc4d76e-ea83-4994-ae57-efe048eb299f}",
+        "deviceName": "扬声器 (Realtek(R) Audio)",
+        "mode": "shared",
+        "format": "f32",
+        "deviceFormat": "f32",
+        "sampleRate": 176400,
+        "deviceSampleRate": 176400,
+        "channels": 2,
+        "deviceChannels": 2,
+        "adapterConversion": false,
+        "allowConversion": true,
+        "applicationIntegerPath": false,
+        "hardwareVerified": false
+      }
+    }
+  ],
+  "mediaUnchanged": true,
+  "diagnostics": "Debugger ending on ws://127.0.0.1:51889/288cdcb5-44a6-4545-9f1d-940327eaf884\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\n"
+}

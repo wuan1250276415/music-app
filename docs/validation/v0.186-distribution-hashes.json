@@ -1,0 +1,156 @@
+{
+  "appId": "dev.aural.music",
+  "appVersion": "0.186.0",
+  "audioProtocol": {
+    "major": 1,
+    "minor": 23,
+    "maxMessageBytes": 1048576
+  },
+  "librarySchema": {
+    "min": 0,
+    "max": 73
+  },
+  "installer": {
+    "file": "Aural-Setup-0.186.0-x64.exe",
+    "sha256": "1f134627b2529c611198c79e8d01399b289f18250738d273bd746c793edd8359"
+  },
+  "unpackedAppAsarSha256": "2585c142bcc47b79b92d55509325c38b4d003b7bf495042da6027c21cc339d90",
+  "binaryFiles": [
+    {
+      "path": "Aural.exe",
+      "sha256": "bdf22e91a5a28d6796e849a9f9ae7bcbdf57384439e6ecc013d32277d50a629e"
+    },
+    {
+      "path": "d3dcompiler_47.dll",
+      "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb"
+    },
+    {
+      "path": "dxcompiler.dll",
+      "sha256": "e389f028b89a7a1459e730968a1fb8e4218bded24b05c761df16f1c80b1ba703"
+    },
+    {
+      "path": "dxil.dll",
+      "sha256": "77e039c905030a641e53658a008b74e90635a5ea9b6b79eabd0f2003bdfca59a"
+    },
+    {
+      "path": "ffmpeg.dll",
+      "sha256": "22e07be5d900ecad1fa47cbd9f783143af0058e18793b4804b887253988273ac"
+    },
+    {
+      "path": "resources/asio-probe.exe",
+      "sha256": "46eac729d3489ec01940cf8b33b52766201e46589d8ed1531fb4ded60ab22446"
+    },
+    {
+      "path": "resources/audio-host.exe",
+      "sha256": "d9742ef79853f241e00a6c47947b28c40727af04ac5e6dd934888126be004a0c"
+    },
+    {
+      "path": "resources/avcodec-62.dll",
+      "sha256": "70211fe0a39a51e7bf486e5060ea55e22dd8817ad0112e28b3f0e9600c4061fc"
+    },
+    {
+      "path": "resources/avformat-62.dll",
+      "sha256": "96fbbb0a1e4f03bc70145b7d3e4974686d42fbd0d6fca638b1660d55d8cc3008"
+    },
+    {
+      "path": "resources/avutil-60.dll",
+      "sha256": "3cb04fda030a2328a7617b945e8d76081edf1ebdff6d732255d67406bf114459"
+    },
+    {
+      "path": "resources/catalog-directory-mover.exe",
+      "sha256": "a04064549061736fb1bf3f3af088a76a6348ba51c84262de5e49607c10d1a8e2"
+    },
+    {
+      "path": "resources/credential-vault.exe",
+      "sha256": "71b837e8511ae731656c87e6580190f5b9b98c4c6e9ab21d72a94fc903ade10b"
+    },
+    {
+      "path": "resources/dsd-analysis-worker.exe",
+      "sha256": "e93eddfa499989a6b8894fa2fb58afb2e8b5ed87d56f61de6ca9e21f460742c1"
+    },
+    {
+      "path": "resources/elevate.exe",
+      "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37"
+    },
+    {
+      "path": "resources/media-worker.exe",
+      "sha256": "f3161297488c4570801c1a47fbce7068fccaa14d286df466f97b2a19c606c21b"
+    },
+    {
+      "path": "resources/swresample-6.dll",
+      "sha256": "5438f1d328ec7fec3877e927b2ff1c7f3e54df402be6e885abc3d620b1ac580f"
+    },
+    {
+      "path": "resources/system-media.exe",
+      "sha256": "57c4746702f421a3da6cfca8350bbd081730f2f05f0579464a7744da29a97957"
+    },
+    {
+      "path": "resources/tag-file-committer.exe",
+      "sha256": "32f85fc907bb2fd7fa767acb0478f0d7e2cadc0e11f65137d4f210bb7c023bef"
+    },
+    {
+      "path": "resources/tag-file-inspector.exe",
+      "sha256": "4bc28a59ed4c67cda2fa6201e9f2ea95f6e5d0d05131283ec74ddd73299397b1"
+    },
+    {
+      "path": "resources/tag-file-restorer.exe",
+      "sha256": "b63cd5eba66ff0874bae346034378271445d6397f44b604956d8563a6695d059"
+    },
+    {
+      "path": "resources/tag-write-worker.exe",
+      "sha256": "cacf15345ee2ad34bb6c982a7d84aff50020e8c2d12f71beeb5c2e99337ce694"
+    },
+    {
+      "path": "resources/waveform-worker.exe",
+      "sha256": "80071803336f164a3b64ec749cde5060b86d6d5499dc5af86e94b2812cc47f3c"
+    },
+    {
+      "path": "vk_swiftshader.dll",
+      "sha256": "20938b3bb2da284a828d8b881a0954882a82620e57551ee3c93db3046b98c989"
+    },
+    {
+      "path": "vulkan-1.dll",
+      "sha256": "17f4fb133bf92744913abe23202c3d6434fa84577746ad9fce18a74d1ec921c8"
+    }
+  ],
+  "packagedEvidence": [
+    "resources/sbom.cdx.json",
+    "resources/THIRD_PARTY_NOTICES.txt",
+    "resources/AURAL_LICENSE.txt",
+    "resources/asio-probe.exe",
+    "resources/credential-vault.exe",
+    "resources/waveform-worker.exe",
+    "resources/media-worker.exe",
+    "resources/tag-write-worker.exe",
+    "resources/tag-file-inspector.exe",
+    "resources/tag-file-committer.exe",
+    "resources/system-media.exe",
+    "LICENSE.electron.txt",
+    "LICENSES.chromium.html",
+    "resources/avutil-60.dll",
+    "resources/swresample-6.dll",
+    "resources/avcodec-62.dll",
+    "resources/avformat-62.dll",
+    "resources/ffmpeg-source/lock.json",
+    "resources/ffmpeg-source/source-patches.json",
+    "resources/ffmpeg-source/build-manifest.json",
+    "resources/ffmpeg-source/prepare.py",
+    "resources/ffmpeg-source/build.ps1",
+    "resources/ffmpeg-source/build-source.sh",
+    "resources/ffmpeg-source/mslink.sh",
+    "resources/ffmpeg-source/dependencies.mak",
+    "resources/ffmpeg-source/dependency.awk",
+    "resources/ffmpeg-source/verify-build.py",
+    "resources/ffmpeg-source/vendor/COPYING.LGPLv2.1",
+    "resources/ffmpeg-source/vendor/ffmpeg-8.1.3-source.tar.gz",
+    "resources/ffmpeg-source/vendor/LICENSE.md",
+    "resources/ffmpeg-source/vendor/SOURCE.txt",
+    "resources/ffmpeg-source/vendor/tag-verification.json",
+    "resources/webp-source/lock.json",
+    "resources/webp-source/build-manifest.json",
+    "resources/webp-source/build.ps1",
+    "resources/webp-source/vendor/COPYING",
+    "resources/webp-source/vendor/libwebp-1.6.0.tar.gz",
+    "resources/webp-source/vendor/PATENTS"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "checkpoint": "0.184.0",
+  "synthetic100kAccepted": false,
+  "asIoHardware": "paused",
+  "benchmarkCurrentSqlMatchesV183Archive": {
+    "src/library/database.ts": true,
+    "src/library/library-query-plan.ts": true,
+    "src/library/natural-sort.ts": true,
+    "src/library/sql-statements.ts": true,
+    "src/library/catalog.ts": true
+  },
+  "benchmarkNotes": "diagnostic ran prior to version bump with unchanged final paged SQL; three hot samples and concurrent activity, not formal acceptance"
+}

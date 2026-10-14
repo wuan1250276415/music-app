@@ -1,0 +1,46 @@
+{
+  "version": "0.204.0",
+  "completed": true,
+  "scope": "actual supervised media scan of tagged FLAC/ID3 MP3 and CUE into production SQLite; broker/provider fetch fixture; no real matching truth, desktop or audio hardware certification",
+  "cases": [
+    "ISRC normalization preserves valid code, accepts printed hyphens, rejects controls/unicode/wrong shape and deduplicates valid observations",
+    "closed source-owned request normalizes ISRC and forbids simultaneous MBID, supplied values or invalid code",
+    "actual supervised FLAC scan stores original duplicate/invalid tag observations and returns normalized codes with invalid notices",
+    "actual supervised ID3v2.4 TSRC scan exposes only the MP3 recording code",
+    "CUE uses track-owned ISRC and never inherits the image-file ISRC for the unlabelled second track",
+    "file code rescan/restore preserves item identity and raw values while monotonic catalog revision keeps old authority invalid",
+    "source-authorized ISRC lookup returns every distinct recording with nonunique evidence and does not persist a recording/release reference",
+    "derived edition and full-credit candidates inherit ISRC source authority and fail after real source-code rescan",
+    "source ISRC echo mismatch rejects the result",
+    "duplicate recording IDs reject the complete response",
+    "over-budget ISRC recordings reject before partial candidate publication",
+    "empty ISRC result does not silently perform a title search",
+    "all 100 bounded recordings remain selectable with separate edition browsing instead of silently dropping low-ranked recordings",
+    "real source-code change during fetch rejects before candidate publication",
+    "schema75 consistent backup inspection/reopen retain file and virtual-track ISRC source facts",
+    "schema75 integrity, foreign keys and original fixture audio/source files preserved"
+  ],
+  "requests": [
+    "/ws/2/isrc/GBAAA9900303",
+    "/ws/2/release",
+    "/ws/2/recording/11111111-1111-1111-1111-111111111111",
+    "/ws/2/release/33333333-3333-3333-3333-333333333333",
+    "/ws/2/isrc/GBAAA9900303",
+    "/ws/2/isrc/GBAAA9900303",
+    "/ws/2/isrc/GBAAA9900303",
+    "/ws/2/isrc/GBAAA9900303",
+    "/ws/2/isrc/GBAAA9900303",
+    "/ws/2/isrc/GBAAA9900303"
+  ],
+  "fingerprints": {
+    "src/shared/isrc.ts": "ac8319d7fa5543098fd1f2cf72e17539560dd9add5965b6132bb013ff3e81c19",
+    "src/shared/metadata-match-request.ts": "cd9a62c168ff8f3e0e50a87567bee2f6dbe80edcea5a84a0d5ba1e9e2d62fe2b",
+    "src/library/media-scan.ts": "67d2d2ab3c96eddc37bc0125294657890cb798ebc61e3e1550a93e07a14e68b2",
+    "src/library/media-worker-protocol.ts": "a28198c42a894589673fb146c2108fb04c0745f4fa8706221d89e3c39d1a1905",
+    "src/library/catalog.ts": "2fdb6837ee2b3f7688e8d469b8d6c609f1fa51d249c429793a1867f36607d6f4",
+    "src/library/database.ts": "3b699c0932b7d05dc843726d95879b353153ba53f9ee316b3e9900860547968b",
+    "src/library/musicbrainz.ts": "91749c76a14152f6df333fa86be5f3861914d0116aed4f0ae36fa93c3cb194c0",
+    "tests/isrc-fixtures.cjs": "0fc24c8661d042df803787597b046c00c222ccd0f5d40ccae662ce03dcab6ea7",
+    "tests/metadata-isrc-mvp.smoke.cjs": "e42b83d50909f6cdf909076478d85869ee1bb754d262268c9f3d87ce7c8c12d0"
+  }
+}

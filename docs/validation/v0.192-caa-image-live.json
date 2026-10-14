@@ -1,0 +1,79 @@
+{
+  "version": "0.192.0",
+  "completed": true,
+  "scope": "real public CAA official example release index + selected front image binary + actual supervised JPEG conversion + production memory resource response; no user song/MusicBrainz search/desktop matching or persistent application",
+  "releaseId": "76df3287-6cda-33eb-8e9a-044b5e15ffdd",
+  "requests": [
+    {
+      "url": "https://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/",
+      "status": 307,
+      "type": "text/plain; charset=utf-8",
+      "location": "https://archive.org/download/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/index.json",
+      "durationMs": 2130
+    },
+    {
+      "url": "https://archive.org/download/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/index.json",
+      "status": 302,
+      "type": "text/html; charset=UTF-8",
+      "location": "https://dn711103.ca.archive.org/0/items/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/index.json",
+      "durationMs": 3007
+    },
+    {
+      "url": "https://dn711103.ca.archive.org/0/items/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/index.json",
+      "status": 200,
+      "type": "application/json",
+      "location": null,
+      "durationMs": 2989
+    },
+    {
+      "url": "https://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-1200",
+      "status": 307,
+      "type": "text/plain; charset=utf-8",
+      "location": "https://archive.org/download/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd-829521842_thumb1200.jpg",
+      "durationMs": 324
+    },
+    {
+      "url": "https://archive.org/download/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd-829521842_thumb1200.jpg",
+      "status": 302,
+      "type": "image/jpeg",
+      "location": "https://dn711103.ca.archive.org/0/items/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd-829521842_thumb1200.jpg",
+      "durationMs": 2167
+    },
+    {
+      "url": "https://dn711103.ca.archive.org/0/items/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd-829521842_thumb1200.jpg",
+      "status": 200,
+      "type": "image/jpeg",
+      "location": null,
+      "durationMs": 1419
+    }
+  ],
+  "result": {
+    "imageId": "829521842",
+    "sourceBytes": 40684,
+    "sourceSha256": "f9c36b494330ae0440987576962815af63a68cf9f9910e4fc21f4c0dd11ee232",
+    "jpegBytes": 40673,
+    "jpegSha256": "9f90430f813013bf6c02fc8311a717366b772ae94a3680804e4ce55383123bd1",
+    "width": 538,
+    "height": 545,
+    "indexEntries": 6,
+    "sourceUrl": "https://musicbrainz.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/cover-art",
+    "rights": {
+      "status": "unverified",
+      "display": true,
+      "cache": "session",
+      "persist": false,
+      "export": false
+    },
+    "released": true
+  },
+  "fingerprints": {
+    "src/library/cover-art-archive.ts": "677c5c57ec545f8ed338fb962032c04161970b71592863d2107761dfff30e4b6",
+    "src/library/provider-broker.ts": "3346b782455992e145aef24c2f7d6cbaf5299e7c59aa10d403d0e461e1b474f1",
+    "src/library/online-image-converter.ts": "a2ca5e8259c57e17564833e400deb72d7c06215581166ca21b3561d60f1c6e16",
+    "src/main/artwork-resources.ts": "bf5ec4a6c25792b3e1a987ab13ab24dd533d44f2a8817676359e69e0dfb2a721",
+    "dist/main/library/cover-art-archive.js": "37bef29930db3e934face756b3d51d05178c0b24ca94bd73132c890737314ce7",
+    "dist/main/library/online-image-converter.js": "216dd7d08b033e8e8b02c69641e22f63bf54e51c58c9694141756e8c3121c699",
+    "dist/main/main/artwork-resources.js": "1a3995927f2b2b25fde187a35e6ce4fb029ef7e0a52bc8d690d84bc1729ebade",
+    "native/media-worker/build/media-worker.exe": "635bc5190d677a4acf428fceb5f78a49f325cebce41f53c45cbd85d47fb69ed1"
+  }
+}

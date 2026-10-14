@@ -1,0 +1,16 @@
+{
+  "version": "0.198.0",
+  "completed": false,
+  "scope": "production identity/album/ref repositories and SQLite with verified-context input fixture; not actual network/desktop or fingerprint truth proof",
+  "cases": [
+    "narrow identity readers reject values, source IDs, duplicate mappings/targets, unknown kinds and unconfirmed types",
+    "separate recording/release targets show all global recording members and canonical recording title",
+    "partial mapping and unreviewed extra tracks block release identity but permit individual recordings",
+    "public preview changes do not authorize foreign or blocked target keys",
+    "separate scope acknowledgements are mandatory before any identity write",
+    "a later SQLite failure rolls back every reference, audit and aggregate receipt",
+    "atomic recording plus release confirmation preserves local identities, text, favorites/playlists and immutable source facts",
+    "receipt-first retry survives cancellation/restart/offline and command mismatch is rejected",
+    "source-retention identity counts and paged history include all confirmations"
+  ]
+}

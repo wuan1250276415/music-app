@@ -1,0 +1,36 @@
+{
+  "version": "0.206.0",
+  "completed": true,
+  "scope": "production provider/broker/cache and SQLite repositories with synthetic parsed-file/network input; no real scan, live matching, desktop or hardware proof",
+  "cases": [
+    "closed review scope and source binding reject duplicate/oversized item lists and supplied unknown fields",
+    "40 owned rows retain 800 candidates beyond ordinary 400-token eviction and all first/last choices still resolve",
+    "returned preview mutation cannot alter private source text",
+    "review rejects out-of-scope item and already-closed token before candidate retention",
+    "re-query replaces only one row; prior row token is gone and other row choices remain owned",
+    "canceling one request releases only its retained row candidates",
+    "derived edition/full-credit candidates share the same owned lifetime and do not consume ordinary preview lifetime",
+    "recording reference edit is detected even when the legacy metadata fingerprint is unchanged; derived candidates fail too",
+    "durable reviewed plan records source bindings, survives preview close and replays creation receipt",
+    "offline execution rejects a changed recording source without overwriting values or relying on a live preview token",
+    "unchanged peer row still executes independently offline",
+    "successful peer can be independently compensated while the conflict remains untouched",
+    "ISRC lookup evidence persists and later local code change blocks offline plan execution",
+    "read-only release context request preserves old query shape and rejects edit values, invalid modes or cursors",
+    "selected edition plan exposes release-bound album source independently of recording URL and survives preview close",
+    "16MiB retention budget failure preserves earlier accepted preview instead of partially replacing it",
+    "four concurrent review sessions are bounded and excess session creation rejects without evicting existing reviews",
+    "expired review sessions are removed and cannot be revived",
+    "schema75 backup/reopen retain lookup evidence, receipt and individual conflict/compensation outcomes"
+  ],
+  "fingerprints": {
+    "src/shared/metadata-release-context.ts": "ecdc6ab606575f760f2b5d3b46ee601ecc3b14dfae0379673f78d96c57a5d6bc",
+    "src/shared/contracts.ts": "66f2302dc06ba3300f7ebd109c9c103f2917f968a57194517090874765609152",
+    "src/shared/metadata-batch-review.ts": "1c855585e91176e0c5d4cbfe62f58a1bc3aa3cab54f603e74ff7ff47e6d4d39f",
+    "src/library/metadata-review-cache.ts": "08b179d6d8721bf77e4579b7b7e428db3147e8ce0e6264b3aa62f50b206c9a10",
+    "src/library/musicbrainz.ts": "40792f2b715862b6dc3e01f1b02909ed41ff5a641c65fb23fba0cdd519496075",
+    "src/library/metadata-batches.ts": "583548da06bf2747ecfae81fb552965b4b02660555ecce32f04eadc83a6a0388",
+    "src/library/database.ts": "70cf49cf1b10df823d9a795932750c9e19ee521938174096020892d256539b17",
+    "tests/metadata-batch-review-mvp.smoke.cjs": "2902d10f073bc4893d592b4782a2bd0f9f1f6f74f696c8f0e8532035ef517d51"
+  }
+}

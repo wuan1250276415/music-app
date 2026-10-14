@@ -1,0 +1,123 @@
+{
+  "appVersion": "0.189.0",
+  "scope": "actual Electron Main/Library startup; copied synthetic 100k schema72 catalog, no physical scan, OS cold or hardware certification",
+  "sourceName": "aural-benchmark-100000.db.pre-v73-1791771486646.bak",
+  "scratch": "D:\\CodexTestData\\aural-startup-upgrade-mvp-K4zwb4",
+  "completed": true,
+  "originalSha256": "691a92e6e78b9d91947d7265863a032573fb7385aa0794dcc4f7f67c01064f93",
+  "startupVisibleMs": 2194.9721,
+  "startupResponsiveDuringMigration": true,
+  "upgradeStartupTrace": {
+    "version": 1,
+    "phase": "ready",
+    "elapsedMs": 138621.5986,
+    "scope": "Main phases and document-bound React first-page/initial-read acknowledgment; excludes process launch, OS cold cache and later end-to-end searches",
+    "stages": [
+      {
+        "phase": "admission",
+        "elapsedMs": 0.019000000000005457
+      },
+      {
+        "phase": "library-open",
+        "elapsedMs": 425.73049999999995
+      },
+      {
+        "phase": "snapshot-save",
+        "elapsedMs": 834.6591000000001
+      },
+      {
+        "phase": "snapshot-verify",
+        "elapsedMs": 7419.0383
+      },
+      {
+        "phase": "index-update",
+        "elapsedMs": 61047.1664
+      },
+      {
+        "phase": "index-verify",
+        "elapsedMs": 61470.6935
+      },
+      {
+        "phase": "library-runtime",
+        "elapsedMs": 136007.611
+      },
+      {
+        "phase": "preferences",
+        "elapsedMs": 136011.8788
+      },
+      {
+        "phase": "output",
+        "elapsedMs": 136013.7515
+      },
+      {
+        "phase": "queue",
+        "elapsedMs": 136015.3708
+      },
+      {
+        "phase": "desktop",
+        "elapsedMs": 136019.581
+      },
+      {
+        "phase": "interface",
+        "elapsedMs": 136037.079
+      },
+      {
+        "phase": "ready",
+        "elapsedMs": 138619.68240000002
+      }
+    ]
+  },
+  "upgradeReadyMs": 139178.29679999998,
+  "snapshot": {
+    "name": "library.db.pre-v73-1791806467856.bak",
+    "bytes": 1728020480,
+    "sha256": "7da03a090dc6b36750671a2ac2fa194f81478b601a8c5be4a34f6a9cbdf7af7d"
+  },
+  "reopenStartupTrace": {
+    "version": 1,
+    "phase": "ready",
+    "elapsedMs": 3046.5757,
+    "scope": "Main phases and document-bound React first-page/initial-read acknowledgment; excludes process launch, OS cold cache and later end-to-end searches",
+    "stages": [
+      {
+        "phase": "admission",
+        "elapsedMs": 0.019900000000006912
+      },
+      {
+        "phase": "library-open",
+        "elapsedMs": 430.3642
+      },
+      {
+        "phase": "library-runtime",
+        "elapsedMs": 452.9171
+      },
+      {
+        "phase": "preferences",
+        "elapsedMs": 456.8428
+      },
+      {
+        "phase": "output",
+        "elapsedMs": 457.96130000000005
+      },
+      {
+        "phase": "queue",
+        "elapsedMs": 459.5104
+      },
+      {
+        "phase": "desktop",
+        "elapsedMs": 460.80600000000004
+      },
+      {
+        "phase": "interface",
+        "elapsedMs": 474.6589
+      },
+      {
+        "phase": "ready",
+        "elapsedMs": 3044.8172999999997
+      }
+    ]
+  },
+  "reopenReadyMs": 3551.0188999999955,
+  "originalUnchanged": true,
+  "diagnostics": "Debugger ending on ws://127.0.0.1:63369/7a3f0c25-41e4-4f23-8b60-e1b0130adb17\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\nDebugger ending on ws://127.0.0.1:56719/1cfa9fa8-363f-49b5-be18-5fa4986b0b15\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\n[40764:1012/200331.847:ERROR:gpu\\ipc\\client\\command_buffer_proxy_impl.cc:490] GPU state invalid after WaitForGetOffsetInRange.\r\n"
+}

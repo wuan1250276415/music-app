@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "appVersion": "0.183.0",
+  "files": {
+    "src/library/sql-statements.ts": "90742eeddeaa735408cc14ea43c02d4d45447b142654823aefc5e39159833510",
+    "src/library/database.ts": "cd70551a662b95fab23577066a890565bc6a98d215d49034e5b50c57e9b8c857",
+    "src/library/library-query-plan.ts": "045fec6cffc5f10700568221b2548d9dc069e6c4098b522c120771060f6fe1f9",
+    "src/library/catalog.ts": "31d4378c86b306b9a88bffc882f63a27f2049239216548f8893a3d0ed31b3080",
+    "src/library/metadata-provenance.ts": "52a76fc55675b03123de63a89428933c8528bf0503738508ad9c5d2e4f5a0912",
+    "src/library/metadata-collections.ts": "581a12616843e2d5c828e744bae9ea913d1d30ec09e52cd34f2bc463e69fe0f8",
+    "src/library/search-index.ts": "f5a7d0cb522437a64e1b41899e7ac131b21c3118a31c5209cec3f8177d167eec",
+    "src/library/search-spelling.ts": "1b0ddec5d3c26a1f6d0a4f95514aee5de0c90ed938db7e4df689375d0ec34204",
+    "src/main/artwork-resources.ts": "ce146e2478ab73d8d8ba286693cc7d693bd171137bf558c6a78ea1fe45dd41e3",
+    "src/main/main.ts": "4fc547720723e7a730d8b8ebe0691359e9951542ca808d58ddd062e6bb1505ac",
+    "tests/library-performance.smoke.cjs": "5cd87149375317a4c0512427fcdf6710db5a82b7898a87f1b66f34107c8c70ea",
+    "tests/catalog.test.cjs": "eaa23eb5d7bee07fed05f14257ddc56914b86a1479a52e761c2d61456f5fe89e",
+    "tests/legacy-schema.cjs": "36693e8884b2d84bfd81704e353782761f652017018a617ac7e97b1d012c81c1",
+    "tests/electron-detail.smoke.cjs": "4e1d45ff10feb0779dd4f0da76b5632482200ee873d03166e98d49b65a318cb0"
+  },
+  "scope": "final paged 10k and core MVP checkpoint; active 100k generation loaded earlier pagination implementation, not this acceptance evidence"
+}

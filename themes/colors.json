@@ -1,0 +1,1524 @@
+{
+  "version": 1,
+  "colors": {
+    "accent": {
+      "dark": "#e2b15c",
+      "light": "#8c4f14"
+    },
+    "black": {
+      "dark": "#000000",
+      "light": "#f9fbfc"
+    },
+    "cover-ink": {
+      "dark": "#f7f1e6",
+      "light": "#2c221b"
+    },
+    "ink-muted": {
+      "dark": "#b3a394",
+      "light": "#6e5d4e"
+    },
+    "ink-primary": {
+      "dark": "#f6f1e8",
+      "light": "#2a2118"
+    },
+    "shadow-00000066": {
+      "dark": "#00000066",
+      "light": "#00000066"
+    },
+    "shadow-00000099": {
+      "dark": "#00000099",
+      "light": "#00000099"
+    },
+    "shadow-03080eb3": {
+      "dark": "#0b0806b3",
+      "light": "#0b0806b3"
+    },
+    "shadow-0710158c": {
+      "dark": "#120d0a8c",
+      "light": "#120d0a8c"
+    },
+    "shadow-a5eb6833": {
+      "dark": "#e8996b33",
+      "light": "#e8996b33"
+    },
+    "shadow-a8dc871c": {
+      "dark": "#daa8891c",
+      "light": "#daa8891c"
+    },
+    "shadow-b7ef8a30": {
+      "dark": "#ecb08d30",
+      "light": "#ecb08d30"
+    },
+    "shadow-b9eb94": {
+      "dark": "#e9b596",
+      "light": "#e9b596"
+    },
+    "surface-dialog": {
+      "dark": "#2c221b",
+      "light": "#fffaf4"
+    },
+    "surface-page": {
+      "dark": "#13110f",
+      "light": "#f6f1e8"
+    },
+    "surface-player": {
+      "dark": "#241c16",
+      "light": "#fffaf4"
+    },
+    "surface-sidebar": {
+      "dark": "#1b1612",
+      "light": "#efe6d8"
+    },
+    "tone-060d15b8": {
+      "dark": "#110d0ab8",
+      "light": "#f4f2efb8"
+    },
+    "tone-101822": {
+      "dark": "#1d1815",
+      "light": "#e9e6e3"
+    },
+    "tone-101922": {
+      "dark": "#1d1815",
+      "light": "#e9e6e3"
+    },
+    "tone-101b20": {
+      "dark": "#1c1714",
+      "light": "#e9e7e5"
+    },
+    "tone-111d20": {
+      "dark": "#1c1815",
+      "light": "#e9e7e4"
+    },
+    "tone-111e25": {
+      "dark": "#201a16",
+      "light": "#e6e4e1"
+    },
+    "tone-12221dee": {
+      "dark": "#211a13ee",
+      "light": "#f1e6d9ee"
+    },
+    "tone-142211": {
+      "dark": "#211812",
+      "light": "#f1e3da"
+    },
+    "tone-142329": {
+      "dark": "#241d19",
+      "light": "#e3e1de"
+    },
+    "tone-14241c": {
+      "dark": "#231c15",
+      "light": "#f0e3d6"
+    },
+    "tone-151719": {
+      "dark": "#181716",
+      "light": "#e9e8e7"
+    },
+    "tone-152128": {
+      "dark": "#231e1a",
+      "light": "#e3e1de"
+    },
+    "tone-16232b": {
+      "dark": "#261f1b",
+      "light": "#e1dfdc"
+    },
+    "tone-16241d": {
+      "dark": "#231d17",
+      "light": "#efe2d5"
+    },
+    "tone-16252b": {
+      "dark": "#261f1b",
+      "light": "#e1dfdc"
+    },
+    "tone-16252c": {
+      "dark": "#27201b",
+      "light": "#e1dedb"
+    },
+    "tone-17191b": {
+      "dark": "#1a1918",
+      "light": "#e7e6e5"
+    },
+    "tone-171d27": {
+      "dark": "#231e1b",
+      "light": "#e2e0de"
+    },
+    "tone-172329": {
+      "dark": "#251f1c",
+      "light": "#e2dfdc"
+    },
+    "tone-172422": {
+      "dark": "#231e18",
+      "light": "#efe3d4"
+    },
+    "tone-18232c": {
+      "dark": "#27211d",
+      "light": "#e0ddda"
+    },
+    "tone-182b22": {
+      "dark": "#2a2219",
+      "light": "#eddece"
+    },
+    "tone-19222e": {
+      "dark": "#29221e",
+      "light": "#dedcd9"
+    },
+    "tone-1a2627": {
+      "dark": "#24201d",
+      "light": "#e0dfdd"
+    },
+    "tone-1a2633": {
+      "dark": "#2d2520",
+      "light": "#dcd9d5"
+    },
+    "tone-1a2a20": {
+      "dark": "#29221b",
+      "light": "#edddcd"
+    },
+    "tone-1b222c": {
+      "dark": "#28231f",
+      "light": "#dedcd9"
+    },
+    "tone-1b222e": {
+      "dark": "#292420",
+      "light": "#dddbd8"
+    },
+    "tone-1c2a2b": {
+      "dark": "#272320",
+      "light": "#dedcd9"
+    },
+    "tone-1c2b24": {
+      "dark": "#2a241d",
+      "light": "#ecdccb"
+    },
+    "tone-1d292c": {
+      "dark": "#282421",
+      "light": "#dddbd8"
+    },
+    "tone-1e3029": {
+      "dark": "#2f271f",
+      "light": "#ead9c6"
+    },
+    "tone-1e3036": {
+      "dark": "#302924",
+      "light": "#d8d5d2"
+    },
+    "tone-202632": {
+      "dark": "#2e2824",
+      "light": "#d9d6d3"
+    },
+    "tone-202839": {
+      "dark": "#332b26",
+      "light": "#d6d3cf"
+    },
+    "tone-202a35": {
+      "dark": "#302925",
+      "light": "#d7d5d2"
+    },
+    "tone-202c35": {
+      "dark": "#302925",
+      "light": "#d7d5d2"
+    },
+    "tone-202c36": {
+      "dark": "#312a26",
+      "light": "#d7d4d1"
+    },
+    "tone-20322b": {
+      "dark": "#312921",
+      "light": "#e9d7c3"
+    },
+    "tone-21332b": {
+      "dark": "#322a22",
+      "light": "#e8d6c2"
+    },
+    "tone-21342e": {
+      "dark": "#332b22",
+      "light": "#e8d6c1"
+    },
+    "tone-21343a": {
+      "dark": "#342c27",
+      "light": "#d5d2ce"
+    },
+    "tone-222d38": {
+      "dark": "#332c27",
+      "light": "#d5d2cf"
+    },
+    "tone-223038": {
+      "dark": "#332c27",
+      "light": "#d5d2cf"
+    },
+    "tone-223138": {
+      "dark": "#332c27",
+      "light": "#d5d2cf"
+    },
+    "tone-22332f": {
+      "dark": "#322b23",
+      "light": "#e8d6c1"
+    },
+    "tone-22342e": {
+      "dark": "#332b23",
+      "light": "#e8d5c0"
+    },
+    "tone-22352f": {
+      "dark": "#342c23",
+      "light": "#e8d5bf"
+    },
+    "tone-23342e": {
+      "dark": "#332c24",
+      "light": "#e8d5bf"
+    },
+    "tone-233443": {
+      "dark": "#3b312b",
+      "light": "#d0ccc8"
+    },
+    "tone-242d39": {
+      "dark": "#342d29",
+      "light": "#d3d1ce"
+    },
+    "tone-24304755": {
+      "dark": "#3e342d55",
+      "light": "#cecac555"
+    },
+    "tone-24362d": {
+      "dark": "#352d25",
+      "light": "#e7d2bd"
+    },
+    "tone-24373b": {
+      "dark": "#352e2a",
+      "light": "#d3d0cc"
+    },
+    "tone-24382f": {
+      "dark": "#372e26",
+      "light": "#e6d2bc"
+    },
+    "tone-243b35": {
+      "dark": "#393026",
+      "light": "#e5d1ba"
+    },
+    "tone-251e32": {
+      "dark": "#2d2723",
+      "light": "#dad7d4"
+    },
+    "tone-252d3b": {
+      "dark": "#352f2b",
+      "light": "#d2cfcc"
+    },
+    "tone-25303b": {
+      "dark": "#352f2b",
+      "light": "#d2cfcc"
+    },
+    "tone-25342f": {
+      "dark": "#342d25",
+      "light": "#e7d4be"
+    },
+    "tone-25372e": {
+      "dark": "#362e26",
+      "light": "#e6d1bc"
+    },
+    "tone-25382d": {
+      "dark": "#372e26",
+      "light": "#e6d0bb"
+    },
+    "tone-253a32": {
+      "dark": "#383027",
+      "light": "#e5d1ba"
+    },
+    "tone-253e31": {
+      "dark": "#3c3227",
+      "light": "#e4ceb7"
+    },
+    "tone-254336": {
+      "dark": "#413427",
+      "light": "#e3ccb3"
+    },
+    "tone-26313c": {
+      "dark": "#37302b",
+      "light": "#d1cecb"
+    },
+    "tone-263740": {
+      "dark": "#3a322d",
+      "light": "#d0ccc8"
+    },
+    "tone-26382f": {
+      "dark": "#372f27",
+      "light": "#e6d0ba"
+    },
+    "tone-263a31": {
+      "dark": "#393028",
+      "light": "#e5d0b9"
+    },
+    "tone-27303e": {
+      "dark": "#38312d",
+      "light": "#d0cdc9"
+    },
+    "tone-27304d": {
+      "dark": "#443831",
+      "light": "#cac5c0"
+    },
+    "tone-273140": {
+      "dark": "#3a322d",
+      "light": "#cfccc8"
+    },
+    "tone-273b35": {
+      "dark": "#3a3229",
+      "light": "#e5d0b7"
+    },
+    "tone-283d31": {
+      "dark": "#3b322a",
+      "light": "#e4ccb5"
+    },
+    "tone-283f3b": {
+      "dark": "#3d352a",
+      "light": "#e3ceb4"
+    },
+    "tone-293e31": {
+      "dark": "#3c332b",
+      "light": "#e3cbb4"
+    },
+    "tone-293e35": {
+      "dark": "#3c342b",
+      "light": "#e3ccb4"
+    },
+    "tone-293f3b": {
+      "dark": "#3d352b",
+      "light": "#e3ceb3"
+    },
+    "tone-294033": {
+      "dark": "#3e342b",
+      "light": "#e3cab2"
+    },
+    "tone-2a3c32": {
+      "dark": "#3b332b",
+      "light": "#e3ccb5"
+    },
+    "tone-2a4234": {
+      "dark": "#40362c",
+      "light": "#e2c9b0"
+    },
+    "tone-2b3442": {
+      "dark": "#3c3531",
+      "light": "#ccc9c5"
+    },
+    "tone-2c3746": {
+      "dark": "#403833",
+      "light": "#cac6c2"
+    },
+    "tone-2d4037": {
+      "dark": "#3f372e",
+      "light": "#e2c9af"
+    },
+    "tone-2d4235": {
+      "dark": "#40372f",
+      "light": "#e1c7ae"
+    },
+    "tone-303a48": {
+      "dark": "#423b36",
+      "light": "#c6c3c0"
+    },
+    "tone-303b4a": {
+      "dark": "#443c37",
+      "light": "#c6c2be"
+    },
+    "tone-30433b": {
+      "dark": "#433a30",
+      "light": "#e0c7ab"
+    },
+    "tone-314d3b": {
+      "dark": "#4b3f33",
+      "light": "#ddbfa3"
+    },
+    "tone-334238": {
+      "dark": "#443a31",
+      "light": "#c9c4c0"
+    },
+    "tone-334453": {
+      "dark": "#4b413b",
+      "light": "#c0bcb8"
+    },
+    "tone-334738": {
+      "dark": "#473c33",
+      "light": "#dec1a6"
+    },
+    "tone-34413e": {
+      "dark": "#3f3b36",
+      "light": "#c9c4c0"
+    },
+    "tone-344153": {
+      "dark": "#4b423c",
+      "light": "#c0bcb7"
+    },
+    "tone-34443e": {
+      "dark": "#463c32",
+      "light": "#c7c3bf"
+    },
+    "tone-344a40": {
+      "dark": "#493f35",
+      "light": "#ddc1a3"
+    },
+    "tone-344a44": {
+      "dark": "#494035",
+      "light": "#ddc2a3"
+    },
+    "tone-345044": {
+      "dark": "#4e4236",
+      "light": "#dbbe9f"
+    },
+    "tone-345344": {
+      "dark": "#514436",
+      "light": "#dbbc9c"
+    },
+    "tone-35434b": {
+      "dark": "#463f3a",
+      "light": "#c2bfbc"
+    },
+    "tone-354454": {
+      "dark": "#4c433d",
+      "light": "#bfbbb6"
+    },
+    "tone-354937": {
+      "dark": "#493e35",
+      "light": "#ddbda3"
+    },
+    "tone-35493f": {
+      "dark": "#493f35",
+      "light": "#ddc0a3"
+    },
+    "tone-354a34": {
+      "dark": "#493e35",
+      "light": "#ddbca3"
+    },
+    "tone-355047": {
+      "dark": "#4e4337",
+      "light": "#dbbe9e"
+    },
+    "tone-384454": {
+      "dark": "#4d453f",
+      "light": "#bdb9b5"
+    },
+    "tone-385246": {
+      "dark": "#50453a",
+      "light": "#dabb9a"
+    },
+    "tone-39534c": {
+      "dark": "#51473b",
+      "light": "#d9bc99"
+    },
+    "tone-3a4751": {
+      "dark": "#4c443f",
+      "light": "#bdbab6"
+    },
+    "tone-3a5044": {
+      "dark": "#50453a",
+      "light": "#daba9a"
+    },
+    "tone-3a5149": {
+      "dark": "#51463a",
+      "light": "#d9bb9a"
+    },
+    "tone-3a5444": {
+      "dark": "#52473c",
+      "light": "#d9b797"
+    },
+    "tone-3b4553": {
+      "dark": "#4e4640",
+      "light": "#bcb8b4"
+    },
+    "tone-3b4a51": {
+      "dark": "#4d453f",
+      "light": "#bdb9b5"
+    },
+    "tone-3b5448": {
+      "dark": "#53483c",
+      "light": "#d8b897"
+    },
+    "tone-3d392c": {
+      "dark": "#3d392c",
+      "light": "#d2cec3"
+    },
+    "tone-3d4b5c": {
+      "dark": "#544b45",
+      "light": "#b7b3ae"
+    },
+    "tone-3f4e5c": {
+      "dark": "#554c46",
+      "light": "#b6b2ad"
+    },
+    "tone-40545366": {
+      "dark": "#51494366",
+      "light": "#b9b5b166"
+    },
+    "tone-40564a": {
+      "dark": "#574b3f",
+      "light": "#d6b492"
+    },
+    "tone-41505c": {
+      "dark": "#564d47",
+      "light": "#b4b1ad"
+    },
+    "tone-425d4b": {
+      "dark": "#5c4f43",
+      "light": "#d4ae8b"
+    },
+    "tone-432b32": {
+      "dark": "#432b32",
+      "light": "#ccc6c4"
+    },
+    "tone-435a4b": {
+      "dark": "#5b4e42",
+      "light": "#d5b08c"
+    },
+    "tone-463036": {
+      "dark": "#463036",
+      "light": "#cdbbc0"
+    },
+    "tone-465957": {
+      "dark": "#565049",
+      "light": "#b6b0a9"
+    },
+    "tone-476053": {
+      "dark": "#615446",
+      "light": "#d2ac85"
+    },
+    "tone-476452": {
+      "dark": "#635548",
+      "light": "#d1a982"
+    },
+    "tone-496152": {
+      "dark": "#635547",
+      "light": "#b1aaa3"
+    },
+    "tone-496355": {
+      "dark": "#645648",
+      "light": "#d1a981"
+    },
+    "tone-4a2c34": {
+      "dark": "#4a2c34",
+      "light": "#d1b7be"
+    },
+    "tone-4a6652": {
+      "dark": "#66574a",
+      "light": "#cfa57f"
+    },
+    "tone-4b6654": {
+      "dark": "#67584a",
+      "light": "#cfa57e"
+    },
+    "tone-4c6854": {
+      "dark": "#68594c",
+      "light": "#cea37c"
+    },
+    "tone-4e6956": {
+      "dark": "#6a5b4d",
+      "light": "#cea279"
+    },
+    "tone-512e39": {
+      "dark": "#473c39",
+      "light": "#c5bcba"
+    },
+    "tone-51735c": {
+      "dark": "#726152",
+      "light": "#ca9b70"
+    },
+    "tone-526961": {
+      "dark": "#6c5e4f",
+      "light": "#aaa299"
+    },
+    "tone-526c57": {
+      "dark": "#6e5e50",
+      "light": "#a9a097"
+    },
+    "tone-526e5a": {
+      "dark": "#6f5f51",
+      "light": "#cb9d73"
+    },
+    "tone-53705a": {
+      "dark": "#716152",
+      "light": "#ca9b71"
+    },
+    "tone-54333b": {
+      "dark": "#54333b",
+      "light": "#caadb4"
+    },
+    "tone-55725e": {
+      "dark": "#736354",
+      "light": "#c99a6e"
+    },
+    "tone-577862": {
+      "dark": "#786757",
+      "light": "#c79668"
+    },
+    "tone-60706b": {
+      "dark": "#72685e",
+      "light": "#a1978d"
+    },
+    "tone-63836d": {
+      "dark": "#857261",
+      "light": "#9e8b7a"
+    },
+    "tone-647287": {
+      "dark": "#81736a",
+      "light": "#95877e"
+    },
+    "tone-647d73": {
+      "dark": "#7c7165",
+      "light": "#9a8f83"
+    },
+    "tone-64835b": {
+      "dark": "#816c5d",
+      "light": "#c3865d"
+    },
+    "tone-67788a": {
+      "dark": "#85766c",
+      "light": "#93847a"
+    },
+    "tone-68c7b6": {
+      "dark": "#c79d68",
+      "light": "#8a6b45"
+    },
+    "tone-6e7b8e": {
+      "dark": "#8b7b71",
+      "light": "#8e8174"
+    },
+    "tone-6e7b8f": {
+      "dark": "#8b7c72",
+      "light": "#8e8173"
+    },
+    "tone-6e7d92": {
+      "dark": "#8d7d73",
+      "light": "#8c7f72"
+    },
+    "tone-6f9291": {
+      "dark": "#8d7e74",
+      "light": "#8c7f71"
+    },
+    "tone-718194": {
+      "dark": "#8f8076",
+      "light": "#897d70"
+    },
+    "tone-729a75": {
+      "dark": "#998473",
+      "light": "#8c7766"
+    },
+    "tone-72c7a0": {
+      "dark": "#ca9e6f",
+      "light": "#826343"
+    },
+    "tone-738194": {
+      "dark": "#908177",
+      "light": "#887b6f"
+    },
+    "tone-7859c44d": {
+      "dark": "#a989744d",
+      "light": "#876c5a4d"
+    },
+    "tone-78929a": {
+      "dark": "#95877d",
+      "light": "#82766a"
+    },
+    "tone-789494": {
+      "dark": "#92867a",
+      "light": "#85796d"
+    },
+    "tone-7a8699": {
+      "dark": "#95877e",
+      "light": "#81766a"
+    },
+    "tone-8191a3": {
+      "dark": "#9d9087",
+      "light": "#786b62"
+    },
+    "tone-8290a1": {
+      "dark": "#9c8f87",
+      "light": "#786b63"
+    },
+    "tone-82989d": {
+      "dark": "#9b8d84",
+      "light": "#7a7065"
+    },
+    "tone-8391a2": {
+      "dark": "#9d9088",
+      "light": "#776a62"
+    },
+    "tone-839971": {
+      "dark": "#998071",
+      "light": "#8e7566"
+    },
+    "tone-839ca4": {
+      "dark": "#9e9189",
+      "light": "#766961"
+    },
+    "tone-84a599": {
+      "dark": "#c59764",
+      "light": "#7c6b59"
+    },
+    "tone-8594a5": {
+      "dark": "#a0938a",
+      "light": "#75685f"
+    },
+    "tone-86a098": {
+      "dark": "#c59661",
+      "light": "#766c62"
+    },
+    "tone-87a096": {
+      "dark": "#9e9389",
+      "light": "#766c61"
+    },
+    "tone-8998ab": {
+      "dark": "#9f9a95",
+      "light": "#6f635b"
+    },
+    "tone-8ba0a6": {
+      "dark": "#a3968e",
+      "light": "#70675d"
+    },
+    "tone-8c515a": {
+      "dark": "#8c515a",
+      "light": "#aa777f"
+    },
+    "tone-8ca3a1": {
+      "dark": "#a1988e",
+      "light": "#71685e"
+    },
+    "tone-8d9bab": {
+      "dark": "#a19c97",
+      "light": "#6d6159"
+    },
+    "tone-8da8a0": {
+      "dark": "#c99e6c",
+      "light": "#6e655b"
+    },
+    "tone-8ea99d": {
+      "dark": "#c99d6e",
+      "light": "#6d645a"
+    },
+    "tone-8eaa9c": {
+      "dark": "#ca9d6e",
+      "light": "#736353"
+    },
+    "tone-8fa49c": {
+      "dark": "#a39a90",
+      "light": "#6f665c"
+    },
+    "tone-8fa4a7": {
+      "dark": "#a49b92",
+      "light": "#6d645b"
+    },
+    "tone-8fa7a4": {
+      "dark": "#a49b92",
+      "light": "#6d645b"
+    },
+    "tone-8fab9f": {
+      "dark": "#ca9f70",
+      "light": "#726352"
+    },
+    "tone-90a89b": {
+      "dark": "#ca9c6e",
+      "light": "#6c635a"
+    },
+    "tone-91a0ae": {
+      "dark": "#a4a09b",
+      "light": "#695e56"
+    },
+    "tone-91a0b0": {
+      "dark": "#a5a19c",
+      "light": "#685d55"
+    },
+    "tone-91a592": {
+      "dark": "#a49b92",
+      "light": "#6d645a"
+    },
+    "tone-91aaa4": {
+      "dark": "#caa171",
+      "light": "#6a6259"
+    },
+    "tone-91ab9c": {
+      "dark": "#cb9e71",
+      "light": "#6a6158"
+    },
+    "tone-93aa9a": {
+      "dark": "#a79f96",
+      "light": "#696158"
+    },
+    "tone-93aaa6": {
+      "dark": "#a79f96",
+      "light": "#696158"
+    },
+    "tone-94ad9e": {
+      "dark": "#cca075",
+      "light": "#675f56"
+    },
+    "tone-94ada2": {
+      "dark": "#cca275",
+      "light": "#675f56"
+    },
+    "tone-94d9a8": {
+      "dark": "#d8b595",
+      "light": "#62472f"
+    },
+    "tone-95c787": {
+      "dark": "#cf9f7f",
+      "light": "#6f5441"
+    },
+    "tone-96aca0": {
+      "dark": "#a9a199",
+      "light": "#665e56"
+    },
+    "tone-98a6b7": {
+      "dark": "#aca8a3",
+      "light": "#60564f"
+    },
+    "tone-98afa7": {
+      "dark": "#cea679",
+      "light": "#645c53"
+    },
+    "tone-98c87f": {
+      "dark": "#ce9a79",
+      "light": "#765541"
+    },
+    "tone-9aa1b1": {
+      "dark": "#aaa6a1",
+      "light": "#615a52"
+    },
+    "tone-9bb0a6": {
+      "dark": "#ada59e",
+      "light": "#615a52"
+    },
+    "tone-9bb5aa": {
+      "dark": "#d0a980",
+      "light": "#655849"
+    },
+    "tone-9bb7aa": {
+      "dark": "#d1aa81",
+      "light": "#645648"
+    },
+    "tone-9cb0b0": {
+      "dark": "#aea69e",
+      "light": "#615951"
+    },
+    "tone-9db3a7": {
+      "dark": "#d0a880",
+      "light": "#5e5750"
+    },
+    "tone-9db4ac": {
+      "dark": "#d0ab81",
+      "light": "#5e574f"
+    },
+    "tone-9eb5ac": {
+      "dark": "#d1ab82",
+      "light": "#5d564e"
+    },
+    "tone-9eb7ad": {
+      "dark": "#d1ac84",
+      "light": "#625547"
+    },
+    "tone-9ecb85": {
+      "dark": "#d09f80",
+      "light": "#71513d"
+    },
+    "tone-9f8ab760": {
+      "dark": "#a8a19960",
+      "light": "#685d5560"
+    },
+    "tone-9fb5aa": {
+      "dark": "#d1ab83",
+      "light": "#5c554e"
+    },
+    "tone-a0b4a7": {
+      "dark": "#b1aaa3",
+      "light": "#5c554e"
+    },
+    "tone-a1b5a8": {
+      "dark": "#b2aba4",
+      "light": "#5b544c"
+    },
+    "tone-a1d77f": {
+      "dark": "#d5a181",
+      "light": "#734d35"
+    },
+    "tone-a2b4a4": {
+      "dark": "#b2aba4",
+      "light": "#5b544d"
+    },
+    "tone-a2b5a8": {
+      "dark": "#b3aca4",
+      "light": "#5b544c"
+    },
+    "tone-a4b8ac": {
+      "dark": "#d3ae89",
+      "light": "#58514a"
+    },
+    "tone-a4dd8f": {
+      "dark": "#dbae91",
+      "light": "#65432d"
+    },
+    "tone-a5b0c1": {
+      "dark": "#b7b3af",
+      "light": "#544a44"
+    },
+    "tone-a5b9ac": {
+      "dark": "#d4ae8a",
+      "light": "#575049"
+    },
+    "tone-a5baae": {
+      "dark": "#d4af8b",
+      "light": "#565049"
+    },
+    "tone-a5d68d": {
+      "dark": "#d5aa8e",
+      "light": "#684833"
+    },
+    "tone-a5df82": {
+      "dark": "#dda684",
+      "light": "#70472d"
+    },
+    "tone-a6b6c4": {
+      "dark": "#bab5b0",
+      "light": "#514943"
+    },
+    "tone-a6bba8": {
+      "dark": "#d5ad8c",
+      "light": "#554f48"
+    },
+    "tone-a6bcb0": {
+      "dark": "#d5b18d",
+      "light": "#544e48"
+    },
+    "tone-a6beb1": {
+      "dark": "#d5b28f",
+      "light": "#594d41"
+    },
+    "tone-a6beb5": {
+      "dark": "#d5b48f",
+      "light": "#594e41"
+    },
+    "tone-a7e88c": {
+      "dark": "#e6b18e",
+      "light": "#663e24"
+    },
+    "tone-a8d882": {
+      "dark": "#d6a384",
+      "light": "#714a33"
+    },
+    "tone-a8dc87": {
+      "dark": "#daa889",
+      "light": "#6d462e"
+    },
+    "tone-a8e777": {
+      "dark": "#e4a27a",
+      "light": "#784628"
+    },
+    "tone-a9b6c6": {
+      "dark": "#bcb8b3",
+      "light": "#4f4640"
+    },
+    "tone-a9c1b4": {
+      "dark": "#d7b593",
+      "light": "#564a3e"
+    },
+    "tone-a9c2b6": {
+      "dark": "#d7b694",
+      "light": "#554a3e"
+    },
+    "tone-a9e689": {
+      "dark": "#e4ae8b",
+      "light": "#694026"
+    },
+    "tone-a9e883": {
+      "dark": "#e5aa86",
+      "light": "#6e4125"
+    },
+    "tone-aab7c7": {
+      "dark": "#bdb9b4",
+      "light": "#4e453f"
+    },
+    "tone-aadf85": {
+      "dark": "#dda887",
+      "light": "#6d452d"
+    },
+    "tone-acc89e": {
+      "dark": "#d6ab90",
+      "light": "#5b493d"
+    },
+    "tone-ace888": {
+      "dark": "#e6ad8a",
+      "light": "#6a3f24"
+    },
+    "tone-ad6e69": {
+      "dark": "#ad6e69",
+      "light": "#915b57"
+    },
+    "tone-adc3bd": {
+      "dark": "#d9bb97",
+      "light": "#52483c"
+    },
+    "tone-ade68a": {
+      "dark": "#e4ae8c",
+      "light": "#683f26"
+    },
+    "tone-b0dc9b": {
+      "dark": "#dbb59c",
+      "light": "#5b3e2c"
+    },
+    "tone-b0ed85": {
+      "dark": "#eaad88",
+      "light": "#693e23"
+    },
+    "tone-b2c5c0": {
+      "dark": "#dbbe9c",
+      "light": "#4e4439"
+    },
+    "tone-b2e990": {
+      "dark": "#e7b392",
+      "light": "#623b23"
+    },
+    "tone-b4c6ce": {
+      "dark": "#c5c1bd",
+      "light": "#443d38"
+    },
+    "tone-b4eaa4": {
+      "dark": "#e8c1a6",
+      "light": "#52331f"
+    },
+    "tone-b5c8c9": {
+      "dark": "#c2bfbc",
+      "light": "#463f3a"
+    },
+    "tone-b5d993": {
+      "dark": "#d8ad94",
+      "light": "#63422f"
+    },
+    "tone-b5da93": {
+      "dark": "#d8ae95",
+      "light": "#62422f"
+    },
+    "tone-b6c8c4": {
+      "dark": "#dcc2a2",
+      "light": "#4a4136"
+    },
+    "tone-b6cbc6": {
+      "dark": "#ddc3a4",
+      "light": "#493f35"
+    },
+    "tone-b7c995": {
+      "dark": "#d4a48a",
+      "light": "#634a3d"
+    },
+    "tone-b7c99518": {
+      "dark": "#d4a48a18",
+      "light": "#634a3d18"
+    },
+    "tone-b7ef8a": {
+      "dark": "#ecb08d",
+      "light": "#643a21"
+    },
+    "tone-b8d7c2": {
+      "dark": "#e1c7ae",
+      "light": "#43372c"
+    },
+    "tone-b8e597": {
+      "dark": "#e3b599",
+      "light": "#5d3a25"
+    },
+    "tone-b8e994": {
+      "dark": "#e7b596",
+      "light": "#603921"
+    },
+    "tone-bacbd0": {
+      "dark": "#c9c5c1",
+      "light": "#403934"
+    },
+    "tone-bad0c0": {
+      "dark": "#e0c4aa",
+      "light": "#433a31"
+    },
+    "tone-bae696": {
+      "dark": "#e4b498",
+      "light": "#5e3a24"
+    },
+    "tone-baf187": {
+      "dark": "#eeaf8a",
+      "light": "#653a21"
+    },
+    "tone-bc9cff": {
+      "dark": "#d7cec4",
+      "light": "#422e21"
+    },
+    "tone-bce89c": {
+      "dark": "#e6b99e",
+      "light": "#583622"
+    },
+    "tone-bcf587": {
+      "dark": "#f2b08a",
+      "light": "#623821"
+    },
+    "tone-bde999": {
+      "dark": "#e7b79b",
+      "light": "#5b3721"
+    },
+    "tone-bdf09f": {
+      "dark": "#eebfa1",
+      "light": "#53311c"
+    },
+    "tone-beef9f": {
+      "dark": "#edbea1",
+      "light": "#54311c"
+    },
+    "tone-bff19d": {
+      "dark": "#efbd9f",
+      "light": "#54311c"
+    },
+    "tone-bff298": {
+      "dark": "#f0ba9a",
+      "light": "#57331d"
+    },
+    "tone-c0e9aa": {
+      "dark": "#e7c3ac",
+      "light": "#4c301f"
+    },
+    "tone-c2e5b5": {
+      "dark": "#e4c8b6",
+      "light": "#432f21"
+    },
+    "tone-c2fba4": {
+      "dark": "#f6c7a9",
+      "light": "#472a18"
+    },
+    "tone-c7d9d3": {
+      "dark": "#e6d1ba",
+      "light": "#373027"
+    },
+    "tone-c8dfce": {
+      "dark": "#e8d2bf",
+      "light": "#342b23"
+    },
+    "tone-c8e797": {
+      "dark": "#e5b499",
+      "light": "#5d3723"
+    },
+    "tone-c8f3a9": {
+      "dark": "#f1c5ab",
+      "light": "#4a2b18"
+    },
+    "tone-c9dfd5": {
+      "dark": "#e8d5c0",
+      "light": "#332b23"
+    },
+    "tone-cbebbd": {
+      "dark": "#eacfbe",
+      "light": "#3c271a"
+    },
+    "tone-cbedb3": {
+      "dark": "#ecc9b4",
+      "light": "#442a1a"
+    },
+    "tone-ceefbe": {
+      "dark": "#eed1bf",
+      "light": "#3a2517"
+    },
+    "tone-cfdbed": {
+      "dark": "#e3ded9",
+      "light": "#27201a"
+    },
+    "tone-cfe4c6": {
+      "dark": "#e8d1c2",
+      "light": "#35281f"
+    },
+    "tone-cfe7d4": {
+      "dark": "#ecdaca",
+      "light": "#2d231b"
+    },
+    "tone-d0eac4": {
+      "dark": "#e9d3c5",
+      "light": "#36251a"
+    },
+    "tone-d0f8b4": {
+      "dark": "#f6ceb6",
+      "light": "#3e2414"
+    },
+    "tone-d1e4d4": {
+      "dark": "#ebd9ca",
+      "light": "#2c241d"
+    },
+    "tone-d1f4b7": {
+      "dark": "#f2ceb9",
+      "light": "#3e2415"
+    },
+    "tone-d1ffae": {
+      "dark": "#f8ceb5",
+      "light": "#3d2314"
+    },
+    "tone-d2e8cc": {
+      "dark": "#ebd7c9",
+      "light": "#2f231b"
+    },
+    "tone-d2f8bd": {
+      "dark": "#f7d4be",
+      "light": "#372012"
+    },
+    "tone-d3dce7": {
+      "dark": "#e0ddda",
+      "light": "#26211d"
+    },
+    "tone-d3ecc8": {
+      "dark": "#ebd6c9",
+      "light": "#322218"
+    },
+    "tone-d3ffae": {
+      "dark": "#f8ceb5",
+      "light": "#3d2314"
+    },
+    "tone-d4ebc6": {
+      "dark": "#ead4c7",
+      "light": "#342319"
+    },
+    "tone-d4f0be": {
+      "dark": "#efd1bf",
+      "light": "#3a2416"
+    },
+    "tone-d5c8a7": {
+      "dark": "#d5c8a7",
+      "light": "#554a2d"
+    },
+    "tone-d5e8d7": {
+      "dark": "#edddd0",
+      "light": "#282019"
+    },
+    "tone-d5eacb": {
+      "dark": "#ebd7ca",
+      "light": "#302219"
+    },
+    "tone-d5ead8": {
+      "dark": "#eeded1",
+      "light": "#271f18"
+    },
+    "tone-d5ffb6": {
+      "dark": "#f8d3bd",
+      "light": "#372012"
+    },
+    "tone-d6e5d9": {
+      "dark": "#eddcce",
+      "light": "#27211c"
+    },
+    "tone-d6ffbc": {
+      "dark": "#f9d7c2",
+      "light": "#321e11"
+    },
+    "tone-d6ffbe": {
+      "dark": "#f9d8c4",
+      "light": "#311d10"
+    },
+    "tone-d7e7dd": {
+      "dark": "#eedfd0",
+      "light": "#26201a"
+    },
+    "tone-d7e8d1": {
+      "dark": "#ecd9cd",
+      "light": "#2b211a"
+    },
+    "tone-d7e8d8": {
+      "dark": "#eeded1",
+      "light": "#261f19"
+    },
+    "tone-d8e3ea": {
+      "dark": "#e4e1de",
+      "light": "#221d1a"
+    },
+    "tone-d8e7dc": {
+      "dark": "#eedfd1",
+      "light": "#251f1a"
+    },
+    "tone-d8e9dc": {
+      "dark": "#efe0d2",
+      "light": "#251e18"
+    },
+    "tone-d8ead8": {
+      "dark": "#efdfd3",
+      "light": "#251d17"
+    },
+    "tone-d9e6dd": {
+      "dark": "#eedfd1",
+      "light": "#251f1a"
+    },
+    "tone-d9e8dc": {
+      "dark": "#efe0d2",
+      "light": "#241e19"
+    },
+    "tone-d9e9db": {
+      "dark": "#efe0d3",
+      "light": "#241d18"
+    },
+    "tone-d9e9dd": {
+      "dark": "#efe0d3",
+      "light": "#241e18"
+    },
+    "tone-dcf1cb": {
+      "dark": "#f0d9cc",
+      "light": "#2f1e13"
+    },
+    "tone-ddedce": {
+      "dark": "#edd9ce",
+      "light": "#2d1e16"
+    },
+    "tone-e0ebe4": {
+      "dark": "#f1e5da",
+      "light": "#1e1915"
+    },
+    "tone-e0ecd9": {
+      "dark": "#f0dfd5",
+      "light": "#241b15"
+    },
+    "tone-e0ecdc": {
+      "dark": "#f0e2d8",
+      "light": "#211a15"
+    },
+    "tone-e1ece4": {
+      "dark": "#f2e6db",
+      "light": "#1c1815"
+    },
+    "tone-e1f1d3": {
+      "dark": "#f0ded4",
+      "light": "#281a12"
+    },
+    "tone-e3eee5": {
+      "dark": "#f3e8de",
+      "light": "#1a1613"
+    },
+    "tone-e5eee8": {
+      "dark": "#f3e9e0",
+      "light": "#191512"
+    },
+    "tone-e5f8e1": {
+      "dark": "#f7ebe2",
+      "light": "#1b110a"
+    },
+    "tone-e6ebf3": {
+      "dark": "#efedea",
+      "light": "#151210"
+    },
+    "tone-e6edaa": {
+      "dark": "#e6edaa",
+      "light": "#4a5017"
+    },
+    "tone-e6eee9": {
+      "dark": "#f4eae0",
+      "light": "#181512"
+    },
+    "tone-e7f8dd": {
+      "dark": "#f7e8de",
+      "light": "#1e120b"
+    },
+    "tone-e8cf9c": {
+      "dark": "#e8cf9c",
+      "light": "#5d481d"
+    },
+    "tone-e8edf5": {
+      "dark": "#f1efec",
+      "light": "#13100e"
+    },
+    "tone-e9f1e9": {
+      "dark": "#f5ece5",
+      "light": "#15120f"
+    },
+    "tone-ecc787": {
+      "dark": "#ecc787",
+      "light": "#70511b"
+    },
+    "tone-eef2f8": {
+      "dark": "#f5f3f1",
+      "light": "#120f0d"
+    },
+    "tone-f0d8ce": {
+      "dark": "#f0d8ce",
+      "light": "#2e1a12"
+    },
+    "tone-f0e09f": {
+      "dark": "#f0e09f",
+      "light": "#5a4c15"
+    },
+    "tone-f2bdc3": {
+      "dark": "#f2bdc3",
+      "light": "#3e1116"
+    },
+    "tone-ffbbb8": {
+      "dark": "#ffbbb8",
+      "light": "#420805"
+    },
+    "tone-ffbcb8": {
+      "dark": "#ffbcb8",
+      "light": "#420905"
+    },
+    "tone-ffc2bc": {
+      "dark": "#ffc2bc",
+      "light": "#3e0a05"
+    },
+    "tone-ffcdc3": {
+      "dark": "#ffcdc3",
+      "light": "#380d04"
+    },
+    "tone-ffd5d6": {
+      "dark": "#ffd5d6",
+      "light": "#270304"
+    },
+    "tone-ffd6dc": {
+      "dark": "#ffd6dc",
+      "light": "#260308"
+    },
+    "tone-ffd7df": {
+      "dark": "#ffd7df",
+      "light": "#25030a"
+    },
+    "tone-ffe0df": {
+      "dark": "#ffe0df",
+      "light": "#1e0302"
+    },
+    "tone-ffffff03": {
+      "dark": "#ffffff03",
+      "light": "#100f0e03"
+    },
+    "tone-ffffff07": {
+      "dark": "#ffffff07",
+      "light": "#100f0e07"
+    },
+    "tone-ffffff08": {
+      "dark": "#ffffff08",
+      "light": "#100f0e08"
+    },
+    "tone-ffffff0b": {
+      "dark": "#ffffff0b",
+      "light": "#100f0e0b"
+    },
+    "tone-ffffff14": {
+      "dark": "#ffffff14",
+      "light": "#100f0e14"
+    },
+    "tone-ffffff17": {
+      "dark": "#ffffff17",
+      "light": "#100f0e17"
+    },
+    "tone-ffffff18": {
+      "dark": "#ffffff18",
+      "light": "#100f0e18"
+    },
+    "tone-ffffff20": {
+      "dark": "#ffffff20",
+      "light": "#100f0e20"
+    },
+    "tone-ffffff22": {
+      "dark": "#ffffff22",
+      "light": "#100f0e22"
+    },
+    "tone-ffffff24": {
+      "dark": "#ffffff24",
+      "light": "#100f0e24"
+    },
+    "white": {
+      "dark": "#ffffff",
+      "light": "#28201b"
+    }
+  },
+  "aliases": {
+    "chart-background": "var(--aural-tone-111e25)",
+    "chart-grid": "var(--aural-tone-355047)",
+    "chart-primary": "var(--aural-tone-b2e990)",
+    "chart-secondary": "var(--aural-tone-68c7b6)",
+    "chart-position": "var(--aural-tone-f0e09f)"
+  }
+}

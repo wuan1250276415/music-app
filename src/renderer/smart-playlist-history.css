@@ -1,0 +1,20 @@
+.smart-history-dialog{width:min(820px,100%)}
+.smart-history-tools{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0}
+.smart-history-tools button,.smart-history-list button,.smart-history-detail>button,.smart-history-pending button{border:1px solid var(--aural-tone-496152);background:var(--aural-tone-22332f);color:var(--aural-tone-cfe4c6);padding:8px 12px;border-radius:8px;font-size:12px}
+.smart-history-tools span{font-size:12px;color:var(--aural-tone-87a096)}
+.smart-history-list{list-style:none;margin:12px 0;padding:0;max-height:260px;overflow:auto}
+.smart-history-list li{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--aural-tone-345044)}
+.smart-history-list li>div{flex:1;min-width:0}
+.smart-history-list strong,.smart-history-list small{display:block;overflow-wrap:anywhere}
+.smart-history-list strong{font-size:13px}.smart-history-list small{font-size:11px;color:var(--aural-tone-87a096);margin-top:5px}
+.smart-history-detail,.smart-history-pending{border:1px solid var(--aural-tone-345044);border-radius:10px;padding:16px;margin:16px 0}
+.smart-history-detail h3{margin:0 0 12px;font-size:16px;overflow-wrap:anywhere}
+.smart-history-detail p,.smart-history-pending p{font-size:12px;line-height:1.7;color:var(--aural-tone-87a096)}
+.smart-history-detail dl{display:grid;grid-template-columns:90px minmax(0,1fr);gap:10px;font-size:12px}
+.smart-history-detail dt{color:var(--aural-tone-87a096)}.smart-history-detail dd{margin:0;overflow-wrap:anywhere}
+.smart-history-detail>button{margin-right:8px;margin-bottom:8px}
+.smart-history-confirm{padding-top:12px;border-top:1px solid var(--aural-tone-345044)}
+.smart-history-confirm label{flex-direction:row;align-items:center}.smart-history-confirm input[type=checkbox]{width:auto}
+.smart-history-dialog footer{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}
+.smart-history-dialog button:focus-visible{outline:2px solid var(--aural-accent);outline-offset:3px}
+@media(max-width:600px){.smart-history-detail{padding:12px}.smart-history-list li{flex-wrap:wrap}.smart-history-list li>div{flex-basis:100%}.smart-history-detail dl{grid-template-columns:70px minmax(0,1fr)}}

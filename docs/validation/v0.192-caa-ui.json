@@ -1,0 +1,40 @@
+{
+  "version": "0.192.0",
+  "scope": "production React panel + Main preview resources/protocol + real native synthetic red image in isolated Electron; candidate/API mocked, not real Main/Service/network E2E",
+  "completed": true,
+  "cases": [
+    "default disabled and settings entry",
+    "validated text, escaped comment, source button, no image",
+    "no automatic image download",
+    "actual native JPEG/protocol pixel under unchanged application CSP, no-store response",
+    "closing image purges protocol resource",
+    "late image after cancel is discarded and purged",
+    "foreign preview discarded and purged",
+    "image expiry hides preview and purges bytes",
+    "cancel discards delayed response",
+    "empty release index",
+    "failure shown with retry",
+    "foreign response rejected",
+    "source disable discards late response",
+    "candidate switch cancels old request",
+    "library change discards late response",
+    "no release candidate",
+    "expired candidate"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-caa-ui-mvp-kNGhg1",
+  "previewPixel": {
+    "red": 253,
+    "green": 1,
+    "blue": 0
+  },
+  "cancelCount": 5,
+  "fingerprints": {
+    "src/renderer/cover-art-source-panel.tsx": "ad99e7e151ed1879e7ad996472ea421c2541c7d87d4eb548f72b4620ed4635b6",
+    "src/renderer/metadata.css": "ca7796df1284cc0bb57104c51831a0973b57f519f0bf2e5ce44ca695c49ae45d",
+    "src/renderer/index.html": "3cab66c55d6e3c787cc0a80b93538d582bb64bd7964560a733c8231f20794677",
+    "src/main/artwork-resources.ts": "bf5ec4a6c25792b3e1a987ab13ab24dd533d44f2a8817676359e69e0dfb2a721",
+    "dist/main/main/artwork-resources.js": "1a3995927f2b2b25fde187a35e6ce4fb029ef7e0a52bc8d690d84bc1729ebade",
+    "src/library/online-image-converter.ts": "a2ca5e8259c57e17564833e400deb72d7c06215581166ca21b3561d60f1c6e16",
+    "tests/helpers/cover-art-source-ui.tsx": "8a91a94c0b02e81efacef0415ca0625a55a71b966f1d298a92fe09ae44d20b2a"
+  }
+}

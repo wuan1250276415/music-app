@@ -1,0 +1,12 @@
+{
+  "appVersion": "0.189.0",
+  "scope": "synthetic production query semantics; no media scan, hardware or scale certification",
+  "comparisons": 1100,
+  "assertions": [
+    "full relational order equivalence at tied prefix boundaries, deep/empty pages, asc/desc, manual positions, missing/legacy sort keys, ranks, favorite/availability scopes and version collapse",
+    "closer-end probes at exact midpoint, partial final and empty pages preserve full secondary order for page sizes 1/7/25/100",
+    "independent PCM quality/rate/depth, release-year, performer/album-artist identity and recorded/never-played statistics scopes exercise pruned joins",
+    "manifest genre identities, rename alias, descendants, any/all, item plus release membership without double counting, unavailable/rated favorites and repeated playlist entry positions"
+  ],
+  "completed": true
+}

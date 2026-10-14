@@ -1,0 +1,14 @@
+{
+  "version": "0.193.0",
+  "completed": false,
+  "scope": "actual rendered matching -> fixture network -> supervised image -> production Main/Service save -> restart/offline; only fetch boundary replaced, no candidate/preview/repository seeded",
+  "live": false,
+  "cases": [],
+  "scratch": "D:\\CodexTestData\\aural-online-e2e-rxGbGE",
+  "originalTags": {
+    "title": "封面测试",
+    "artist": "测试歌手",
+    "album": "测试专辑"
+  },
+  "error": "locator.waitFor: Timeout 55000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('complementary', { name: '元数据面板' }).locator('.candidate-card').first() to be visible\u001b[22m\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-online-artwork-e2e.smoke.cjs:26:50)"
+}

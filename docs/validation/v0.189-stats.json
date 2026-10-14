@@ -1,0 +1,47 @@
+{
+  "appVersion": "0.189.0",
+  "scope": "production stats, frozen original query and independent expected memberships; optional read-only synthetic100k comparison, no physical scan or OS cold certification",
+  "comparisons": 13,
+  "completed": true,
+  "featureModes": [
+    {
+      "profiles": false,
+      "metadata": false,
+      "artists": 3
+    },
+    {
+      "profiles": false,
+      "metadata": true,
+      "artists": 3
+    },
+    {
+      "profiles": true,
+      "metadata": false,
+      "artists": 4
+    },
+    {
+      "profiles": true,
+      "metadata": true,
+      "artists": 4
+    }
+  ],
+  "scale": {
+    "prior": {
+      "roots": 1,
+      "tracks": 100000,
+      "artists": 508,
+      "albums": 5009,
+      "unavailable": 0
+    },
+    "current": {
+      "roots": 1,
+      "tracks": 100000,
+      "artists": 508,
+      "albums": 5009,
+      "unavailable": 0
+    },
+    "oldMs": 6690.204299999999,
+    "newMs": 2148.6532000000007,
+    "originalUnchanged": true
+  }
+}

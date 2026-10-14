@@ -1,0 +1,31 @@
+name: Windows contracts and development installer
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-x64:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run verify:contracts
+      - run: npm run package:win
+        env:
+          AURAL_BUILD_OUTPUT: ${{ github.workspace }}\build-out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aural-windows-x64-dev-installer
+          path: |
+            build-out/Aural-Setup-*.exe
+            build-out/Aural-*-distribution-hashes.json
+          if-no-files-found: error

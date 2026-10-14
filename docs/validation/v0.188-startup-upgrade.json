@@ -1,0 +1,123 @@
+{
+  "appVersion": "0.188.0",
+  "scope": "actual Electron Main/Library startup; copied synthetic 100k schema72 catalog, no physical scan, OS cold or hardware certification",
+  "sourceName": "aural-benchmark-100000.db.pre-v73-1791771486646.bak",
+  "scratch": "D:\\CodexTestData\\aural-startup-upgrade-mvp-TzCvxa",
+  "completed": true,
+  "originalSha256": "691a92e6e78b9d91947d7265863a032573fb7385aa0794dcc4f7f67c01064f93",
+  "startupVisibleMs": 3020.3171999999995,
+  "startupResponsiveDuringMigration": true,
+  "upgradeStartupTrace": {
+    "version": 1,
+    "phase": "ready",
+    "elapsedMs": 216117.79549999998,
+    "scope": "Main startup phases; excludes process launch, OS cold cache and end-to-end browsing",
+    "stages": [
+      {
+        "phase": "admission",
+        "elapsedMs": 0.026099999999985357
+      },
+      {
+        "phase": "library-open",
+        "elapsedMs": 543.2047
+      },
+      {
+        "phase": "snapshot-save",
+        "elapsedMs": 925.6912
+      },
+      {
+        "phase": "snapshot-verify",
+        "elapsedMs": 8078.0647
+      },
+      {
+        "phase": "index-update",
+        "elapsedMs": 78559.35160000001
+      },
+      {
+        "phase": "index-verify",
+        "elapsedMs": 79343.1124
+      },
+      {
+        "phase": "library-runtime",
+        "elapsedMs": 214879.6805
+      },
+      {
+        "phase": "preferences",
+        "elapsedMs": 214893.8713
+      },
+      {
+        "phase": "output",
+        "elapsedMs": 214904.71339999998
+      },
+      {
+        "phase": "queue",
+        "elapsedMs": 214919.66919999997
+      },
+      {
+        "phase": "desktop",
+        "elapsedMs": 214924.9551
+      },
+      {
+        "phase": "interface",
+        "elapsedMs": 214959.79919999998
+      },
+      {
+        "phase": "ready",
+        "elapsedMs": 216105.16879999998
+      }
+    ]
+  },
+  "upgradeReadyMs": 228359.5194,
+  "snapshot": {
+    "name": "library.db.pre-v73-1791787955233.bak",
+    "bytes": 1728020480,
+    "sha256": "7da03a090dc6b36750671a2ac2fa194f81478b601a8c5be4a34f6a9cbdf7af7d"
+  },
+  "reopenStartupTrace": {
+    "version": 1,
+    "phase": "ready",
+    "elapsedMs": 584.2119,
+    "scope": "Main startup phases; excludes process launch, OS cold cache and end-to-end browsing",
+    "stages": [
+      {
+        "phase": "admission",
+        "elapsedMs": 0.014500000000026603
+      },
+      {
+        "phase": "library-open",
+        "elapsedMs": 401.65200000000004
+      },
+      {
+        "phase": "library-runtime",
+        "elapsedMs": 423.99890000000005
+      },
+      {
+        "phase": "preferences",
+        "elapsedMs": 428.24670000000003
+      },
+      {
+        "phase": "output",
+        "elapsedMs": 429.5151000000001
+      },
+      {
+        "phase": "queue",
+        "elapsedMs": 433.5751
+      },
+      {
+        "phase": "desktop",
+        "elapsedMs": 435.1454
+      },
+      {
+        "phase": "interface",
+        "elapsedMs": 455.46000000000004
+      },
+      {
+        "phase": "ready",
+        "elapsedMs": 582.2087
+      }
+    ]
+  },
+  "reopenReadyMs": 10701.016600000003,
+  "originalUnchanged": true,
+  "diagnostics": "Debugger ending on ws://127.0.0.1:52644/c0aba03b-eb86-4c13-a891-a11f8713b75c\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\nDebugger ending on ws://127.0.0.1:65510/f9a50dd4-5085-4a6a-ae45-cbb6fec90143\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\n"
+}

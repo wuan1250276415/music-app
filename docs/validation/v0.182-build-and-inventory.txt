@@ -1,0 +1,24 @@
+Date: 2026-10-11
+Version: 0.182.0; schema72; audio IPC1.23; media14
+
+Observed terminal exit codes:
+work/v182-final-source-build.exit: 0 (final Main/Renderer type checks and build)
+work/v182-native-build.exit: 0 (all production native components before final PCM fix)
+work/v182-final-audio-build.exit: 0 (audio host rebuilt after PCM fix)
+work/v182-search-complete.exit: 0 (final search integration, including renderer index status)
+work/v182-mvp-detail.exit: 0 (MP3/WAV detail regression)
+work/v182-flac-cue-final.exit: 0 (FLAC/CUE regression including immediate PCM transition/seek)
+
+Final document/inventory checkpoint:
+node --check: generate-distribution-inventory.cjs, generate-release.cjs,
+check-asio-sdk.cjs (when present), search-mvp.smoke.cjs,
+electron-flac-cue.smoke.cjs, tagged-flac.cjs, electron-detail.smoke.cjs: exit0
+generate-distribution-inventory.cjs: exit0; 19 npm runtime packages,
+5 vendored components, Electron44.4.5
+generate-distribution-inventory.cjs --check: exit0
+generate-release.cjs --check: exit0
+
+Only focused runtime evidence; no full test suite, new installer, ASIO hardware,
+exclusive/device-switch certification, full migration, 100k benchmark or long-run test.
+MP3/WAV normal shutdown still reports artwork lease after Library exit (0).
+See ADR-188 and mvp-validation.md for scope and remaining architecture gates.

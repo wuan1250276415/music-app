@@ -1,0 +1,21 @@
+{
+  "version": "0.193.0",
+  "completed": true,
+  "scope": "production React save controls + real SQLite store/Main preview authority via fixture IPC; synthetic image/candidate; not production Service valid-candidate save E2E",
+  "cases": [
+    "preview-only setting disables save; no automatic persistence",
+    "actual default-save button commits fallback despite deliberately lost response; preview released",
+    "same-command UI retry succeeds without surviving preview, adds no revision/source and closes saved preview",
+    "explicit preferred-save button persists new provenance while deduplicating image bytes",
+    "history UI undo restores previous source/order and keeps rights/export restrictions"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-save-ui-qcE7Ie",
+  "fingerprints": {
+    "src/renderer/online-artwork-controls.tsx": "efba327443fd693268aa59f894c3d88636a51cae18eff3f8b0e8c9ffdeb01fd3",
+    "src/main/artwork-resources.ts": "6873cc87fb317daaf36b7114a91b8be0ee1983ba613985743b57a1659ddbff5d",
+    "src/library/online-artwork-store.ts": "1bec947ded8dfbce39a2d88a29f7a3785c1027fb3d912a17b26533507159212c",
+    "dist/main/library/online-artwork-store.js": "efecfd4fb3170237f0a0f23a5e240ee17cd6fde44aeefec9a7c3d9b465815b7a",
+    "tests/helpers/online-artwork-save-ui.tsx": "58f12f596aadfd3f92f52ff3adc7f9446dd055584d438fdada02cb1ef3e59c2b",
+    "tests/electron-online-artwork-save.smoke.cjs": "15b3095e5b0b0e7b6572e0a98553d816abff470a095c9bf59aab7b16e35dbc6e"
+  }
+}

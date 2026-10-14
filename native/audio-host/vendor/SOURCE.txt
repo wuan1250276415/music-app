@@ -1,0 +1,15 @@
+miniaudio 0.11.25
+Source: https://github.com/mackron/miniaudio/releases/tag/0.11.25
+Header: https://raw.githubusercontent.com/mackron/miniaudio/0.11.25/miniaudio.h
+SHA-256: 4FA501173FBD953DE25330FF03B6DE14AA54EDC057233D20EF297C32F7467295
+Upstream SHA-256: AC7AF4DE748B7E26B777F37E01CEE313A308A7296A3EB080E2906B320CC55C89
+Local patch: patches/wasapi-requested-integer-format.patch
+Local patch SHA-256: 77BCB77EB189F97E5AFD5CF39D1BFD5355FEA73AA0A2C40F7C5C318E49F17D63
+Patch purpose: prefer requested integer PCM formats before endpoint defaults; retain raw validation and conversion fallback.
+License: LICENSE-miniaudio.txt (Public Domain or MIT No Attribution, choose MIT No Attribution for this prototype)
+
+nlohmann/json 3.12.0
+Source: https://github.com/nlohmann/json/releases/tag/v3.12.0
+Header: https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp
+SHA-256: AAF127C04CB31C406E5B04A63F1AE89369FCCDE6D8FA7CDDA1ED4F32DFC5DE63
+License: LICENSE-json.txt (MIT)

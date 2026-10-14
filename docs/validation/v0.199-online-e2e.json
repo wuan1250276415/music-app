@@ -1,0 +1,186 @@
+{
+  "version": "0.199.0",
+  "completed": true,
+  "scope": "actual rendered matching -> fixture network -> supervised image -> production Main/Service save -> restart/offline; only fetch boundary replaced, no candidate/preview/repository seeded",
+  "live": false,
+  "cases": [
+    "actual renderer search produces valid candidates through production provider and live item fingerprint",
+    "explicit recording-release browse uses actual short-page count for next offset and selects JP edition",
+    "actual context traverses Main/preload/Service/provider; two local/remote tracks agree and chosen recording position shown",
+    "actual Main rejects context cursor before service/network",
+    "selected front entry downloads and displays actual supervised JPEG through Main opaque preview protocol",
+    "actual confirmation button traverses Main preview authority and Service candidate validation; source/selection/history committed once",
+    "cover-only change preserves current matching candidate/source index and closes only saved preview",
+    "default fallback selects original embedded image when present, online image when missing",
+    "actual metadata edit invalidates prior preview/application; stale source cannot replace saved cover",
+    "actual context -> root review modal starts unchecked, explicit label pair + five fields + shared scope -> Main/Service authority -> immutable provenance/retention history; modal survives own library event",
+    "actual confirmation-only partial undo restores date, leaves country/label/catalog/barcode, appends compensation audit",
+    "actual trusted Main still rejects caller-supplied arbitrary release text",
+    "actual full album button reads two local versions, defaults to no mapping/fields, source track picker searches per-track credits, explicit title/artist/album choices create durable source-bound batch",
+    "actual existing batch execution applies both reviewed tracks, per-track artist rather than album artist, release-sourced track title and immutable recording/track context",
+    "actual batch undo restores both selected entries through compensating field records",
+    "actual Main rejects caller-supplied album field values before Service",
+    "actual Main/Service grouping creates a local concept spanning two explicit editions before online group review",
+    "actual group card shows both editions/all three playable items; saving stays disabled until independent concept scope acknowledgement",
+    "actual identity button works without text fields, defaults to no confirmation, separately acknowledged two recordings/release commit atomically with preserved local graph/text",
+    "actual source-retention history and counters expose every selected source-bound identity confirmation",
+    "actual source-bound concept confirmation retained independently after release undo",
+    "actual individual concept undo preserves edition membership and the two recording confirmations",
+    "actual individual release-identity undo restores only release references, preserves recording confirmations",
+    "actual trusted Main still rejects caller-supplied external identity values",
+    "actual app restart/offline preserves saved online asset/provenance/revision without candidate recreation",
+    "actual restart/offline retains release provenance and partial compensation state without network review tokens",
+    "actual offline restart preserves album correspondence, source context and complete compensation results",
+    "actual offline restart retains all concept editions, individual group compensation and source audit without previews",
+    "actual offline restart retains recording identities, individual release compensation and audit authority without previews"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-e2e-4vK8Em",
+  "originalTags": {
+    "title": "封面测试",
+    "artist": "测试歌手",
+    "album": "测试专辑"
+  },
+  "launches": [
+    {
+      "packaged": false,
+      "phase": "online-review"
+    },
+    {
+      "packaged": false,
+      "phase": "offline-restart"
+    }
+  ],
+  "candidates": [
+    "确定的测试歌曲确定的测试歌手确定的测试专辑 · 匹配排序 46",
+    "确定的测试歌曲确定的测试歌手确定的测试专辑 · 2003-07-31 · 匹配排序 46"
+  ],
+  "releaseContextText": "读取专辑上下文\n确定的测试专辑\n\n2003-07-31 · JP · Official\n\n专辑艺人：确定的测试歌手\n\n专辑概念：确定的测试专辑 · Album\n\n条码：1234567890123\n\n测试唱片公司 · 目录号 TEST-001\n\n发行版：1 碟／2 轨；本地专辑：1 碟／2 轨\n\n当前录音位置：第 1 碟／第 2 轨\n\n第 1 碟 · CD · 2 轨\n审核整张专辑曲目审核并更新发行资料\n\n曲库比较基于本次查询时的专辑信息。此处只供审核，不修改曲目归属或文件。",
+  "selectedCandidate": "确定的测试歌曲确定的测试歌手确定的测试专辑 · 2003-07-31 · 匹配排序 46",
+  "savedSource": {
+    "id": "9e35c22b-b7ae-4f0d-92aa-f55b1185534a",
+    "assetId": "cfb36e1794c029aec30106eb51014cb020f741044eedc42b21b86240a2bb0010",
+    "sourceToken": "ff5f9946ba45ef5f6e711c72fbcb2c65f291da18f050ac525de268da311f168d",
+    "releaseId": "76df3287-6cda-33eb-8e9a-044b5e15ffdd",
+    "imageId": "829521842",
+    "sourceUrl": "https://musicbrainz.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/cover-art",
+    "fetchedAt": "2026-10-13T10:48:49.349Z",
+    "confirmedAt": "2026-10-13T10:48:49.783Z",
+    "width": 64,
+    "height": 64,
+    "rights": {
+      "status": "unverified",
+      "display": true,
+      "persist": true,
+      "export": false,
+      "writeback": false,
+      "basis": "user-selected-local-v1"
+    }
+  },
+  "releaseFieldsChangeId": "801adeae-ae65-4a8c-8e4e-7f8a0e777cdf",
+  "albumBatchId": "ba0f093a-de33-4ca8-966a-ca901250bed4",
+  "localGroupId": "2073c7d2-ec34-4aa1-a05d-c9e2c4db58f9",
+  "identityScreenshot": "C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\work\\v199-identity-review.png",
+  "groupIdentityScreenshot": "C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\work\\v199-group-identity-review.png",
+  "identityChangeIds": [
+    "89d541d2-05f6-4bb7-a45e-dcaaa3fd3fb6",
+    "798328e2-3967-4d17-8f22-17ab968827c2",
+    "76cb9e4d-8dd1-422f-b82a-0df78cd244d3",
+    "96f24f00-3a0e-40b0-a7c3-b65960d1f366"
+  ],
+  "sourceUnchanged": true,
+  "requests": [
+    {
+      "url": "https://musicbrainz.org/ws/2/recording/?query=%E5%B0%81%E9%9D%A2%E6%B5%8B%E8%AF%95+%E6%B5%8B%E8%AF%95%E6%AD%8C%E6%89%8B&dismax=true&limit=8&fmt=json",
+      "time": 1791888522333,
+      "credentials": "omit",
+      "redirect": "manual"
+    },
+    {
+      "url": "https://musicbrainz.org/ws/2/release?recording=e1cc906b-2a9f-4c40-9b38-9a53f4f8b000&limit=25&offset=0&inc=media&fmt=json",
+      "time": 1791888523435,
+      "credentials": "omit",
+      "redirect": "manual"
+    },
+    {
+      "url": "https://musicbrainz.org/ws/2/release?recording=e1cc906b-2a9f-4c40-9b38-9a53f4f8b000&limit=25&offset=2&inc=media&fmt=json",
+      "time": 1791888524546,
+      "credentials": "omit",
+      "redirect": "manual"
+    },
+    {
+      "url": "https://musicbrainz.org/ws/2/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd?inc=artist-credits%2Blabels%2Brecordings%2Brelease-groups&fmt=json",
+      "time": 1791888525648,
+      "credentials": "omit",
+      "redirect": "manual"
+    },
+    {
+      "url": "https://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/",
+      "time": 1791888526029,
+      "credentials": "omit",
+      "redirect": "manual"
+    },
+    {
+      "url": "https://archive.org/download/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/index.json",
+      "time": 1791888527134,
+      "credentials": "omit",
+      "redirect": "manual"
+    },
+    {
+      "url": "https://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-1200",
+      "time": 1791888528235,
+      "credentials": "omit",
+      "redirect": "manual"
+    },
+    {
+      "url": "https://archive.org/download/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd-829521842_thumb1200.jpg",
+      "time": 1791888529347,
+      "credentials": "omit",
+      "redirect": "manual"
+    },
+    {
+      "url": "https://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-1200",
+      "time": 1791888530448,
+      "credentials": "omit",
+      "redirect": "manual"
+    },
+    {
+      "url": "https://archive.org/download/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd-829521842_thumb1200.jpg",
+      "time": 1791888531559,
+      "credentials": "omit",
+      "redirect": "manual"
+    },
+    {
+      "url": "https://musicbrainz.org/ws/2/recording/?query=%E7%A1%AE%E5%AE%9A%E7%9A%84%E6%B5%8B%E8%AF%95%E6%AD%8C%E6%9B%B2+%E6%B5%8B%E8%AF%95%E6%AD%8C%E6%89%8B&dismax=true&limit=8&fmt=json",
+      "time": 1791888531903,
+      "credentials": "omit",
+      "redirect": "manual"
+    }
+  ],
+  "fingerprints": {
+    "src/main/main.ts": "6bc5afd0d1158bd5c7013bcebc0737098a8c86fa5bae3e2eff17dabdd5d34dd4",
+    "src/main/preload.ts": "e2cf87a6b1bcda13946b630f627cc7aa4df09657a1d8d78ca7f0845e40b7d6b0",
+    "src/library/service.ts": "3b6b31d81986c436a70ae39f7edddedbf648259aa1d5c385f47f795b6a02c994",
+    "src/library/musicbrainz.ts": "0f97efc735c8ea010e07b9b0b5e805cafa1b77330caac2908cba6e4d4721ab9a",
+    "src/library/cover-art-archive.ts": "677c5c57ec545f8ed338fb962032c04161970b71592863d2107761dfff30e4b6",
+    "src/library/online-artwork-store.ts": "1bec947ded8dfbce39a2d88a29f7a3785c1027fb3d912a17b26533507159212c",
+    "src/renderer/main.tsx": "7de601c44aaf3c7d8301a274e7b03c8a6f0a0ba3e1084a7189f754fbb5930805",
+    "src/renderer/cover-art-source-panel.tsx": "8892fa3753e52af5da1afec8a5fe1f96ac8aa31fdb324db9c7c906394b6a200d",
+    "src/renderer/online-artwork-controls.tsx": "efba327443fd693268aa59f894c3d88636a51cae18eff3f8b0e8c9ffdeb01fd3",
+    "src/renderer/metadata-editions-panel.tsx": "1ac019979c54e797d17dfbd44c7a54fbce836f8b6ed0c97046b2792c18fbb027",
+    "src/shared/metadata-editions.ts": "d9070f3a48815da1f899563305ee5cd0fbfb2f1877db83c768315f0f643cf8c3",
+    "src/shared/contracts.ts": "0280917f7cd7995c6e84be2f01a4e27630679520d1644bb97d13619a8d05c08c",
+    "src/shared/metadata-release-context.ts": "f65289760a7d34c0577590e8048624d2dc9e269356336ebb29d22d5e8caa4e33",
+    "src/library/metadata-match-ranking.ts": "a47a876ccb76858a7cdcdf52646232b550a443dab276d62722325d26a68d41e7",
+    "src/library/metadata-release-context.ts": "f9270e1c27d00990f3ea6b1e142710b7125be3e720a0537093f512f88b6e8840",
+    "src/renderer/metadata-match-reasons.tsx": "15b47ad458d8dc1a08c9c87a119d780ff5d1ee569ea99d75cccf8758817759e5",
+    "src/renderer/metadata-release-context-panel.tsx": "ec6551414f2bde6d8d7a7f2ce8bf1007ef5dca013d78d2931c84c35ea3a009c8",
+    "src/main/artwork-resources.ts": "4d4c8164d6590386bc7353cf88c1a9419baa92744b6ff2410f83b3820afb6ae9",
+    "dist/renderer/index.html": "d68cdde7801b523ddad510ec223207c6c2528bd48a54441e3cad97ed864cf29f",
+    "dist/main/main/preload.js": "d4582d639decc7121d9f003f8bef48731506460b2b5d7ca48235bc69db0592ed",
+    "dist/main/library/musicbrainz.js": "977ab981a30198e1c220323ca77d79ca3bb19095584c793fc9880f58bcab42fa",
+    "dist/main/main/main.js": "a8409ebe8054a0851ee3184ed46d50e5abfe7b817570f22102c7ee4971092381",
+    "dist/main/library/service.js": "bc50ea6394d8f2ffe212c3ce75218075253b4d2f8ec3c20da401046938d26cee",
+    "native/media-worker/build/media-worker.exe": "231bec29195d78e5f2e912a5a3f7b5d7f1ccfc41e3bfbdec902494b468c100f0",
+    "tests/electron-online-artwork-e2e.smoke.cjs": "8f46d7ccc74081135041baf546674b240b082ebb769888a456cba6d5da457f52"
+  }
+}

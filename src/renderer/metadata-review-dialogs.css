@@ -1,0 +1,28 @@
+.metadata-album-review-dialog{width:min(1080px,94vw);max-height:92vh;overflow:auto}
+.metadata-album-review-dialog p,.metadata-album-picker p{font-size:13px;line-height:1.65}
+.metadata-album-review-dialog label{font-size:13px}
+.metadata-album-review-dialog input[type=checkbox],.release-fields-dialog input[type=checkbox],.release-fields-undo-dialog input[type=checkbox]{width:16px!important;min-width:16px;flex:0 0 16px;margin:3px 0 0;accent-color:var(--aural-tone-a9e883)}
+.metadata-album-review-dialog label:has(>input[type=checkbox]),.release-fields-dialog label:has(>input[type=checkbox]),.release-fields-undo-dialog label:has(>input[type=checkbox]){display:flex;flex-direction:row;gap:10px;align-items:flex-start;line-height:1.7;margin:12px 0}
+.metadata-album-review-dialog .metadata-batch-field{margin:0!important;padding:8px 0}
+.metadata-album-review-dialog .metadata-batch-field span{flex:1;min-width:0}
+.metadata-album-review-dialog .metadata-album-row>small{display:block;font-size:11px;overflow-wrap:anywhere;color:var(--muted,var(--aural-tone-91a0ae));line-height:1.6;margin:6px 0}
+.metadata-album-review-dialog .collection-error{font-size:12px;padding:8px;margin:7px 0}
+.metadata-album-review-dialog button,.metadata-album-picker button,.release-fields-dialog button,.release-fields-undo-dialog button{font:inherit;font-size:13px;padding:8px 12px;border:1px solid var(--line,var(--aural-tone-354454));border-radius:7px;background:var(--surface,var(--aural-surface-dialog));color:inherit;cursor:pointer}
+.metadata-album-review-dialog button:disabled,.metadata-album-picker button:disabled,.release-fields-dialog button:disabled,.release-fields-undo-dialog button:disabled{opacity:.45;cursor:default}
+.metadata-album-review-dialog button.primary-button,.release-fields-dialog button.primary-button,.release-fields-undo-dialog button.primary-button{background:var(--aural-tone-a9e883);color:var(--aural-tone-14241c);border-color:transparent;font-weight:700}
+.metadata-album-review-dialog footer,.release-fields-dialog footer,.release-fields-undo-dialog footer{position:sticky;bottom:-25px;background:var(--aural-surface-dialog);padding:14px 0;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;z-index:1}
+.metadata-album-picker{width:min(850px,94vw);max-height:90vh;overflow:auto}
+.metadata-album-picker .provider-card{display:grid;gap:7px;border:1px solid var(--line,var(--aural-tone-354454));border-radius:10px;padding:12px;margin:10px 0}
+.metadata-album-picker .provider-card button{justify-self:start}
+.metadata-album-picker small{font-size:11px;overflow-wrap:anywhere;color:var(--muted,var(--aural-tone-91a0ae))}
+.metadata-album-picker footer{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.release-fields-dialog .metadata-undo-fields,.release-fields-undo-dialog .metadata-undo-fields{display:grid;gap:10px;margin:16px 0}
+.release-fields-dialog .metadata-undo-fields section,.release-fields-undo-dialog .metadata-undo-fields section{border:1px solid var(--line,var(--aural-tone-354454));padding:12px;border-radius:10px}
+.release-fields-dialog .metadata-undo-fields p,.release-fields-undo-dialog .metadata-undo-fields p{font-size:13px;line-height:1.6;overflow-wrap:anywhere;margin:6px 0}
+.release-fields-dialog .metadata-undo-fields label,.release-fields-undo-dialog .metadata-undo-fields label{margin:0!important}
+
+.metadata-identities-dialog{width:min(980px,94vw);max-height:92vh;overflow:auto}.metadata-identity-undo-dialog{width:min(800px,94vw);max-height:90vh;overflow:auto}
+.metadata-identity-targets{display:grid;gap:12px;margin:16px 0}.metadata-identity-targets section{padding:12px;border:1px solid var(--line,var(--aural-tone-354454));border-radius:10px}.metadata-identity-targets h3{font-size:15px;margin:0 0 8px}.metadata-identity-targets p{font-size:13px;line-height:1.6;overflow-wrap:anywhere}.metadata-identity-targets small{display:block;overflow-wrap:anywhere;font-size:12px;line-height:1.6}.metadata-identity-targets select{width:100%;font:inherit;margin:8px 0}
+.metadata-identities-dialog label:has(>input[type=checkbox]),.metadata-identity-undo-dialog label:has(>input[type=checkbox]){display:flex;flex-direction:row;gap:10px;align-items:start;margin:12px 0;font-size:13px;line-height:1.7}.metadata-identities-dialog input[type=checkbox],.metadata-identity-undo-dialog input[type=checkbox]{width:16px!important;min-width:16px;flex:0 0 16px;margin:3px 0 0;accent-color:var(--aural-tone-a9e883)}
+.metadata-identities-dialog button,.metadata-identity-undo-dialog button{font:inherit;font-size:13px;padding:8px 12px;border-radius:7px;border:1px solid var(--line,var(--aural-tone-354454));background:var(--aural-surface-dialog);color:inherit;cursor:pointer}.metadata-identities-dialog button:disabled,.metadata-identity-undo-dialog button:disabled{opacity:.45;cursor:default}.metadata-identities-dialog button.primary-button,.metadata-identity-undo-dialog button.primary-button{background:var(--aural-tone-a9e883);color:var(--aural-tone-14241c);font-weight:700;border-color:transparent}
+.metadata-identities-dialog footer,.metadata-identity-undo-dialog footer{position:sticky;bottom:-25px;background:var(--aural-surface-dialog);padding:14px 0;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}.metadata-identity-paging{display:flex;gap:10px;align-items:center;flex-wrap:wrap}

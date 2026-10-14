@@ -1,0 +1,89 @@
+{
+  "version": "0.192.0",
+  "scope": "actual Main/preload/Library Service new IPC/provider setting guards and persistence; no valid MusicBrainz candidate/network match",
+  "completed": true,
+  "cases": [
+    "real narrow preload route",
+    "default source disabled",
+    "source setting command replay is idempotent",
+    "real service rejects unavailable candidate",
+    "malformed request and size guard",
+    "source URL domain and suffix guard",
+    "network pause disables source query",
+    "real image preview route disabled/expired candidate guards",
+    "image identity shape guard",
+    "preview release cannot address external or local library assets",
+    "actual app source settings text"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-caa-ipc-mvp-VbMOVh",
+  "results": {
+    "disabled": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 请先启用元数据查询和 Cover Art Archive 来源查询",
+    "imageDisabled": "Error: Error invoking remote method 'metadata:cover-art-preview': Error: 请先启用元数据查询和 Cover Art Archive 来源查询",
+    "imageExpired": "Error: Error invoking remote method 'metadata:cover-art-preview': Error: 候选已过期或取消，请重新匹配",
+    "imageMalformed": "Error: Error invoking remote method 'metadata:cover-art-preview': Error: 无效封面图片预览",
+    "badPreviewRelease": "Error: Error invoking remote method 'metadata:cover-art-preview-release': Error: 无效在线图片预览地址",
+    "badLocalRelease": "Error: Error invoking remote method 'metadata:cover-art-preview-release': Error: 无效在线图片预览地址",
+    "saved": {
+      "manifest": {
+        "id": "cover-art-archive",
+        "name": "Cover Art Archive",
+        "version": "1",
+        "ready": true,
+        "capabilities": [
+          {
+            "kind": "artwork",
+            "ready": true,
+            "label": "封面来源查询与临时预览",
+            "retention": "文字索引短期缓存，图片仅主动临时预览；保存与导出尚未接入"
+          }
+        ],
+        "termsUrl": "https://musicbrainz.org/doc/Cover_Art_Archive",
+        "credentialSlots": [],
+        "note": "按选定发行版查询和预览图片。逐图片权利未核实，持久应用到曲库尚待接入。"
+      },
+      "enabled": true,
+      "revision": 1,
+      "vaultAvailable": true,
+      "credentials": []
+    },
+    "expired": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 候选已过期或取消，请重新匹配",
+    "malformed": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 无效封面来源查询",
+    "oversized": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 无效封面来源查询",
+    "badSource": "Error: Error invoking remote method 'metadata:openSource': Error: 无效来源地址",
+    "badSuffix": "Error: Error invoking remote method 'metadata:openSource': Error: 无效来源地址",
+    "paused": "Error: Error invoking remote method 'metadata:cover-art-index': Error: 请先启用元数据查询和 Cover Art Archive 来源查询",
+    "settingRevision": 0,
+    "manifest": {
+      "id": "cover-art-archive",
+      "name": "Cover Art Archive",
+      "version": "1",
+      "ready": true,
+      "capabilities": [
+        {
+          "kind": "artwork",
+          "ready": true,
+          "label": "封面来源查询与临时预览",
+          "retention": "文字索引短期缓存，图片仅主动临时预览；保存与导出尚未接入"
+        }
+      ],
+      "termsUrl": "https://musicbrainz.org/doc/Cover_Art_Archive",
+      "credentialSlots": [],
+      "note": "按选定发行版查询和预览图片。逐图片权利未核实，持久应用到曲库尚待接入。"
+    }
+  },
+  "fingerprints": {
+    "src/main/main.ts": "0ac382fd8befa6e29e45abee36dfe53d183f9ff52e233b72eb2118858fb38ea5",
+    "src/main/preload.ts": "01481e0c713a08a3d7d952585c64dd0681f5dc3fa55623e0f918fee04cfad787",
+    "src/library/service.ts": "79bdfc5987306a9c88ccffecc5cfe1797e1a920c596e48e3b0459f7479f3cbe7",
+    "src/library/providers.ts": "8eea496708f3813ec362ea61542cca0766e1faa55de5c9f79a88e68c13c3eb53",
+    "src/shared/contracts.ts": "478ad674be8282a42de4b2458464a0b58bcde9ce91dbd498e7592190da415ea6",
+    "dist/main/main/main.js": "1a59fe568d2ba01a14791572ca33cbd5d7670354a79e6fb170663fca9432ec5a",
+    "dist/main/main/preload.js": "410e11f1ca73400600910650e5315002ecc6b9d7036ab732354d3fa6853aa4d5",
+    "dist/main/library/service.js": "25f1909e66d737798cf6d393062415324018efd704cd1886d3423c805852f43d"
+  },
+  "persistedSetting": {
+    "enabled": 1,
+    "revision": 1
+  },
+  "schema": 73
+}

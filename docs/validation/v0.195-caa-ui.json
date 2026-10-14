@@ -1,0 +1,41 @@
+{
+  "version": "0.195.0",
+  "scope": "production React panel + Main preview resources/protocol + real native synthetic red image in isolated Electron; candidate/API mocked, not real Main/Service/network E2E",
+  "completed": true,
+  "cases": [
+    "default disabled and settings entry",
+    "validated text, escaped comment, source button, no image",
+    "no automatic image download",
+    "actual native JPEG/protocol pixel under unchanged application CSP, no-store response",
+    "closing image purges protocol resource",
+    "late image after cancel is discarded and purged",
+    "foreign preview discarded and purged",
+    "image expiry hides preview and purges bytes",
+    "cancel discards delayed response",
+    "empty release index",
+    "failure shown with retry",
+    "foreign response rejected",
+    "source disable discards late response",
+    "candidate switch cancels old request",
+    "unrelated library notification preserves current fingerprint and pending source result",
+    "library change discards late response",
+    "no release candidate",
+    "expired candidate"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-caa-ui-mvp-DC3siH",
+  "previewPixel": {
+    "red": 253,
+    "green": 1,
+    "blue": 0
+  },
+  "cancelCount": 5,
+  "fingerprints": {
+    "src/renderer/cover-art-source-panel.tsx": "8892fa3753e52af5da1afec8a5fe1f96ac8aa31fdb324db9c7c906394b6a200d",
+    "src/renderer/metadata.css": "138acfe11c889b09f939ac919ca6b640b62f1e6dc7bfe5deba898599994beaa6",
+    "src/renderer/index.html": "3cab66c55d6e3c787cc0a80b93538d582bb64bd7964560a733c8231f20794677",
+    "src/main/artwork-resources.ts": "4d4c8164d6590386bc7353cf88c1a9419baa92744b6ff2410f83b3820afb6ae9",
+    "dist/main/main/artwork-resources.js": "0603ff29b44f9873f0a80f5b12898091d76a9e4ecb32a3cba17c32e853de47cd",
+    "src/library/online-image-converter.ts": "a2ca5e8259c57e17564833e400deb72d7c06215581166ca21b3561d60f1c6e16",
+    "tests/helpers/cover-art-source-ui.tsx": "05231021f54b817d9ce111503df2e23c1981bf58f0d8929c97140bd51b6cbd29"
+  }
+}

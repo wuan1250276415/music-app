@@ -1,0 +1,38 @@
+{
+  "version": "0.198.0",
+  "completed": true,
+  "scope": "production provider/parser, album authority and SQLite batch/undo/backup; fixture fetch boundary, not real network or hardware",
+  "cases": [
+    "production release parser retains strict per-track credits independently of album artists",
+    "malformed track artist MBID rejected by actual provider credit parser",
+    "narrow album request readers reject caller values, repeated items, foreign fields, unsafe cursors and missing confirmation",
+    "known recording evidence, simplified/traditional title and position/duration remain separate; repeated recording positions warned",
+    "album summary shows incomplete local counts, sources missing track credits are not replaced by album artist",
+    "remote track pagination is bounded50 and search is local without new fetch; review objects are isolated",
+    "different local tracks cannot claim one source track; foreign members, source IDs and false candidate authorization reject entire plan",
+    "explicit two-track three-field plan preserves source track and recording separately, writes nothing until execution",
+    "offline batch execution applies per-track artist rather than album artist, stores release-sourced track title, leaves unselected files",
+    "batch plan retry after restart survives lost review and offline state",
+    "partial field compensation works for album-created plans and retains other checked fields",
+    "known recording references cannot be contradicted by text plan; locks/member changes make review stale",
+    "multiple versions of a manually linked local track may share a remote track, but divergent mapping is rejected",
+    "scalar lock after review and protected fields reject the entire plan",
+    "reference edits after plan save produce a conflict at execution without writing fields",
+    "local album pagination25/remaining, expiry cancellation and four-grant eviction are explicit",
+    "unused album and release-field previews physically evicted at expiry without another API read",
+    "quiesced snapshot/inspection/reopen preserve immutable album selection and receipts",
+    "schema74 unchanged and database integrity/foreign keys valid"
+  ],
+  "schema": 74,
+  "fingerprints": {
+    "src/library/metadata-album-review.ts": "1364b5b9405d581d9a3fe8c57649b0f3353ed12b0c86950301e4b413737067a4",
+    "src/library/metadata-album-match.ts": "e2cb56202c2145038919896412d56e2b18dfc0762536200b67fa8ccb8291dfdd",
+    "src/library/metadata-batches.ts": "31c252bd8fb7715ea263bf5dd7f4565d21b311168f4aa3d248778ffaa9a50b33",
+    "src/library/database.ts": "15d975be2886665d0c39c30e2a19fc60ca3ac8b9bfe4f63fded4e24ea6211d37",
+    "src/library/metadata-release-context.ts": "f9270e1c27d00990f3ea6b1e142710b7125be3e720a0537093f512f88b6e8840",
+    "src/shared/metadata-album-review.ts": "304a2275d77dd95b13cc5f1be8a9f172ab543ec53d47a89e168065ed50341d4e",
+    "src/shared/contracts.ts": "0280917f7cd7995c6e84be2f01a4e27630679520d1644bb97d13619a8d05c08c",
+    "dist/main/library/metadata-album-review.js": "993faa773010ec5beef0051265295f29870e8418d17df023bd727ef2a7ac11ab",
+    "tests/metadata-album-mvp.smoke.cjs": "73140c939746634be9d24c289d29f648850d9170301c36541d9c96af66a1eb38"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "checkpoint": "0.185.0",
+  "asIoHardware": "paused",
+  "synthetic100kAccepted": false,
+  "benchmark": {
+    "rounds": 20,
+    "reuse": "aural-benchmark-100000.db",
+    "noReseed": true,
+    "noConcurrentBuildOrPlayback": true,
+    "budgetMs": {
+      "regular": 200,
+      "fuzzy": 500
+    },
+    "correctnessComplete": true,
+    "completed": false,
+    "failures": [
+      {
+        "name": "regular-filter",
+        "p95Ms": 556.5714999999909,
+        "budgetMs": 200
+      }
+    ]
+  },
+  "reference": {
+    "reportedAppVersion": "0.184.0",
+    "referenceVersion": "0.184.0",
+    "currentLogic": "0.185 final query logic before package version bump",
+    "orderedPagesCompared": 6,
+    "timingsAreDiagnostic": true
+  },
+  "latestRuntimeVerifiedInstaller": "0.29.0",
+  "fullArchitectureComplete": false
+}

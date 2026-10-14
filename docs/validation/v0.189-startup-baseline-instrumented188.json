@@ -1,0 +1,1129 @@
+{
+  "appVersion": "0.188.0",
+  "scope": "actual Electron startup, visible DOM/first rows and UI search; copied synthetic100k schema73 catalog, instrumented method timing, no OS cold or full performance acceptance",
+  "scratch": "D:\\CodexTestData\\aural-startup-profile-mvp-uJDfC6",
+  "completed": true,
+  "runs": [
+    {
+      "run": 0,
+      "interfaceMs": 1104.6770000000006,
+      "firstRowsMs": 11608.619300000002,
+      "searchMs": 343.9544999999998,
+      "startupTrace": {
+        "version": 1,
+        "phase": "ready",
+        "elapsedMs": 803.4212,
+        "scope": "Main startup phases; excludes process launch, OS cold cache and end-to-end browsing",
+        "stages": [
+          {
+            "phase": "admission",
+            "elapsedMs": 0.01830000000001064
+          },
+          {
+            "phase": "library-open",
+            "elapsedMs": 447.3997
+          },
+          {
+            "phase": "library-runtime",
+            "elapsedMs": 474.7195
+          },
+          {
+            "phase": "preferences",
+            "elapsedMs": 483.1058
+          },
+          {
+            "phase": "output",
+            "elapsedMs": 485.1134
+          },
+          {
+            "phase": "queue",
+            "elapsedMs": 488.1913
+          },
+          {
+            "phase": "desktop",
+            "elapsedMs": 490.2484
+          },
+          {
+            "phase": "interface",
+            "elapsedMs": 521.3866
+          },
+          {
+            "phase": "ready",
+            "elapsedMs": 801.1465000000001
+          }
+        ]
+      },
+      "rpc": [
+        {
+          "source": "library",
+          "method": "init",
+          "receivedMs": 1.0793999999999926,
+          "durationMs": 35.129999999999995,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "init",
+          "receivedMs": 149.0375,
+          "durationMs": 327.96709999999996,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAppearancePreference",
+          "receivedMs": 39.38759999999999,
+          "durationMs": 0.10379999999997835,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAppearancePreference",
+          "receivedMs": 477.7387,
+          "durationMs": 0.8156999999999925,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadWindowPlacementPreference",
+          "receivedMs": 40.578400000000016,
+          "durationMs": 0.07609999999999673,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadWindowPlacementPreference",
+          "receivedMs": 478.8858,
+          "durationMs": 0.5502999999999929,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAudioOutput",
+          "receivedMs": 41.341800000000006,
+          "durationMs": 0.11410000000000764,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAudioOutput",
+          "receivedMs": 479.707,
+          "durationMs": 0.6514000000000806,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAsioOutput",
+          "receivedMs": 42.298100000000005,
+          "durationMs": 0.09960000000000946,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAsioOutput",
+          "receivedMs": 480.6689,
+          "durationMs": 0.4692000000000007,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAudioBackend",
+          "receivedMs": 43.058599999999984,
+          "durationMs": 0.08089999999998554,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAudioBackend",
+          "receivedMs": 481.3751,
+          "durationMs": 0.46090000000003783,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadDsdOutput",
+          "receivedMs": 43.75489999999999,
+          "durationMs": 0.08139999999997372,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadDsdOutput",
+          "receivedMs": 482.10670000000005,
+          "durationMs": 0.42349999999999,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "playbackPolicy",
+          "receivedMs": 44.36269999999999,
+          "durationMs": 0.19659999999998945,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "playbackPolicy",
+          "receivedMs": 482.74739999999997,
+          "durationMs": 0.5212999999999965,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadQueue",
+          "receivedMs": 45.21629999999996,
+          "durationMs": 0.08590000000003783,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadQueue",
+          "receivedMs": 483.5118,
+          "durationMs": 0.5194000000000187,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadDesktopPreference",
+          "receivedMs": 46.53369999999998,
+          "durationMs": 0.10590000000001965,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadDesktopPreference",
+          "receivedMs": 484.8836,
+          "durationMs": 0.48869999999999436,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadMediaKeyPreference",
+          "receivedMs": 76.86269999999999,
+          "durationMs": 0.122099999999989,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadMediaKeyPreference",
+          "receivedMs": 515.1778,
+          "durationMs": 0.5941000000000258,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "artworkResetLeases",
+          "receivedMs": 115.2302,
+          "durationMs": 0.1431999999999789,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "artworkResetLeases",
+          "receivedMs": 553.5596,
+          "durationMs": 6.114100000000008,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "searchIndexState",
+          "receivedMs": 800.4278,
+          "durationMs": 1.7450999999999794,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "searchIndexState",
+          "receivedMs": 362.1073,
+          "durationMs": 0.07079999999996289,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "getPlaybackItems",
+          "receivedMs": 362.4066,
+          "durationMs": 0.07429999999999382,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "getPlaybackItems",
+          "receivedMs": 800.7965,
+          "durationMs": 2.1200000000000045,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "stats",
+          "receivedMs": 362.54550000000006,
+          "durationMs": 9999.5382,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "stats",
+          "receivedMs": 800.8601,
+          "durationMs": 10000.2649,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "roots",
+          "receivedMs": 800.9032,
+          "durationMs": 10000.4008,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "playlists",
+          "receivedMs": 800.9342,
+          "durationMs": 10000.5278,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "roots",
+          "receivedMs": 10362.385900000001,
+          "durationMs": 0.13509999999951106,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "playlists",
+          "receivedMs": 10362.6219,
+          "durationMs": 0.19360000000051514,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "browseLibrary",
+          "receivedMs": 10365.8649,
+          "durationMs": 294.0519999999997,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "browseLibrary",
+          "receivedMs": 801.4127,
+          "durationMs": 10300.058599999998,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "saveWindowPlacementPreference",
+          "receivedMs": 10661.2098,
+          "durationMs": 5.978399999999965,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "saveWindowPlacementPreference",
+          "receivedMs": 1249.3114,
+          "durationMs": 9857.2297,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "list",
+          "receivedMs": 10894.4288,
+          "durationMs": 253.03300000000127,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "list",
+          "receivedMs": 11332.7725,
+          "durationMs": 255.6780000000017,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "artworkCandidate",
+          "receivedMs": 11359.9221,
+          "durationMs": 1.7964000000010856,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "artworkCandidate",
+          "receivedMs": 11798.047,
+          "durationMs": 2.5573999999996886,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "artworkCandidate",
+          "receivedMs": 11804.3981,
+          "durationMs": 1.4346999999997934,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "artworkCandidate",
+          "receivedMs": 11366.1232,
+          "durationMs": 1.0086000000010245,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "browseLibrary",
+          "receivedMs": 11947.3138,
+          "durationMs": 5.325800000000527,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "browseLibrary",
+          "receivedMs": 11509.008,
+          "durationMs": 4.98450000000048,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "artworkResetLeases",
+          "receivedMs": 12043.3121,
+          "durationMs": 0.3923000000013417,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "artworkResetLeases",
+          "receivedMs": 11604.986200000001,
+          "durationMs": 0.0911999999989348,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": 1,
+      "interfaceMs": 939.8509999999987,
+      "firstRowsMs": 10924.259999999998,
+      "searchMs": 334.1718000000001,
+      "startupTrace": {
+        "version": 1,
+        "phase": "ready",
+        "elapsedMs": 615.6622,
+        "scope": "Main startup phases; excludes process launch, OS cold cache and end-to-end browsing",
+        "stages": [
+          {
+            "phase": "admission",
+            "elapsedMs": 0.014399999999994861
+          },
+          {
+            "phase": "library-open",
+            "elapsedMs": 401.1029
+          },
+          {
+            "phase": "library-runtime",
+            "elapsedMs": 427.4466
+          },
+          {
+            "phase": "preferences",
+            "elapsedMs": 435.0579
+          },
+          {
+            "phase": "output",
+            "elapsedMs": 438.71310000000005
+          },
+          {
+            "phase": "queue",
+            "elapsedMs": 441.8511
+          },
+          {
+            "phase": "desktop",
+            "elapsedMs": 443.7781
+          },
+          {
+            "phase": "interface",
+            "elapsedMs": 475.1489
+          },
+          {
+            "phase": "ready",
+            "elapsedMs": 612.7489
+          }
+        ]
+      },
+      "rpc": [
+        {
+          "source": "library",
+          "method": "init",
+          "receivedMs": 1.0046000000000106,
+          "durationMs": 32.65259999999998,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "init",
+          "receivedMs": 138.39139999999998,
+          "durationMs": 291.1709000000001,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAppearancePreference",
+          "receivedMs": 37.480800000000016,
+          "durationMs": 0.1321999999999548,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAppearancePreference",
+          "receivedMs": 430.2753,
+          "durationMs": 1.7826000000000022,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadWindowPlacementPreference",
+          "receivedMs": 39.69859999999997,
+          "durationMs": 0.26539999999999964,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadWindowPlacementPreference",
+          "receivedMs": 432.4942,
+          "durationMs": 1.0143000000000484,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAudioOutput",
+          "receivedMs": 41.037000000000006,
+          "durationMs": 0.12630000000001473,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAudioOutput",
+          "receivedMs": 433.87379999999996,
+          "durationMs": 0.7094000000000733,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAsioOutput",
+          "receivedMs": 42.059999999999974,
+          "durationMs": 0.10250000000002046,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAsioOutput",
+          "receivedMs": 434.9017,
+          "durationMs": 0.4962000000000444,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAudioBackend",
+          "receivedMs": 42.80409999999998,
+          "durationMs": 0.10520000000002483,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAudioBackend",
+          "receivedMs": 435.65189999999996,
+          "durationMs": 0.43260000000009313,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadDsdOutput",
+          "receivedMs": 43.510200000000026,
+          "durationMs": 0.09379999999998745,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadDsdOutput",
+          "receivedMs": 436.3578,
+          "durationMs": 0.4152000000000271,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "playbackPolicy",
+          "receivedMs": 44.1353,
+          "durationMs": 0.1938000000000102,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "playbackPolicy",
+          "receivedMs": 436.99080000000004,
+          "durationMs": 0.5150999999999613,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadQueue",
+          "receivedMs": 44.94489999999999,
+          "durationMs": 0.10360000000002856,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadQueue",
+          "receivedMs": 437.7392,
+          "durationMs": 0.4881000000000313,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadDesktopPreference",
+          "receivedMs": 46.14360000000002,
+          "durationMs": 0.09219999999999118,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadDesktopPreference",
+          "receivedMs": 438.97900000000004,
+          "durationMs": 0.4254999999999427,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadMediaKeyPreference",
+          "receivedMs": 76.405,
+          "durationMs": 0.17329999999998336,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadMediaKeyPreference",
+          "receivedMs": 469.06719999999996,
+          "durationMs": 0.9988000000000739,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "artworkResetLeases",
+          "receivedMs": 109.62019999999998,
+          "durationMs": 0.13460000000003447,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "artworkResetLeases",
+          "receivedMs": 502.3976,
+          "durationMs": 16.825899999999933,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "searchIndexState",
+          "receivedMs": 355.78649999999993,
+          "durationMs": 0.0747000000000071,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "getPlaybackItems",
+          "receivedMs": 356.3511,
+          "durationMs": 0.07010000000002492,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "searchIndexState",
+          "receivedMs": 748.5521,
+          "durationMs": 2.449899999999957,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "getPlaybackItems",
+          "receivedMs": 749.1848,
+          "durationMs": 2.1230000000000473,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "stats",
+          "receivedMs": 749.7933,
+          "durationMs": 9610.314,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "stats",
+          "receivedMs": 356.9293,
+          "durationMs": 9609.8157,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "roots",
+          "receivedMs": 749.9835,
+          "durationMs": 9612.029199999999,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "roots",
+          "receivedMs": 9968.768699999999,
+          "durationMs": 0.05950000000120781,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "playlists",
+          "receivedMs": 9969.0541,
+          "durationMs": 0.323500000000422,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "playlists",
+          "receivedMs": 750.0789,
+          "durationMs": 9612.592299999998,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "browseLibrary",
+          "receivedMs": 750.5814,
+          "durationMs": 9922.2188,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "browseLibrary",
+          "receivedMs": 9969.5628,
+          "durationMs": 308.09540000000015,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "list",
+          "receivedMs": 10347.2964,
+          "durationMs": 279.0126,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "list",
+          "receivedMs": 10740.0146,
+          "durationMs": 281.34079999999994,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "browseLibrary",
+          "receivedMs": 10967.2015,
+          "durationMs": 8.022399999999834,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "browseLibrary",
+          "receivedMs": 11359.9058,
+          "durationMs": 8.891299999999319,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "artworkResetLeases",
+          "receivedMs": 11058.168399999999,
+          "durationMs": 0.0874999999996362,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "artworkResetLeases",
+          "receivedMs": 11450.9063,
+          "durationMs": 0.9082999999991443,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "interfaceMs": 928.8243999999977,
+      "firstRowsMs": 11950.358200000002,
+      "searchMs": 341.5590999999986,
+      "startupTrace": {
+        "version": 1,
+        "phase": "ready",
+        "elapsedMs": 710.7076,
+        "scope": "Main startup phases; excludes process launch, OS cold cache and end-to-end browsing",
+        "stages": [
+          {
+            "phase": "admission",
+            "elapsedMs": 0.014299999999991542
+          },
+          {
+            "phase": "library-open",
+            "elapsedMs": 410.24859999999995
+          },
+          {
+            "phase": "library-runtime",
+            "elapsedMs": 437.20750000000004
+          },
+          {
+            "phase": "preferences",
+            "elapsedMs": 443.91749999999996
+          },
+          {
+            "phase": "output",
+            "elapsedMs": 445.92749999999995
+          },
+          {
+            "phase": "queue",
+            "elapsedMs": 448.7186
+          },
+          {
+            "phase": "desktop",
+            "elapsedMs": 450.70559999999995
+          },
+          {
+            "phase": "interface",
+            "elapsedMs": 468.77489999999995
+          },
+          {
+            "phase": "ready",
+            "elapsedMs": 708.8741
+          }
+        ]
+      },
+      "rpc": [
+        {
+          "source": "library",
+          "method": "init",
+          "receivedMs": 0.8112999999999886,
+          "durationMs": 32.976399999999984,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "init",
+          "receivedMs": 130.962,
+          "durationMs": 307.195,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAppearancePreference",
+          "receivedMs": 36.89119999999997,
+          "durationMs": 0.10110000000003083,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAppearancePreference",
+          "receivedMs": 438.8096,
+          "durationMs": 0.7436000000000149,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadWindowPlacementPreference",
+          "receivedMs": 37.96100000000001,
+          "durationMs": 0.21669999999994616,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadWindowPlacementPreference",
+          "receivedMs": 439.88360000000006,
+          "durationMs": 0.5896999999999935,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAudioOutput",
+          "receivedMs": 38.84219999999999,
+          "durationMs": 0.09739999999999327,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAudioOutput",
+          "receivedMs": 440.76579999999996,
+          "durationMs": 0.5031000000000176,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAsioOutput",
+          "receivedMs": 39.640499999999975,
+          "durationMs": 0.0876999999999839,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAsioOutput",
+          "receivedMs": 441.55750000000006,
+          "durationMs": 0.47239999999999327,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadAudioBackend",
+          "receivedMs": 40.3279,
+          "durationMs": 0.07720000000000482,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadAudioBackend",
+          "receivedMs": 442.2556,
+          "durationMs": 0.39160000000003947,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadDsdOutput",
+          "receivedMs": 40.98359999999997,
+          "durationMs": 0.0787000000000262,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadDsdOutput",
+          "receivedMs": 442.8956,
+          "durationMs": 0.4339999999999691,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "playbackPolicy",
+          "receivedMs": 41.598599999999976,
+          "durationMs": 0.180499999999995,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "playbackPolicy",
+          "receivedMs": 443.54030000000006,
+          "durationMs": 0.49349999999992633,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadQueue",
+          "receivedMs": 42.34800000000001,
+          "durationMs": 0.09309999999999263,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadQueue",
+          "receivedMs": 444.2602,
+          "durationMs": 0.4895999999999958,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadDesktopPreference",
+          "receivedMs": 43.65620000000001,
+          "durationMs": 0.08220000000000027,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadDesktopPreference",
+          "receivedMs": 445.5984,
+          "durationMs": 0.399599999999964,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "loadMediaKeyPreference",
+          "receivedMs": 60.58819999999997,
+          "durationMs": 0.13910000000004175,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "loadMediaKeyPreference",
+          "receivedMs": 462.41249999999997,
+          "durationMs": 0.9848000000000638,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "artworkResetLeases",
+          "receivedMs": 99.9674,
+          "durationMs": 0.12039999999996098,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "artworkResetLeases",
+          "receivedMs": 501.7923,
+          "durationMs": 2.544499999999971,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "searchIndexState",
+          "receivedMs": 711.3082999999999,
+          "durationMs": 0.9548000000000911,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "getPlaybackItems",
+          "receivedMs": 711.6511,
+          "durationMs": 0.8712000000000444,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "searchIndexState",
+          "receivedMs": 309.6501,
+          "durationMs": 0.06600000000003092,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "getPlaybackItems",
+          "receivedMs": 309.82030000000003,
+          "durationMs": 0.0625999999999749,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "stats",
+          "receivedMs": 309.9278,
+          "durationMs": 10229.9622,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "stats",
+          "receivedMs": 711.7075,
+          "durationMs": 10231.8107,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "roots",
+          "receivedMs": 711.7375999999999,
+          "durationMs": 10232.0897,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "roots",
+          "receivedMs": 10541.121200000001,
+          "durationMs": 0.44429999999920256,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "playlists",
+          "receivedMs": 711.7728999999999,
+          "durationMs": 10232.7552,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "playlists",
+          "receivedMs": 10541.6954,
+          "durationMs": 0.6231999999999971,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "browseLibrary",
+          "receivedMs": 10544.9791,
+          "durationMs": 312.46340000000055,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "browseLibrary",
+          "receivedMs": 712.2066,
+          "durationMs": 10551.3299,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "list",
+          "receivedMs": 11347.2407,
+          "durationMs": 330.9855000000007,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "list",
+          "receivedMs": 11748.975,
+          "durationMs": 334.39979999999923,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "artworkCandidate",
+          "receivedMs": 11680.6373,
+          "durationMs": 3.2060999999994237,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "artworkCandidate",
+          "receivedMs": 11946.4096,
+          "durationMs": 140.0734999999986,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "artworkCandidate",
+          "receivedMs": 12121.0398,
+          "durationMs": 1.9807000000000698,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "artworkCandidate",
+          "receivedMs": 11719.2629,
+          "durationMs": 1.538700000000972,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "browseLibrary",
+          "receivedMs": 12068.464100000001,
+          "durationMs": 8.583999999998923,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "browseLibrary",
+          "receivedMs": 12470.2018,
+          "durationMs": 9.549999999999272,
+          "ok": true
+        },
+        {
+          "source": "main",
+          "method": "artworkResetLeases",
+          "receivedMs": 12564.6344,
+          "durationMs": 0.9894999999996799,
+          "ok": true
+        },
+        {
+          "source": "library",
+          "method": "artworkResetLeases",
+          "receivedMs": 12162.8773,
+          "durationMs": 0.11750000000029104,
+          "ok": true
+        }
+      ]
+    }
+  ],
+  "originalSha256": "fbc38ce2a29ba460f416ea56cb3f9b61a20f7e00e08e37f7afbfd02156eaaf89",
+  "sourceFingerprint": {
+    "src/main/main.ts": "263416d1b38caed0a1d391b0e2cdd25c258fc867c8bb6da602dfcbc5ef7c0f0e",
+    "src/main/startup-window.ts": "db538261322ab31abfc768f4c9bb335b4c4439d39dadf0c971e198c7a2d1d6b9",
+    "src/main/catalog-library-lifecycle.ts": "9f30dd8d8b1b94f238723e22e52c09b7666bc73079c0ec0dae7b7b4900cd15fb",
+    "src/library/service.ts": "207c1ab6e0419e3dc9c2368f86a1bbe173af86dddcb7a5c69426ede26db711d1",
+    "src/library/database.ts": "967f0ec1f1420af55434a64107543f2a48bb11d5438c2bd022e176880c54850d",
+    "src/renderer/main.tsx": "04be652bd4691e6d679a856e59a172f4a82690a898b844b2692e5d3d750d6760",
+    "dist/main/main/main.js": "27bea515c3a1ff5459c3bdb28954acd2def2424520643fd1155cd9d180f14e89",
+    "dist/main/library/service.js": "ec5853afa87101154ed14799f09320c735d9574eb70ac759d2fcdb713f76fe4a",
+    "dist/main/library/database.js": "cf84793e67a1205da5af0abb60b4273292b60f68bee74ac84060f681fda8648a"
+  },
+  "originalUnchanged": true
+}

@@ -1,0 +1,559 @@
+{
+  "version": 1,
+  "appVersion": "0.187.0",
+  "algorithm": "aural-search-v3:044583b9acdefca445fc04b33a594c49093fa82bb15de76162b870f95600cf49",
+  "completed": false,
+  "sourceFingerprint": {
+    "src/library/database.ts": "b62d24d5a42093a5b850099b2f1b899c949cc9462176ffe6960059a2c26445f6",
+    "src/library/library-query-plan.ts": "3464f3162438af7e5175d48941c27daa72dc9fce886ead7625cc72787495c569",
+    "src/library/genre-query.ts": "9063e95f9f182b73a32b056ca7fbfb677a58e35377c6928f14cf92944639afcd",
+    "src/library/natural-sort.ts": "3bb953df1f33427648c34e49449e382466821930da5eaf7986d1583607242cd1",
+    "src/library/search-spelling.ts": "aa533b406d95156364988893b25a76eafb02346b6c105c0786a67e22acaf5fd5",
+    "src/library/query-index-migration.ts": "f885b5121204131f2012ff57a81d0742a01ba1e889ecfb2215195a979b6d0895",
+    "dist/main/library/library-query-plan.js": "72e1b9b8a236f0e4138dbcd9000901242eb2a0e88d2a25afc03e893a6a981159",
+    "dist/main/library/search-spelling.js": "2c26a76bba0e525ed1102af09e8fe07c9ec074f0774c0f11ec1c686ca78735b3"
+  },
+  "scope": "production database ingestion and query; synthetic catalog, no physical media scan, Electron IPC/UI or cold OS cache",
+  "corpus": {
+    "version": 1,
+    "kind": "synthetic-catalog-v1",
+    "count": 100000,
+    "truth": {
+      "version": 1,
+      "tracks": [
+        {
+          "key": "night",
+          "title": "夜曲",
+          "artist": "周杰伦",
+          "album": "十一月的萧邦",
+          "genre": "流行"
+        },
+        {
+          "key": "rice",
+          "title": "稻香",
+          "artist": "周杰伦",
+          "album": "魔杰座",
+          "genre": "流行"
+        },
+        {
+          "key": "later",
+          "title": "後來",
+          "artist": "劉若英",
+          "album": "我等你",
+          "genre": "流行"
+        },
+        {
+          "key": "later-remix",
+          "title": "后来 Remix",
+          "artist": "候选艺人",
+          "album": "检索样本",
+          "genre": "Alternative"
+        },
+        {
+          "key": "accent",
+          "title": "Déjà Vu",
+          "artist": "Beyoncé",
+          "album": "B'Day",
+          "genre": "R&B"
+        },
+        {
+          "key": "rhapsody",
+          "title": "Bohemian Rhapsody",
+          "artist": "Queen",
+          "album": "A Night at the Opera",
+          "genre": "Rock"
+        },
+        {
+          "key": "queen-title",
+          "title": "Queen",
+          "artist": "Exact Title Artist",
+          "album": "Exact Match",
+          "genre": "Rock"
+        },
+        {
+          "key": "japanese",
+          "title": "東京の夜",
+          "artist": "宇多田ヒカル",
+          "album": "旅の歌",
+          "genre": "J-Pop"
+        },
+        {
+          "key": "literal",
+          "title": "100%_Pure",
+          "artist": "Literal Artist",
+          "album": "Quoted Collection",
+          "genre": "Electronic"
+        }
+      ],
+      "cases": [
+        {
+          "name": "Chinese one character",
+          "query": "周",
+          "expected": [
+            "night",
+            "rice"
+          ]
+        },
+        {
+          "name": "Chinese two characters",
+          "query": "周杰",
+          "expected": [
+            "night",
+            "rice"
+          ]
+        },
+        {
+          "name": "Chinese exact title",
+          "query": "夜曲",
+          "expected": [
+            "night"
+          ],
+          "first": "night"
+        },
+        {
+          "name": "Chinese three characters",
+          "query": "十一月",
+          "expected": [
+            "night"
+          ]
+        },
+        {
+          "name": "pinyin full",
+          "query": "zhoujielun",
+          "expected": [
+            "night",
+            "rice"
+          ]
+        },
+        {
+          "name": "pinyin spaces",
+          "query": "zhou jie lun",
+          "expected": [
+            "night",
+            "rice"
+          ]
+        },
+        {
+          "name": "pinyin initials",
+          "query": "zjl",
+          "expected": [
+            "night",
+            "rice"
+          ]
+        },
+        {
+          "name": "short title initials",
+          "query": "yq",
+          "expected": [
+            "night"
+          ]
+        },
+        {
+          "name": "traditional exact",
+          "query": "後來",
+          "expected": [
+            "later",
+            "later-remix"
+          ],
+          "first": "later"
+        },
+        {
+          "name": "simplified to traditional title",
+          "query": "后来",
+          "expected": [
+            "later",
+            "later-remix"
+          ],
+          "first": "later"
+        },
+        {
+          "name": "simplified one character to traditional",
+          "query": "后",
+          "expected": [
+            "later",
+            "later-remix"
+          ]
+        },
+        {
+          "name": "traditional to simplified album",
+          "query": "十一月的蕭邦",
+          "expected": [
+            "night"
+          ]
+        },
+        {
+          "name": "simplified to traditional artist",
+          "query": "刘若英",
+          "expected": [
+            "later"
+          ]
+        },
+        {
+          "name": "accent exact",
+          "query": "Déjà",
+          "expected": [
+            "accent"
+          ]
+        },
+        {
+          "name": "accent normalized",
+          "query": "deja vu",
+          "expected": [
+            "accent"
+          ]
+        },
+        {
+          "name": "artist accent normalized",
+          "query": "beyonce",
+          "expected": [
+            "accent"
+          ]
+        },
+        {
+          "name": "English adjacent transposition",
+          "query": "rhpasody",
+          "expected": [
+            "rhapsody"
+          ]
+        },
+        {
+          "name": "English artist misspelling",
+          "query": "quene",
+          "expected": [
+            "rhapsody",
+            "queen-title"
+          ]
+        },
+        {
+          "name": "title exact outranks artist exact",
+          "query": "Queen",
+          "expected": [
+            "rhapsody",
+            "queen-title"
+          ],
+          "first": "queen-title"
+        },
+        {
+          "name": "Japanese mixed scripts",
+          "query": "東京の",
+          "expected": [
+            "japanese"
+          ]
+        },
+        {
+          "name": "NFKC fullwidth Latin",
+          "query": "Ｎｉｇｈｔ",
+          "expected": [
+            "rhapsody"
+          ]
+        },
+        {
+          "name": "literal SQL wildcard",
+          "query": "100%_",
+          "expected": [
+            "literal"
+          ]
+        },
+        {
+          "name": "quoted SQL input",
+          "query": "\" OR 1=1 --",
+          "expected": []
+        },
+        {
+          "name": "no fuzzy correction for short Han",
+          "query": "舟",
+          "expected": []
+        },
+        {
+          "name": "exact artist scope plus initials",
+          "view": "artists",
+          "value": "周杰伦",
+          "query": "yq",
+          "expected": [
+            "night"
+          ]
+        },
+        {
+          "name": "album scope plus pinyin",
+          "view": "albums",
+          "value": "魔杰座",
+          "query": "zhoujielun",
+          "expected": [
+            "rice"
+          ]
+        },
+        {
+          "name": "genre scope plus title",
+          "view": "genres",
+          "value": "Rock",
+          "query": "rhapsody",
+          "expected": [
+            "rhapsody"
+          ]
+        },
+        {
+          "name": "scope constrains fuzzy recall",
+          "view": "genres",
+          "value": "流行",
+          "query": "rhpasody",
+          "expected": []
+        }
+      ]
+    },
+    "fillers": {
+      "titleFamilies": [
+        "星河",
+        "远行",
+        "夏日",
+        "晚风",
+        "夜色",
+        "山水",
+        "旅途",
+        "晨光"
+      ],
+      "performerCount": 500,
+      "tracksPerAlbum": 20,
+      "tracksPerDisc": 10,
+      "secondaryCreditEvery": 7,
+      "dateYears": 20,
+      "genres": [
+        "Rock",
+        "流行",
+        "Jazz",
+        "Electronic"
+      ]
+    }
+  },
+  "corpusSha256": "0e1df9f9ebc8455c17e944ee2eb298689d5ce67f8b64ba0140511b481d26352b",
+  "environment": {
+    "platform": "win32",
+    "release": "10.0.26300",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i9-12900H",
+    "cpuCount": 20,
+    "memoryBytes": 34071896064,
+    "node": "v24.19.0",
+    "sqlite": "3.53.3"
+  },
+  "rounds": 20,
+  "measurements": [
+    {
+      "name": "browse-first",
+      "request": {
+        "view": "all"
+      },
+      "total": 100000,
+      "firstCallMs": 253.8630000000012,
+      "samples": 20,
+      "p50Ms": 252.78429999999935,
+      "p95Ms": 256.23649999999907,
+      "p99Ms": 256.5417000000016,
+      "maxMs": 256.5417000000016,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "browse-deep",
+      "request": {
+        "view": "all",
+        "offset": 99900
+      },
+      "total": 100000,
+      "firstCallMs": 254.4797999999937,
+      "samples": 20,
+      "p50Ms": 244.6898000000001,
+      "p95Ms": 253.1301999999996,
+      "p99Ms": 279.2425000000003,
+      "maxMs": 279.2425000000003,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "title-exact",
+      "request": {
+        "view": "all",
+        "query": "夜曲"
+      },
+      "total": 1,
+      "firstCallMs": 2.9386000000013155,
+      "samples": 20,
+      "p50Ms": 1.8395999999993364,
+      "p95Ms": 2.3870000000024447,
+      "p99Ms": 2.564699999995355,
+      "maxMs": 2.564699999995355,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "traditional-title",
+      "request": {
+        "view": "all",
+        "query": "后来"
+      },
+      "total": 2,
+      "firstCallMs": 2.930899999999383,
+      "samples": 20,
+      "p50Ms": 1.9714999999996508,
+      "p95Ms": 2.271600000000035,
+      "p99Ms": 2.3087000000014086,
+      "maxMs": 2.3087000000014086,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "short-Han-rare",
+      "request": {
+        "view": "all",
+        "query": "周"
+      },
+      "total": 202,
+      "firstCallMs": 67.6877999999997,
+      "samples": 20,
+      "p50Ms": 65.80969999999797,
+      "p95Ms": 68.23579999999492,
+      "p99Ms": 69.27769999999873,
+      "maxMs": 69.27769999999873,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "short-Han-broad",
+      "request": {
+        "view": "all",
+        "query": "辑"
+      },
+      "total": 99991,
+      "firstCallMs": 1889.2216000000044,
+      "samples": 20,
+      "p50Ms": 1933.5206000000035,
+      "p95Ms": 1996.8282999999938,
+      "p99Ms": 2010.6325999999972,
+      "maxMs": 2010.6325999999972,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "pinyin-full",
+      "request": {
+        "view": "all",
+        "query": "zhoujielun"
+      },
+      "total": 202,
+      "firstCallMs": 80.97419999999693,
+      "samples": 20,
+      "p50Ms": 75.7271999999939,
+      "p95Ms": 79.33439999999246,
+      "p99Ms": 80.57399999999325,
+      "maxMs": 80.57399999999325,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "pinyin-initials-short",
+      "request": {
+        "view": "all",
+        "query": "zjl"
+      },
+      "total": 202,
+      "firstCallMs": 71.87099999999919,
+      "samples": 20,
+      "p50Ms": 73.40890000000945,
+      "p95Ms": 75.10480000000098,
+      "p99Ms": 76.0743000000075,
+      "maxMs": 76.0743000000075,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "English-accent",
+      "request": {
+        "view": "all",
+        "query": "beyonce"
+      },
+      "total": 1,
+      "firstCallMs": 4.93409999999858,
+      "samples": 20,
+      "p50Ms": 2.502299999992829,
+      "p95Ms": 3.150500000003376,
+      "p99Ms": 3.7839999999996508,
+      "maxMs": 3.7839999999996508,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "English-transposition",
+      "request": {
+        "view": "all",
+        "query": "rhpasody"
+      },
+      "total": 1,
+      "firstCallMs": 2.7613000000128523,
+      "samples": 20,
+      "p50Ms": 2.2721999999921536,
+      "p95Ms": 2.808499999999185,
+      "p99Ms": 3.076600000000326,
+      "maxMs": 3.076600000000326,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "genre-fuzzy-scope",
+      "request": {
+        "view": "genres",
+        "value": "Rock",
+        "query": "rhpasody"
+      },
+      "total": 1,
+      "firstCallMs": 27.66939999999886,
+      "samples": 20,
+      "p50Ms": 25.830000000001746,
+      "p95Ms": 26.76140000000305,
+      "p99Ms": 27.673399999999674,
+      "maxMs": 27.673399999999674,
+      "cache": "warm production indexes; first call not OS cold cache"
+    },
+    {
+      "name": "regular-filter",
+      "request": {
+        "view": "genres",
+        "value": "Rock",
+        "query": "星河"
+      },
+      "total": 12499,
+      "firstCallMs": 285.71639999999024,
+      "samples": 20,
+      "p50Ms": 193.2945999999938,
+      "p95Ms": 204.6377999999968,
+      "p99Ms": 222.45639999999548,
+      "maxMs": 222.45639999999548,
+      "cache": "warm production indexes; first call not OS cold cache"
+    }
+  ],
+  "correctness": [
+    "multi-artist credit and two-disc album ordering in scaled corpus",
+    "catalog-size total and bounded distinct first/deep snapshot pages",
+    "truth query identities and precise ranking within large catalog",
+    "database reopened with derived index and catalog"
+  ],
+  "budgets": {
+    "regularCoreP95Ms": 200,
+    "complexFuzzyCoreP95Ms": 500
+  },
+  "budgetFailures": [
+    {
+      "name": "regular-filter",
+      "p95Ms": 204.6377999999968,
+      "budgetMs": 200
+    }
+  ],
+  "emptyInitializationMs": 26.257299999999987,
+  "schemaAfterOpen": 73,
+  "reusedSyntheticFixture": "aural-benchmark-100000.db",
+  "ingestionMs": null,
+  "databaseBytes": 1871675392,
+  "databaseWalBytes": 0,
+  "pageHydrationSizes": [
+    100,
+    100
+  ],
+  "databaseReopenMs": 47.866500000003725,
+  "processMemory": {
+    "rss": 352620544,
+    "heapTotal": 266162176,
+    "heapUsed": 152338904,
+    "external": 2579922,
+    "arrayBuffers": 209339
+  },
+  "correctnessComplete": true,
+  "error": "AssertionError [ERR_ASSERTION]: Architecture core search budgets exceeded; see report\n\n1 !== 0\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\library-performance.smoke.cjs:85:10)"
+}

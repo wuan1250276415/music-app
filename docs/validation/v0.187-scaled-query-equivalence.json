@@ -1,0 +1,81 @@
+{
+  "appVersion": "0.187.0",
+  "referenceVersion": "0.184.0",
+  "referenceSourceSha256": "045fec6cffc5f10700568221b2548d9dc069e6c4098b522c120771060f6fe1f9",
+  "scope": "same retained 100000 synthetic catalog; original full relational query vs optimized ordered IDs and total",
+  "comparisons": [
+    {
+      "request": {
+        "view": "all",
+        "offset": 0
+      },
+      "total": 100000,
+      "items": 100,
+      "referenceMs": 12274.1441,
+      "optimizedMs": 253.98210000000108
+    },
+    {
+      "request": {
+        "view": "all",
+        "offset": 99900
+      },
+      "total": 100000,
+      "items": 100,
+      "referenceMs": 18255.884,
+      "optimizedMs": 244.97719999999754
+    },
+    {
+      "request": {
+        "view": "all",
+        "sort": {
+          "mode": "title",
+          "direction": "desc"
+        },
+        "offset": 31
+      },
+      "total": 100000,
+      "items": 100,
+      "referenceMs": 15137.956699999999,
+      "optimizedMs": 1266.9735999999975
+    },
+    {
+      "request": {
+        "view": "all",
+        "sort": {
+          "mode": "artist",
+          "direction": "asc"
+        },
+        "offset": 99300
+      },
+      "total": 100000,
+      "items": 100,
+      "referenceMs": 18873.165199999996,
+      "optimizedMs": 1291.3564000000042
+    },
+    {
+      "request": {
+        "view": "genres",
+        "value": "Rock",
+        "query": "星河",
+        "offset": 0
+      },
+      "total": 12499,
+      "items": 100,
+      "referenceMs": 2251.008700000006,
+      "optimizedMs": 201.7606999999989
+    },
+    {
+      "request": {
+        "view": "genres",
+        "value": "Rock",
+        "query": "星河",
+        "offset": 12390
+      },
+      "total": 12499,
+      "items": 100,
+      "referenceMs": 2358.642599999992,
+      "optimizedMs": 212.29409999999916
+    }
+  ],
+  "completed": true
+}

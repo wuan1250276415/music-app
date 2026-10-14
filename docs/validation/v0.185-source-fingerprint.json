@@ -1,0 +1,39 @@
+{
+  "appVersion": "0.185.0",
+  "files": {
+    "src/library/database.ts": "b4f644a3ee0556a90823789a6b7e23c1f0a1260c430d3fc43f7d21b6c6a67343",
+    "src/library/library-query-plan.ts": "6d238d871a8929b6dae4e11f0e73f1f7d71c85ba041693213e14713c8d0d0cfd",
+    "src/library/genre-query.ts": "1a6cc883fec414745bd70d3e1d7d6184aaf990528b2ec953d70bd51ad9170fce",
+    "src/library/music-filters.ts": "4ed52800a62902bdb95d9d228026441bc6b564e9a43c33a86c4a16a4cad4143a",
+    "src/library/natural-sort.ts": "00661b6c7893ffa0a8d6777cec3108f69e1e3e5662f154fc688ce4a461b05696",
+    "src/library/search-spelling.ts": "487b72664256cbd60d55d66b91c5216c458a3442a322721491657b6a81854514",
+    "src/library/search-normalization.ts": "b42677d437e7bc0aa4a843fbec34abb3383c6bd9a1144e8cf11afdbbe778012b",
+    "src/main/artwork-resources.ts": "50716e711a9adc3fcacaf9941bfb90ee95a5596046893352ac14f9c578d67d51",
+    "tests/library-query-mvp.smoke.cjs": "40b0ca25ab0ddec4586d0d507075ee98d2cb8884c09973da62dc9331df852e41",
+    "tests/library-performance.smoke.cjs": "d3ef22dffc636824d1b48a7d0c92445cab124e56f571da825d38464cdfc9e795",
+    "tests/search-mvp.smoke.cjs": "47c90e9e0c977c942bc9b648ec4bd413f7f8ea8bfe5b1f0df04b3ba47537434a",
+    "tests/electron-detail.smoke.cjs": "4e1d45ff10feb0779dd4f0da76b5632482200ee873d03166e98d49b65a318cb0",
+    "tests/electron-flac-cue.smoke.cjs": "2dcf15393a209cb3d49be3eeaa640d682c7e00e00c0c87a01e735b57a5dc722d",
+    "native/audio-host/build/audio-host.exe": "2540a9c7e05ee2144a53d148e67347ba216e199cb1b360a036f01192cd26513e",
+    "dist/main/library/library-query-plan.js": "34ee8e2c5e956393a00930f21ed3e2d49b61ebac9c5156d33f1615174e1c6806",
+    "dist/main/main/main.js": "983b63ca862eb2512804262469e70b8d28d8e9fdd5f2c06bc777542fb866ce79",
+    "dist/renderer/index.html": "75a20c0206fd84f4c6d2ed1241535550232a69194a58ee70324301f128564453",
+    "release/manifest.json": "171c7be20f22ad10a727ef239c5366f7492b0b9d27701e10db2ecbb5a6eba483",
+    "package.json": "d97c57710c5839b85954d5b2df4bc6ce5006812804de2d415e763773883d7c3e",
+    "package-lock.json": "a81f6c4a966522b567e5e730f4abce76b9503d8af0d4c919e3200247fd70dcac"
+  },
+  "exitCodes": {
+    "v0.185-source-build": 0,
+    "v0.185-typecheck": 0,
+    "v0.185-native-build": 0,
+    "v0.185-query-mvp": 0,
+    "v0.185-scaled-query-equivalence": 0,
+    "v0.185-library-100k": 1,
+    "v0.185-search-mvp": 0,
+    "v0.185-detail": 0,
+    "v0.185-detail-first-attempt": 1,
+    "v0.185-flac-cue": 0,
+    "v0.185-inventory-final": 0
+  },
+  "synthetic100kBudgetAccepted": false
+}

@@ -1,0 +1,19 @@
+{
+  "version": "0.193.0",
+  "completed": false,
+  "scope": "actual rendered matching -> fixture network -> supervised image -> production Main/Service save -> restart/offline; only fetch boundary replaced, no candidate/preview/repository seeded",
+  "live": false,
+  "cases": [
+    "actual renderer search produces valid candidates through production provider and live item fingerprint"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-online-e2e-qxSgEb",
+  "originalTags": {
+    "title": "封面测试",
+    "artist": "测试歌手",
+    "album": "测试专辑"
+  },
+  "candidates": [
+    "确定的测试歌曲确定的测试歌手确定的测试专辑 · 匹配排序 100"
+  ],
+  "error": "locator.waitFor: Timeout 55000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('complementary', { name: '元数据面板' }).getByRole('region', { name: '封面来源条目' }).getByRole('status').filter({ hasText: /找到 \\d+ 个封面条目|该发行版暂无封面条目/ }).first() to be visible\u001b[22m\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-online-artwork-e2e.smoke.cjs:32:86)"
+}

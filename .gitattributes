@@ -1,0 +1,3 @@
+# Preserve the exact bytes used by source checkpoints and vendor SHA-256 locks.
+# In particular, Windows checkout must not convert shell scripts to CRLF.
+* -text

@@ -1,0 +1,9 @@
+{
+  "version": "0.191.0",
+  "completed": false,
+  "scope": "real SQLite catalog/scanner + production matching/provider/coordinator with synthetic network; no real MusicBrainz match, no online image requests or image application",
+  "cases": [
+    "default disabled before network"
+  ],
+  "scratch": "D:\\CodexTestData\\aural-cover-source-mvp-bfrUY0"
+}

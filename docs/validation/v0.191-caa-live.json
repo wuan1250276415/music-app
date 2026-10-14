@@ -1,0 +1,47 @@
+{
+  "version": "0.191.0",
+  "completed": true,
+  "scope": "real public CAA release JSON index through production broker/provider for official API example; no user media, no real MusicBrainz matching, no image downloads or desktop apply",
+  "releaseId": "76df3287-6cda-33eb-8e9a-044b5e15ffdd",
+  "requests": [
+    {
+      "url": "https://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/",
+      "status": 307,
+      "location": "https://archive.org/download/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/index.json",
+      "durationMs": 2131
+    },
+    {
+      "url": "https://archive.org/download/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/index.json",
+      "status": 302,
+      "location": "https://dn711103.ca.archive.org/0/items/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/index.json",
+      "durationMs": 4263
+    },
+    {
+      "url": "https://dn711103.ca.archive.org/0/items/mbid-76df3287-6cda-33eb-8e9a-044b5e15ffdd/index.json",
+      "status": 200,
+      "location": null,
+      "durationMs": 4294
+    }
+  ],
+  "result": {
+    "entryCount": 6,
+    "frontImageIds": [
+      "829521842"
+    ],
+    "sourceUrl": "https://musicbrainz.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/cover-art",
+    "fetchedAt": "2026-10-12T13:12:50.153Z",
+    "expiresAt": "2026-10-12T13:22:50.155Z",
+    "imageRights": {
+      "status": "unverified",
+      "display": false,
+      "cache": false,
+      "export": false
+    }
+  },
+  "fingerprints": {
+    "src/library/cover-art-archive.ts": "aa7e1763fded905e81cbd5c28e646640ff1253575dc89abcbfb329ec7c6e2a17",
+    "src/library/provider-broker.ts": "996ad9f9921572b5f42047b96461c2bbeee537c960ad7a1c7afa7f997665c44a",
+    "dist/main/library/cover-art-archive.js": "089feef7903172bc799db58ea8c8a759cc268bc24ec266868e867335bcee19a9",
+    "dist/main/library/provider-broker.js": "f67805e4bbc473324de140ca67e0b7feb4fc73562d8814cf763a9f9ca334b806"
+  }
+}

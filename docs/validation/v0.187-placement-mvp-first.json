@@ -1,0 +1,8 @@
+{
+  "appVersion": "0.187.0",
+  "scope": "actual Main geometry persistence and application reopening; isolated copied synthetic100k schema73 catalog, no installer or cold certification",
+  "scratch": "D:\\CodexTestData\\aural-placement-mvp-ZBU8GO",
+  "completed": false,
+  "originalSha256": "fbc38ce2a29ba460f416ea56cb3f9b61a20f7e00e08e37f7afbfd02156eaaf89",
+  "error": "Error: normal window bounds were not durably saved after resizing during 100k startup\n    at until (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-placement-mvp.smoke.cjs:7:167)\n    at async main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-placement-mvp.smoke.cjs:22:3)"
+}

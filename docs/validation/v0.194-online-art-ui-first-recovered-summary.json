@@ -1,0 +1,13 @@
+{
+  "version": "0.194.0",
+  "completed": false,
+  "exit": 1,
+  "kind": "recovered-summary-only",
+  "note": "Original report/log were inspected but then overwritten by rerun after a relative-path copy failed. This is a summary of observed output, not the original raw report or a fresh execution.",
+  "scratch": "D:\\CodexTestData\\aural-online-art-ui-oXwLil",
+  "casesObserved": ["actual service default embedded artwork wins over confirmed online fallback"],
+  "errorObserved": "locator.click: Timeout 20000ms exceeded; waiting for getByRole('button', { name: '暂停', exact: true }); tests/electron-online-artwork.smoke.cjs:16:481",
+  "fixtureDurationFromReadOnlyDatabase": 6.034285714285715,
+  "rootCauseEstablished": false,
+  "followUp": "Added actual playback/error/button-label diagnostics on future failures. Rerun passed without changes to audio production code. Short-fixture timing is a possibility, not a confirmed cause. Detail and FLAC/CUE runtime regression are recorded separately."
+}

@@ -1,0 +1,13 @@
+.filter-preset-manager{margin-top:12px}
+.filter-preset-list{list-style:none;margin:12px 0;padding:0;max-height:260px;overflow:auto}
+.filter-preset-list li{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 8px;border-bottom:1px solid var(--aural-tone-345044)}
+.filter-preset-list li.selected{background:var(--aural-tone-22332f)}
+.filter-preset-list strong{flex:1;min-width:100px;overflow-wrap:anywhere}
+.filter-preset-manager button{background:var(--aural-tone-22332f);color:var(--aural-tone-cfe4c6);border:1px solid var(--aural-tone-496152);border-radius:8px;padding:8px 10px;font-size:12px}
+.filter-preset-manager button:disabled{opacity:.5;cursor:not-allowed}
+.filter-preset-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.filter-preset-pending,.filter-preset-delete{padding:12px;margin:12px 0;border:1px solid var(--aural-tone-496152);border-radius:8px}
+.filter-preset-delete button{margin-right:8px}
+.filter-preset-manager .collection-error{color:var(--aural-tone-ffd7df)}
+.filter-preset-manager .collection-danger{border-color:var(--aural-tone-8c515a);background:var(--aural-tone-432b32);color:var(--aural-tone-ffd6dc)}
+@media(max-width:600px){.filter-preset-list strong{flex-basis:100%}.filter-preset-actions button{flex:1 1 160px}}

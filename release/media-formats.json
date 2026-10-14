@@ -1,0 +1,4 @@
+{
+  "audioExtensions": ["flac", "wav", "wave", "mp3", "m4a", "aac", "ogg", "oga", "opus", "aiff", "aif", "dsf", "dff"],
+  "cueExtension": "cue"
+}
