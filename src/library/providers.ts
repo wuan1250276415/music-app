@@ -1,3 +1,4 @@
+import {acoustidPolicy} from './acoustid.js';
 import {randomUUID,createHash,createHmac,randomBytes,timingSafeEqual} from 'node:crypto';
 import type {DatabaseSync} from 'node:sqlite';
 import type {ProviderId,ProviderManifest,ProviderSettingRequest,ProviderCredentialRequest,ProviderCredentialResult,ProviderState} from '../shared/contracts.js';
@@ -10,10 +11,10 @@ const uuid=/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 const manifests:ProviderManifest[]=[
  {id:'musicbrainz',name:'MusicBrainz',version:'1',ready:true,capabilities:[{kind:'metadata',ready:true,label:'录音候选、发行主署名和核心文本',retention:'查询预览仅短期内存；确认的白名单核心文本另按 CC0 快照保存'}],termsUrl:'https://musicbrainz.org/doc/MusicBrainz_API',credentialSlots:[],note:'查询按统一限速调度，需填写公开联系信息。'},
  {id:'cover-art-archive',name:'Cover Art Archive',version:'2',ready:true,capabilities:[{kind:'artwork',ready:true,label:'封面来源查询与图片选择',retention:'文字索引短期缓存；图片先预览，再明确保存为本机曲库封面，导出未开放'}],termsUrl:'https://musicbrainz.org/doc/Cover_Art_Archive',credentialSlots:[],note:'按选定发行版查询和预览图片。明确保存后保留来源与修改记录；逐图片许可未核实，不声明开放授权。'},
- {id:'acoustid',name:'AcoustID',version:'1',ready:false,capabilities:[{kind:'fingerprint',ready:false,label:'按音频指纹匹配录音',retention:'指纹与关联结果的使用、保留策略尚待接入'}],termsUrl:'https://acoustid.org/webservice',credentialSlots:[{id:'client-key',label:'应用访问密钥'}],note:'本地指纹生成和查询尚未接入；可先保存自己的应用密钥。凭据保存不会开启查询或贡献提交。'}
+ {id:'acoustid',name:'AcoustID',version:'1',ready:true,capabilities:[{kind:'fingerprint',ready:true,label:'按音频指纹匹配录音',retention:'本地指纹和在线关联只作短期预览；确认字段从MusicBrainz另行读取；不提交指纹'}],termsUrl:'https://acoustid.org/webservice',credentialSlots:[{id:'client-key',label:'应用访问密钥'}],note:'本地Chromaprint按当前歌曲／CUE片段计算，仅发送指纹与时长；启用需自己的应用访问密钥。公共服务仅用于非商业用途；商业访问须按服务商方案接入。保存密钥不会开启查询，不贡献指纹。'}
 ];
 export function providerManifest(id:unknown):ProviderManifest{const manifest=manifests.find(value=>value.id===id);if(!manifest)throw new Error('数据源未注册');return structuredClone(manifest);}
-export function registerProviders(broker:ProviderBroker):void{broker.register(musicBrainzPolicy);broker.register(coverArtArchivePolicy);}
+export function registerProviders(broker:ProviderBroker):void{broker.register(musicBrainzPolicy);broker.register(coverArtArchivePolicy);broker.register(acoustidPolicy);}
 export function providerBackupComponents():import('../shared/catalog-backup.js').BackupPlugin[]{return manifests.map(value=>({id:'provider.'+value.id,version:value.version})).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0);}
 export const providerSchema=`
  CREATE TABLE provider_setting(provider_id TEXT PRIMARY KEY,enabled INTEGER NOT NULL CHECK(enabled IN(0,1)),revision INTEGER NOT NULL DEFAULT 0 CHECK(revision>=0));
@@ -59,6 +60,7 @@ type CredentialCommand={fingerprint:string;state:'pending'|'succeeded'|'unknown'
 export class ProviderCredentials {
  private tail:Promise<void>=Promise.resolve();private queued=0;
  constructor(private readonly db:DatabaseSync,private readonly settings:ProviderSettings,private readonly vault:CredentialStore,private readonly assertCommand:(id:string)=>void=()=>{}){}
+ async acoustidClientKey():Promise<Buffer>{if(this.queued||this.db.prepare("SELECT 1 FROM provider_credential_command WHERE provider_id='acoustid' AND slot='client-key' AND state!='succeeded' LIMIT 1").get())throw new Error('应用密钥操作未完成，请先在数据源设置核对');const key=await this.vault.read(this.settings.scope,'acoustid','client-key');if(!key?.length){key?.fill(0);throw new Error('请先在数据源设置保存AcoustID应用访问密钥');}return key;}
  async list():Promise<ProviderState[]>{
   const states:ProviderState[]=[];
   for(const manifest of manifests){

@@ -1,0 +1,76 @@
+#define NOMINMAX
+#define MA_NO_DEVICE_IO
+#define MINIAUDIO_IMPLEMENTATION
+#include "vendor/miniaudio.h"
+#include "vendor/json.hpp"
+#include "ffmpeg-decoder.hpp"
+#include "cue-frames.hpp"
+#include "source-sample-span.hpp"
+#include <chromaprint.h>
+#include <windows.h>
+#include <bcrypt.h>
+#include <io.h>
+#include <fcntl.h>
+#include <algorithm>
+#include <array>
+#include <chrono>
+#include <cmath>
+#include <cwctype>
+#include <iostream>
+#include <memory>
+#include <set>
+#include <stdexcept>
+#include <thread>
+#include <vector>
+using json=nlohmann::json;
+constexpr const char* fingerprintRecipe="chromaprint-1.6.1-default-f32-s16-120s-v1";
+struct Handle{HANDLE value=nullptr;~Handle(){if(value&&value!=INVALID_HANDLE_VALUE)CloseHandle(value);}};
+struct Hash{BCRYPT_ALG_HANDLE algorithm=nullptr;BCRYPT_HASH_HANDLE hash=nullptr;std::vector<unsigned char> object;~Hash(){if(hash)BCryptDestroyHash(hash);if(algorithm)BCryptCloseAlgorithmProvider(algorithm,0);}};
+static std::wstring wide(const std::string& value){const int n=MultiByteToWideChar(CP_UTF8,MB_ERR_INVALID_CHARS,value.data(),int(value.size()),nullptr,0);if(n<=0||n>32767)throw std::runtime_error("invalid source path");std::wstring result(n,0);if(MultiByteToWideChar(CP_UTF8,MB_ERR_INVALID_CHARS,value.data(),int(value.size()),&result[0],n)!=n)throw std::runtime_error("invalid source path");return result;}
+static std::wstring normal(std::wstring value){if(value.rfind(L"\\\\?\\UNC\\",0)==0)value=L"\\\\"+value.substr(8);else if(value.rfind(L"\\\\?\\",0)==0)value=value.substr(4);for(auto& c:value){if(c==L'/')c=L'\\';c=std::towlower(c);}while(value.size()>3&&value.back()==L'\\')value.pop_back();return value;}
+static std::wstring extended(const std::wstring& value){if(value.rfind(L"\\\\?\\",0)==0)return value;return value.rfind(L"\\\\",0)==0?L"\\\\?\\UNC\\"+value.substr(2):L"\\\\?\\"+value;}
+struct LockedVfs{ma_vfs_callbacks callbacks{};HANDLE file=INVALID_HANDLE_VALUE;};
+static ma_result openLocked(ma_vfs* vfs,const char*,ma_uint32 mode,ma_vfs_file* file){if(mode&MA_OPEN_MODE_WRITE)return MA_ACCESS_DENIED;*file=static_cast<LockedVfs*>(vfs)->file;return MA_SUCCESS;}
+static ma_result readLocked(ma_vfs*,ma_vfs_file file,void* output,size_t wanted,size_t* got){DWORD count=0;if(!ReadFile(static_cast<HANDLE>(file),output,DWORD(std::min<size_t>(wanted,0x7fffffff)),&count,nullptr))return MA_IO_ERROR;if(got)*got=count;return count?MA_SUCCESS:MA_AT_END;}
+static ma_result seekLocked(ma_vfs*,ma_vfs_file file,ma_int64 offset,ma_seek_origin origin){LARGE_INTEGER where;where.QuadPart=offset;return SetFilePointerEx(static_cast<HANDLE>(file),where,nullptr,origin==ma_seek_origin_start?FILE_BEGIN:origin==ma_seek_origin_current?FILE_CURRENT:FILE_END)?MA_SUCCESS:MA_BAD_SEEK;}
+static ma_result tellLocked(ma_vfs*,ma_vfs_file file,ma_int64* cursor){LARGE_INTEGER zero{},where{};if(!SetFilePointerEx(static_cast<HANDLE>(file),zero,&where,FILE_CURRENT))return MA_IO_ERROR;*cursor=where.QuadPart;return MA_SUCCESS;}
+static ma_result infoLocked(ma_vfs*,ma_vfs_file file,ma_file_info* info){LARGE_INTEGER size{};if(!GetFileSizeEx(static_cast<HANDLE>(file),&size))return MA_IO_ERROR;info->sizeInBytes=size.QuadPart;return MA_SUCCESS;}
+static uint64_t integer(const json& value,const char* key){if(!value.contains(key)||!value[key].is_number_integer()||value[key]<0)throw std::runtime_error("invalid fingerprint number");return value[key].get<uint64_t>();}
+static json receive(size_t maximum){unsigned char h[4];if(!std::cin.read(reinterpret_cast<char*>(h),4))throw std::runtime_error("fingerprint request missing");const uint32_t n=uint32_t(h[0])|(uint32_t(h[1])<<8)|(uint32_t(h[2])<<16)|(uint32_t(h[3])<<24);if(!n||n>maximum)throw std::runtime_error("fingerprint frame exceeds budget");std::string text(n,0);if(!std::cin.read(&text[0],n))throw std::runtime_error("fingerprint frame incomplete");return json::parse(text);}
+static void send(const json& value){const auto text=value.dump();if(text.size()>131072)throw std::runtime_error("fingerprint output exceeds budget");uint32_t n=uint32_t(text.size());char h[4]={char(n),char(n>>8),char(n>>16),char(n>>24)};std::cout.write(h,4).write(text.data(),text.size()).flush();if(!std::cout)throw std::runtime_error("fingerprint channel closed");}
+int main(){
+ _setmode(_fileno(stdin),_O_BINARY);_setmode(_fileno(stdout),_O_BINARY);SetPriorityClass(GetCurrentProcess(),PROCESS_MODE_BACKGROUND_BEGIN);
+ try{
+  const auto request=receive(131072);const std::set<std::string> keys={"version","algorithm","nonce","parentPid","path","rootPath","startSeconds","endSeconds","startCueFrame","endCueFrame","sampleRange"};
+  if(!request.is_object()||request.value("version",0)!=1||request.value("algorithm","")!=fingerprintRecipe)throw std::runtime_error("fingerprint protocol mismatch");for(const auto& field:request.items())if(!keys.count(field.key()))throw std::runtime_error("unknown fingerprint request field");
+  const auto nonce=request.at("nonce").get<std::string>();if(nonce.size()!=36||nonce.find_first_not_of("0123456789abcdef-")!=std::string::npos)throw std::runtime_error("invalid fingerprint owner token");
+  const auto parentId=integer(request,"parentPid");if(!parentId||parentId>UINT32_MAX)throw std::runtime_error("invalid fingerprint parent");HANDLE parent=OpenProcess(SYNCHRONIZE,FALSE,DWORD(parentId));if(!parent)throw std::runtime_error("fingerprint owner unavailable");std::thread([parent](){WaitForSingleObject(parent,INFINITE);ExitProcess(3);}).detach();
+  // Keep the self-owned Job handle alive until process exit; closing it in stack unwinding would terminate this process before it publishes its exit code.
+  const HANDLE job=CreateJobObjectW(nullptr,nullptr);if(!job)throw std::runtime_error("fingerprint isolation unavailable");JOBOBJECT_EXTENDED_LIMIT_INFORMATION limits{};limits.BasicLimitInformation.LimitFlags=JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE|JOB_OBJECT_LIMIT_PROCESS_MEMORY|JOB_OBJECT_LIMIT_PROCESS_TIME;limits.ProcessMemoryLimit=512ULL*1024*1024;limits.BasicLimitInformation.PerProcessUserTimeLimit.QuadPart=300LL*10000000;
+  if(!SetInformationJobObject(job,JobObjectExtendedLimitInformation,&limits,sizeof(limits))||!AssignProcessToJobObject(job,GetCurrentProcess()))throw std::runtime_error("fingerprint isolation failed");
+  std::thread([](){std::this_thread::sleep_for(std::chrono::minutes(5));ExitProcess(4);}).detach();
+  Handle file;const auto filename=wide(request.at("path").get<std::string>()),root=normal(wide(request.at("rootPath").get<std::string>()));file.value=CreateFileW(extended(filename).c_str(),GENERIC_READ,FILE_SHARE_READ,nullptr,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL|FILE_FLAG_SEQUENTIAL_SCAN,nullptr);if(file.value==INVALID_HANDLE_VALUE)throw std::runtime_error("source unavailable");
+  BY_HANDLE_FILE_INFORMATION identity{};if(!GetFileInformationByHandle(file.value,&identity)||(identity.dwFileAttributes&FILE_ATTRIBUTE_DIRECTORY))throw std::runtime_error("source is not regular");wchar_t finalPath[32768];const DWORD pathLength=GetFinalPathNameByHandleW(file.value,finalPath,32768,FILE_NAME_NORMALIZED);if(!pathLength||pathLength>=32768)throw std::runtime_error("source identity unavailable");const auto resolved=normal(std::wstring(finalPath,pathLength));if(resolved.size()<=root.size()||resolved.compare(0,root.size(),root)||resolved[root.size()]!=L'\\')throw std::runtime_error("source outside authorized root");
+  const uint64_t fileBytes=(uint64_t(identity.nFileSizeHigh)<<32)|identity.nFileSizeLow;if(!fileBytes||fileBytes>9007199254740991ULL)throw std::runtime_error("source size invalid");
+  Hash hash;DWORD objectBytes=0,returned=0;if(BCryptOpenAlgorithmProvider(&hash.algorithm,BCRYPT_SHA256_ALGORITHM,nullptr,0)<0||BCryptGetProperty(hash.algorithm,BCRYPT_OBJECT_LENGTH,reinterpret_cast<PUCHAR>(&objectBytes),sizeof(objectBytes),&returned,0)<0||!objectBytes||objectBytes>1048576)throw std::runtime_error("source hash unavailable");hash.object.resize(objectBytes);if(BCryptCreateHash(hash.algorithm,&hash.hash,hash.object.data(),objectBytes,nullptr,0,0)<0)throw std::runtime_error("source hash unavailable");
+  std::vector<unsigned char> block(1048576);uint64_t hashed=0;auto progressAt=std::chrono::steady_clock::now()-std::chrono::seconds(1);
+  while(true){DWORD got=0;if(!ReadFile(file.value,block.data(),DWORD(block.size()),&got,nullptr))throw std::runtime_error("source read failed");if(!got)break;if(BCryptHashData(hash.hash,block.data(),got,0)<0)throw std::runtime_error("source hash failed");hashed+=got;const auto now=std::chrono::steady_clock::now();if(now-progressAt>=std::chrono::milliseconds(500)){send({{"kind","progress"},{"nonce",nonce},{"phase","hashing"},{"progress",.2*double(hashed)/double(fileBytes)}});progressAt=now;}}
+  if(hashed!=fileBytes)throw std::runtime_error("source changed");std::array<unsigned char,32> digest{};if(BCryptFinishHash(hash.hash,digest.data(),DWORD(digest.size()),0)<0)throw std::runtime_error("source hash failed");std::string sha;for(auto byte:digest){sha+="0123456789abcdef"[byte>>4];sha+="0123456789abcdef"[byte&15];}
+  LARGE_INTEGER zero{};if(!SetFilePointerEx(file.value,zero,nullptr,FILE_BEGIN))throw std::runtime_error("source reset failed");LockedVfs vfs;vfs.file=file.value;vfs.callbacks.onOpen=openLocked;vfs.callbacks.onClose=[](ma_vfs*,ma_vfs_file){return MA_SUCCESS;};vfs.callbacks.onRead=readLocked;vfs.callbacks.onSeek=seekLocked;vfs.callbacks.onTell=tellLocked;vfs.callbacks.onInfo=infoLocked;
+  AuralPcmDecoder source;if(source.initHandle(file.value,&vfs)!=MA_SUCCESS)throw std::runtime_error("unsupported media");const uint32_t rate=source.outputSampleRate,channels=source.outputChannels;if(rate<1001||rate>1536000||!channels||channels>16||source.outputFormat!=ma_format_f32)throw std::runtime_error("unsupported source layout");const auto backend=source.backend,codec=source.codecName;std::vector<float> samples(size_t(4096)*channels);uint64_t length=0;
+  // Measure actual decoded EOF rather than uploading a guessed whole-track duration.
+  while(true){ma_uint64 got=0;const auto rc=source.read(samples.data(),4096,&got);if(got>4096||(rc!=MA_SUCCESS&&rc!=MA_AT_END)||!got&&rc!=MA_AT_END||length>9007199254740991ULL-got)throw std::runtime_error("decode incomplete");length+=got;if(rc==MA_AT_END)break;const auto now=std::chrono::steady_clock::now();if(now-progressAt>=std::chrono::milliseconds(500)){LARGE_INTEGER where{};if(!SetFilePointerEx(file.value,zero,&where,FILE_CURRENT))throw std::runtime_error("source cursor unavailable");send({{"kind","progress"},{"nonce",nonce},{"phase","measuring"},{"progress",.2+.3*std::min(1.,double(where.QuadPart)/double(fileBytes))}});progressAt=now;}}
+  uint64_t start=0,end=length;std::string rangeKind="file";
+  if(request.contains("sampleRange")){const auto span=aural_sample_span::read(request.at("sampleRange"),rate);if(span.next||!request.at("startCueFrame").is_null()||!request.at("endCueFrame").is_null())throw std::runtime_error("ambiguous source span");start=span.start;end=span.end;rangeKind="sample-span";}
+  else if(!request.at("startCueFrame").is_null()){if(!cueToPcmFrame(integer(request,"startCueFrame"),rate,start)||!request.at("endCueFrame").is_null()&&!cueToPcmFrame(integer(request,"endCueFrame"),rate,end))throw std::runtime_error("CUE range overflow");rangeKind="cue-frame";}
+  else{const double a=request.at("startSeconds").get<double>(),b=request.at("endSeconds").get<double>();if(!std::isfinite(a)||a<0||a*rate>9007199254740991.||!std::isfinite(b)||b>=0&&b*rate>9007199254740991.)throw std::runtime_error("source range invalid");start=uint64_t(a*rate);if(b>=0)end=uint64_t(b*rate);if(start||b>=0)rangeKind="seconds";}
+  if(start>=end||end>length)throw std::runtime_error("source span outside decoded audio");const uint64_t wanted=std::min<uint64_t>(end-start,uint64_t(rate)*120);
+  if(source.initHandle(file.value,&vfs)!=MA_SUCCESS||source.outputSampleRate!=rate||source.outputChannels!=channels||source.backend!=backend||source.codecName!=codec)throw std::runtime_error("source decoder changed");
+  uint64_t skipped=0;while(skipped<start){const auto take=std::min<uint64_t>(4096,start-skipped);ma_uint64 got=0;const auto rc=source.read(samples.data(),take,&got);if(!got||got>take||(rc!=MA_SUCCESS&&rc!=MA_AT_END))throw std::runtime_error("source span incomplete");skipped+=got;const auto now=std::chrono::steady_clock::now();if(now-progressAt>=std::chrono::milliseconds(500)){send({{"kind","progress"},{"nonce",nonce},{"phase","positioning"},{"progress",.5+.1*double(skipped)/double(start)}});progressAt=now;}}
+  std::unique_ptr<ChromaprintContext,decltype(&chromaprint_free)> fp(chromaprint_new(CHROMAPRINT_ALGORITHM_DEFAULT),chromaprint_free);if(!fp||!chromaprint_start(fp.get(),int(rate),int(channels)))throw std::runtime_error("fingerprint unavailable");std::vector<int16_t> pcm(samples.size());uint64_t decoded=0;
+  while(decoded<wanted){const auto take=std::min<uint64_t>(4096,wanted-decoded);ma_uint64 got=0;const auto rc=source.read(samples.data(),take,&got);if(!got||got>take||(rc!=MA_SUCCESS&&rc!=MA_AT_END))throw std::runtime_error("fingerprint span incomplete");for(size_t n=0;n<size_t(got)*channels;++n){if(!std::isfinite(samples[n])||std::abs(samples[n])>16)throw std::runtime_error("invalid decoded audio");pcm[n]=int16_t(std::clamp(std::lrint(double(samples[n])*32768.),-32768L,32767L));}if(!chromaprint_feed(fp.get(),pcm.data(),int(got*channels)))throw std::runtime_error("fingerprint input failed");decoded+=got;const auto now=std::chrono::steady_clock::now();if(now-progressAt>=std::chrono::milliseconds(500)){send({{"kind","progress"},{"nonce",nonce},{"phase","fingerprinting"},{"progress",.6+.4*double(decoded)/double(wanted)}});progressAt=now;}}
+  if(!chromaprint_finish(fp.get()))throw std::runtime_error("fingerprint finalization failed");int rawWords=0;char* encoded=nullptr;if(!chromaprint_get_raw_fingerprint_size(fp.get(),&rawWords)||rawWords<=0||!chromaprint_get_fingerprint(fp.get(),&encoded)||!encoded)throw std::runtime_error("audio too short for fingerprint");std::unique_ptr<char,decltype(&chromaprint_dealloc)> encodedOwner(encoded,chromaprint_dealloc);const std::string fingerprint(encoded);if(fingerprint.empty()||fingerprint.size()>65536||fingerprint.find_first_not_of("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_")!=std::string::npos)throw std::runtime_error("invalid fingerprint output");
+  send({{"kind","complete"},{"nonce",nonce},{"summary",{{"version",1},{"algorithm",fingerprintRecipe},{"libraryVersion",chromaprint_get_version()},{"algorithmId",chromaprint_get_algorithm(fp.get())},{"sha256",sha},{"sampleRate",rate},{"channels",channels},{"startFrame",std::to_string(start)},{"endFrame",std::to_string(end)},{"sampledFrames",std::to_string(decoded)},{"durationSeconds",double(end-start)/rate},{"sampledSeconds",double(decoded)/rate},{"rangeKind",rangeKind},{"fingerprint",fingerprint},{"rawWords",rawWords},{"decoder",{{"backend",backend},{"codec",codec}}}}}});
+  const auto ack=receive(1024);if(!ack.is_object()||ack.size()!=2||ack.value("kind","")!="commit"||ack.value("nonce","")!=nonce)throw std::runtime_error("fingerprint acceptance missing");return 0;
+ }catch(...){try{send({{"kind","error"},{"message","音频太短、来源不可用、片段无效或指纹计算中断"}});}catch(...){}return 2;}
+}

@@ -1,0 +1,15 @@
+{
+  "version": "1.6.1",
+  "tag": "v1.6.1",
+  "tagObject": "e88b7414e7d32dc9466b7022ea675786a8a4bc15",
+  "commit": "aed8eba2202dd9d7b3b0a56c77904cc805490d72",
+  "source": "https://github.com/acoustid/chromaprint/releases/download/v1.6.1/chromaprint-1.6.1.tar.gz",
+  "archive": "chromaprint-1.6.1.tar.gz",
+  "sha256": "3368805af0ee47b9df74df10b5001a44569e01df2844dab520031720dde9ad23",
+  "sourceDirectory": "chromaprint-1.6.1",
+  "fft": "kissfft",
+  "internalAvresample": true,
+  "shared": false,
+  "tools": false,
+  "license": "MIT AND BSD-3-Clause AND LGPL-2.1-or-later"
+}

@@ -295,7 +295,7 @@ export type MetadataCollectionRequest={commandId:string;ref:MetadataCollectionRe
 export type {MetadataReleaseContext,MetadataReleaseTrack} from './metadata-release-context';
 export interface MetadataMatchEvidence {
  algorithm:string;providerScore:number;
- retrieval?:{kind:'confirmed-recording';recordingId:string}|{kind:'isrc';isrc:string;recordingCount:number};
+ retrieval?:{kind:'confirmed-recording';recordingId:string}|{kind:'isrc';isrc:string;recordingCount:number}|{kind:'fingerprint';recordingId:string;acoustidId:string;score:number;algorithm:typeof import('./audio-fingerprint').FINGERPRINT_RECIPE};
  title:{kind:'exact'|'similar'|'different';similarity:number};
  artist:{kind:'exact'|'similar'|'different'|'missing';similarity:number|null};
  album:{kind:'exact'|'similar'|'different'|'missing'|'edition-title';similarity:number|null};
@@ -692,6 +692,9 @@ export interface MusicApi extends ProviderManagementApi {
   metadataContact(): Promise<string>;
   metadataReviewState(itemId:string):Promise<{itemId:string;revision:number;fingerprint:string}>;
   setMetadataContact(contact: string): Promise<void>;
+  fingerprintFind(request:import('./audio-fingerprint').FingerprintFindRequest):Promise<import('./audio-fingerprint').FingerprintIdentification>;
+  fingerprintChoose(request:import('./audio-fingerprint').FingerprintChoiceRequest):Promise<MetadataMatchResult>;
+  fingerprintClose(identificationToken:string):Promise<void>;
   metadataBatchReviewStart(itemIds:string[]):Promise<import('./metadata-batch-review').MetadataBatchReviewLease>;
   metadataBatchReviewStatus(reviewToken:string):Promise<import('./metadata-batch-review').MetadataBatchReviewStatus>;
   metadataBatchReviewClose(reviewToken:string):Promise<void>;

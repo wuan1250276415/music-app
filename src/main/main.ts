@@ -1,3 +1,4 @@
+import {readFingerprintFind,readFingerprintChoice,readFingerprintToken} from '../shared/audio-fingerprint.js';
 import {readMetadataBatchOrigin} from '../shared/metadata-batch-recheck.js';
 import {readBatchReviewItems,readBatchReviewToken} from '../shared/metadata-batch-review.js';
 import {readMetadataMatchRequest} from '../shared/metadata-match-request.js';
@@ -161,13 +162,14 @@ const nativeAudioHost=app.isPackaged
   ?path.join(process.resourcesPath,'audio-host.exe')
   :path.resolve(__dirname,'../../../native/audio-host/build/audio-host.exe');
 const credentialVaultPath=app.isPackaged?path.join(process.resourcesPath,'credential-vault.exe'):path.resolve(__dirname,'../../../native/credential-vault/build/credential-vault.exe');
+const fingerprintPath=app.isPackaged?path.join(process.resourcesPath,'fingerprint-worker.exe'):path.resolve(__dirname,'../../../native/audio-host/build/fingerprint-worker.exe');
 const waveformPath=app.isPackaged?path.join(process.resourcesPath,'waveform-worker.exe'):path.resolve(__dirname,'../../../native/audio-host/build/waveform-worker.exe');
 const systemMediaPath=app.isPackaged?path.join(process.resourcesPath,'system-media.exe'):path.resolve(__dirname,'../../../native/system-media/build/system-media.exe');
 const mediaWorkerPath=app.isPackaged?path.join(process.resourcesPath,'media-worker.exe'):path.resolve(__dirname,'../../../native/media-worker/build/media-worker.exe');
 const tagWorkerPath=app.isPackaged?path.join(process.resourcesPath,'tag-write-worker.exe'):path.resolve(__dirname,'../../../native/tag-write-worker/build/tag-write-worker.exe');
 const libraryLifecycle=new CatalogLibraryLifecycle({
  workerPath:path.resolve(__dirname,'../library/service.js'),
- params:()=>({dataDir:path.join(app.getPath('userData'),'library'),credentialVaultPath,waveformPath,mediaWorkerPath,tagWorkerPath}),
+ params:()=>({dataDir:path.join(app.getPath('userData'),'library'),credentialVaultPath,waveformPath,fingerprintPath,mediaWorkerPath,tagWorkerPath}),
  beforeNormal:()=>verifyNormalStartupAdmission(app.getPath('userData'),process.argv),
  guard:operationId=>{mainResources.assertFrozen(operationId);if(desktop?.isQuitting||playback.systemIsSleeping)throw new Error('应用正在退出或休眠，曲库恢复生命周期中断');},
  state:(process,ready)=>{service=process;serviceReady=ready;},publish,startupProgress:phase=>startupWindow.update(phase),
@@ -737,6 +739,9 @@ function registerIpc(): void {
   handleIpc('metadata:network-enabled',(event,enabled)=>{trusted(event.sender);if(typeof enabled!=='boolean')throw new Error('无效在线查询设置');return serviceCall('setMetadataNetworkEnabled',enabled);});
   handleIpc('metadata:cache-clear',event=>{trusted(event.sender);return serviceCall('clearMetadataNetworkCache');});
   handleIpc('metadata:cancel',(event,requestId)=>{trusted(event.sender);if(typeof requestId!=='string'||!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(requestId))throw new Error('无效在线查询 ID');return serviceCall('cancelMetadataMatch',requestId);});
+  handleIpc('metadata:fingerprint-find',(event,request)=>{trusted(event.sender);return serviceCall('fingerprintFind',readFingerprintFind(request),1000000);});
+  handleIpc('metadata:fingerprint-choose',(event,request)=>{trusted(event.sender);return serviceCall('fingerprintChoose',readFingerprintChoice(request),60000);});
+  handleIpc('metadata:fingerprint-close',(event,token)=>{trusted(event.sender);return serviceCall('fingerprintClose',readFingerprintToken(token));});
   handleIpc('metadata:batch-review-start',(event,ids)=>{trusted(event.sender);return serviceCall('metadataBatchReviewStart',readBatchReviewItems(ids));});
   handleIpc('metadata:batch-review-status',(event,token)=>{trusted(event.sender);return serviceCall('metadataBatchReviewStatus',readBatchReviewToken(token));});
   handleIpc('metadata:batch-review-close',(event,token)=>{trusted(event.sender);return serviceCall('metadataBatchReviewClose',readBatchReviewToken(token));});

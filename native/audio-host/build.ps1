@@ -30,6 +30,9 @@ $dsdCommand = '"' + $vcvars + '" >nul && cl /nologo /EHsc /O2 /MT /std:c++17 /ut
 $waveformSource = Join-Path $project 'waveform.cpp'
 $waveformOutput = Join-Path $build 'waveform-worker.exe'
 $waveformCommand = '"' + $vcvars + '" >nul && cl /nologo /EHsc /O2 /MT /std:c++17 /utf-8 /I"' + $ffmpegInstall + '\include" "' + $waveformSource + '" /Fe:"' + $waveformOutput + '" /link /SUBSYSTEM:CONSOLE bcrypt.lib delayimp.lib /LIBPATH:"' + $ffmpegInstall + '\bin" avformat.lib avcodec.lib avutil.lib swresample.lib /DELAYLOAD:avformat-62.dll /DELAYLOAD:avcodec-62.dll /DELAYLOAD:avutil-60.dll /DELAYLOAD:swresample-6.dll'
+$fingerprintScript = Join-Path $project 'build-fingerprint.ps1'
+& powershell -NoProfile -ExecutionPolicy Bypass -File $fingerprintScript
+if ($LASTEXITCODE -ne 0) { throw 'Fingerprint helper build failed' }
 $analysisSource = Join-Path $project 'dsd-analysis-worker.cpp'
 $analysisOutput = Join-Path $build 'dsd-analysis-worker.exe'
 $analysisCommand = $waveformCommand.Replace($waveformSource,$analysisSource).Replace($waveformOutput,$analysisOutput)

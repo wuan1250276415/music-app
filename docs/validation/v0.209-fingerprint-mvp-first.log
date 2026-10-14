@@ -1,0 +1,25 @@
+actual supervised CUE scan and native worker measure EOF, preserve0/10/40/70 boundaries and generate separate current-track fingerprints
+CUE current-segment fingerprint agrees with independently cropped physical PCM file, without image-wide substitution
+closed request readers reject arbitrary audio paths, supplied fingerprints and foreign recording choices
+production broker posts only client/fingerprint/whole virtual-track duration; no path/audio/cookies/redirect, and secret buffers are cleared
+all scoped recordings are explicit preview choices; returned mutation cannot forge additional private choices
+explicit authorized fingerprint choice reads MusicBrainz recording; it retains fingerprint evidence and separate unconfirmed edition identity
+parser rejects duplicate/invalid/over-budget identities, invalid scores and server errors without leaking response messages
+provider/body constraints reject GET body injection, query-string client leakage and oversized POST before transport
+{"version":"0.209.0","completed":false,"cases":9,"scratch":"D:\\CodexTestData\\aural-fingerprint-mvp-BzWQH3"}
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ undefined
+- '00000000-0000-0000-0000-000000000400'
+
+    at C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\audio-fingerprint-mvp.smoke.cjs:25:213
+    at ok (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\audio-fingerprint-mvp.smoke.cjs:5:630)
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\audio-fingerprint-mvp.smoke.cjs:25:3) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: '00000000-0000-0000-0000-000000000400',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

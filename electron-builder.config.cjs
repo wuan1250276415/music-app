@@ -12,6 +12,8 @@ module.exports={
   extraResources:[
     {from:'native/tag-write-worker/build/catalog-directory-mover.exe',to:'catalog-directory-mover.exe'},
     {from:'native/system-media/build/system-media.exe',to:'system-media.exe'},
+    {from:'native/audio-host/build/fingerprint-worker.exe',to:'fingerprint-worker.exe'},
+    {from:'native/chromaprint',to:'chromaprint-source',filter:['vendor/**/*','lock.json','build.ps1','prepare.py']},
     {from:'native/audio-host/build/waveform-worker.exe',to:'waveform-worker.exe'},
     {from:'native/audio-host/build/dsd-analysis-worker.exe',to:'dsd-analysis-worker.exe'},
     {from:'native/media-worker/build/media-worker.exe',to:'media-worker.exe'},

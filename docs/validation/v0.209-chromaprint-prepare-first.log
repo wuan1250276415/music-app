@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\chromaprint\prepare.py", line 13, in <module>
+    if not member.isfile() or member.size>16777216:raise ValueError('Unsupported Chromaprint archive member')
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Unsupported Chromaprint archive member
+Chromaprint source preparation failed
+At C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\chromaprint\build.ps1:4 char:25
++ ... f($LASTEXITCODE -ne 0){throw 'Chromaprint source preparation failed'}
++                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Chromaprint source preparation failed:String) [], RuntimeException
+    + FullyQualifiedErrorId : Chromaprint source preparation failed
+ 

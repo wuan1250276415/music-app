@@ -1,0 +1,10 @@
+actual UI defaults to disabled fingerprint provider and cannot transmit before explicit enabling
+actual password form stores only owned dummy key in Windows vault and clears draft; public source status reveals no key and remains disabled
+explicit enabled action performs real current-CUE native fingerprint and renders two associations without auto-reading or selecting MusicBrainz candidates
+actual Service query reads credential internally and sends fingerprint/virtual-track duration in a restricted POST without path, audio or URL key
+trusted Main and Service reject fabricated identification authority
+explicit association click retrieves scoped MusicBrainz metadata; candidate click displays fingerprint basis and still creates no recording/release identity
+explicit candidate/field confirmation updates only local library metadata, preserving source CUE audio
+offline independent text compensation restores local CUE title without assigning identity
+media-offline restart retains text compensation, real credential presence and no automatically bound music identity
+{"version":"0.209.0","completed":true,"cases":9}

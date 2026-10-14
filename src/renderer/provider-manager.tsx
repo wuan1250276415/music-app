@@ -47,7 +47,7 @@ export function ProviderManagerDialog({onClose}:{onClose:()=>void}):React.JSX.El
  async function terms(id:ProviderId):Promise<void>{try{await window.music.openProviderTerms(id);}catch(e){if(alive.current)setError(e instanceof Error?e.message:String(e));}}
  return <><div className="collection-backdrop"><div className="collection-dialog catalog-dialog provider-dialog" role="dialog" aria-modal={!retentionTarget} aria-hidden={Boolean(retentionTarget)} inert={Boolean(retentionTarget)} aria-label="数据源设置" ref={dialog} onKeyDown={event=>trap(event,dialog.current,onClose,busy)}>
   <header><h2>数据源设置</h2><button aria-label="关闭数据源设置" disabled={busy} onClick={onClose}>×</button></header>
-  <p className="collection-note">在线查询由您主动发起。当前元数据查询发送曲名、歌手及所选来源的录音／发行编号，不发送文件路径或完整音频。指纹查询与贡献提交尚未开放。MusicBrainz 的公开联系信息可在“元数据”面板填写。</p>
+  <p className="collection-note">在线查询由您主动发起。当前元数据查询发送曲名、歌手及所选来源的录音／发行编号，不发送文件路径或完整音频。指纹识别只发送指纹和时长，不贡献指纹数据。MusicBrainz 的公开联系信息可在“元数据”面板填写。</p>
   <button className="release-refresh" disabled={busy||loading} onClick={()=>{setError('');setReload(value=>value+1);}}>刷新设置与凭据状态</button>
   {error&&<p className="collection-error" role="alert">{error}</p>}{notice&&<p className="collection-note" role="status">{notice}</p>}
   <div className="provider-cards" aria-busy={loading}>
@@ -66,7 +66,7 @@ export function ProviderManagerDialog({onClose}:{onClose:()=>void}):React.JSX.El
        <p className="provider-status">{status?.present===true?'已保存':status?.present===false?'尚未保存':'状态未知'}{status?.error?` · ${status.error}`:''}{status?.uncertain?` · ${status.uncertain} 次历史操作尚未确认`:''}</p>
        <input id={`credential-${identity}`} type="password" autoComplete="off" spellCheck={false} aria-label={`${manifest.name} ${slot.label}`} placeholder="输入您自己的应用密钥" disabled={busy||!state.vaultAvailable} value={drafts[identity]??''} onChange={event=>{const value=event.target.value;credentialAttempt.current=null;setUncertain(false);setDrafts(values=>({...values,[identity]:value}));}}/>
        <div className="provider-actions"><button disabled={busy||!state.vaultAvailable||!drafts[identity]?.trim()} onClick={()=>void credential(manifest.id,slot.id,'set')}>{pending?.operation==='set'?'核对上次保存结果':'保存密钥'}</button><button disabled={busy||!state.vaultAvailable} onClick={()=>void credential(manifest.id,slot.id,'remove')}>{pending?.operation==='remove'?'核对上次移除结果':'移除密钥'}</button>{pending&&<button disabled={busy||!state.vaultAvailable||pending.operation==='set'&&!drafts[identity]?.trim()} onClick={()=>void credential(manifest.id,slot.id,pending.operation,true)}>{pending.operation==='set'?'按当前输入重新保存':'再次明确移除'}</button>}</div>
-       <small>密钥保存到当前 Windows 用户的系统凭据库。这里只显示是否已保存；保存密钥不会开启待接入能力。</small>
+       <small>密钥保存到当前 Windows 用户的系统凭据库。这里只显示是否已保存；保存密钥不会自动开启查询。</small>
       </div>;
      })}
     </section>;

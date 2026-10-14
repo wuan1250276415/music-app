@@ -2,6 +2,7 @@ import {createHash} from 'node:crypto';
 
 export interface ProviderEndpoint {
  origin:string;path:RegExp;emptyOnNotFound?:boolean;
+ method?:'POST';maxRequestBytes?:number;
  format?:'bytes';maxResponseBytes?:number;contentTypes?:string[];
  redirects?:{maxHops:number;accept:(original:URL,from:URL,to:URL)=>boolean;forwardHeaders:string[]};
 }
@@ -12,7 +13,7 @@ export interface ProviderPolicy {
 export interface ProviderBrokerState {provider:string;active:number;queued:number;cacheEntries:number;retryAt:number|null;blocked:boolean}
 export interface ProviderResult<T> {value:T;fetchedAt:string;expiresAt:string;cacheHit:boolean;rights:ProviderPolicy['rights']}
 type Cache={value:unknown;fetchedAt:string;expires:number;reviewUntil:string;bytes:number;provider:string;epoch:number};
-type Job={url:string;endpoint:ProviderEndpoint;headers:Record<string,string>;decode:(value:unknown)=>unknown;controller:AbortController;signal:AbortSignal;epoch:number;key:string;fresh:boolean;
+type Job={url:string;body?:string;endpoint:ProviderEndpoint;headers:Record<string,string>;decode:(value:unknown)=>unknown;controller:AbortController;signal:AbortSignal;epoch:number;key:string;fresh:boolean;
  resolve:(value:ProviderResult<unknown>)=>void;reject:(error:Error)=>void;timer:NodeJS.Timeout;unlink:()=>void;abort:()=>void;done:boolean;started:boolean};
 type Lane={policy:ProviderPolicy;queue:Job[];running:Job|null;nextAt:number;failures:number;blocked:boolean;epoch:number};
 class ProviderError extends Error {constructor(message:string,readonly retryable=false,readonly auth=false){super(message);}}
@@ -40,6 +41,7 @@ export class ProviderBroker {
  register(policy:ProviderPolicy):void{
   if(this.closed||!/^[a-z][a-z0-9-]{0,63}$/.test(policy.id)||this.lanes.has(policy.id)||!Object.keys(policy.capabilities).length||!Number.isSafeInteger(policy.intervalMs)||policy.intervalMs<1||policy.timeoutMs<1||policy.deadlineMs<policy.timeoutMs||!Number.isSafeInteger(policy.maxAttempts)||policy.maxAttempts<1||policy.maxAttempts>4||!Number.isSafeInteger(policy.maxQueued)||policy.maxQueued<1||policy.maxQueued>64||policy.maxResponseBytes<1024||policy.maxResponseBytes>8388608||policy.cacheMs<0||policy.cacheMs>600000||policy.reviewMs<policy.cacheMs||policy.reviewMs>3600000||!policy.rights.display||policy.rights.persist)throw new Error('无效在线数据源策略');
   for(const capability of Object.values(policy.capabilities)){const url=new URL(capability.origin);if(url.protocol!=='https:'||url.origin!==capability.origin||url.username||url.password||!(capability.path instanceof RegExp)||capability.path.global||capability.path.sticky)throw new Error('无效在线数据源能力地址');
+   if(capability.method!==undefined&&(capability.method!=='POST'||!Number.isSafeInteger(capability.maxRequestBytes)||capability.maxRequestBytes!<1||capability.maxRequestBytes!>131072||capability.redirects))throw new Error('无效只读POST查询策略');
    if(capability.format!==undefined&&capability.format!=='bytes'||capability.maxResponseBytes!==undefined&&(!Number.isSafeInteger(capability.maxResponseBytes)||capability.maxResponseBytes<1024||capability.maxResponseBytes>16777216)||capability.format==='bytes'&&(!Array.isArray(capability.contentTypes)||!capability.contentTypes.length||capability.contentTypes.length>8||capability.contentTypes.some(type=>!/^image\/(jpeg|png|webp|gif|bmp)$/.test(type))))throw new Error('无效在线图片响应策略');
    const redirects=capability.redirects;if(redirects&&(!Number.isSafeInteger(redirects.maxHops)||redirects.maxHops<1||redirects.maxHops>4||typeof redirects.accept!=='function'||!Array.isArray(redirects.forwardHeaders)||redirects.forwardHeaders.some(name=>!['accept','user-agent'].includes(name))))throw new Error('无效在线数据源跳转策略');}
   this.lanes.set(policy.id,{policy,queue:[],running:null,nextAt:0,failures:0,blocked:false,epoch:0});
@@ -54,23 +56,24 @@ export class ProviderBroker {
   if(cancel){lane.running?.controller.abort(new Error('在线查询已取消'));for(const job of [...lane.queue])job.controller.abort(new Error('在线查询已取消'));}this.changed();
  }
  dispose():void{this.closed=true;clearInterval(this.cleanup);for(const provider of this.lanes.keys())this.clear(provider,true);}
- request<T>(provider:string,capability:string,url:URL,headers:Record<string,string>,decode:(value:unknown)=>T,options:{signal?:AbortSignal;fresh?:boolean}={}):Promise<ProviderResult<T>>{
+ request<T>(provider:string,capability:string,url:URL,headers:Record<string,string>,decode:(value:unknown)=>T,options:{signal?:AbortSignal;fresh?:boolean;body?:string}={}):Promise<ProviderResult<T>>{
   if(this.maintenanceOwner)return Promise.reject(new Error('曲库维护期间暂停新的在线请求'));
   if(this.closed)return Promise.reject(new Error('在线数据源服务已关闭'));const lane=this.lanes.get(provider),allowed=lane?.policy.capabilities[capability];if(!lane||!allowed||url.origin!==allowed.origin||url.protocol!=='https:'||url.username||url.password||url.hash||!allowed.path.test(url.pathname))return Promise.reject(new Error('请求不属于已注册的数据源能力'));
+  if(allowed.method==='POST'?(url.search||typeof options.body!=='string'||!options.body||Buffer.byteLength(options.body)>allowed.maxRequestBytes!):options.body!==undefined)return Promise.reject(new Error('请求正文不属于已注册的只读查询能力'));
   if(options.signal?.aborted)return Promise.reject(aborted(options.signal));if(lane.blocked)return Promise.reject(new Error('数据源拒绝访问，请检查联系信息后重新启用查询'));this.prune();
-  const key=createHash('sha256').update(JSON.stringify([provider,capability,url.href,headers,lane.epoch])).digest('hex'),cached=this.cache.get(key);
+  const key=createHash('sha256').update(JSON.stringify([provider,capability,url.href,headers,lane.epoch,...(allowed.method==='POST'?[options.body]:[])])).digest('hex'),cached=this.cache.get(key);
   if(!options.fresh&&cached&&cached.expires>Date.now()&&cached.epoch===lane.epoch){this.cache.delete(key);this.cache.set(key,cached);return Promise.resolve({value:structuredClone(cached.value) as T,fetchedAt:cached.fetchedAt,expiresAt:cached.reviewUntil,cacheHit:true,rights:{...lane.policy.rights}});}
   if(lane.queue.length+(lane.running?1:0)>=lane.policy.maxQueued)return Promise.reject(new Error('在线查询队列已满，请稍后重试'));
   return new Promise<ProviderResult<T>>((resolve,reject)=>{
    const controller=new AbortController(),cancel=()=>controller.abort(options.signal?.reason??new Error('在线查询已取消'));
-   const job:Job={url:url.href,endpoint:allowed,headers:{...headers},decode,controller,signal:controller.signal,epoch:lane.epoch,key,fresh:options.fresh===true,resolve:resolve as (value:ProviderResult<unknown>)=>void,reject,
+   const job:Job={url:url.href,body:options.body,endpoint:allowed,headers:{...headers},decode,controller,signal:controller.signal,epoch:lane.epoch,key,fresh:options.fresh===true,resolve:resolve as (value:ProviderResult<unknown>)=>void,reject,
     timer:setTimeout(()=>controller.abort(new Error('在线查询等待或处理超时，请稍后重试')),lane.policy.deadlineMs),unlink:()=>options.signal?.removeEventListener('abort',cancel),abort:()=>{},done:false,started:false};
    job.abort=()=>{if(!job.started){const index=lane.queue.indexOf(job);if(index>=0)lane.queue.splice(index,1);this.finish(job,aborted(job.signal));}else if(!job.done){job.done=true;job.reject(aborted(job.signal));clearTimeout(job.timer);job.unlink();}this.changed();};
    job.signal.addEventListener('abort',job.abort,{once:true});options.signal?.addEventListener('abort',cancel,{once:true});lane.queue.push(job);this.changed();void this.pump(lane);
   });
  }
  private finish(job:Job,error?:Error,result?:ProviderResult<unknown>):void{
-  clearTimeout(job.timer);job.unlink();job.signal.removeEventListener('abort',job.abort);if(job.done)return;job.done=true;if(error)job.reject(error);else job.resolve(result!);
+  clearTimeout(job.timer);job.unlink();job.signal.removeEventListener('abort',job.abort);job.body=undefined;if(job.done)return;job.done=true;if(error)job.reject(error);else job.resolve(result!);
  }
  private pump(lane:Lane):Promise<void>{if(lane.running||this.maintenanceOwner)return Promise.resolve();const work=this.runLane(lane).finally(()=>{this.flights.delete(work);});this.flights.add(work);return work;}
  private async runLane(lane:Lane):Promise<void>{
@@ -115,7 +118,7 @@ export class ProviderBroker {
  private async fetchResponse(lane:Lane,job:Job,signal:AbortSignal):Promise<Response>{
   const original=new URL(job.url),seen=new Set([original.href]);let url=original,headers=job.headers;
   for(let hop=0;;hop++){
-   const response=await untilAbort(this.fetcher(url.href,{method:'GET',headers,signal,redirect:'manual',credentials:'omit',cache:'no-store'}),signal);
+   const response=await untilAbort(this.fetcher(url.href,{method:job.endpoint.method??'GET',...(job.body===undefined?{}:{body:job.body}),headers,signal,redirect:'manual',credentials:'omit',cache:'no-store'}),signal);
    if(![301,302,303,307,308].includes(response.status))return response;
    void response.body?.cancel().catch(()=>{});
    const rules=job.endpoint.redirects,location=response.headers.get('location');

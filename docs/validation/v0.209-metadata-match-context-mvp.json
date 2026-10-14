@@ -1,0 +1,82 @@
+{
+  "version": "0.209.0",
+  "completed": true,
+  "scope": "production provider/broker and bounded album context parser; explicit fixture network, per-item scoring/cache isolation and cancellation, not a calibrated truth set or real desktop/network acceptance",
+  "cases": [
+    "eighth recording and 25th release outrank server100 live results using traditional/simplified album edition and duration; bounded overview retained",
+    "missing remote album/duration cannot earn full evidence weight or outrank a complete match; real Unknown-prefixed names remain known",
+    "same cached search envelope ranks differently for another album without caching local scoring",
+    "edition reranking retains immutable parent local context after another search for same item",
+    "bounded complete release/medium/track/recording/group/credits/labels context and inherited expiry through production broker",
+    "foreign item and unsupported cursor rejected before network",
+    "musical title versions are not stripped; missing album/duration remain visible unknown evidence",
+    "malformed context rejected: identity",
+    "malformed context rejected: duplicate",
+    "malformed context rejected: count",
+    "malformed context rejected: credits",
+    "malformed context rejected: long-text",
+    "partial track list explicitly marked incomplete rather than claiming full album",
+    "valid hidden pregap is retained separately with position0 and does not invalidate a complete ordinary list",
+    "late context response rejected after parent candidate cancellation"
+  ],
+  "requests": [
+    {
+      "path": "/ws/2/recording/",
+      "time": 1791994404804
+    },
+    {
+      "path": "/ws/2/release",
+      "time": 1791994405908
+    },
+    {
+      "path": "/ws/2/release/00000000-0000-0000-0000-000000000124",
+      "time": 1791994407015
+    },
+    {
+      "path": "/ws/2/recording/",
+      "time": 1791994407017
+    },
+    {
+      "path": "/ws/2/release/00000000-0000-0000-0000-000000000124",
+      "time": 1791994407018
+    },
+    {
+      "path": "/ws/2/release/00000000-0000-0000-0000-000000000124",
+      "time": 1791994407030
+    },
+    {
+      "path": "/ws/2/release/00000000-0000-0000-0000-000000000124",
+      "time": 1791994407031
+    },
+    {
+      "path": "/ws/2/release/00000000-0000-0000-0000-000000000124",
+      "time": 1791994407032
+    },
+    {
+      "path": "/ws/2/release/00000000-0000-0000-0000-000000000124",
+      "time": 1791994407046
+    },
+    {
+      "path": "/ws/2/release/00000000-0000-0000-0000-000000000124",
+      "time": 1791994407047
+    },
+    {
+      "path": "/ws/2/release/00000000-0000-0000-0000-000000000124",
+      "time": 1791994407061
+    },
+    {
+      "path": "/ws/2/release/00000000-0000-0000-0000-000000000124",
+      "time": 1791994407062
+    }
+  ],
+  "fingerprints": {
+    "src/library/musicbrainz.ts": "f47eca017c6b7bff5dd9f34af20eb805f991a94326c0676d8303d73f667c22e8",
+    "src/library/provider-broker.ts": "26c009b1e35e2ffcc65732968403f9e5ef3ec0b03bfbe2181bc3eeed87cd71b9",
+    "src/library/metadata-match-ranking.ts": "e550752356851379c5636aab33d127dd37940f5b474e5bc30dd311e8883ac9e3",
+    "src/library/metadata-release-context.ts": "ad233df1ff9df9635fe1a2e7d65a340af13cca774981e63ae2c6dcc319dc2ed3",
+    "src/shared/metadata-release-context.ts": "0b6e70cb5d02eff41bf33d830eda1f6758651d725c3509a0aadf40a83f20b109",
+    "src/shared/contracts.ts": "ecf03a0bccf3b5b71846bcd3da7adcd563f566981bc28fcf89e7e864312fb255",
+    "dist/main/library/musicbrainz.js": "0654b09842a820832b0941c49a9dd2a14a193f12a0fceaad02c1f97d8e32ac6e",
+    "tests/metadata-match-context-mvp.smoke.cjs": "d77e0f99ae1d216b4d56a2417c319efbbbe77b08fe748d983432d23639f249c2"
+  }
+}

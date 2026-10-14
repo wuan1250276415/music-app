@@ -1,0 +1,89 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.209.0 build:native
+> node scripts/generate-release.cjs && powershell -NoProfile -ExecutionPolicy Bypass -File native/audio-host/build.ps1 && npm run build:credential-vault && npm run build:media-worker && npm run build:system-media && npm run build:tag-write-worker && node scripts/generate-distribution-inventory.cjs
+
+release files generated
+FFmpeg build artifacts match the controlled recipe
+Verified and prepared Chromaprint 1.6.1
+-- Could not find FFMPEG
+-- Using kissfft for FFT calculations
+-- Building without audio conversion support, please install FFmpeg with libswresample
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/cmake
+[ 90%] Built target chromaprint_objs
+[100%] Built target chromaprint
+Install the project...
+-- Install configuration: "Release"
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/pkgconfig/libchromaprint.pc
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintConfig.cmake
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintConfigVersion.cmake
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintTargets.cmake
+-- Installing: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintTargets-release.cmake
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/chromaprint.lib
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/include/chromaprint.h
+fingerprint.cpp
+main.cpp
+device-capabilities.cpp
+device-notifications.cpp
+device-clock.cpp
+asio-backend.cpp
+正在生成代码...
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\audio-host.exe
+cue-gold.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\cue-gold.exe
+pcm-ring-gold.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\pcm-ring-gold.exe
+dsd-gold.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\dsd-gold.exe (not executed)
+waveform.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\waveform-worker.exe
+dsd-analysis-worker.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\dsd-analysis-worker.exe (not executed)
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.209.0 build:credential-vault
+> powershell -NoProfile -ExecutionPolicy Bypass -File native/credential-vault/build.ps1
+
+main.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\credential-vault\build\credential-vault.exe
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.209.0 build:media-worker
+> powershell -NoProfile -ExecutionPolicy Bypass -File native/media-worker/build.ps1
+
+��..\obj\release-static\x64\lib\libwebpdecoder.lib�������µ�
+��..\obj\release-static\x64\lib\libwebpdemux.lib�������µ�
+Built pinned WebP decoder and demux libraries (no decoding tests executed).
+main.cpp
+artwork.cpp
+正在生成代码...
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\media-worker\build\media-worker.exe
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.209.0 build:system-media
+> powershell -NoProfile -ExecutionPolicy Bypass -File native/system-media/build.ps1
+
+main.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\system-media\build\system-media.exe (not executed)
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.209.0 build:tag-write-worker
+> powershell -NoProfile -ExecutionPolicy Bypass -File native/tag-write-worker/build.ps1
+
+main.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\tag-write-worker\build\tag-write-worker.exe (not executed)
+inspector.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\tag-write-worker\build\tag-file-inspector.exe (not executed)
+committer.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\tag-write-worker\build\tag-file-committer.exe (not executed; certification catalog closed)
+restorer.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\tag-write-worker\build\tag-file-restorer.exe (not executed; independent restoration certification catalog closed)
+catalog-directory-mover.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\tag-write-worker\build\catalog-directory-mover.exe (not executed; private restore primitive, no apply entry)
+generated distribution inventory: 19 npm runtime packages, 6 vendored components, Electron 44.4.5

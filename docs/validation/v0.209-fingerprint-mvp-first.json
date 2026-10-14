@@ -1,0 +1,22 @@
+{
+  "version": "0.209.0",
+  "completed": false,
+  "scope": "actual supervised WAV/CUE read and production Chromaprint/native worker, scoped source/credential/broker/metadata pipeline with synthetic lookup network; optional official fpcalc comparison and read-only real FLAC copy; no live AcoustID recognition or hardware proof",
+  "cases": [
+    "actual supervised CUE scan and native worker measure EOF, preserve0/10/40/70 boundaries and generate separate current-track fingerprints",
+    "CUE current-segment fingerprint agrees with independently cropped physical PCM file, without image-wide substitution",
+    "official independently distributed fpcalc1.6.1 agrees byte-for-byte with the native CUE/cropped PCM fingerprint",
+    "closed request readers reject arbitrary audio paths, supplied fingerprints and foreign recording choices",
+    "production broker posts only client/fingerprint/whole virtual-track duration; no path/audio/cookies/redirect, and secret buffers are cleared",
+    "all scoped recordings are explicit preview choices; returned mutation cannot forge additional private choices",
+    "explicit authorized fingerprint choice reads MusicBrainz recording; it retains fingerprint evidence and separate unconfirmed edition identity",
+    "parser rejects duplicate/invalid/over-budget identities, invalid scores and server errors without leaking response messages",
+    "provider/body constraints reject GET body injection, query-string client leakage and oversized POST before transport"
+  ],
+  "officialReference": {
+    "performed": true,
+    "exeSha256": "00dcc56d911f2dea84737aa9dc8e2d118c9eb7a037d815d1ed001d8593e8fbee",
+    "version": "1.6.1",
+    "encodedFingerprintsPublished": false
+  }
+}

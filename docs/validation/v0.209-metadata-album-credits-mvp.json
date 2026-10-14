@@ -1,0 +1,29 @@
+{
+  "version": "0.209.0",
+  "completed": true,
+  "scope": "production SQLite/collection/album/artist identity repositories with source-context fixture; no real provider truth or desktop proof",
+  "cases": [
+    "preview keeps edition-specific track, canonical recording and album artist scopes separate and includes all file versions",
+    "missing recording/track credits do not borrow credits from another scope",
+    "narrow apply rejects supplied artist identities and forces per-scope acknowledgements and matching roles",
+    "returned candidate/member mutation cannot change private names, identities or selected source data",
+    "late multi-target audit failure rolls back imported identities, credits, observations and aggregate receipt",
+    "six overlapping targets commit atomically, shared source artist is imported once, credited names/order/joins preserved",
+    "source audit is edition-bound for songs, recording-bound for canonical recording and provider history exposes all entries",
+    "restart/offline replays receipt and accepts independent compensation without unrelated sibling revision conflicts",
+    "credit compensation preserves a later unrelated genre edit",
+    "later member choice/role change blocks old credit compensation and retains current values",
+    "artist ownership acquired after review rejects the whole batch before any earlier changes",
+    "credit previews actively expire and canceled grants cannot write",
+    "schema75 backup inspection/reopen retain aggregate receipt, artist sources and per-target compensation",
+    "schema75 unchanged; integrity and foreign keys valid"
+  ],
+  "fingerprints": {
+    "src/library/metadata-album-credits.ts": "b6c85fe3b88ab9c7118969543365b424cef2394f11c4771db7ef235c713e8dfb",
+    "src/library/metadata-collections.ts": "a85925e1a6301367773f96855d2858639239aeb050c370e5b8f8720b3ca87974",
+    "src/library/metadata-release-context.ts": "ad233df1ff9df9635fe1a2e7d65a340af13cca774981e63ae2c6dcc319dc2ed3",
+    "src/shared/metadata-album-credits.ts": "9e4efc4d3c8c563f81687b256510c29b252c122b161a8456d20287946ecf86fd",
+    "src/shared/metadata-release-context.ts": "0b6e70cb5d02eff41bf33d830eda1f6758651d725c3509a0aadf40a83f20b109",
+    "tests/metadata-album-credits-mvp.smoke.cjs": "4f9c08a6e5539d9867e6e0407983182e978fe603724fe949143f7153356daa95"
+  }
+}

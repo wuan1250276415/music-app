@@ -690,6 +690,14 @@ for(const item of webpBuild.libraries){const bytes=read(`native/webp/build/obj/r
 components.push({type:'library','bom-ref':`aural:native:libwebp@${webp.version}`,name:'libwebp',version:webp.version,licenses:[{license:{id:webp.license}}],hashes:[{alg:'SHA-256',content:webp.sha256}],externalReferences:[{type:'distribution',url:webp.source}],properties:webpProperties});
 notices.push(`===== libwebp ${webp.version} (${webp.license}) =====`,'Statically linked decoder and demux only. Corresponding source and recipe: resources/webp-source. Decoding certification pending MVP.',normalized(read('native/webp/vendor/COPYING')).trimEnd(),normalized(read('native/webp/vendor/PATENTS')).trimEnd(),'');
 
+const chromaprint=json('native/chromaprint/lock.json');
+const cpArchive=`native/chromaprint/vendor/${chromaprint.archive}`;
+if(chromaprint.version!=='1.6.1'||chromaprint.sha256!==sha256(read(cpArchive))||chromaprint.fft!=='kissfft'||chromaprint.internalAvresample!==true||chromaprint.shared!==false||chromaprint.tools!==false)fail('Chromaprint source or configured backend differs from lock');
+const cpProperties=[{name:'aural:tag',value:chromaprint.tag},{name:'aural:commit',value:chromaprint.commit},{name:'aural:archive',value:cpArchive},{name:'aural:runtime-helper-sha256',value:sha256(read('native/audio-host/build/fingerprint-worker.exe'))},{name:'aural:static-library-sha256',value:sha256(read('native/chromaprint/build/install/lib/chromaprint.lib'))},{name:'aural:recipe',value:'chromaprint-1.6.1-default-f32-s16-120s-v1'},{name:'aural:scope',value:'0.209 source: measured decoded EOF and exact CUE/sample range; first<=120 seconds feed s16 PCM independently of playback gain; scoped cancellable Native Job with parent/watch/time/memory limits, framed nonce/ack and actual exit; local-only fingerprint cache and body-only AcoustID read query through broker; explicit recording choice then separate MusicBrainz metadata/edition/field/identity review; no contribution or persisted external fingerprint payload'}];
+for(const file of ['src/shared/audio-fingerprint.ts','src/library/audio-fingerprint.ts','src/library/acoustid.ts','src/renderer/metadata-fingerprint-panel.tsx','src/renderer/metadata-fingerprint.css','native/audio-host/fingerprint.cpp','native/audio-host/build-fingerprint.ps1','native/chromaprint/prepare.py','native/chromaprint/build.ps1'])cpProperties.push({name:'aural:source-sha256:'+file,value:sha256(read(file))});
+components.push({type:'library','bom-ref':`aural:native:chromaprint@${chromaprint.version}`,name:'chromaprint',version:chromaprint.version,licenses:[{expression:chromaprint.license}],hashes:[{alg:'SHA-256',content:chromaprint.sha256}],externalReferences:[{type:'distribution',url:chromaprint.source}],properties:cpProperties});
+notices.push(`===== Chromaprint ${chromaprint.version} (${chromaprint.license}) =====`,'Static library with bundled Kiss FFT and internal LGPL avresample. Full corresponding library source, pinned archive, component licenses and build recipe: resources/chromaprint-source. Aural helper source is provided with the GPLv3 project source.',...['LICENSE-chromaprint.txt','LICENSE-kissfft.txt','LICENSE-kissfft-full.txt','COPYING.LGPLv2.1'].map(file=>normalized(read('native/chromaprint/vendor/'+file)).trimEnd()),'');
+
 const electron = json('node_modules/electron/package.json');
 if (electron.version !== pkg.devDependencies.electron) fail('installed Electron version differs from package.json');
 for (const file of ['LICENSE', 'LICENSES.chromium.html']) {
@@ -907,6 +915,6 @@ for (const [relative, content] of outputs) {
     fs.writeFileSync(target, content);
   }
 }
-console.log(`${check ? 'verified' : 'generated'} distribution inventory: ${runtime.length} npm runtime packages, ${native.length + 3} vendored components, Electron ${electron.version}`);
+console.log(`${check ? 'verified' : 'generated'} distribution inventory: ${runtime.length} npm runtime packages, ${native.length + 4} vendored components, Electron ${electron.version}`);
 
 

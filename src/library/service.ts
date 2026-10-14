@@ -1,3 +1,6 @@
+import {readFingerprintFind,readFingerprintChoice,readFingerprintToken} from '../shared/audio-fingerprint.js';
+import {AudioFingerprintWorker} from './audio-fingerprint.js';
+import {AcoustidProvider} from './acoustid.js';
 import {readMetadataBatchOrigin} from '../shared/metadata-batch-recheck.js';
 import {readMetadataIdentityPreview,readMetadataIdentityApply} from '../shared/metadata-identities.js';
 import {readMetadataAlbumBatch,readMetadataAlbumPage,readMetadataAlbumTracks} from '../shared/metadata-album-review.js';
@@ -90,16 +93,17 @@ function restoreFiles():void{
 }
 
 let providerCredentials:ProviderCredentials|undefined;
-let waveforms:WaveformManager|undefined;
+let waveforms:WaveformManager|undefined;let fingerprints:AudioFingerprintWorker|undefined;
 const networkBroker=new ProviderBroker((input,init)=>net.fetch(String(input),{...init,bypassCustomProtocolHandlers:true}),()=>networkChanged());registerProviders(networkBroker);
 const musicBrainz=new MusicBrainzProvider(()=>db?.metadataContact()??'',fetch,networkBroker,itemId=>db?.metadataRecordingLookupContext(itemId).fingerprint??null,itemId=>db?.metadataReviewFingerprint(itemId)??null);
 const coverArtArchive=new CoverArtArchiveProvider(networkBroker);
-const metadataQueries=new Map<string,{itemId:string;controller:AbortController;provider?:'cover-art-archive'}>();
+const acoustid=new AcoustidProvider(networkBroker,()=>providerCredentials!.acoustidClientKey(),()=>db?.providerSettings.setting('acoustid').enabled===true,id=>db?.metadataRecordingLookupContext(id).fingerprint??null,id=>db?.metadataReviewFingerprint(id)??null);
+const metadataQueries=new Map<string,{itemId:string;controller:AbortController;provider?:'cover-art-archive'|'acoustid'}>();
 function networkState():import('../shared/contracts.js').MetadataNetworkState{return {...networkBroker.state('musicbrainz'),provider:'musicbrainz',enabled:db?.metadataNetworkEnabled()??false,retentionMode:db?.metadataRetentionMode()??'preview-only',proxy:'system'};}
 function networkChanged():void{if(db)reply({event:'metadataNetwork',payload:networkState()});}
-function cancelMetadataQuery(requestId:string):void{db?.releaseFields.clear(requestId);db?.metadataAlbums.clear(requestId);db?.metadataIdentities.clear(requestId);db?.metadataGroupLinks.clear(requestId);db?.metadataAlbumCredits.clear(requestId);metadataQueries.get(requestId)?.controller.abort(new Error('在线查询已取消'));musicBrainz.invalidate(requestId);}
+function cancelMetadataQuery(requestId:string):void{acoustid.clear(requestId);db?.releaseFields.clear(requestId);db?.metadataAlbums.clear(requestId);db?.metadataIdentities.clear(requestId);db?.metadataGroupLinks.clear(requestId);db?.metadataAlbumCredits.clear(requestId);metadataQueries.get(requestId)?.controller.abort(new Error('在线查询已取消'));musicBrainz.invalidate(requestId);}
 function invalidateCoverArtNetwork():void{for(const query of metadataQueries.values())if(query.provider==='cover-art-archive')query.controller.abort(new Error('封面来源查询状态已变化'));networkBroker.clear('cover-art-archive',true);}
-function invalidateMetadataNetwork():void{db?.releaseFields.clear();db?.metadataAlbums.clear();db?.metadataIdentities.clear();db?.metadataGroupLinks.clear();db?.metadataAlbumCredits.clear();for(const query of metadataQueries.values())query.controller.abort(new Error('在线查询状态已变化'));musicBrainz.invalidate();networkBroker.clear('musicbrainz',true);invalidateCoverArtNetwork();}
+function invalidateMetadataNetwork():void{acoustid.clear();fingerprints?.clear();networkBroker.clear('acoustid',true);db?.releaseFields.clear();db?.metadataAlbums.clear();db?.metadataIdentities.clear();db?.metadataGroupLinks.clear();db?.metadataAlbumCredits.clear();for(const query of metadataQueries.values())query.controller.abort(new Error('在线查询状态已变化'));musicBrainz.invalidate();networkBroker.clear('musicbrainz',true);invalidateCoverArtNetwork();}
 let scans:ScanManager|undefined;
 let libraryWatch:LibraryWatchManager|undefined;
 let mediaParser:MediaParser|undefined;
@@ -132,9 +136,10 @@ function constructLibraryRuntime(params:unknown,folder:string,paused:boolean):vo
     const waveformPath=(params as {waveformPath?:string}).waveformPath;if(typeof waveformPath!=='string'||!path.isAbsolute(waveformPath))throw new Error('波形分析组件路径无效');
     const mediaWorkerPath=(params as {mediaWorkerPath?:string}).mediaWorkerPath;if(typeof mediaWorkerPath!=='string'||!path.isAbsolute(mediaWorkerPath))throw new Error('媒体监督组件路径无效');
     waveforms=new WaveformManager(currentDb.waveforms,waveformPath,id=>currentDb.waveformSource(id),id=>currentDb.itemFileId(id),paused);
+    const fingerprintPath=(params as {fingerprintPath?:string}).fingerprintPath;if(typeof fingerprintPath!=='string'||!path.isAbsolute(fingerprintPath))throw new Error('指纹组件路径无效');fingerprints=new AudioFingerprintWorker(fingerprintPath,id=>currentDb.waveformSource(id));
     mediaParser=new MediaParser(mediaWorkerPath);
     const tagWorkerPath=(params as {tagWorkerPath?:string}).tagWorkerPath;if(typeof tagWorkerPath!=='string'||!path.isAbsolute(tagWorkerPath))throw new Error('标签暂存监督组件路径无效');
-    tagWrite=new TagWriteManager(currentDb,mediaParser,{dataDir:folder,executable:tagWorkerPath,quiesce:async(fileId,filename,owner)=>{await Promise.all([serviceReads.quiesce(filename,owner),scans!.quiesceFile(filename,owner),waveforms!.quiesceFile(fileId)]);},release:(filename,owner)=>{serviceReads.release(filename,owner);scans!.releaseFile(filename,owner);},releaseRecovered:(filename,owner)=>{serviceReads.releaseRecovered(filename,owner);scans!.releaseRecoveredFile(filename,owner);},invalidated:jobId=>{artworkRequests.clear();reply({event:'libraryChanged',payload:{jobId,reason:'tag-commit-review'}});},recovered:jobId=>{artworkRequests.clear();reply({event:'libraryChanged',payload:{jobId,reason:'tag-recovery-rescan'}});},changed:(jobId,error)=>reply({event:'tagWriteJobsChanged',payload:{jobId,...(error?{error}:{})}})});
+    tagWrite=new TagWriteManager(currentDb,mediaParser,{dataDir:folder,executable:tagWorkerPath,quiesce:async(fileId,filename,owner)=>{await Promise.all([serviceReads.quiesce(filename,owner),scans!.quiesceFile(filename,owner),waveforms!.quiesceFile(fileId),fingerprints!.quiesceFile(fileId)]);},release:(filename,owner)=>{serviceReads.release(filename,owner);scans!.releaseFile(filename,owner);},releaseRecovered:(filename,owner)=>{serviceReads.releaseRecovered(filename,owner);scans!.releaseRecoveredFile(filename,owner);},invalidated:jobId=>{artworkRequests.clear();reply({event:'libraryChanged',payload:{jobId,reason:'tag-commit-review'}});},recovered:jobId=>{artworkRequests.clear();reply({event:'libraryChanged',payload:{jobId,reason:'tag-recovery-rescan'}});},changed:(jobId,error)=>reply({event:'tagWriteJobsChanged',payload:{jobId,...(error?{error}:{})}})});
     localLyrics=new LocalLyricsLoader(mediaParser);
     scans=new ScanManager(currentDb,state=>reply({event:'scan',payload:state}),(jobId,final)=>{reply({event:'scanJobsChanged',payload:{jobId}});libraryWatch?.observeScan(jobId);if(final||Date.now()-lastScanLibraryNotice>=2000){lastScanLibraryNotice=Date.now();if(final)artworkRequests.clear();reply({event:'libraryChanged',payload:{jobId}});}},mediaParser);
     libraryWatch=new LibraryWatchManager(currentDb,scans,state=>reply({event:'libraryWatchChanged',payload:state}),rootId=>{artworkRequests.clear();reply({event:'libraryChanged',payload:{rootId,reason:'local-files-changed'}});},[folder,path.resolve(__dirname,'../../..')]);
@@ -581,18 +586,27 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
       const request=params as import('../shared/contracts.js').ProviderSettingRequest;
       db.providerSettings.configure(request);
       if(request.providerId==='musicbrainz'){invalidateMetadataNetwork();networkChanged();}
-      if(request.providerId==='cover-art-archive')invalidateCoverArtNetwork();
+      if(request.providerId==='cover-art-archive')invalidateCoverArtNetwork();if(request.providerId==='acoustid')invalidateMetadataNetwork();
       reply({event:'providersChanged',payload:{providerId:request.providerId}});
       return providerCredentials!.list();
     }
     case 'providerCredential': {
       const request=params as import('../shared/contracts.js').ProviderCredentialRequest;
       try{return await providerCredentials!.execute(request);}
-      finally{if(request&&typeof request==='object')request.secret=undefined;reply({event:'providersChanged',payload:{providerId:request?.providerId}});}
+      finally{if(request?.providerId==='acoustid')invalidateMetadataNetwork();if(request&&typeof request==='object')request.secret=undefined;reply({event:'providersChanged',payload:{providerId:request?.providerId}});}
     }
     case 'setMetadataNetworkEnabled': {if(typeof params!=='boolean')throw new Error('无效在线查询设置');db.setMetadataNetworkEnabled(params);invalidateMetadataNetwork();networkChanged();reply({event:'providersChanged',payload:{providerId:'musicbrainz'}});return null;}
     case 'clearMetadataNetworkCache': invalidateMetadataNetwork();return null;
     case 'cancelMetadataMatch': {if(typeof params!=='string'||!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(params))throw new Error('无效在线查询 ID');cancelMetadataQuery(params);return null;}
+    case 'fingerprintClose': acoustid.close(readFingerprintToken(params));return null;
+    case 'fingerprintFind': {
+      const request=readFingerprintFind(params);if(!db.providerSettings.setting('acoustid').enabled)throw new Error('请先在数据源设置启用AcoustID');if(metadataQueries.has(request.requestId))throw new Error('查询身份已在使用');const item=db.getItem(request.itemId);if(!item)throw new Error('歌曲不存在');const authority=db.metadataRecordingLookupContext(item.id).fingerprint,metadata=db.metadataReviewFingerprint(item.id),controller=new AbortController();for(const [id,q] of metadataQueries)if(q.itemId===item.id)cancelMetadataQuery(id);metadataQueries.set(request.requestId,{itemId:item.id,controller,provider:'acoustid'});
+      try{const summary=await fingerprints!.compute(item.id,controller.signal,request.fresh);const result=await acoustid.identify(item.id,request.requestId,summary,authority,metadata,controller.signal,request.fresh);await fingerprints!.validateSource(item.id);controller.signal.throwIfAborted();if(db.metadataReviewFingerprint(item.id)!==metadata)throw new Error('识别期间资料已变化，请重新识别');return result;}catch(e){acoustid.clear(request.requestId);throw e;}finally{metadataQueries.delete(request.requestId);}
+    }
+    case 'fingerprintChoose': {
+      const request=readFingerprintChoice(params);if(!db.metadataNetworkEnabled())throw new Error('请先开启MusicBrainz在线查询');if(metadataQueries.has(request.requestId))throw new Error('查询身份已在使用');const choice=acoustid.choose(request),item=db.getItem(choice.itemId);if(!item)throw new Error('歌曲不存在');const revision=db.metadataRevision(item.id),lockedFields=db.lockedMetadataFields(item.id),controller=new AbortController();for(const [id,q] of metadataQueries)if(q.itemId===item.id)cancelMetadataQuery(id);metadataQueries.set(request.requestId,{itemId:item.id,controller,provider:'acoustid'});
+      try{await fingerprints!.validateSource(item.id);const candidates=await musicBrainz.search(item,{requestId:request.requestId,signal:controller.signal,recordingAuthority:{fingerprint:choice.authority,selectedId:choice.recording.recordingId},fingerprintEvidence:{kind:'fingerprint',recordingId:choice.recording.recordingId,acoustidId:choice.recording.acoustidId,score:choice.recording.score,algorithm:choice.algorithm,metadata:choice.metadata,expiresAt:choice.expiresAt}});await fingerprints!.validateSource(item.id);controller.signal.throwIfAborted();acoustid.choose(request);if(db.metadataRevision(item.id)!==revision||db.metadataReviewFingerprint(item.id)!==choice.metadata)throw new Error('录音读取期间资料已变化，请重新识别');const refs=db.metadataRecordingLookupContext(item.id).references;for(const c of candidates)if(refs.length&&!refs.includes(c.recordingId))c.matchEvidence?.warnings.push('指纹候选与本地已确认录音不同，不能据此覆盖录音关联');return {itemId:item.id,item,revision,fingerprint:choice.metadata,candidates,lockedFields,requestId:request.requestId,cacheHit:candidates[0]?.cacheHit};}catch(e){musicBrainz.invalidate(request.requestId);throw e;}finally{metadataQueries.delete(request.requestId);}
+    }
     case 'metadataBatchReviewStart': {if(!db.metadataNetworkEnabled())throw new Error('在线查询已暂停');const ids=readBatchReviewItems(params);for(const id of ids)if(!db.getItem(id))throw new Error('审核曲目不存在');return musicBrainz.beginReview(ids);}
     case 'metadataBatchReviewStatus':return musicBrainz.reviewStatus(readBatchReviewToken(params));
     case 'metadataBatchReviewClose':musicBrainz.closeReview(readBatchReviewToken(params));return null;
@@ -721,7 +735,7 @@ async function freezeLibraryResources(owner:string,waitRequests:()=>Promise<void
   tagWrite.close();invalidateMetadataNetwork();networkBroker.beginMaintenance(owner);
   // Register all drains immediately, then await every result; one failure cannot
   // release other owners or leave an unobserved rejecting drain.
-  const drains=[libraryWatch.beginMaintenance(owner),scans.beginMaintenance(owner),waveforms.beginMaintenance(owner),mediaParser.beginMaintenance(owner),serviceReads.quiesceAll(owner),networkBroker.waitMaintenance(owner),restoreWork??Promise.resolve(),waitRequests()];
+  const drains=[libraryWatch.beginMaintenance(owner),scans.beginMaintenance(owner),waveforms.beginMaintenance(owner),fingerprints!.beginMaintenance(owner),mediaParser.beginMaintenance(owner),serviceReads.quiesceAll(owner),networkBroker.waitMaintenance(owner),restoreWork??Promise.resolve(),waitRequests()];
   const results=await Promise.allSettled(drains);
   const failure=results.find((result):result is PromiseRejectedResult=>result.status==='rejected');if(failure)throw failure.reason;
   await tagWrite.beginMaintenance(owner);networkBroker.assertMaintenanceIdle(owner);
@@ -731,7 +745,7 @@ const catalogMaintenance=new CatalogMaintenance({
  release:async(owner,resumeWatch)=>{
   if(!db||!scans||!libraryWatch||!mediaParser||!waveforms||!tagWrite)throw new Error('曲库维护组件已退出');
   tagWrite.endMaintenance(owner);networkBroker.endMaintenance(owner);mediaParser.endMaintenance(owner);serviceReads.releaseAll(owner);
-  libraryWatch.endMaintenance(owner,resumeWatch);waveforms.endMaintenance(owner);scans.endMaintenance(owner);
+  libraryWatch.endMaintenance(owner,resumeWatch);waveforms.endMaintenance(owner);fingerprints!.endMaintenance(owner);scans.endMaintenance(owner);
   // Start on a later turn, after the global maintenance gate has published release.
   setImmediate(()=>{if(catalogMaintenance.held)return;scheduleSearchIndex();restoreFiles();if(!restoreTimer){restoreTimer=setInterval(restoreFiles,5000);restoreTimer.unref();}});
  },

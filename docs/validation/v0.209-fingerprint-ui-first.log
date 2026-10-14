@@ -1,0 +1,15 @@
+actual UI defaults to disabled fingerprint provider and cannot transmit before explicit enabling
+actual password form stores only owned dummy key in Windows vault and clears draft; public source status reveals no key and remains disabled
+explicit enabled action performs real current-CUE native fingerprint and renders two associations without auto-reading or selecting MusicBrainz candidates
+actual Service query reads credential internally and sends fingerprint/virtual-track duration in a restricted POST without path, audio or URL key
+trusted Main and Service reject fabricated identification authority
+explicit association click retrieves scoped MusicBrainz metadata; candidate click displays fingerprint basis and still creates no recording/release identity
+explicit candidate/field confirmation updates only local library metadata, preserving source CUE audio
+{"version":"0.209.0","completed":false,"cases":7,"scratch":"D:\\CodexTestData\\aural-fingerprint-ui-c5MruZ"}
+page.evaluate: TypeError: window.music.metadataStoredChanges is not a function
+    at eval (eval at evaluate (:311:30), <anonymous>:1:49)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-fingerprint-mvp.smoke.cjs:25:28) {
+  log: []
+}

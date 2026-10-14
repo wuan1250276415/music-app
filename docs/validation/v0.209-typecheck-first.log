@@ -1,0 +1,7 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.209.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit
+
+src/renderer/main.tsx(621,2216): error TS2345: Argument of type 'LibraryItem | undefined' is not assignable to parameter of type 'SetStateAction<LibraryItem | null>'.
+  Type 'undefined' is not assignable to type 'SetStateAction<LibraryItem | null>'.

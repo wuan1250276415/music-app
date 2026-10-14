@@ -21,6 +21,7 @@ same(path.join(root, 'LICENSE'), path.join(unpacked, 'resources/AURAL_LICENSE.tx
 same(path.join(root, 'native/audio-host/build/audio-host.exe'), path.join(unpacked, 'resources/audio-host.exe'));
 same(path.join(root, 'native/asio-probe/build/asio-probe.exe'), path.join(unpacked, 'resources/asio-probe.exe'));
 same(path.join(root, 'native/credential-vault/build/credential-vault.exe'), path.join(unpacked, 'resources/credential-vault.exe'));
+same(path.join(root, 'native/audio-host/build/fingerprint-worker.exe'), path.join(unpacked, 'resources/fingerprint-worker.exe'));
 same(path.join(root, 'native/audio-host/build/waveform-worker.exe'), path.join(unpacked, 'resources/waveform-worker.exe'));
 same(path.join(root,'native/audio-host/build/dsd-analysis-worker.exe'),path.join(unpacked,'resources/dsd-analysis-worker.exe'));
 same(path.join(root, 'native/media-worker/build/media-worker.exe'), path.join(unpacked, 'resources/media-worker.exe'));
@@ -30,6 +31,7 @@ same(path.join(root,'native/tag-write-worker/build/tag-file-committer.exe'),path
 same(path.join(root,'native/tag-write-worker/build/tag-file-restorer.exe'),path.join(unpacked,'resources/tag-file-restorer.exe'));
 same(path.join(root,'native/tag-write-worker/build/catalog-directory-mover.exe'),path.join(unpacked,'resources/catalog-directory-mover.exe'));
 same(path.join(root,'native/system-media/build/system-media.exe'),path.join(unpacked,'resources/system-media.exe'));
+for(const file of ['lock.json','build.ps1','prepare.py','vendor/chromaprint-1.6.1.tar.gz','vendor/LICENSE-chromaprint.txt','vendor/LICENSE-kissfft.txt','vendor/LICENSE-kissfft-full.txt','vendor/COPYING.LGPLv2.1'])same(path.join(root,'native/chromaprint',file),path.join(unpacked,'resources/chromaprint-source',file));
 const ffBuild = JSON.parse(fs.readFileSync(path.join(root, 'native/ffmpeg/build-manifest.json'), 'utf8'));
 const ffEvidence = [];
 for (const item of ffBuild.libraries) {
@@ -110,7 +112,7 @@ const report = {
   unpackedAppAsarSha256: hash(appAsar),
   binaryFiles,
   compiledFiles,
-  packagedEvidence: ['resources/sbom.cdx.json', 'resources/THIRD_PARTY_NOTICES.txt', 'resources/AURAL_LICENSE.txt', 'resources/asio-probe.exe', 'resources/credential-vault.exe', 'resources/waveform-worker.exe', 'resources/media-worker.exe', 'resources/tag-write-worker.exe', 'resources/tag-file-inspector.exe','resources/tag-file-committer.exe', 'resources/system-media.exe', 'LICENSE.electron.txt', 'LICENSES.chromium.html', ...ffEvidence,...webpEvidence]
+  packagedEvidence: ['resources/sbom.cdx.json', 'resources/THIRD_PARTY_NOTICES.txt', 'resources/AURAL_LICENSE.txt', 'resources/asio-probe.exe', 'resources/credential-vault.exe', 'resources/waveform-worker.exe', 'resources/fingerprint-worker.exe', 'resources/media-worker.exe', 'resources/tag-write-worker.exe', 'resources/tag-file-inspector.exe','resources/tag-file-committer.exe', 'resources/system-media.exe', 'LICENSE.electron.txt', 'LICENSES.chromium.html', ...ffEvidence,...webpEvidence]
 };
 const reportPath = path.join(output, `Aural-${manifest.appVersion}-distribution-hashes.json`);
 fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');

@@ -1,3 +1,4 @@
+import {FINGERPRINT_RECIPE} from '../shared/audio-fingerprint.js';
 import {MetadataReviewCache} from './metadata-review-cache.js';
 import {batchLookup} from '../shared/metadata-batch-review.js';
 import {normalizeISRC} from '../shared/isrc.js';
@@ -156,13 +157,14 @@ export class MusicBrainzProvider {
     },options);
   }
 
-  async search(item: LibraryItem,options:{signal?:AbortSignal;fresh?:boolean;requestId?:string;recordingAuthority?:{fingerprint:string;selectedId?:string;isrc?:string}}={}): Promise<MetadataCandidate[]> {
+  async search(item: LibraryItem,options:{signal?:AbortSignal;fresh?:boolean;requestId?:string;recordingAuthority?:{fingerprint:string;selectedId?:string;isrc?:string};fingerprintEvidence?:{kind:'fingerprint';recordingId:string;acoustidId:string;score:number;algorithm:typeof FINGERPRINT_RECIPE;metadata:string;expiresAt:string}}={}): Promise<MetadataCandidate[]> {
     const contact=this.getContact();
     if (!validContact(contact)) throw new Error('请先在元数据面板填写维护者公开邮箱或 HTTPS 项目网址');
     for (const [token,entry] of this.candidates) if (entry.expires<=Date.now()) this.candidates.delete(token);
     options.signal?.throwIfAborted();const title=item.title.trim().slice(0,500);
     const authority=options.recordingAuthority?.fingerprint,selectedId=options.recordingAuthority?.selectedId,isrc=options.recordingAuthority?.isrc;
     if(authority!==undefined&&(!this.referenceAuthority||this.referenceAuthority(item.id)!==authority))throw new Error('录音身份已变化，请重新匹配');
+    const evidence=options.fingerprintEvidence;if(evidence&&(!selectedId||evidence.recordingId!==selectedId||!MBID.test(evidence.acoustidId)||!Number.isFinite(evidence.score)||evidence.score<0||evidence.score>1||evidence.algorithm!==FINGERPRINT_RECIPE||!Number.isFinite(Date.parse(evidence.expiresAt))||Date.parse(evidence.expiresAt)<=Date.now()||this.metadataAuthority?.(item.id)!==evidence.metadata))throw new Error('指纹来源已失效或与所选录音不符');
     if(selectedId!==undefined&&!MBID.test(selectedId))throw new Error('已确认录音标识无效');
     if(isrc!==undefined&&normalizeISRC(isrc)!==isrc||selectedId&&isrc)throw new Error('录音编码查询依据无效');
     if (!selectedId&&!isrc&&(!title || title==='未知标题')) throw new Error('曲目标题不足以搜索');
@@ -185,10 +187,12 @@ export class MusicBrainzProvider {
     },options);
     options.signal?.throwIfAborted();
     if(authority!==undefined&&this.referenceAuthority?.(item.id)!==authority)throw new Error('查询期间录音身份已变化，请重新匹配');
+    if(evidence&&this.metadataAuthority?.(item.id)!==evidence.metadata)throw new Error('指纹歌曲来源在读取期间已变化');
+    const expiresAt=evidence?new Date(Math.min(Date.parse(evidence.expiresAt),Date.parse(envelope.expiresAt))).toISOString():envelope.expiresAt;
     const context={title:item.title,artist:item.artist,album:item.album,durationSeconds:item.durationSeconds};
     const result: MetadataCandidate[]=[];
     const perRecording=new Map<string,number>();
-    for(const candidate of envelope.value.map(value=>rankMetadataCandidate(item,{...value,token:randomUUID(),fetchedAt:envelope.fetchedAt,expiresAt:envelope.expiresAt,cacheHit:envelope.cacheHit})).sort((a,b)=>b.score-a.score||a.recordingId.localeCompare(b.recordingId)||String(a.releaseId??'').localeCompare(String(b.releaseId??'')))){const count=perRecording.get(candidate.recordingId)??0;if(count>=(isrc?1:3))continue;perRecording.set(candidate.recordingId,count+1);result.push(candidate);this.candidates.set(candidate.token,{itemId:item.id,candidate,expires:Date.parse(envelope.expiresAt),requestId:options.requestId,context,authority});if(selectedId)candidate.matchEvidence!.retrieval={kind:'confirmed-recording',recordingId:selectedId.toLowerCase()};if(isrc){candidate.matchEvidence!.retrieval={kind:'isrc',isrc,recordingCount:new Set(envelope.value.map(c=>c.recordingId)).size};candidate.matchEvidence!.warnings.push('录音编码仅是证据之一，不能自动确认录音或发行版');}if(result.length>=(isrc?100:20))break;}
+    for(const candidate of envelope.value.map(value=>rankMetadataCandidate(item,{...value,token:randomUUID(),fetchedAt:envelope.fetchedAt,expiresAt,cacheHit:envelope.cacheHit})).sort((a,b)=>b.score-a.score||a.recordingId.localeCompare(b.recordingId)||String(a.releaseId??'').localeCompare(String(b.releaseId??'')))){const count=perRecording.get(candidate.recordingId)??0;if(count>=(isrc?1:3))continue;perRecording.set(candidate.recordingId,count+1);result.push(candidate);this.candidates.set(candidate.token,{itemId:item.id,candidate,expires:Date.parse(expiresAt),requestId:options.requestId,context,authority,...(evidence?{metadataFingerprint:evidence.metadata}:{})});if(evidence){candidate.matchEvidence!.retrieval={kind:'fingerprint',recordingId:evidence.recordingId,acoustidId:evidence.acoustidId,score:evidence.score,algorithm:evidence.algorithm};candidate.matchEvidence!.warnings.push('音频指纹关联不是身份或发行版确认，请核对录音版本');}else if(selectedId)candidate.matchEvidence!.retrieval={kind:'confirmed-recording',recordingId:selectedId.toLowerCase()};if(isrc){candidate.matchEvidence!.retrieval={kind:'isrc',isrc,recordingCount:new Set(envelope.value.map(c=>c.recordingId)).size};candidate.matchEvidence!.warnings.push('录音编码仅是证据之一，不能自动确认录音或发行版');}if(result.length>=(isrc?100:20))break;}
     while(this.candidates.size>400){const first=this.candidates.keys().next().value;if(first===undefined)break;this.candidates.delete(first);}return result.sort((a,b)=>b.score-a.score||a.recordingId.localeCompare(b.recordingId)||String(a.releaseId??'').localeCompare(String(b.releaseId??'')));
   }
 }

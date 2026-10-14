@@ -1,0 +1,10 @@
+Chromaprint 1.6.1 official release archive
+Source: https://github.com/acoustid/chromaprint/releases/tag/v1.6.1
+Archive: chromaprint-1.6.1.tar.gz
+GitHub asset SHA-256: 3368805af0ee47b9df74df10b5001a44569e01df2844dab520031720dde9ad23
+Tag object: e88b7414e7d32dc9466b7022ea675786a8a4bc15
+Commit: aed8eba2202dd9d7b3b0a56c77904cc805490d72
+Configuration: static /MT; bundled Kiss FFT; internal LGPL avresample; tools/tests off.
+No application API key or user key is included.
+The sole source header symlink is materialized as a regular file from its pinned archive target.
+Full MIT/BSD/LGPL notices and corresponding source archive accompany the build recipe.
