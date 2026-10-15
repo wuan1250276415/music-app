@@ -1,0 +1,21 @@
+{
+  "version": "0.215.0",
+  "completed": false,
+  "scope": "actual unmodified packaged Aural.exe and packaged workers; folder picker selects only owned fixtures; all provider traffic forced through an isolated loopback CONNECT/TLS fixture with per-child certificate pin; actual muted WASAPI shared stream, source observations, metadata workflow, restart and real0.201 packaged database upgrade; no real online recognition accuracy, ASIO/DSD bitstream, signature, installer execution or formal release certification",
+  "cases": [
+    "actual packaged entry uses isolated userData and packaged media worker imports5 WAV/CUE/real-FLAC logical items via the normal folder action"
+  ],
+  "exits": [],
+  "identity": {
+    "packaged": true,
+    "version": "0.215.0",
+    "exe": "D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\Aural.exe",
+    "resources": "D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\resources",
+    "data": "D:\\CodexTestData\\aural-packaged-mvp-I6wwCs\\userdata"
+  },
+  "executableSha256": "39faff82dd1022bc6191db3ac7b2143dd80117ec9b246fc260f8af8eb16a37ad",
+  "appAsarSha256": "dd415a0fd6c0581483b05120b32d025c880f94bcfdb47deaac83d5cedf0259eb",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'sidecar'\n- 'embedded'\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-packaged-mvp.smoke.cjs:35:195)",
+  "cleanupError": "Error: Command failed: powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\owned-packaged-process.ps1 -Mode inspect -MainProcessId 30304 -ExpectedExe D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\Aural.exe\nChild process outside owned packaged build\r\n����λ�� C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\owned-packaged-process.ps1:22 �ַ�: 117\r\n+ ... dinalIgnoreCase)){throw 'Child process outside owned packaged build'}\r\n+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : OperationStopped: (Child process o... packaged build:String) [], RuntimeException\r\n    + FullyQualifiedErrorId : Child process outside owned packaged build\r\n \r\n",
+  "ownedDummyCredentialsRemoved": true
+}

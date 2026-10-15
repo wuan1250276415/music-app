@@ -1,0 +1,41 @@
+{
+  "version": "0.215.0",
+  "completed": false,
+  "scope": "actual unmodified packaged Aural.exe and packaged workers; folder picker selects only owned fixtures; all provider traffic forced through an isolated loopback CONNECT/TLS fixture with per-child certificate pin; actual muted WASAPI shared stream, source observations, metadata workflow, restart and real0.201 packaged database upgrade; no real online recognition accuracy, ASIO/DSD bitstream, signature, installer execution or formal release certification",
+  "cases": [
+    "actual packaged entry uses isolated userData and packaged media worker imports6 WAV/CUE/real-FLAC/tagged-FLAC logical items via the normal folder action",
+    "packaged artwork converter paints embedded FLAC cover and local WAV fallback through the opaque image protocol"
+  ],
+  "exits": [
+    {
+      "exe": "D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\Aural.exe",
+      "main": 29188,
+      "remaining": [],
+      "forced": false
+    }
+  ],
+  "embeddedFixture": {
+    "sourceAudioSha256": "2c31a72ae33645c44891093b0fce0fc8e38dd54b93285db0710f2daa0c30f16e",
+    "fixtureAudioSha256": "2c31a72ae33645c44891093b0fce0fc8e38dd54b93285db0710f2daa0c30f16e",
+    "fixtureSha256": "91dc92b7de460065a651f6acb392022fe5614490fa3dd6af6c022be98463970c"
+  },
+  "originalFlacPictureBlocks": 0,
+  "identity": {
+    "packaged": true,
+    "version": "0.215.0",
+    "exe": "D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\Aural.exe",
+    "resources": "D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\resources",
+    "data": "D:\\CodexTestData\\aural-packaged-mvp-Z5jqy6\\userdata"
+  },
+  "executableSha256": "39faff82dd1022bc6191db3ac7b2143dd80117ec9b246fc260f8af8eb16a37ad",
+  "appAsarSha256": "dd415a0fd6c0581483b05120b32d025c880f94bcfdb47deaac83d5cedf0259eb",
+  "sharedOutput": {
+    "device": "耳机 (MOONRIVER 3)",
+    "sampleRate": 44100,
+    "channels": 2,
+    "muted": true,
+    "hardwareVerified": false
+  },
+  "error": "page.evaluate: ReferenceError: wav is not defined\n    at eval (eval at evaluate (:311:30), <anonymous>:1:62)\n    at async <anonymous>:337:30\n    at C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-packaged-mvp.smoke.cjs:46:784\n    at until (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-packaged-mvp.smoke.cjs:6:108)\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-packaged-mvp.smoke.cjs:46:770)",
+  "ownedDummyCredentialsRemoved": true
+}

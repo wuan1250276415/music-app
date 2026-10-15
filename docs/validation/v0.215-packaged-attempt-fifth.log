@@ -1,0 +1,53 @@
+actual packaged entry uses isolated userData and packaged media worker imports6 WAV/CUE/real-FLAC/tagged-FLAC logical items via the normal folder action
+packaged artwork converter paints embedded FLAC cover and local WAV fallback through the opaque image protocol
+packaged audio host opens a muted real WASAPI shared stream; detail queue/mode, live analysis and scrolling lyric seek traverse packaged modules
+unmodified packaged service runs packaged native fingerprints and actual Windows vault credentials through a child-scoped TLS fixture, pauses and resumes6 associations without automatic metadata adoption
+packaged recording/field confirmation saves one plan and offline execution/compensation preserve original music and independent pending work
+actual packaged graceful exit and restart retain task/plan/undo state with no automatic provider retry
+Child process outside owned packaged build or its system console host
+����λ�� C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\owned-packaged-process.ps1:26 �ַ�: 48
++ ... tablePath)){throw 'Child process outside owned packaged build or its  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Child process o...em console host:String) [], RuntimeException
+    + FullyQualifiedErrorId : Child process outside owned packaged build or its system console host
+ 
+{"version":"0.215.0","completed":false,"cases":6,"scratch":"D:\\CodexTestData\\aural-packaged-mvp-kujjBB"}
+Error: Command failed: powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\owned-packaged-process.ps1 -Mode inspect -MainProcessId 26320 -ExpectedExe D:\CodexBuildData\aural-v0.201.0\win-unpacked\Aural.exe
+Child process outside owned packaged build or its system console host
+����λ�� C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\owned-packaged-process.ps1:26 �ַ�: 48
++ ... tablePath)){throw 'Child process outside owned packaged build or its  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Child process o...em console host:String) [], RuntimeException
+    + FullyQualifiedErrorId : Child process outside owned packaged build or its system console host
+ 
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at checkExecSyncError (node:child_process:942:11)
+    at execFileSync (node:child_process:978:15)
+    at owned (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-packaged-mvp.smoke.cjs:14:41)
+    at close (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-packaged-mvp.smoke.cjs:18:47)
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-packaged-mvp.smoke.cjs:51:645) {
+  status: 1,
+  signal: null,
+  output: [
+    null,
+    '',
+    'Child process outside owned packaged build or its system console host\r\n' +
+      '����λ�� C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\owned-packaged-process.ps1:26 �ַ�: 48\r\n' +
+      "+ ... tablePath)){throw 'Child process outside owned packaged build or its  ...\r\n" +
+      '+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n' +
+      '    + CategoryInfo          : OperationStopped: (Child process o...em console host:String) [], RuntimeException\r\n' +
+      '    + FullyQualifiedErrorId : Child process outside owned packaged build or its system console host\r\n' +
+      ' \r\n'
+  ],
+  pid: 27828,
+  stdout: '',
+  stderr: 'Child process outside owned packaged build or its system console host\r\n' +
+    '����λ�� C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\owned-packaged-process.ps1:26 �ַ�: 48\r\n' +
+    "+ ... tablePath)){throw 'Child process outside owned packaged build or its  ...\r\n" +
+    '+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n' +
+    '    + CategoryInfo          : OperationStopped: (Child process o...em console host:String) [], RuntimeException\r\n' +
+    '    + FullyQualifiedErrorId : Child process outside owned packaged build or its system console host\r\n' +
+    ' \r\n'
+}

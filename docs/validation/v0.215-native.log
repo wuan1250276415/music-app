@@ -1,0 +1,12 @@
+✔ native decoder slices adjacent CUE spans sample for sample (395.5023ms)
+✔ native IPC accepts v1 handshake and rejects oversized next frame (448.8247ms)
+✔ native IPC rejects incompatible major before accepting playback (43.9759ms)
+✔ native PCM callback consumes exact ring frames (605.1207ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 708.9292

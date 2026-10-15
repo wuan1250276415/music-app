@@ -1,0 +1,214 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 package:win
+> npm run build && npm run build:native && npm run build:asio-probe && npm run check:distribution && electron-builder --config electron-builder.config.cjs --win nsis --x64 --publish never && node scripts/verify-unpacked-release.cjs
+
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 build
+> npm run build:main && npm run build:renderer
+
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 build:main
+> node scripts/generate-release.cjs && tsc -p tsconfig.main.json
+
+release files generated
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 build:renderer
+> vite build
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 227 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/renderer/index.html                                           0.70 kB │ gzip:   0.42 kB
+dist/renderer/assets/metadata-undo-dialog-Pcp14N8-.css             0.94 kB │ gzip:   0.40 kB
+dist/renderer/assets/cue-history-B1yDqBkt.css                      1.15 kB │ gzip:   0.50 kB
+dist/renderer/assets/catalog-restore-recovery-6nqQiN3R.css         1.59 kB │ gzip:   0.54 kB
+dist/renderer/assets/smart-playlist-history-dialog-h8BlcdUI.css    2.17 kB │ gzip:   0.69 kB
+dist/renderer/assets/provider-manager-DYcHYAOE.css                 2.53 kB │ gzip:   0.81 kB
+dist/renderer/assets/tag-write-dialog-jehLl_AT.css                 2.55 kB │ gzip:   0.86 kB
+dist/renderer/assets/scan-tasks-B0laYMgS.css                       2.60 kB │ gzip:   0.79 kB
+dist/renderer/assets/rule-transfer-dialog-CHAafhXc.css             2.75 kB │ gzip:   0.71 kB
+dist/renderer/assets/metadata-credit-B_MyWTd0.css                  2.95 kB │ gzip:   0.79 kB
+dist/renderer/assets/lyrics-documents-B7s_5J9L.css                 3.80 kB │ gzip:   1.08 kB
+dist/renderer/assets/playback-history-dialog-DwIM8wO8.css          3.81 kB │ gzip:   0.96 kB
+dist/renderer/assets/music-filters-dialog-DEzXYzgm.css             4.66 kB │ gzip:   1.12 kB
+dist/renderer/assets/metadata-review-dialogs-BtMLDGki.css          5.30 kB │ gzip:   1.06 kB
+dist/renderer/assets/metadata-batch-QvSjGWBt.css                   5.76 kB │ gzip:   1.23 kB
+dist/renderer/assets/index-DLp13UMC.css                          117.75 kB │ gzip:  23.46 kB
+dist/renderer/assets/lyrics-documents-Dzopq7HN.js                  1.82 kB │ gzip:   0.88 kB
+dist/renderer/assets/collections-B-cC9akb.js                       3.59 kB │ gzip:   1.59 kB
+dist/renderer/assets/appearance-dialog-BKZWHDo3.js                 4.31 kB │ gzip:   1.91 kB
+dist/renderer/assets/metadata-undo-dialog-C4a1vMCN.js              4.48 kB │ gzip:   1.99 kB
+dist/renderer/assets/entity-references-dialog-BI41WxkJ.js          5.08 kB │ gzip:   2.14 kB
+dist/renderer/assets/file-policy-dialog-DdHyNxCE.js                5.49 kB │ gzip:   2.25 kB
+dist/renderer/assets/library-watch-dialog-CQ6jGsGc.js              6.09 kB │ gzip:   2.59 kB
+dist/renderer/assets/local-lyrics-browser-CclwAytJ.js              6.69 kB │ gzip:   2.69 kB
+dist/renderer/assets/smart-playlist-dialog-BASpkLQm.js             6.73 kB │ gzip:   2.92 kB
+dist/renderer/assets/recording-profile-dialog-e4CNAtkM.js          7.10 kB │ gzip:   2.92 kB
+dist/renderer/assets/artist-dialog-CkX5px-Z.js                     7.57 kB │ gzip:   3.00 kB
+dist/renderer/assets/metadata-release-fields-dialog-DB1aG7a2.js    8.79 kB │ gzip:   3.16 kB
+dist/renderer/assets/jsx-runtime-D3jfb0Ew.js                       8.90 kB │ gzip:   3.38 kB
+dist/renderer/assets/artist-manager-DI5isTZ6.js                    9.32 kB │ gzip:   3.36 kB
+dist/renderer/assets/metadata-credit-dialog-CpPiQLrn.js            9.62 kB │ gzip:   3.68 kB
+dist/renderer/assets/catalog-dialog-B9z9VCW6.js                    9.78 kB │ gzip:   3.34 kB
+dist/renderer/assets/saved-lyrics-Ccy41EwI.js                     10.28 kB │ gzip:   3.52 kB
+dist/renderer/assets/catalog-restore-recovery-vGXjiGrB.js         11.47 kB │ gzip:   4.01 kB
+dist/renderer/assets/metadata-album-review-dialog-HSy-qt10.js     12.65 kB │ gzip:   4.48 kB
+dist/renderer/assets/release-dialog-BO1GfVDd.js                   12.70 kB │ gzip:   4.33 kB
+dist/renderer/assets/provider-manager-Dy0BYBWI.js                 13.43 kB │ gzip:   4.60 kB
+dist/renderer/assets/embedded-cue-history-dialog-DbsCKaCG.js      13.95 kB │ gzip:   4.25 kB
+dist/renderer/assets/smart-playlist-history-dialog-BH7yHlXa.js    14.36 kB │ gzip:   5.14 kB
+dist/renderer/assets/lyrics-documents-BpZ5eWcw.js                 15.38 kB │ gzip:   5.01 kB
+dist/renderer/assets/catalog-restore-dialog-aEVMe4Dx.js           15.51 kB │ gzip:   5.46 kB
+dist/renderer/assets/metadata-sources-dialog-aMhMU1ww.js          19.95 kB │ gzip:   6.29 kB
+dist/renderer/assets/scan-tasks-ltWiVnn4.js                       21.49 kB │ gzip:   6.48 kB
+dist/renderer/assets/playback-history-dialog-C1tXFoIf.js          22.89 kB │ gzip:   7.75 kB
+dist/renderer/assets/rule-transfer-dialog-xqwJkpP0.js             24.97 kB │ gzip:   8.53 kB
+dist/renderer/assets/metadata-batch-dialog-Da8eO2fn.js            28.70 kB │ gzip:   9.01 kB
+dist/renderer/assets/cue-history-dialog-C0KLkPRp.js               28.99 kB │ gzip:   8.77 kB
+dist/renderer/assets/metadata-identities-dialog-GHsVBqZC.js       31.35 kB │ gzip:   7.33 kB
+dist/renderer/assets/music-filters-dialog-42i2Erck.js             34.22 kB │ gzip:  10.44 kB
+dist/renderer/assets/tag-write-dialog-Q7XfBG6F.js                 34.32 kB │ gzip:   8.41 kB
+dist/renderer/assets/audio-output-dialog-DRmRdvLM.js              42.82 kB │ gzip:  12.90 kB
+dist/renderer/assets/index-CMtGELSR.js                           500.22 kB │ gzip: 153.25 kB
+
+✓ built in 355ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 build:native
+> node scripts/generate-release.cjs && powershell -NoProfile -ExecutionPolicy Bypass -File native/audio-host/build.ps1 && npm run build:credential-vault && npm run build:media-worker && npm run build:system-media && npm run build:tag-write-worker && node scripts/generate-distribution-inventory.cjs
+
+release files generated
+FFmpeg build artifacts match the controlled recipe
+Verified and prepared Chromaprint 1.6.1
+-- Could not find FFMPEG
+-- Using kissfft for FFT calculations
+-- Building without audio conversion support, please install FFmpeg with libswresample
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/cmake
+[ 90%] Built target chromaprint_objs
+[100%] Built target chromaprint
+Install the project...
+-- Install configuration: "Release"
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/pkgconfig/libchromaprint.pc
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintConfig.cmake
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintConfigVersion.cmake
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintTargets.cmake
+-- Installing: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintTargets-release.cmake
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/chromaprint.lib
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/include/chromaprint.h
+fingerprint.cpp
+main.cpp
+device-capabilities.cpp
+device-notifications.cpp
+device-clock.cpp
+asio-backend.cpp
+正在生成代码...
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\audio-host.exe
+cue-gold.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\cue-gold.exe
+pcm-ring-gold.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\pcm-ring-gold.exe
+dsd-gold.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\dsd-gold.exe (not executed)
+waveform.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\waveform-worker.exe
+dsd-analysis-worker.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\dsd-analysis-worker.exe (not executed)
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 build:credential-vault
+> powershell -NoProfile -ExecutionPolicy Bypass -File native/credential-vault/build.ps1
+
+main.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\credential-vault\build\credential-vault.exe
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 build:media-worker
+> powershell -NoProfile -ExecutionPolicy Bypass -File native/media-worker/build.ps1
+
+��..\obj\release-static\x64\lib\libwebpdecoder.lib�������µ�
+��..\obj\release-static\x64\lib\libwebpdemux.lib�������µ�
+Built pinned WebP decoder and demux libraries (no decoding tests executed).
+main.cpp
+artwork.cpp
+正在生成代码...
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\media-worker\build\media-worker.exe
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 build:system-media
+> powershell -NoProfile -ExecutionPolicy Bypass -File native/system-media/build.ps1
+
+main.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\system-media\build\system-media.exe (not executed)
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 build:tag-write-worker
+> powershell -NoProfile -ExecutionPolicy Bypass -File native/tag-write-worker/build.ps1
+
+main.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\tag-write-worker\build\tag-write-worker.exe (not executed)
+inspector.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\tag-write-worker\build\tag-file-inspector.exe (not executed)
+committer.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\tag-write-worker\build\tag-file-committer.exe (not executed; certification catalog closed)
+restorer.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\tag-write-worker\build\tag-file-restorer.exe (not executed; independent restoration certification catalog closed)
+catalog-directory-mover.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\tag-write-worker\build\catalog-directory-mover.exe (not executed; private restore primitive, no apply entry)
+generated distribution inventory: 19 npm runtime packages, 6 vendored components, Electron 44.4.5
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 build:asio-probe
+> powershell -NoProfile -ExecutionPolicy Bypass -File native/asio-probe/build.ps1
+
+main.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\asio-probe\build\asio-probe.exe
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.215.0 check:distribution
+> node scripts/generate-distribution-inventory.cjs --check
+
+verified distribution inventory: 19 npm runtime packages, 6 vendored components, Electron 44.4.5
+  • electron-builder  version=26.17.0 os=10.0.26300
+  • loaded configuration  file=C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\electron-builder.config.cjs
+  • author is missed in the package.json  appPackageFile=C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\package.json
+  • executing @electron/rebuild  electronVersion=44.4.5 arch=x64 buildFromSource=false workspaceRoot=C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app projectDir=./ appDir=./
+  • installing native dependencies  arch=x64
+  • completed installing native dependencies
+  • packaging       platform=win32 arch=x64 electron=44.4.5 appOutDir=D:\CodexBuildData\aural-v0.215.0\win-unpacked
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=D:\CodexBuildData\aural-v0.215.0\win-unpacked
+  • searching for node modules  pm=npm searchDir=C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app
+  • duplicate dependency references  dependencies=["debug@4.4.3","token-types@6.1.2","strtok3@10.3.5","token-types@6.1.2","strtok3@10.3.5"]
+  • updating asar integrity executable resource  executablePath=D:\CodexBuildData\aural-v0.215.0\win-unpacked\Aural.exe
+  • executing @electron/fuses  electronPath=D:\CodexBuildData\aural-v0.215.0\win-unpacked\Aural.exe
+  • default Electron icon is used  reason=application icon is not set
+  • no code signing certificate configured, signing is skipped  path=D:\CodexBuildData\aural-v0.215.0\win-unpacked\Aural.exe
+  • building        target=nsis file=D:\CodexBuildData\aural-v0.215.0\Aural-Setup-0.215.0-x64.exe archs=x64 oneClick=false perMachine=false
+  • no code signing certificate configured, signing is skipped  path=C:\Users\wuan1\AppData\Local\Temp\t-vgHjVV\elevate-staging-1\resources\elevate.exe
+  • no code signing certificate configured, signing is skipped  path=D:\CodexBuildData\aural-v0.215.0\Aural-Setup-0.215.0-x64.__uninstaller.exe
+  • no code signing certificate configured, signing is skipped  path=D:\CodexBuildData\aural-v0.215.0\Aural-Setup-0.215.0-x64.exe
+  • building block map  blockMapFile=D:\CodexBuildData\aural-v0.215.0\Aural-Setup-0.215.0-x64.exe.blockmap
+verified unpacked release and installer; 25 executable/DLL hashes: D:\CodexBuildData\aural-v0.215.0\Aural-0.215.0-distribution-hashes.json

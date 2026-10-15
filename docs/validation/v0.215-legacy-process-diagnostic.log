@@ -1,0 +1,17 @@
+Actual owned old process 11796
+Child process outside owned packaged build or its system console host: 37072 
+����λ�� C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\owned-packaged-process.ps1:26 �ַ�: 48
++ ... tablePath)){throw "Child process outside owned packaged build or its  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Child process o...le host: 37072 :String) [], RuntimeException
+    + FullyQualifiedErrorId : Child process outside owned packaged build or its system console host: 37072 
+ 
+Error: Command failed: powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/owned-packaged-process.ps1 -Mode inspect -MainProcessId 11796 -ExpectedExe D:/CodexBuildData/aural-v0.201.0/win-unpacked/Aural.exe
+Child process outside owned packaged build or its system console host: 37072 
+����λ�� C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\owned-packaged-process.ps1:26 �ַ�: 48
++ ... tablePath)){throw "Child process outside owned packaged build or its  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Child process o...le host: 37072 :String) [], RuntimeException
+    + FullyQualifiedErrorId : Child process outside owned packaged build or its system console host: 37072 
+ 
+

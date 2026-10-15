@@ -1,0 +1,8 @@
+actual packaged entry uses isolated userData and packaged media worker imports6 WAV/CUE/real-FLAC/tagged-FLAC logical items via the normal folder action
+packaged artwork converter paints embedded FLAC cover and local WAV fallback through the opaque image protocol
+packaged audio host opens a muted real WASAPI shared stream; detail queue/mode, live analysis and scrolling lyric seek traverse packaged modules
+{"version":"0.215.0","completed":false,"cases":3,"scratch":"D:\\CodexTestData\\aural-packaged-mvp-V0PDw1"}
+Error: Packaged lookup did not reach isolated TLS fixture
+    at Timeout.<anonymous> (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-packaged-mvp.smoke.cjs:7:140)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7)

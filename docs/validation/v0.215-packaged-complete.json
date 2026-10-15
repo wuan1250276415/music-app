@@ -1,0 +1,205 @@
+{
+  "version": "0.215.0",
+  "completed": true,
+  "scope": "actual unmodified packaged Aural.exe and packaged workers; folder picker selects only owned fixtures; all provider traffic forced through an isolated loopback CONNECT/TLS fixture with per-child leaf and SPKI certificate pins; actual muted WASAPI shared stream, source observations, metadata workflow, restart and real0.201 packaged database upgrade; no real online recognition accuracy, ASIO/DSD bitstream, signature, installer execution or formal release certification",
+  "cases": [
+    "actual packaged entry uses isolated userData and packaged media worker imports6 WAV/CUE/real-FLAC/tagged-FLAC logical items via the normal folder action",
+    "packaged artwork converter paints embedded FLAC cover and local WAV fallback through the opaque image protocol",
+    "packaged audio host opens a muted real WASAPI shared stream; detail queue/mode, live analysis and scrolling lyric seek traverse packaged modules",
+    "unmodified packaged service runs packaged native fingerprints and actual Windows vault credentials through a child-scoped TLS fixture, pauses and resumes6 associations without automatic metadata adoption",
+    "packaged recording/field confirmation saves one plan and offline execution/compensation preserve original music and independent pending work",
+    "actual packaged graceful exit and restart retain task/plan/undo state with no automatic provider retry",
+    "actual0.201 packaged program creates schema75 library, favorite/rating and duplicate playlist entries in isolated data before upgrade",
+    "actual old packaged library upgrades75→79 with preserved favorite/rating/duplicate identities, intact foreign keys and a real schema75 pre-upgrade snapshot"
+  ],
+  "exits": [
+    {
+      "exe": "D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\Aural.exe",
+      "main": 3140,
+      "remaining": [],
+      "forced": false
+    },
+    {
+      "exe": "D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\Aural.exe",
+      "main": 37692,
+      "remaining": [],
+      "forced": false
+    },
+    {
+      "exe": "D:\\CodexBuildData\\aural-v0.201.0\\win-unpacked\\Aural.exe",
+      "main": 6372,
+      "remaining": [],
+      "forced": false
+    },
+    {
+      "exe": "D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\Aural.exe",
+      "main": 8180,
+      "remaining": [],
+      "forced": false
+    }
+  ],
+  "embeddedFixture": {
+    "sourceAudioSha256": "2c31a72ae33645c44891093b0fce0fc8e38dd54b93285db0710f2daa0c30f16e",
+    "fixtureAudioSha256": "2c31a72ae33645c44891093b0fce0fc8e38dd54b93285db0710f2daa0c30f16e",
+    "fixtureSha256": "91dc92b7de460065a651f6acb392022fe5614490fa3dd6af6c022be98463970c"
+  },
+  "originalFlacPictureBlocks": 0,
+  "identity": {
+    "packaged": true,
+    "version": "0.215.0",
+    "exe": "D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\Aural.exe",
+    "resources": "D:\\CodexBuildData\\aural-v0.215.0\\win-unpacked\\resources",
+    "data": "D:\\CodexTestData\\aural-packaged-mvp-qnYmV8\\userdata"
+  },
+  "executableSha256": "39faff82dd1022bc6191db3ac7b2143dd80117ec9b246fc260f8af8eb16a37ad",
+  "appAsarSha256": "dd415a0fd6c0581483b05120b32d025c880f94bcfdb47deaac83d5cedf0259eb",
+  "sharedOutput": {
+    "device": "耳机 (MOONRIVER 3)",
+    "sampleRate": 44100,
+    "channels": 2,
+    "muted": true,
+    "hardwareVerified": false
+  },
+  "fixtureRequests": [
+    {
+      "provider": "acoustid",
+      "method": "POST",
+      "url": "https://api.acoustid.org/v2/lookup",
+      "bodyKeys": [
+        "client",
+        "duration",
+        "fingerprint",
+        "format",
+        "meta"
+      ],
+      "keyCorrect": true,
+      "fingerprintBytes": 219,
+      "duration": "30"
+    },
+    {
+      "provider": "acoustid",
+      "method": "POST",
+      "url": "https://api.acoustid.org/v2/lookup",
+      "bodyKeys": [
+        "client",
+        "duration",
+        "fingerprint",
+        "format",
+        "meta"
+      ],
+      "keyCorrect": true,
+      "fingerprintBytes": 219,
+      "duration": "30"
+    },
+    {
+      "provider": "acoustid",
+      "method": "POST",
+      "url": "https://api.acoustid.org/v2/lookup",
+      "bodyKeys": [
+        "client",
+        "duration",
+        "fingerprint",
+        "format",
+        "meta"
+      ],
+      "keyCorrect": true,
+      "fingerprintBytes": 3534,
+      "duration": "270"
+    },
+    {
+      "provider": "acoustid",
+      "method": "POST",
+      "url": "https://api.acoustid.org/v2/lookup",
+      "bodyKeys": [
+        "client",
+        "duration",
+        "fingerprint",
+        "format",
+        "meta"
+      ],
+      "keyCorrect": true,
+      "fingerprintBytes": 191,
+      "duration": "30"
+    },
+    {
+      "provider": "acoustid",
+      "method": "POST",
+      "url": "https://api.acoustid.org/v2/lookup",
+      "bodyKeys": [
+        "client",
+        "duration",
+        "fingerprint",
+        "format",
+        "meta"
+      ],
+      "keyCorrect": true,
+      "fingerprintBytes": 44,
+      "duration": "10"
+    },
+    {
+      "provider": "acoustid",
+      "method": "POST",
+      "url": "https://api.acoustid.org/v2/lookup",
+      "bodyKeys": [
+        "client",
+        "duration",
+        "fingerprint",
+        "format",
+        "meta"
+      ],
+      "keyCorrect": true,
+      "fingerprintBytes": 16,
+      "duration": "3"
+    },
+    {
+      "provider": "musicbrainz",
+      "method": "GET",
+      "url": "https://musicbrainz.org/ws/2/recording/00000000-0000-0000-0000-000000000100?inc=artist-credits%2Breleases&fmt=json"
+    }
+  ],
+  "deniedFixtureRequests": [
+    {
+      "method": "CONNECT",
+      "target": "redirector.gvt1.com:443"
+    },
+    {
+      "method": "CONNECT",
+      "target": "redirector.gvt1.com:443"
+    },
+    {
+      "method": "CONNECT",
+      "target": "redirector.gvt1.com:443"
+    },
+    {
+      "method": "CONNECT",
+      "target": "redirector.gvt1.com:443"
+    }
+  ],
+  "tlsVerification": [],
+  "childSpkiPinConfigured": true,
+  "actual201Upgrade": {
+    "from": 75,
+    "to": 79,
+    "priorVersion": "0.201.0",
+    "favoritesAndRatings": true,
+    "duplicatePlaylistEntryIds": [
+      "5051c8dd-45a2-4bd8-a112-c6d8b7d2c92d",
+      "e130c247-f6ca-4ddb-a2f2-7356dcf48867"
+    ],
+    "verifiedPreUpgradeSnapshot": true
+  },
+  "originalSourceUnchanged": true,
+  "installerExecuted": false,
+  "realRecognitionTruth": false,
+  "fingerprints": {
+    "release/manifest.json": "9f5f692a5ff457bac4b3267e7582d824a74c1ab98e564996c326bb8c7cce1c2c",
+    "release/sbom.cdx.json": "4c3f05f0dd32d8cf0f0500600b60b4f557aea38d9d2868a7337f69516b6d6a92",
+    "src/renderer/metadata-workflow-dialog.tsx": "2888b7c9d99c86be20a642b6475b9293995461733f45f12e920f73a40801c451",
+    "src/renderer/metadata-batch.css": "f91e1712897a76cbcf7bfccc3294c1cd1967aa8695c5832f9af7a047bb536fef",
+    "tests/electron-packaged-mvp.smoke.cjs": "6867bca51f11376eaf1e119c3f93528772adfd4dda0fcfef1b380957f4de9ff4",
+    "tests/helpers/packaged-provider-fixture.cjs": "4872d48ecc0160b098b3212c3d1c47966b677568a4c2f7f6616e1a21c21185f7",
+    "tests/helpers/fixture-certificate.py": "93d33ccea448def43f91e8537f8eb2224a5ee79ee6b9e8963310e96d9a50ba7e",
+    "tests/owned-packaged-process.ps1": "a6956814840e1be7f7421e4b29f58f9f416393a6983676d958318f4e32192c7d"
+  },
+  "ownedDummyCredentialsRemoved": true
+}
