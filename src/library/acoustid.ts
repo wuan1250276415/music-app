@@ -1,6 +1,6 @@
 import {readRecognitionMapping,type RecognitionMapping} from '../shared/recognition-mapping.js';
 import {randomUUID} from 'node:crypto';
-import {ProviderBroker,type ProviderPolicy} from './provider-broker.js';
+import {type ProviderTransport,type ProviderPolicy} from './provider-broker.js';
 import {RELEASE} from '../shared/release.js';
 import {FINGERPRINT_RECIPE,validAudioFingerprint,readFingerprintToken,type AudioFingerprintSummary,type FingerprintRecording,type FingerprintIdentification,readFingerprintChoice} from '../shared/audio-fingerprint.js';
 export const acoustidPolicy:ProviderPolicy={id:'acoustid',capabilities:{lookup:{origin:'https://api.acoustid.org',path:/^\/v2\/lookup$/,method:'POST',maxRequestBytes:131072}},intervalMs:400,timeoutMs:10000,deadlineMs:45000,maxAttempts:3,maxQueued:8,maxResponseBytes:2000000,cacheMs:60000,reviewMs:600000,rights:{display:true,cache:'memory',persist:false,label:'指纹关联仅作短期候选；MusicBrainz与AcoustID标识映射为公共领域，原指纹数据库另有许可',termsUrl:'https://acoustid.org/database',verifiedAt:'2026-10-14'}};
@@ -16,7 +16,7 @@ export function parseAcoustidLookup(raw:unknown):FingerprintRecording[]{
 type Grant={value:FingerprintIdentification;authority:string;metadata:string;requestId:string;reviewToken?:string};
 export class AcoustidProvider {
  private readonly grants=new Map<string,Grant>();private readonly cleanup:NodeJS.Timeout;
- constructor(private readonly broker:ProviderBroker,private readonly key:()=>Promise<Buffer>,private readonly enabled:()=>boolean,private readonly authority:(id:string)=>string|null,private readonly metadata:(id:string)=>string|null,private readonly review?:(token:string,itemId:string)=>string){this.cleanup=setInterval(()=>this.prune(),15000);this.cleanup.unref();}
+ constructor(private readonly broker:ProviderTransport,private readonly key:()=>Promise<Buffer>,private readonly enabled:()=>boolean,private readonly authority:(id:string)=>string|null,private readonly metadata:(id:string)=>string|null,private readonly review?:(token:string,itemId:string)=>string){this.cleanup=setInterval(()=>this.prune(),15000);this.cleanup.unref();}
  clear(requestId?:string):void{for(const [token,g] of this.grants)if(requestId===undefined||g.requestId===requestId)this.grants.delete(token);}
  close(value:unknown):void{this.grants.delete(readFingerprintToken(value));}
  preview(token:string,reviewToken:string):FingerprintIdentification|null{this.prune();const g=this.grants.get(readFingerprintToken(token));if(!g||g.reviewToken!==reviewToken||!this.enabled()||this.authority(g.value.itemId)!==g.authority||this.metadata(g.value.itemId)!==g.metadata)return null;return structuredClone(g.value);}

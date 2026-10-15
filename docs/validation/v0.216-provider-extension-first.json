@@ -1,0 +1,41 @@
+{
+  "version": "0.216.0",
+  "completed": true,
+  "scope": "actual versioned built-in provider host and production Broker, example adapter and deterministic injected network only; no third-party script isolation, live recognition, new external service, hardware or installation certification",
+  "cases": [
+    "new built-in example traverses the real host and Broker, returning bounded candidates with source/time/rights without applying metadata",
+    "adapter rejects invalid query before provider access",
+    "scoped handle rejects foreign provider, undeclared capability and unapproved domain before network",
+    "manifest observations cannot mutate the admitted permissions",
+    "unsupported API major/minor or host range leaves no registered lane",
+    "platform and architecture mismatch cannot silently load a built-in provider",
+    "adapter self-declared credential, extra domain and subdomain widening require independent host permission",
+    "closed manifests reject filesystem authority, numeric address, duplicate capability and unknown version keys",
+    "actual endpoint set must agree with the declared provider contract",
+    "a later incompatible definition cannot leave the earlier provider partially registered",
+    "duplicate registration batch is atomic",
+    "nonfinite scheduling, response and retention budgets cannot create unbounded policies",
+    "post-registration adapter policy mutation cannot change the actual origin, route or retention rights",
+    "even a permissive adapter redirect callback cannot escape host-approved domains",
+    "explicit host-approved CDN redirect works while non-public headers are stripped across hosts",
+    "revocation aborts actual in-flight and queued requests, refuses late results and permanently retires existing handles",
+    "production three-source registration exposes API1.0, revoking one source preserves peers and existing backup component identities",
+    "caller cancellation remains effective through the scoped transport",
+    "adapter output decoding rejects malformed candidates instead of returning trusted-looking results",
+    "actual response reader enforces the declared byte budget before candidate decoding"
+  ],
+  "fingerprints": {
+    "src/shared/provider-extension.ts": "cd58309708c127ff219a14b286d4d6414fdf6e3a1fcb3bc71eeb781682429ad9",
+    "src/library/provider-extension-host.ts": "bb699578f8a553a2652e034ea8bb904caf97f1aa1a3206df872d6773e297df40",
+    "src/library/provider-broker.ts": "b4085ad85047c4581efd6f27135ad3a838300534f465eef6ee23ccf57870dd1c",
+    "src/library/providers.ts": "4f8d432cc6d4527f7083c8053e52aa62c0c7460a65831f0a645411a0743072a3",
+    "src/library/service.ts": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77",
+    "src/library/acoustid.ts": "237f31fa2ad01b6fb3a60dfbe376879015763f9400f08ca2c86daa21695c127d",
+    "src/library/musicbrainz.ts": "1051c73ed3c1d70b74c15856794e390fc5692e88a63d34cc26cc701314885cbd",
+    "src/library/cover-art-archive.ts": "fc69aee82dbb45f92896c9cdf34fcd7b8c0d83f53a97e5dbc5011b5f7e99db4f",
+    "src/shared/contracts.ts": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05",
+    "examples/provider-adapter/example-metadata.cjs": "9d8143937538b650cc124fe604ec1b549e5dbc966fbfceebc2e3c537324cc3a6",
+    "examples/provider-adapter/host-grant.cjs": "29b11ad9d930b135133769b11ef843f257d4e61678e37e7f62cb539ce63735f2",
+    "tests/provider-extension-mvp.smoke.cjs": "1b5658142800dbb3d30f455f24ea1cdf25e5eadfa7253908d77273593d3fb697"
+  }
+}

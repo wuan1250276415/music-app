@@ -1,4 +1,4 @@
-import {ProviderBroker,type ProviderPolicy} from './provider-broker.js';
+import {type ProviderTransport,type ProviderPolicy} from './provider-broker.js';
 import {RELEASE} from '../shared/release.js';
 import {createHash} from 'node:crypto';
 import {imageMime} from './artwork.js';
@@ -32,7 +32,7 @@ function text(value:unknown,maximum:number):string{
  if(typeof value!=='string'||value.length>maximum||/[\u0000-\u001f\u007f]/.test(value))throw new Error('封面来源条目文字无效');return value;
 }
 export class CoverArtArchiveProvider {
- constructor(private readonly broker:ProviderBroker){}
+ constructor(private readonly broker:ProviderTransport){}
  async image(releaseId:string,imageId:string,signal:AbortSignal):Promise<import('./provider-broker.js').ProviderResult<{bytes:Uint8Array;token:string}>>{
   if(!mbid.test(releaseId)||!/^[1-9][0-9]{0,19}$/.test(imageId))throw new Error('封面图片来源身份无效');
   return this.broker.request('cover-art-archive','release-image',new URL(`https://coverartarchive.org/release/${releaseId.toLowerCase()}/${imageId}-1200`),{Accept:'image/jpeg,image/png,image/webp,image/gif,image/bmp','User-Agent':`AuralPrototype/${RELEASE.appVersion}`},value=>{

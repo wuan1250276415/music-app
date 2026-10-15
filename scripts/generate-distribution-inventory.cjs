@@ -415,6 +415,8 @@ const asioProperties = [
   {name:'aural:online-cover-contract-source-sha256',value:sha256(read('src/shared/online-artwork.ts'))},
   {name:'aural:online-cover-controls-source-sha256',value:sha256(read('src/renderer/online-artwork-controls.tsx'))},
   ...['src/shared/metadata-recognition.ts','src/library/metadata-recognition.ts','src/library/metadata-recognition-manager.ts','src/shared/recognition-mapping.ts','src/library/recognition-mapping.ts','src/library/recognition-retry.ts','src/renderer/user-error.ts'].map(file=>({name:'aural:metadata-recognition-source-sha256:'+file,value:sha256(read(file))})),
+  ...['src/shared/provider-extension.ts','src/library/provider-extension-host.ts','src/library/provider-broker.ts','src/library/providers.ts'].map(file=>({name:'aural:provider-extension-source-sha256:'+file,value:sha256(read(file))})),
+  {name:'aural:provider-extension-contract',value:'api1.0; trusted compiled built-ins only; host-owned capability/domain/credential grants, whole-batch validation, immutable Broker snapshots, scoped transport cancellation/revocation; not a third-party sandbox or public SDK'},
   ...['src/shared/metadata-workflow.ts','src/library/metadata-workflow.ts','src/renderer/metadata-workflow-dialog.tsx','src/library/metadata-batches.ts','src/renderer/scan-tasks.tsx'].map(file=>({name:'aural:metadata-workflow-source-sha256:'+file,value:sha256(read(file))})),
   {name:'aural:metadata-context-ranking-source-sha256',value:sha256(read('src/library/metadata-match-ranking.ts'))},
   {name:'aural:metadata-release-context-parser-source-sha256',value:sha256(read('src/library/metadata-release-context.ts'))},

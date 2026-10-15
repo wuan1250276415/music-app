@@ -6,7 +6,7 @@
     "component": {
       "type": "application",
       "name": "aural-library",
-      "version": "0.215.0",
+      "version": "0.216.0",
       "licenses": [
         {
           "license": {
@@ -618,7 +618,7 @@
       },
       {
         "name": "aural:file-observation-publication-source-sha256",
-        "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+        "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
       },
       {
         "name": "aural:file-observation-consumers",
@@ -1724,7 +1724,7 @@
         },
         {
           "name": "aural:cue-source-registration-9-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:cue-source-registration-10-sha256",
@@ -1740,7 +1740,7 @@
         },
         {
           "name": "aural:cue-source-registration-13-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:cue-source-registration-14-sha256",
@@ -1932,7 +1932,7 @@
         },
         {
           "name": "aural:mvp-flac-cue-checkpoint-5-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:mvp-flac-cue-checkpoint-6-sha256",
@@ -1988,7 +1988,7 @@
         },
         {
           "name": "aural:retained-cue-import-8-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:retained-cue-import-9-sha256",
@@ -2004,7 +2004,7 @@
         },
         {
           "name": "aural:retained-cue-import-12-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:retained-cue-import-13-sha256",
@@ -2064,7 +2064,7 @@
         },
         {
           "name": "aural:cue-source-selection-7-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:cue-source-selection-8-sha256",
@@ -2076,7 +2076,7 @@
         },
         {
           "name": "aural:cue-source-selection-10-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:cue-source-selection-11-sha256",
@@ -2128,7 +2128,7 @@
         },
         {
           "name": "aural:cue-version-review-5-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:cue-version-review-6-sha256",
@@ -2140,7 +2140,7 @@
         },
         {
           "name": "aural:cue-version-review-8-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:cue-version-review-9-sha256",
@@ -2192,11 +2192,11 @@
         },
         {
           "name": "aural:embedded-cue-bundle-review-9-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:embedded-cue-bundle-review-10-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:embedded-cue-bundle-review-11-sha256",
@@ -2284,11 +2284,11 @@
         },
         {
           "name": "aural:external-cue-source-export-6-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:external-cue-source-export-7-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:external-cue-source-export-8-sha256",
@@ -2332,11 +2332,11 @@
         },
         {
           "name": "aural:embedded-cue-history-5-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:embedded-cue-history-6-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:embedded-cue-history-7-sha256",
@@ -2580,7 +2580,7 @@
         },
         {
           "name": "aural:restore-recovery-7-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:restore-recovery-8-sha256",
@@ -2644,7 +2644,7 @@
         },
         {
           "name": "aural:restore-consent-13-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:restore-consent-status",
@@ -2684,7 +2684,7 @@
         },
         {
           "name": "aural:restore-review-8-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:restore-review-9-sha256",
@@ -2772,7 +2772,7 @@
         },
         {
           "name": "aural:restore-completion-19-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:restore-completion-20-sha256",
@@ -2852,7 +2852,7 @@
         },
         {
           "name": "aural:restore-finalization-15-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:restore-finalization-status",
@@ -2908,7 +2908,7 @@
         },
         {
           "name": "aural:restore-application-12-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:restore-application-status",
@@ -2944,7 +2944,7 @@
         },
         {
           "name": "aural:restore-release-7-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:restore-release-8-sha256",
@@ -2992,7 +2992,7 @@
         },
         {
           "name": "aural:restore-commit-3-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:restore-commit-4-sha256",
@@ -3032,7 +3032,7 @@
         },
         {
           "name": "aural:restore-normal-2-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:restore-normal-3-sha256",
@@ -3096,7 +3096,7 @@
         },
         {
           "name": "aural:restore-renderer-6-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:restore-renderer-7-sha256",
@@ -3144,7 +3144,7 @@
         },
         {
           "name": "aural:restore-hydration-6-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:restore-hydration-7-sha256",
@@ -3252,7 +3252,7 @@
         },
         {
           "name": "aural:restore-pending-11-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:restore-pending-status",
@@ -3288,7 +3288,7 @@
         },
         {
           "name": "aural:restore-activation-7-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:restore-activation-8-sha256",
@@ -3320,7 +3320,7 @@
         },
         {
           "name": "aural:restore-activation-15-sha256",
-          "value": "edbc4aa5b94a16d6b3512c099a203f91d1dcb77c4160cbeb1c836330c373595e"
+          "value": "4f8d432cc6d4527f7083c8053e52aa62c0c7460a65831f0a645411a0743072a3"
         },
         {
           "name": "aural:restore-activation-status",
@@ -3380,7 +3380,7 @@
         },
         {
           "name": "aural:restore-library-lifecycle-3-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:restore-library-lifecycle-4-sha256",
@@ -3592,7 +3592,7 @@
         },
         {
           "name": "aural:restore-reopen-7-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:restore-reopen-status",
@@ -3628,7 +3628,7 @@
         },
         {
           "name": "aural:restore-preview-7-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:restore-preview-8-sha256",
@@ -3668,7 +3668,7 @@
         },
         {
           "name": "aural:backup-history-6-sha256",
-          "value": "d6353c2d5aad4af9b003b1d367a6676e7b404d28d05304b4c6213fc8537f911d"
+          "value": "104042dc208b0bf518a7532b3472f7cda4d66fec9c838e0764eace30945e9a05"
         },
         {
           "name": "aural:backup-history-7-sha256",
@@ -3820,7 +3820,7 @@
         },
         {
           "name": "aural:catalog-maintenance-service-sha256",
-          "value": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0"
+          "value": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77"
         },
         {
           "name": "aural:catalog-maintenance-files-sha256",
@@ -3856,7 +3856,7 @@
         },
         {
           "name": "aural:catalog-maintenance-network-sha256",
-          "value": "26c009b1e35e2ffcc65732968403f9e5ef3ec0b03bfbe2181bc3eeed87cd71b9"
+          "value": "b4085ad85047c4581efd6f27135ad3a838300534f465eef6ee23ccf57870dd1c"
         },
         {
           "name": "aural:online-image-converter-source-sha256",
@@ -3901,6 +3901,26 @@
         {
           "name": "aural:metadata-recognition-source-sha256:src/renderer/user-error.ts",
           "value": "c5caa2b96a54f4bfa167e9a5da78e65a10474676d64d17720b95c40d6ef5d8f0"
+        },
+        {
+          "name": "aural:provider-extension-source-sha256:src/shared/provider-extension.ts",
+          "value": "cd58309708c127ff219a14b286d4d6414fdf6e3a1fcb3bc71eeb781682429ad9"
+        },
+        {
+          "name": "aural:provider-extension-source-sha256:src/library/provider-extension-host.ts",
+          "value": "bb699578f8a553a2652e034ea8bb904caf97f1aa1a3206df872d6773e297df40"
+        },
+        {
+          "name": "aural:provider-extension-source-sha256:src/library/provider-broker.ts",
+          "value": "b4085ad85047c4581efd6f27135ad3a838300534f465eef6ee23ccf57870dd1c"
+        },
+        {
+          "name": "aural:provider-extension-source-sha256:src/library/providers.ts",
+          "value": "4f8d432cc6d4527f7083c8053e52aa62c0c7460a65831f0a645411a0743072a3"
+        },
+        {
+          "name": "aural:provider-extension-contract",
+          "value": "api1.0; trusted compiled built-ins only; host-owned capability/domain/credential grants, whole-batch validation, immutable Broker snapshots, scoped transport cancellation/revocation; not a third-party sandbox or public SDK"
         },
         {
           "name": "aural:metadata-workflow-source-sha256:src/shared/metadata-workflow.ts",
@@ -3996,7 +4016,7 @@
         },
         {
           "name": "aural:recording-editions-provider-source-sha256",
-          "value": "f7ae6fd5c515bce2b20e7bb91add0b8a4e6307770e350caa20e48a724d6a32f0"
+          "value": "1051c73ed3c1d70b74c15856794e390fc5692e88a63d34cc26cc701314885cbd"
         },
         {
           "name": "aural:recording-editions-contract-source-sha256",
@@ -4020,7 +4040,7 @@
         },
         {
           "name": "aural:cover-art-source-provider-sha256",
-          "value": "677c5c57ec545f8ed338fb962032c04161970b71592863d2107761dfff30e4b6"
+          "value": "fc69aee82dbb45f92896c9cdf34fcd7b8c0d83f53a97e5dbc5011b5f7e99db4f"
         },
         {
           "name": "aural:cover-art-source-panel-sha256",
@@ -4036,7 +4056,7 @@
         },
         {
           "name": "aural:catalog-maintenance-components-sha256",
-          "value": "edbc4aa5b94a16d6b3512c099a203f91d1dcb77c4160cbeb1c836330c373595e"
+          "value": "4f8d432cc6d4527f7083c8053e52aa62c0c7460a65831f0a645411a0743072a3"
         },
         {
           "name": "aural:catalog-maintenance-status",
@@ -4675,7 +4695,7 @@
         },
         {
           "name": "aural:source-sha256:src/library/acoustid.ts",
-          "value": "746ef139b49aaafac3357588f3316dcf5faafcb8586a2fca2fe34765e99fbc2e"
+          "value": "237f31fa2ad01b6fb3a60dfbe376879015763f9400f08ca2c86daa21695c127d"
         },
         {
           "name": "aural:source-sha256:src/renderer/metadata-fingerprint-panel.tsx",

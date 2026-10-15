@@ -99,10 +99,10 @@ function restoreFiles():void{
 
 let providerCredentials:ProviderCredentials|undefined;
 let waveforms:WaveformManager|undefined;let fingerprints:AudioFingerprintWorker|undefined;let recognition:MetadataRecognitionManager|undefined;
-const networkBroker=new ProviderBroker((input,init)=>net.fetch(String(input),{...init,bypassCustomProtocolHandlers:true}),()=>networkChanged());registerProviders(networkBroker);
-const musicBrainz=new MusicBrainzProvider(()=>db?.metadataContact()??'',fetch,networkBroker,itemId=>db?.metadataRecordingLookupContext(itemId).fingerprint??null,itemId=>db?.metadataReviewFingerprint(itemId)??null);
-const coverArtArchive=new CoverArtArchiveProvider(networkBroker);
-const acoustid=new AcoustidProvider(networkBroker,()=>providerCredentials!.acoustidClientKey(),()=>db?.providerSettings.setting('acoustid').enabled===true,id=>db?.metadataRecordingLookupContext(id).fingerprint??null,id=>db?.metadataReviewFingerprint(id)??null,(token,itemId)=>workflowReviewExpiry(token,itemId));
+const networkBroker=new ProviderBroker((input,init)=>net.fetch(String(input),{...init,bypassCustomProtocolHandlers:true}),()=>networkChanged());const providerHost=registerProviders(networkBroker);
+const musicBrainz=new MusicBrainzProvider(()=>db?.metadataContact()??'',fetch,providerHost.client('musicbrainz'),itemId=>db?.metadataRecordingLookupContext(itemId).fingerprint??null,itemId=>db?.metadataReviewFingerprint(itemId)??null);
+const coverArtArchive=new CoverArtArchiveProvider(providerHost.client('cover-art-archive'));
+const acoustid=new AcoustidProvider(providerHost.client('acoustid'),()=>providerCredentials!.acoustidClientKey(),()=>db?.providerSettings.setting('acoustid').enabled===true,id=>db?.metadataRecordingLookupContext(id).fingerprint??null,id=>db?.metadataReviewFingerprint(id)??null,(token,itemId)=>workflowReviewExpiry(token,itemId));
 const workflowReviews=new Map<string,import('../shared/metadata-workflow.js').MetadataWorkflowOrigin>();
 function workflowReviewExpiry(token:string,itemId:string):string{const expires=musicBrainz.checkReview(token,itemId),origin=workflowReviews.get(token);if(!origin)return expires;const claim=db!.metadataWorkflows.assertClaim(origin);if(!claim.items.some(i=>i.id===itemId))throw new Error('歌曲已不在任务审核页');return new Date(Math.min(Date.parse(expires),claim.expiresAt)).toISOString();}
 function closeMetadataScope(token:string):void{for(const [id,q] of metadataQueries)if(q.reviewToken===token)cancelMetadataQuery(id);acoustid.closeReview(token);musicBrainz.closeReview(token);workflowReviews.delete(token);}

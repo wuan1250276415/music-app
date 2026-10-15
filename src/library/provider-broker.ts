@@ -10,6 +10,28 @@ export interface ProviderPolicy {
  id:string;capabilities:Record<string,ProviderEndpoint>;intervalMs:number;timeoutMs:number;deadlineMs:number;maxAttempts:number;maxQueued:number;
  maxResponseBytes:number;cacheMs:number;reviewMs:number;rights:{display:boolean;cache:'none'|'memory';persist:boolean;label:string;termsUrl:string;verifiedAt:string};
 }
+export interface ProviderTransport {
+ request<T>(provider:string,capability:string,url:URL,headers:Record<string,string>,decode:(value:unknown)=>T,options?:{signal?:AbortSignal;fresh?:boolean;body?:string}):Promise<ProviderResult<T>>;
+ dispose():void;
+}
+/** Copy mutable adapter policy before registration. Callback code remains trusted built-in code. */
+export function snapshotProviderPolicy(policy:ProviderPolicy):ProviderPolicy {
+ const number=(value:number,min:number,max:number)=>Number.isSafeInteger(value)&&value>=min&&value<=max;
+ if(!policy||!/^[a-z][a-z0-9-]{0,63}$/.test(policy.id)||!policy.capabilities||typeof policy.capabilities!=='object'||Array.isArray(policy.capabilities)||!Object.keys(policy.capabilities).length||Object.keys(policy.capabilities).length>32||!number(policy.intervalMs,1,86400000)||!number(policy.timeoutMs,1,600000)||!number(policy.deadlineMs,policy.timeoutMs,3600000)||!number(policy.maxAttempts,1,4)||!number(policy.maxQueued,1,64)||!number(policy.maxResponseBytes,1024,8388608)||!number(policy.cacheMs,0,600000)||!number(policy.reviewMs,policy.cacheMs,3600000)||!policy.rights||policy.rights.display!==true||policy.rights.persist!==false||!['none','memory'].includes(policy.rights.cache))throw new Error('无效在线数据源策略');
+ const capabilities:Record<string,ProviderEndpoint>=Object.create(null);
+ for(const [name,endpoint] of Object.entries(policy.capabilities)){
+  if(!/^[a-z][a-z0-9-]{0,63}$/.test(name)||!endpoint)throw new Error('无效在线数据源能力');
+  const url=new URL(endpoint.origin);
+  if(url.protocol!=='https:'||url.origin!==endpoint.origin||url.username||url.password||!(endpoint.path instanceof RegExp)||endpoint.path.global||endpoint.path.sticky||endpoint.path.source.length>4096||endpoint.emptyOnNotFound!==undefined&&typeof endpoint.emptyOnNotFound!=='boolean')throw new Error('无效在线数据源能力地址');
+  if(endpoint.method!==undefined&&(endpoint.method!=='POST'||!number(endpoint.maxRequestBytes!,1,131072)||endpoint.redirects))throw new Error('无效只读POST查询策略');
+  if(endpoint.format!==undefined&&endpoint.format!=='bytes'||endpoint.maxResponseBytes!==undefined&&!number(endpoint.maxResponseBytes,1024,16777216)||endpoint.format==='bytes'&&(!Array.isArray(endpoint.contentTypes)||!endpoint.contentTypes.length||endpoint.contentTypes.length>8||endpoint.contentTypes.some(type=>!/^image\/(jpeg|png|webp|gif|bmp)$/.test(type))))throw new Error('无效在线图片响应策略');
+  const redirects=endpoint.redirects;
+  if(redirects&&(!number(redirects.maxHops,1,4)||typeof redirects.accept!=='function'||!Array.isArray(redirects.forwardHeaders)||redirects.forwardHeaders.length>2||new Set(redirects.forwardHeaders).size!==redirects.forwardHeaders.length||redirects.forwardHeaders.some(name=>!['accept','user-agent'].includes(name))))throw new Error('无效在线数据源跳转策略');
+  capabilities[name]={...endpoint,path:new RegExp(endpoint.path.source,endpoint.path.flags),...(endpoint.contentTypes?{contentTypes:[...endpoint.contentTypes]}:{}),...(redirects?{redirects:{...redirects,forwardHeaders:[...redirects.forwardHeaders]}}:{})};
+ }
+ return {...policy,capabilities,rights:{...policy.rights}};
+}
+
 export interface ProviderBrokerState {provider:string;active:number;queued:number;cacheEntries:number;retryAt:number|null;blocked:boolean}
 export interface ProviderResult<T> {value:T;fetchedAt:string;expiresAt:string;cacheHit:boolean;rights:ProviderPolicy['rights']}
 type Cache={value:unknown;fetchedAt:string;expires:number;reviewUntil:string;bytes:number;provider:string;epoch:number};
@@ -38,14 +60,18 @@ export class ProviderBroker {
  private readonly lanes=new Map<string,Lane>();private readonly cache=new Map<string,Cache>();private cacheBytes=0;private closed=false;
  private readonly cleanup:NodeJS.Timeout;
  constructor(private readonly fetcher:typeof fetch=fetch,private readonly changed:()=>void=()=>{}){this.cleanup=setInterval(()=>this.prune(),15000);this.cleanup.unref();}
- register(policy:ProviderPolicy):void{
-  if(this.closed||!/^[a-z][a-z0-9-]{0,63}$/.test(policy.id)||this.lanes.has(policy.id)||!Object.keys(policy.capabilities).length||!Number.isSafeInteger(policy.intervalMs)||policy.intervalMs<1||policy.timeoutMs<1||policy.deadlineMs<policy.timeoutMs||!Number.isSafeInteger(policy.maxAttempts)||policy.maxAttempts<1||policy.maxAttempts>4||!Number.isSafeInteger(policy.maxQueued)||policy.maxQueued<1||policy.maxQueued>64||policy.maxResponseBytes<1024||policy.maxResponseBytes>8388608||policy.cacheMs<0||policy.cacheMs>600000||policy.reviewMs<policy.cacheMs||policy.reviewMs>3600000||!policy.rights.display||policy.rights.persist)throw new Error('无效在线数据源策略');
-  for(const capability of Object.values(policy.capabilities)){const url=new URL(capability.origin);if(url.protocol!=='https:'||url.origin!==capability.origin||url.username||url.password||!(capability.path instanceof RegExp)||capability.path.global||capability.path.sticky)throw new Error('无效在线数据源能力地址');
-   if(capability.method!==undefined&&(capability.method!=='POST'||!Number.isSafeInteger(capability.maxRequestBytes)||capability.maxRequestBytes!<1||capability.maxRequestBytes!>131072||capability.redirects))throw new Error('无效只读POST查询策略');
-   if(capability.format!==undefined&&capability.format!=='bytes'||capability.maxResponseBytes!==undefined&&(!Number.isSafeInteger(capability.maxResponseBytes)||capability.maxResponseBytes<1024||capability.maxResponseBytes>16777216)||capability.format==='bytes'&&(!Array.isArray(capability.contentTypes)||!capability.contentTypes.length||capability.contentTypes.length>8||capability.contentTypes.some(type=>!/^image\/(jpeg|png|webp|gif|bmp)$/.test(type))))throw new Error('无效在线图片响应策略');
-   const redirects=capability.redirects;if(redirects&&(!Number.isSafeInteger(redirects.maxHops)||redirects.maxHops<1||redirects.maxHops>4||typeof redirects.accept!=='function'||!Array.isArray(redirects.forwardHeaders)||redirects.forwardHeaders.some(name=>!['accept','user-agent'].includes(name))))throw new Error('无效在线数据源跳转策略');}
-  this.lanes.set(policy.id,{policy,queue:[],running:null,nextAt:0,failures:0,blocked:false,epoch:0});
+ register(policy:ProviderPolicy):void{this.registerBatch([policy]);}
+ registerBatch(policies:ReadonlyArray<ProviderPolicy>):void{
+  if(this.closed||!policies.length||policies.length>32)throw new Error('无效在线数据源登记');
+  const snapshots=policies.map(snapshotProviderPolicy),ids=new Set<string>();
+  for(const policy of snapshots){if(this.lanes.has(policy.id)||ids.has(policy.id))throw new Error('在线数据源已注册');ids.add(policy.id);}
+  for(const policy of snapshots){
+   for(const endpoint of Object.values(policy.capabilities)){if(endpoint.redirects){Object.freeze(endpoint.redirects.forwardHeaders);Object.freeze(endpoint.redirects);}if(endpoint.contentTypes)Object.freeze(endpoint.contentTypes);Object.freeze(endpoint.path);Object.freeze(endpoint);}
+   Object.freeze(policy.rights);Object.freeze(policy.capabilities);Object.freeze(policy);
+   this.lanes.set(policy.id,{policy,queue:[],running:null,nextAt:0,failures:0,blocked:false,epoch:0});
+  }
  }
+
  private remove(key:string):void{const old=this.cache.get(key);if(old)this.cacheBytes-=old.bytes;this.cache.delete(key);}
  private prune():void{let removed=false;for(const [key,entry] of this.cache)if(entry.expires<=Date.now()){this.remove(key);removed=true;}if(removed)this.changed();}
  state(provider:string):ProviderBrokerState{const lane=this.lanes.get(provider);if(!lane)throw new Error('在线数据源未注册');this.prune();return {provider,active:lane.running?1:0,queued:lane.queue.length,cacheEntries:[...this.cache.values()].filter(entry=>entry.provider===provider).length,retryAt:lane.nextAt>Date.now()?lane.nextAt:null,blocked:lane.blocked};}

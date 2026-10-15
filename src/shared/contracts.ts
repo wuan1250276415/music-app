@@ -356,7 +356,7 @@ export interface ProviderStoredChange {kind?:'item'|'release'|'identity'|'group-
 export interface ProviderStoredChangePage {items:ProviderStoredChange[];nextCursor:string|null}
 export type ProviderId='musicbrainz'|'cover-art-archive'|'acoustid';
 export interface ProviderCapability {kind:'metadata'|'artwork'|'fingerprint'|'lyrics';ready:boolean;label:string;retention:string}
-export interface ProviderManifest {id:ProviderId;name:string;version:string;ready:boolean;capabilities:ProviderCapability[];termsUrl:string;credentialSlots:Array<{id:string;label:string}>;note:string}
+export interface ProviderManifest {extension:import('./provider-extension.js').ProviderExtensionManifest;id:ProviderId;name:string;version:string;ready:boolean;capabilities:ProviderCapability[];termsUrl:string;credentialSlots:Array<{id:string;label:string}>;note:string}
 export interface ProviderCredentialState {slot:string;present:boolean|null;error:string|null;uncertain:number}
 export interface ProviderState {manifest:ProviderManifest;enabled:boolean;revision:number;vaultAvailable:boolean;credentials:ProviderCredentialState[]}
 export interface ProviderSettingRequest {commandId:string;providerId:ProviderId;revision:number;enabled:boolean}

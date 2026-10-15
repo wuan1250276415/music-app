@@ -1,0 +1,22 @@
+new built-in example traverses the real host and Broker, returning bounded candidates with source/time/rights without applying metadata
+adapter rejects invalid query before provider access
+scoped handle rejects foreign provider, undeclared capability and unapproved domain before network
+manifest observations cannot mutate the admitted permissions
+unsupported API major/minor or host range leaves no registered lane
+platform and architecture mismatch cannot silently load a built-in provider
+adapter self-declared credential, extra domain and subdomain widening require independent host permission
+closed manifests reject filesystem authority, numeric address, duplicate capability and unknown version keys
+actual endpoint set must agree with the declared provider contract
+a later incompatible definition cannot leave the earlier provider partially registered
+duplicate registration batch is atomic
+nonfinite scheduling, response and retention budgets cannot create unbounded policies
+post-registration adapter policy mutation cannot change the actual origin, route or retention rights
+even a permissive adapter redirect callback cannot escape host-approved domains
+explicit host-approved CDN redirect works while non-public headers are stripped across hosts
+revocation aborts actual in-flight and queued requests, refuses late results and permanently retires existing handles
+production three-source registration exposes API1.0, revoking one source preserves peers and existing backup component identities
+caller cancellation remains effective through the scoped transport
+adapter output decoding rejects malformed candidates instead of returning trusted-looking results
+actual response reader enforces the declared byte budget before candidate decoding
+transport rejects66th synchronous submission, Broker caps actual active/queued total64, and revocation drains the observed running and63 queued requests
+{"version":"0.216.0","completed":true,"cases":21}

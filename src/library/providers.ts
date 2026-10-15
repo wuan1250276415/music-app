@@ -1,3 +1,5 @@
+import {ProviderExtensionHost,type ProviderHostGrant} from './provider-extension-host.js';
+import type {ProviderExtensionManifest} from '../shared/provider-extension.js';
 import {acoustidPolicy} from './acoustid.js';
 import {randomUUID,createHash,createHmac,randomBytes,timingSafeEqual} from 'node:crypto';
 import type {DatabaseSync} from 'node:sqlite';
@@ -8,13 +10,22 @@ import {coverArtArchivePolicy} from './cover-art-archive.js';
 import type {CredentialStore} from './credential-vault.js';
 
 const uuid=/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
-const manifests:ProviderManifest[]=[
+const hostGrants:ProviderHostGrant[]=[
+ {id:'musicbrainz',version:'1',capabilities:['isrc-lookup','recording-lookup','recording-search','recording-releases','recording-credit','release-context','release-credit'],permissions:{network:[{host:'musicbrainz.org',subdomains:false}],credentials:[]}},
+ {id:'cover-art-archive',version:'2',capabilities:['release-index','release-image'],permissions:{network:[{host:'coverartarchive.org',subdomains:false},{host:'archive.org',subdomains:true}],credentials:[]}},
+ {id:'acoustid',version:'1',capabilities:['lookup'],permissions:{network:[{host:'api.acoustid.org',subdomains:false}],credentials:['client-key']}}
+];
+function extension(id:ProviderId):ProviderExtensionManifest {
+ const grant=hostGrants.find(g=>g.id===id)!;
+ return {id:grant.id,version:grant.version,kind:'builtin-provider',apiVersion:{major:1,minor:0},hostApiRange:{major:1,minMinor:0,maxMinor:0},platforms:['win32'],architectures:['x64'],capabilities:[...grant.capabilities],permissions:structuredClone(grant.permissions)};
+}
+const manifests:ProviderManifest[]=([
  {id:'musicbrainz',name:'MusicBrainz',version:'1',ready:true,capabilities:[{kind:'metadata',ready:true,label:'录音候选、发行主署名和核心文本',retention:'查询预览仅短期内存；确认的白名单核心文本另按 CC0 快照保存'}],termsUrl:'https://musicbrainz.org/doc/MusicBrainz_API',credentialSlots:[],note:'查询按统一限速调度，需填写公开联系信息。'},
  {id:'cover-art-archive',name:'Cover Art Archive',version:'2',ready:true,capabilities:[{kind:'artwork',ready:true,label:'封面来源查询与图片选择',retention:'文字索引短期缓存；图片先预览，再明确保存为本机曲库封面，导出未开放'}],termsUrl:'https://musicbrainz.org/doc/Cover_Art_Archive',credentialSlots:[],note:'按选定发行版查询和预览图片。明确保存后保留来源与修改记录；逐图片许可未核实，不声明开放授权。'},
  {id:'acoustid',name:'AcoustID',version:'1',ready:true,capabilities:[{kind:'fingerprint',ready:true,label:'按音频指纹匹配录音',retention:'本地指纹和在线关联只作短期预览；确认字段从MusicBrainz另行读取；不提交指纹'}],termsUrl:'https://acoustid.org/webservice',credentialSlots:[{id:'client-key',label:'应用访问密钥'}],note:'本地Chromaprint按当前歌曲／CUE片段计算，仅发送指纹与时长；启用需自己的应用访问密钥。公共服务仅用于非商业用途；商业访问须按服务商方案接入。保存密钥不会开启查询，不贡献指纹。'}
-];
+] satisfies Array<Omit<ProviderManifest,'extension'>>).map(manifest=>({...manifest,extension:extension(manifest.id)}));
 export function providerManifest(id:unknown):ProviderManifest{const manifest=manifests.find(value=>value.id===id);if(!manifest)throw new Error('数据源未注册');return structuredClone(manifest);}
-export function registerProviders(broker:ProviderBroker):void{broker.register(musicBrainzPolicy);broker.register(coverArtArchivePolicy);broker.register(acoustidPolicy);}
+export function registerProviders(broker:ProviderBroker):ProviderExtensionHost{for(const manifest of manifests){if(manifest.version!==manifest.extension.version||JSON.stringify(manifest.credentialSlots.map(s=>s.id).sort())!==JSON.stringify([...manifest.extension.permissions.credentials].sort()))throw new Error('数据源界面声明与宿主授权不一致');}return new ProviderExtensionHost(broker,[{manifest:extension('musicbrainz'),policy:musicBrainzPolicy},{manifest:extension('cover-art-archive'),policy:coverArtArchivePolicy},{manifest:extension('acoustid'),policy:acoustidPolicy}],hostGrants);}
 export function providerBackupComponents():import('../shared/catalog-backup.js').BackupPlugin[]{return manifests.map(value=>({id:'provider.'+value.id,version:value.version})).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0);}
 export const providerSchema=`
  CREATE TABLE provider_setting(provider_id TEXT PRIMARY KEY,enabled INTEGER NOT NULL CHECK(enabled IN(0,1)),revision INTEGER NOT NULL DEFAULT 0 CHECK(revision>=0));

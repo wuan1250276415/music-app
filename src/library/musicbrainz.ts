@@ -2,7 +2,7 @@ import {FINGERPRINT_RECIPE} from '../shared/audio-fingerprint.js';
 import {MetadataReviewCache} from './metadata-review-cache.js';
 import {batchLookup} from '../shared/metadata-batch-review.js';
 import {normalizeISRC} from '../shared/isrc.js';
-import {ProviderBroker,type ProviderPolicy} from './provider-broker.js';
+import {ProviderBroker,type ProviderTransport,type ProviderPolicy} from './provider-broker.js';
 import {RELEASE} from '../shared/release.js';
 import { randomUUID } from 'node:crypto';
 import type { LibraryItem, MetadataCandidate,MetadataProviderCredit } from '../shared/contracts.js';
@@ -50,11 +50,11 @@ function providerCredits(value:unknown):MetadataProviderCredit[]{
 
 export interface MusicBrainzEntry {itemId:string;candidate:MetadataCandidate;expires:number;requestId?:string;authority?:string;metadataFingerprint?:string;reviewToken?:string;context?:Pick<LibraryItem,'title'|'artist'|'album'|'durationSeconds'>}
 export class MusicBrainzProvider {
-  private readonly broker:ProviderBroker;private readonly ownsBroker:boolean;
+  private readonly broker:ProviderTransport;private readonly ownsBroker:boolean;
   private readonly candidates=new Map<string,MusicBrainzEntry>();private readonly reviews:MetadataReviewCache;
   private readonly releaseCursors=new Map<string,{itemId:string;recordingId:string;offset:number;expires:number;requestId:string}>();
   private readonly cleanup:NodeJS.Timeout;
-  constructor(private readonly getContact:()=>string,fetcher:Fetcher=fetch,broker?:ProviderBroker,private readonly referenceAuthority?:(itemId:string)=>string|null,private readonly metadataAuthority?:(itemId:string)=>string|null){this.reviews=new MetadataReviewCache(id=>this.referenceAuthority?.(id)??null,id=>this.metadataAuthority?.(id)??null);this.ownsBroker=!broker;this.broker=broker??new ProviderBroker(fetcher);if(!broker)this.broker.register(musicBrainzPolicy);this.cleanup=setInterval(()=>this.prune(),15000);this.cleanup.unref();}
+  constructor(private readonly getContact:()=>string,fetcher:Fetcher=fetch,broker?:ProviderTransport,private readonly referenceAuthority?:(itemId:string)=>string|null,private readonly metadataAuthority?:(itemId:string)=>string|null){this.reviews=new MetadataReviewCache(id=>this.referenceAuthority?.(id)??null,id=>this.metadataAuthority?.(id)??null);this.ownsBroker=!broker;const owned=broker?undefined:new ProviderBroker(fetcher);owned?.register(musicBrainzPolicy);this.broker=broker??owned!;this.cleanup=setInterval(()=>this.prune(),15000);this.cleanup.unref();}
   private prune():void{this.reviews.prune();for(const [token,value] of this.candidates)if(value.expires<=Date.now())this.candidates.delete(token);for(const [token,value] of this.releaseCursors)if(value.expires<=Date.now())this.releaseCursors.delete(token);}
   invalidate(requestId?:string):void{if(requestId===undefined){this.candidates.clear();this.releaseCursors.clear();this.reviews.clear();}else{this.reviews.invalidate(requestId);for(const [token,value] of this.candidates)if(value.requestId===requestId)this.candidates.delete(token);for(const [token,value] of this.releaseCursors)if(value.requestId===requestId)this.releaseCursors.delete(token);}}
   dispose():void{clearInterval(this.cleanup);this.invalidate();if(this.ownsBroker)this.broker.dispose();}

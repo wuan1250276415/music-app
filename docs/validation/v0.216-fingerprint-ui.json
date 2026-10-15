@@ -1,0 +1,30 @@
+{
+  "version": "0.216.0",
+  "completed": true,
+  "scope": "actual supervised WAV/CUE, native Chromaprint and Windows credential store with an owned dummy key; actual Main/preload/Service/renderer; fetch-only lookup fixture; explicit recording/field choice, compensation and offline restart; no real AcoustID recognition, user keys or hardware proof",
+  "cases": [
+    "actual UI defaults to disabled fingerprint provider and cannot transmit before explicit enabling",
+    "actual password form stores only owned dummy key in Windows vault and clears draft; public source status reveals no key and remains disabled",
+    "explicit enabled action performs real current-CUE native fingerprint and renders two associations without auto-reading or selecting MusicBrainz candidates",
+    "actual Service query reads credential internally and sends fingerprint/virtual-track duration in a restricted POST without path, audio or URL key",
+    "trusted Main and Service reject fabricated identification authority",
+    "explicit association click retrieves scoped MusicBrainz metadata; candidate click displays fingerprint basis and still creates no recording/release identity",
+    "explicit candidate/field confirmation updates only local library metadata, preserving source CUE audio",
+    "offline independent text compensation restores local CUE title without assigning identity",
+    "media-offline restart retains text compensation, real credential presence and no automatically bound music identity"
+  ],
+  "sourceUnchanged": true,
+  "fingerprints": {
+    "src/library/service.ts": "7941d9ef03cea16ceeaae5310a5a266a5a1c090b7bfd4ac45ca57a7b48fc7a77",
+    "src/library/acoustid.ts": "237f31fa2ad01b6fb3a60dfbe376879015763f9400f08ca2c86daa21695c127d",
+    "src/library/audio-fingerprint.ts": "340ba51d3e82f6cf96e93a623d0ff86571ad056b4a510f57578af9fc63f8224e",
+    "src/main/main.ts": "b5366eb1b0384861951dc3acbe040f5956b4be2297c7f17243a52067c6a02729",
+    "src/main/preload.ts": "54be52e1020912bf9422fbdabb0fc94319d08a7cbbf5b0da008e70fde35cc9d9",
+    "src/renderer/main.tsx": "a979b587a0defb584f4ccc80ee46a65f5f52adcf38693d0b8721314ff10f5c1b",
+    "src/renderer/metadata-fingerprint-panel.tsx": "39a4d6ca06ffdab2896f0db0ef1ca3b543feabee38873a22519582426014bc6d",
+    "src/renderer/metadata-fingerprint.css": "07cedb966fe119b173dabe13a0b0f1ec07739a373b1029f17e12e692444dc36d",
+    "native/audio-host/build/fingerprint-worker.exe": "f4407e19e3631a3e8049db1b3c0ed5bd500b5c64a6f3813d134a3747612a4126",
+    "tests/electron-fingerprint-mvp.smoke.cjs": "fb4985927d41a22182dc4b78e7429b68140d85f3188f9b26b6b7b9ccbaea169c"
+  },
+  "ownedDummyCredentialsRemoved": true
+}
