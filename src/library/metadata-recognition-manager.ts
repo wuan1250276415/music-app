@@ -6,6 +6,7 @@ import type {MetadataBatchReviewLease} from '../shared/metadata-batch-review.js'
 import type {MetadataRecognitionRepository} from './metadata-recognition.js';
 export type RecognitionScope={claim:MetadataWorkflowClaim;lease:MetadataBatchReviewLease};
 export interface RecognitionPorts{
+ claimRetry?(jobId:string):{scope:RecognitionScope|null;through:number;done:boolean};
  claimNext?(jobId:string,after:number):{scope:RecognitionScope|null;through:number;done:boolean};
  retain?(scope:RecognitionScope,result:FingerprintIdentification):RecognitionMapping;
  restore?(scope:RecognitionScope,itemId:string,value:RecognitionMapping):Promise<FingerprintIdentification>;
@@ -46,7 +47,7 @@ export class MetadataRecognitionManager{
    await this.ports.preflight(signal);signal.throwIfAborted();
    if(this.repo.raw(jobId)?.state!=='queued')return;
    if(!this.ports.claimNext||!this.ports.retain||!this.ports.restore)throw new RecognitionFailure('internal');
-   const next=this.ports.claimNext(jobId,this.repo.raw(jobId)!.cursor);
+   const current=this.repo.raw(jobId)!;if(current.retry_active&&!this.ports.claimRetry)throw new RecognitionFailure('internal');const next=current.retry_active?this.ports.claimRetry!(jobId):this.ports.claimNext(jobId,current.cursor);
    if(!next.scope){this.repo.cursor(jobId,next.through);release(next.done?'done':'queued');return;}
    context={scope:next.scope,results:new Map()};this.contexts.set(jobId,context);
    generation=this.repo.bind(jobId,context.scope.claim.claimToken,context.scope.claim.items.map(item=>item.id));this.ports.changed(jobId);
@@ -55,7 +56,7 @@ export class MetadataRecognitionManager{
     if(Date.now()+45000>=Date.parse(context.scope.lease.expiresAt)){release('queued','timeout');return;}
     let lookup=false;
     try{
-     let found:FingerprintIdentification|undefined;const saved=this.repo.mapping(jobId,item.id);
+     let found:FingerprintIdentification|undefined;const saved=current.retry_active?null:this.repo.mapping(jobId,item.id);
      if(saved)try{found=await this.ports.restore(context.scope,item.id,saved);}catch{signal.throwIfAborted();}
      if(!found){this.repo.forget(jobId,item.id);this.repo.phase(jobId,generation,context.scope.claim.claimToken,item.id,'decoding');this.ports.changed(jobId);
       found=await this.ports.find(context.scope,item.id,signal,()=>{lookup=true;this.repo.phase(jobId,generation,context!.scope.claim.claimToken,item.id,'lookup');this.ports.changed(jobId);});
@@ -80,7 +81,7 @@ export class MetadataRecognitionManager{
  }
  private drop(jobId:string,release:boolean,state:'done'|'failed'|'cancelled'|'interrupted',code:RecognitionCode):void{const context=this.contexts.get(jobId);this.contexts.delete(jobId);if(context)this.ports.close(context.scope,release);if(this.repo.raw(jobId))this.repo.finish(jobId,state,code,true);this.ports.changed(jobId);}
  invalidate(jobId?:string):void{if(this.dormant)return;const ids=jobId?[jobId]:new Set([...(this.contexts.keys()),...(this.active?[this.active.jobId]:[])]);for(const id of ids){this.repo.invalidate(id);if(this.active?.jobId===id)this.active.controller.abort(new Error('后台识别范围已失效'));else if(this.contexts.has(id))this.drop(id,true,'interrupted','preview-lost');}if(!jobId){for(let id=this.repo.next();id;id=this.repo.next()){this.repo.invalidate(id);this.ports.changed(id);}}}
- reconcile(jobId:string):void{const context=this.contexts.get(jobId);if(context&&!this.ports.valid(context.scope))this.invalidate(jobId);}
+ reconcile(jobId:string):void{this.repo.pruneRetry(jobId);const context=this.contexts.get(jobId);if(!this.repo.workflowReady(jobId)||context&&!this.ports.valid(context.scope))this.invalidate(jobId);}
  previewClosed(reviewToken:string):void{for(const [jobId,c] of this.contexts)if(c.scope.lease.reviewToken===reviewToken){if(this.active?.jobId===jobId){this.repo.invalidate(jobId);this.active.controller.abort(new Error('用户关闭识别预览'));}else if(c.reviewOnly){this.contexts.delete(jobId);this.ports.close(c.scope,false);}else this.drop(jobId,false,'done','none');}}
  isProcessing(reviewToken:string):boolean{return !!this.active&&this.contexts.get(this.active.jobId)?.scope.lease.reviewToken===reviewToken;}
  assertEditable(reviewToken:string):void{if(this.isProcessing(reviewToken))throw new Error('后台识别仍在处理，请先暂停或等待完成');}

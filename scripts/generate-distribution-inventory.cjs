@@ -414,7 +414,7 @@ const asioProperties = [
   {name:'aural:online-cover-store-source-sha256',value:sha256(read('src/library/online-artwork-store.ts'))},
   {name:'aural:online-cover-contract-source-sha256',value:sha256(read('src/shared/online-artwork.ts'))},
   {name:'aural:online-cover-controls-source-sha256',value:sha256(read('src/renderer/online-artwork-controls.tsx'))},
-  ...['src/shared/metadata-recognition.ts','src/library/metadata-recognition.ts','src/library/metadata-recognition-manager.ts','src/shared/recognition-mapping.ts','src/library/recognition-mapping.ts'].map(file=>({name:'aural:metadata-recognition-source-sha256:'+file,value:sha256(read(file))})),
+  ...['src/shared/metadata-recognition.ts','src/library/metadata-recognition.ts','src/library/metadata-recognition-manager.ts','src/shared/recognition-mapping.ts','src/library/recognition-mapping.ts','src/library/recognition-retry.ts','src/renderer/user-error.ts'].map(file=>({name:'aural:metadata-recognition-source-sha256:'+file,value:sha256(read(file))})),
   ...['src/shared/metadata-workflow.ts','src/library/metadata-workflow.ts','src/renderer/metadata-workflow-dialog.tsx','src/library/metadata-batches.ts','src/renderer/scan-tasks.tsx'].map(file=>({name:'aural:metadata-workflow-source-sha256:'+file,value:sha256(read(file))})),
   {name:'aural:metadata-context-ranking-source-sha256',value:sha256(read('src/library/metadata-match-ranking.ts'))},
   {name:'aural:metadata-release-context-parser-source-sha256',value:sha256(read('src/library/metadata-release-context.ts'))},
@@ -610,7 +610,7 @@ if(mediaProtocol!=='16'||!mediaProtocolSource.includes("'flac-tag-preview'")||!r
 if(!mediaProtocolSource.includes("request.kind==='image'")||!read('src/library/media-worker-entry.ts').includes('readWorkerImage')||!read('src/library/media-worker-client.ts').includes("this.execute('image'")||!read('src/library/online-image-converter.ts').includes('parser.image')||!read('src/main/artwork-resources.ts').includes("?'no-store':'private, max-age=31536000, immutable'"))fail('missing supervised neutral image conversion or ephemeral response contract');
 if(!read('src/library/tag-write-journal.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write certification default must remain closed until verified catalog');
 
-if(manifest.librarySchema.max!==78||!read('src/library/database.ts').includes('PRAGMA user_version=78')||!read('src/library/tag-write-jobs.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write schema or certification gate differs');
+if(manifest.librarySchema.max!==79||!read('src/library/database.ts').includes('PRAGMA user_version=79')||!read('src/library/tag-write-jobs.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write schema or certification gate differs');
 for(const name of ['context','preview','preview-cancel','prepare','jobs','cancel'])if(!read('src/main/main.ts').includes("'tag-write:"+name+"'")||!read('src/main/preload.ts').includes("'tag-write:"+name+"'"))fail('missing trusted tag write route '+name);
 if(!read('src/renderer/main.tsx').includes('setTagWriteItem(reviewItem.id)')||!read('src/renderer/tag-write-dialog.tsx').includes('保存待写入任务'))fail('missing lazy tag preview entry');
 

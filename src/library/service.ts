@@ -1,7 +1,7 @@
 import {readRecognitionMapping} from '../shared/recognition-mapping.js';
 import {fingerprintSourceIdentity} from '../shared/audio-fingerprint.js';
 import {MetadataRecognitionManager,RecognitionFailure,type RecognitionScope} from './metadata-recognition-manager.js';
-import {readRecognitionCommand,readRecognitionResultRequest} from '../shared/metadata-recognition.js';
+import {readRecognitionCommand,readRecognitionIssueRequest,readRecognitionResultRequest} from '../shared/metadata-recognition.js';
 import {readMetadataWorkflowCommand,workflowOrigin,workflowId,readWorkflowReview} from '../shared/metadata-workflow.js';
 import {readFingerprintFind,readFingerprintChoice,readFingerprintToken} from '../shared/audio-fingerprint.js';
 import {AudioFingerprintWorker} from './audio-fingerprint.js';
@@ -119,6 +119,7 @@ async function identifyFingerprint(request:import('../shared/audio-fingerprint.j
 }
 function createRecognitionManager(currentDb:LibraryDatabase,dormant:boolean):MetadataRecognitionManager{
  return new MetadataRecognitionManager(currentDb.metadataRecognitions,{
+  claimRetry:jobId=>{const page=currentDb.metadataRecognitions.retryPage(jobId);if(!page.itemIds.length)return {scope:null,through:currentDb.metadataRecognitions.raw(jobId)!.cursor,done:true};const selected=currentDb.metadataWorkflows.claimSelected(jobId,page.itemIds);for(const itemId of selected.rejected)currentDb.metadataRecognitions.retryRejected(jobId,itemId);if(!selected.claim)return {scope:null,through:currentDb.metadataRecognitions.raw(jobId)!.cursor,done:page.done};try{const lease=musicBrainz.beginReview(selected.claim.items.map(item=>item.id),selected.claim.expiresAt);workflowReviews.set(lease.reviewToken,{jobId,claimToken:selected.claim.claimToken});return {scope:{claim:selected.claim,lease},through:currentDb.metadataRecognitions.raw(jobId)!.cursor,done:page.done};}catch(error){currentDb.metadataWorkflows.releaseOwned({jobId,claimToken:selected.claim.claimToken});throw error;}},
   claimNext:(jobId,after)=>{const next=currentDb.metadataWorkflows.claimAfter(jobId,after);if(!next.claim)return {scope:null,through:next.through,done:next.done};try{const lease=musicBrainz.beginReview(next.claim.items.map(item=>item.id),next.claim.expiresAt);workflowReviews.set(lease.reviewToken,{jobId,claimToken:next.claim.claimToken});return {scope:{claim:next.claim,lease},through:next.through,done:next.done};}catch(error){currentDb.metadataWorkflows.releaseOwned({jobId,claimToken:next.claim.claimToken});throw error;}},
   retain:(scope,result)=>{const current=acoustid.preview(result.identificationToken,scope.lease.reviewToken),item=currentDb.getItem(result.itemId);if(!current||!item)throw new RecognitionFailure('source-changed');return readRecognitionMapping({version:1,source:createHash('sha256').update(JSON.stringify(fingerprintSourceIdentity(item))).digest('hex'),authority:currentDb.metadataRecordingLookupContext(item.id).fingerprint,metadata:currentDb.metadataReviewFingerprint(item.id),fetchedAt:current.fetchedAt,summary:current.summary,mappings:current.recordings.map(row=>({acoustidId:row.acoustidId,recordingId:row.recordingId}))});},
   restore:async(scope,itemId,raw)=>{const value=readRecognitionMapping(raw);workflowReviewExpiry(scope.lease.reviewToken,itemId);const item=currentDb.getItem(itemId);if(!item||createHash('sha256').update(JSON.stringify(fingerprintSourceIdentity(item))).digest('hex')!==value.source||currentDb.metadataReviewFingerprint(itemId)!==value.metadata||currentDb.metadataRecordingLookupContext(itemId).fingerprint!==value.authority)throw new RecognitionFailure('source-changed');await fingerprints!.validateSource(itemId);workflowReviewExpiry(scope.lease.reviewToken,itemId);const current=currentDb.getItem(itemId);if(!current||createHash('sha256').update(JSON.stringify(fingerprintSourceIdentity(current))).digest('hex')!==value.source)throw new RecognitionFailure('source-changed');const result=acoustid.restoreMapping(value,itemId,scope.lease.reviewToken);musicBrainz.retainReview(scope.lease.reviewToken,itemId,[],value.authority,value.metadata);return result;},
@@ -127,7 +128,7 @@ function createRecognitionManager(currentDb:LibraryDatabase,dormant:boolean):Met
   valid:scope=>{try{const claim=currentDb.metadataWorkflows.assertClaim({jobId:scope.claim.jobId,claimToken:scope.claim.claimToken});return claim.items.length===scope.claim.items.length&&scope.claim.items.every(i=>claim.items.some(c=>c.id===i.id))&&Date.parse(musicBrainz.checkReview(scope.lease.reviewToken,scope.claim.items[0].id))>Date.now();}catch{return false;}},
   close:(scope,release)=>{closeMetadataScope(scope.lease.reviewToken);if(release)currentDb.metadataWorkflows.releaseOwned({jobId:scope.claim.jobId,claimToken:scope.claim.claimToken});},
   prepareResume:scope=>{for(const [id,q] of metadataQueries)if(q.reviewToken===scope.lease.reviewToken)cancelMetadataQuery(id);musicBrainz.clearReviewCandidates(scope.lease.reviewToken);},
-  find:(scope,itemId,signal,onLookup)=>identifyFingerprint({itemId,requestId:randomUUID(),reviewToken:scope.lease.reviewToken},signal,onLookup),
+  find:(scope,itemId,signal,onLookup)=>identifyFingerprint({itemId,requestId:randomUUID(),reviewToken:scope.lease.reviewToken,...(currentDb.metadataRecognitions.raw(scope.claim.jobId)?.retry_active?{fresh:true}:{})},signal,onLookup),
   publicResult:(scope,token)=>acoustid.preview(token,scope.lease.reviewToken),
   changed:jobId=>{const run=currentDb.metadataRecognitions.get(jobId);reply({event:'metadataRecognitionChanged',payload:{jobId,state:run?.state,run}});}
  },dormant);
@@ -702,6 +703,7 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
       reply({event:'libraryChanged',payload:{itemId:request.itemId}});
       return result;
     }
+    case 'metadataRecognitionIssues':{const page=db.metadataRecognitions.issues(readRecognitionIssueRequest(params));return {...page,items:page.items.map(row=>{const item=db!.getItem(row.itemId);return {...row,title:item?.title??'已移除曲目',path:item?.path??null};})};}
     case 'metadataRecognitionDetails':return db.metadataRecognitions.details(workflowId(params)).map(row=>({...row,title:db!.getItem(row.itemId)?.title??'已移除曲目'}));
     case 'metadataRecognitionCommand':return recognition!.command(readRecognitionCommand(params));
     case 'metadataRecognitionReceipt':return recognition!.receipt(readRecognitionCommand(params));

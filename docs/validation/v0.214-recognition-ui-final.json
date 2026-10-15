@@ -1,0 +1,49 @@
+{
+  "version": "0.214.0",
+  "completed": true,
+  "scope": "actual supervised WAV/CUE/current native fingerprints, Windows owned dummy credential, Main/preload/Service/background scheduler/rendered task and review UI; only network boundary replaced; hard termination/restart; no real recognition truth/user credentials/hardware/installation proof",
+  "cases": [
+    "actual background command persists default-disabled source failure without transmitting or claiming a page",
+    "real Windows vault missing-key preflight is a durable authentication error before audio lookup",
+    "actual owned credential save clears password draft and exposes no key or automatic background transmission",
+    "leaving actual task dialogs keeps native/lookup work alive and local music search remains usable",
+    "actual pause waits for interrupted lookup and preserves prepared associations plus localized per-item attempt/error details",
+    "actual resume prepares six separate current CUE/file associations with credential-only POST, no path/audio upload or automatic recording adoption",
+    "rendered review reads already prepared association without recomputation/network, starts unselected and rejects forged page ownership",
+    "explicit association/recording/title approval atomically saves one public-ID/local-recipe plan, releases raw previews and leaves five unselected songs pending",
+    "actual offline execution and compensation retain task history without music-file changes or implicit recording identity",
+    "hard termination of actual owned main/process tree and real restart retain durable phases/plan, release page and perform no automatic external retry",
+    "explicit post-restart continuation recomputes only five pending items and cancellation preserves independent reviewed-plan compensation"
+  ],
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 34176,
+    "ownedProcesses": [
+      34176,
+      16076,
+      32828,
+      4412,
+      32960,
+      39076,
+      29440,
+      29280,
+      39072
+    ]
+  },
+  "sourceUnchanged": true,
+  "fingerprints": {
+    "src/shared/metadata-recognition.ts": "3730dc057dfa1bb93b921a90386a51b817f48dddc9c6ce52c167672b53ff6935",
+    "src/library/metadata-recognition.ts": "0a58b7c45464a4a28585336b64eadc8b5a85d6b601affe93e7968d862b08a105",
+    "src/library/metadata-recognition-manager.ts": "bc62f08897e35cc1d3b272119169371eb8190ad0157ead37661f67140779412c",
+    "src/library/service.ts": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0",
+    "src/library/database.ts": "0bd2c56918088c6bdf18ab33c6d2b51039e10b9c0827ea25eeaf89d748503203",
+    "src/main/main.ts": "b5366eb1b0384861951dc3acbe040f5956b4be2297c7f17243a52067c6a02729",
+    "src/main/preload.ts": "54be52e1020912bf9422fbdabb0fc94319d08a7cbbf5b0da008e70fde35cc9d9",
+    "src/renderer/metadata-workflow-dialog.tsx": "8a30158ea4bbfc1a4e2a2b198b9a83a264973a6e30cf48529395e481850a23eb",
+    "src/renderer/metadata-batch-dialog.tsx": "f85240a952819ee292afc9ead285f6566385996c5628969fd8dcd044ac9799eb",
+    "native/audio-host/build/fingerprint-worker.exe": "f185f688ff2a7478ed2245eba32714f1456738f8191441598fc6ab6f9f782d53",
+    "tests/electron-metadata-recognition-mvp.smoke.cjs": "7e42074a0e98c941c28ebebe56ecdf93f58efbb8474b6da55870fb749e95d36a",
+    "tests/stop-owned-workflow-electron.ps1": "3df01f3478bde67c16a206afee9a5062d9260196b37d96d910f554f6495eae9c"
+  },
+  "ownedDummyCredentialsRemoved": true
+}

@@ -1,0 +1,49 @@
+{
+  "version": "0.214.0",
+  "completed": true,
+  "scope": "actual supervised WAV/CUE/current native fingerprints, Windows owned dummy credential, Main/preload/Service/background scheduler/rendered task and review UI; 199 explicit removed-member failure fixtures plus6 actual scanned audio items;205 failure rows seeded solely for paging; only network boundary replaced; actual selected native retries and hard termination/restart; no real recognition truth/user credentials/hardware/installation proof",
+  "cases": [
+    "actual Main/Service/renderer pages205 declared failure records as100+100+5 across generations and retains selection without network or native work",
+    "explicit selection from first and final pages attempts only selected members, performs actual native lookup for the one available song and leaves cursor/metadata/plans unchanged",
+    "pause cancels the actual selected in-flight query, retains exact two-member retry intent and refuses a late response",
+    "actual owned process-tree exit/restart requires explicit continuation and computes only the two durable retry members, preserving other successes",
+    "failure record locates the actual current song file through Main into file management without starting playback or changing music",
+    "explicit all-failures retry snapshots more than100 members server-side, locates199 missing members and actually recognizes only remaining three physical songs",
+    "stale resolved selection is rejected before work with a readable localized message and original receipt reconciliation, never silently retried",
+    "saving a manually reviewed plan during paused targeted retry atomically retires that retry member and empty retry continuation does not consume the five original pending songs"
+  ],
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 30508,
+    "ownedProcesses": [
+      30508,
+      38040,
+      4028,
+      39728,
+      30636,
+      26200,
+      33196,
+      21348,
+      11716
+    ]
+  },
+  "sourceUnchanged": true,
+  "declaredSyntheticMissingMembers": 199,
+  "actualScannedAudioItems": 6,
+  "fingerprints": {
+    "src/shared/metadata-recognition.ts": "3730dc057dfa1bb93b921a90386a51b817f48dddc9c6ce52c167672b53ff6935",
+    "src/library/recognition-retry.ts": "acb88bc3ce4581753df307bec0d0b4acf5b3145d9eb74a4274df33258acb0b22",
+    "src/library/metadata-recognition.ts": "0a58b7c45464a4a28585336b64eadc8b5a85d6b601affe93e7968d862b08a105",
+    "src/library/metadata-recognition-manager.ts": "bc62f08897e35cc1d3b272119169371eb8190ad0157ead37661f67140779412c",
+    "src/library/metadata-workflow.ts": "b9df672b8a1710608ad9f11dd5b4847c88a43579feb63b59e8ceecab38618e5d",
+    "src/library/service.ts": "49cd436ba215ef33f367c596831a362d22b3a8cbaae4fccda4133d2de0a13ff0",
+    "src/main/main.ts": "b5366eb1b0384861951dc3acbe040f5956b4be2297c7f17243a52067c6a02729",
+    "src/main/preload.ts": "54be52e1020912bf9422fbdabb0fc94319d08a7cbbf5b0da008e70fde35cc9d9",
+    "src/renderer/main.tsx": "a979b587a0defb584f4ccc80ee46a65f5f52adcf38693d0b8721314ff10f5c1b",
+    "src/renderer/metadata-workflow-dialog.tsx": "8a30158ea4bbfc1a4e2a2b198b9a83a264973a6e30cf48529395e481850a23eb",
+    "src/renderer/scan-tasks.tsx": "3dd7214ac32e24e8c00b1667d6d2757c3e39cd24b54d5676cd2974ea3750adfe",
+    "src/renderer/user-error.ts": "c5caa2b96a54f4bfa167e9a5da78e65a10474676d64d17720b95c40d6ef5d8f0",
+    "tests/electron-recognition-retry-mvp.smoke.cjs": "0cccf0a756324058448ab99d7ce6a675637e0ed2b769b866e7a9d988a5f67b06"
+  },
+  "ownedDummyCredentialsRemoved": true
+}

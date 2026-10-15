@@ -1,3 +1,4 @@
+import {readBatchReviewItems} from '../shared/metadata-batch-review.js';
 import {randomUUID} from 'node:crypto';
 import type {DatabaseSync} from 'node:sqlite';
 import type {LibraryItem,MetadataBatch,MetadataBatchCreateRequest} from '../shared/contracts.js';
@@ -23,6 +24,16 @@ export class MetadataWorkflowRepository{
  recover():void{this.transaction(()=>{for(const r of this.db.prepare("SELECT id FROM metadata_workflow WHERE claim_token IS NOT NULL OR status='ready'").all() as Array<{id:string}>){this.release(r.id,'进程中断或曲库恢复；候选需重新获取');this.db.prepare("UPDATE metadata_workflow SET status='interrupted' WHERE id=? AND status='ready'").run(r.id);}});}
  releaseOwned(origin:unknown):void{const r=workflowOrigin(origin);this.transaction(()=>{if(this.raw(r.jobId).claim_token===r.claimToken)this.release(r.jobId,'后台预览已释放，需要重新获取候选');});}
  private claim(id:string,token:string):MetadataWorkflowClaim|null{const r=this.raw(id);if(r.status!=='ready'||r.claim_token!==token||!r.claim_expires||r.claim_expires<=Date.now())return null;const ids=this.db.prepare("SELECT item_id FROM metadata_workflow_item WHERE job_id=? AND status='reviewing' ORDER BY ordinal").all(id) as Array<{item_id:string}>;return {jobId:id,claimToken:token,expiresAt:r.claim_expires,items:ids.map(r=>this.item(r.item_id)).filter((v):v is LibraryItem=>Boolean(v))};}
+ claimSelected(jobId:string,rawIds:unknown):{claim:MetadataWorkflowClaim|null;rejected:string[]}{
+  const ids=readBatchReviewItems(rawIds);this.transaction(()=>this.expire());return this.transaction(()=>{
+   const job=this.raw(jobId);if(job.status!=='ready'||job.claim_token)throw new Error('任务不可领取或已有审核页');
+   for(const id of ids){const row=this.db.prepare('SELECT status FROM metadata_workflow_item WHERE job_id=? AND item_id=?').get(jobId,id);if(!row||!['pending','failed'].includes(String(row.status)))throw new Error('重试曲目已处理或不属于此任务');}
+   const token=randomUUID(),rejected:string[]=[];let size=0;
+   for(const id of ids){const valid=this.item(id)&&this.db.prepare("SELECT 1 FROM playable_item WHERE id=? AND visible=1 AND library_state='active'").get(id);if(valid)size++;else rejected.push(id);this.db.prepare('UPDATE metadata_workflow_item SET status=?,message=? WHERE job_id=? AND item_id=?').run(valid?'reviewing':'failed',valid?'':'歌曲已移除或不在当前可见曲库',jobId,id);}
+   const now=Date.now();this.db.prepare('UPDATE metadata_workflow SET claim_token=?,claim_expires=?,revision=revision+1,updated_at=? WHERE id=?').run(size?token:null,size?now+600000:null,now,jobId);
+   return {claim:size?this.claim(jobId,token):null,rejected};
+  });
+ }
  claimAfter(jobId:string,after:number):{claim:MetadataWorkflowClaim|null;through:number;done:boolean}{
   if(!Number.isSafeInteger(after)||after< -1)throw new Error('无效整库识别位置');this.transaction(()=>this.expire());
   return this.transaction(()=>{const job=this.raw(jobId);if(job.status!=='ready'||job.claim_token)throw new Error('任务不可领取或已有审核页');

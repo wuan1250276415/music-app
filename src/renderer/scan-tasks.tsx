@@ -6,7 +6,7 @@ import {MetadataWorkflowDialog} from './metadata-workflow-dialog';
 
 const status={queued:'等待中',running:'扫描中',cancelling:'等待取消确认',succeeded:'完成',failed:'失败',cancelled:'已取消',interrupted:'进程中断'};
 const phases={enumerating:'枚举目录',media:'检查音乐文件',cue:'协调 CUE',finalizing:'完成对账'};
-export function ScanTasksDialog({onClose,onWatch,onFiles,onCues}:{onClose:()=>void;onWatch:()=>void;onFiles:()=>void;onCues:()=>void}):React.JSX.Element{
+export function ScanTasksDialog({onClose,onWatch,onFiles,onCues,onLocate}:{onClose:()=>void;onWatch:()=>void;onFiles:()=>void;onCues:()=>void;onLocate?:(itemId:string)=>void}):React.JSX.Element{
  const [page,setPage]=useState<ScanJobPage|null>(null),[selected,setSelected]=useState<ScanJob|null>(null),[issues,setIssues]=useState<ScanIssuePage|null>(null);
  const [busy,setBusy]=useState(false),[pending,setPending]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState(''),[stale,setStale]=useState(false);
  const dialog=useRef<HTMLDivElement|null>(null),alive=useRef(true),working=useRef(false),attempt=useRef<ScanJobCommand|null>(null),selectedId=useRef<string|null>(null),generation=useRef(0);
@@ -38,7 +38,7 @@ export function ScanTasksDialog({onClose,onWatch,onFiles,onCues}:{onClose:()=>vo
   }catch(e){if(alive.current)setError(e instanceof Error?e.message:String(e));}finally{working.current=false;if(alive.current)setBusy(false);}
  }
  function action(value:'cancel'|'resume'):void{if(disabled||!selected)return;void submit({commandId:crypto.randomUUID(),action:value,jobId:selected.id,baseRevision:selected.revision});}
- if(metadataTasks)return <MetadataWorkflowDialog onClose={()=>setMetadataTasks(false)}/>;
+ if(metadataTasks)return <MetadataWorkflowDialog onClose={()=>setMetadataTasks(false)} onLocate={onLocate}/>;
  return <div className="collection-backdrop"><div className="collection-dialog catalog-dialog scan-tasks-dialog" ref={dialog} tabIndex={-1} role="dialog" aria-modal="true" aria-label="扫描任务中心" onKeyDown={event=>trap(event,dialog.current,onClose,disabled)}>
   <header><div><h2>扫描任务中心</h2><p>查看扫描进度、取消或继续任务，并检查异常文件。</p></div><button aria-label="关闭任务中心" disabled={disabled} onClick={onClose}>×</button></header>
   {error&&<p className="scan-task-error" role="alert">{error}</p>}{notice&&<p className="scan-task-notice" role="status">{notice}</p>}{pending&&<p role="status">操作结果尚未确认，请核对原操作后再继续。</p>}{stale&&<p role="status">任务已变化，正在等待重新读取。</p>}

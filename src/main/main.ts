@@ -1,6 +1,6 @@
 import {readFingerprintFind,readFingerprintChoice,readFingerprintToken} from '../shared/audio-fingerprint.js';
 import {readMetadataBatchOrigin} from '../shared/metadata-batch-recheck.js';
-import {readRecognitionCommand,readRecognitionResultRequest} from '../shared/metadata-recognition.js';
+import {readRecognitionCommand,readRecognitionIssueRequest,readRecognitionResultRequest} from '../shared/metadata-recognition.js';
 import {readMetadataWorkflowCommand,workflowId,readWorkflowReview} from '../shared/metadata-workflow.js';
 import {readBatchReviewItems,readBatchReviewToken} from '../shared/metadata-batch-review.js';
 import {readMetadataMatchRequest} from '../shared/metadata-match-request.js';
@@ -744,6 +744,7 @@ function registerIpc(): void {
   handleIpc('metadata:fingerprint-find',(event,request)=>{trusted(event.sender);return serviceCall('fingerprintFind',readFingerprintFind(request),1000000);});
   handleIpc('metadata:fingerprint-choose',(event,request)=>{trusted(event.sender);return serviceCall('fingerprintChoose',readFingerprintChoice(request),60000);});
   handleIpc('metadata:fingerprint-close',(event,token)=>{trusted(event.sender);return serviceCall('fingerprintClose',readFingerprintToken(token));});
+  handleIpc('metadata:recognition-issues',(event,request)=>{trusted(event.sender);return serviceCall('metadataRecognitionIssues',readRecognitionIssueRequest(request));});
   handleIpc('metadata:recognition-details',(event,id)=>{trusted(event.sender);return serviceCall('metadataRecognitionDetails',workflowId(id));});
   handleIpc('metadata:recognition-command',(event,request)=>{trusted(event.sender);return serviceCall('metadataRecognitionCommand',readRecognitionCommand(request));});
   handleIpc('metadata:recognition-receipt',(event,request)=>{trusted(event.sender);return serviceCall('metadataRecognitionReceipt',readRecognitionCommand(request));});

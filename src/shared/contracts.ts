@@ -695,6 +695,7 @@ export interface MusicApi extends ProviderManagementApi {
   fingerprintFind(request:import('./audio-fingerprint').FingerprintFindRequest):Promise<import('./audio-fingerprint').FingerprintIdentification>;
   fingerprintChoose(request:import('./audio-fingerprint').FingerprintChoiceRequest):Promise<MetadataMatchResult>;
   fingerprintClose(identificationToken:string):Promise<void>;
+  metadataRecognitionIssues(request:import('./metadata-recognition').RecognitionIssueRequest):Promise<import('./metadata-recognition').RecognitionIssuePage>;
   metadataRecognitionDetails(jobId:string):Promise<Array<{itemId:string;title:string;phase:import('./metadata-recognition').RecognitionPhase;attempts:number;code:import('./metadata-recognition').RecognitionCode}>>;
   metadataRecognitionCommand(request:import('./metadata-recognition').MetadataRecognitionCommand):Promise<import('./metadata-recognition').MetadataRecognition&{replayed?:boolean}>;
   metadataRecognitionReceipt(request:import('./metadata-recognition').MetadataRecognitionCommand):Promise<import('./metadata-recognition').MetadataRecognition|null>;

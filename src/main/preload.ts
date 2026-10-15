@@ -246,6 +246,7 @@ const api: MusicApi = {
   metadataCollection: (kind,entityId,field,cursor)=>ipcRenderer.invoke('metadata:collection',kind,entityId,field,cursor),
   editMetadataCollection: request=>ipcRenderer.invoke('metadata:collection-edit',request),
   setMetadataContact: (contact: string) => ipcRenderer.invoke('metadata:setContact',contact),
+  metadataRecognitionIssues:request=>ipcRenderer.invoke('metadata:recognition-issues',request),
   metadataRecognitionDetails:jobId=>ipcRenderer.invoke('metadata:recognition-details',jobId),
   metadataRecognitionCommand:request=>ipcRenderer.invoke('metadata:recognition-command',request),
   metadataRecognitionReceipt:request=>ipcRenderer.invoke('metadata:recognition-receipt',request),

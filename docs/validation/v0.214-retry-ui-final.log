@@ -1,0 +1,9 @@
+actual Main/Service/renderer pages205 declared failure records as100+100+5 across generations and retains selection without network or native work
+explicit selection from first and final pages attempts only selected members, performs actual native lookup for the one available song and leaves cursor/metadata/plans unchanged
+pause cancels the actual selected in-flight query, retains exact two-member retry intent and refuses a late response
+actual owned process-tree exit/restart requires explicit continuation and computes only the two durable retry members, preserving other successes
+failure record locates the actual current song file through Main into file management without starting playback or changing music
+explicit all-failures retry snapshots more than100 members server-side, locates199 missing members and actually recognizes only remaining three physical songs
+stale resolved selection is rejected before work with a readable localized message and original receipt reconciliation, never silently retried
+saving a manually reviewed plan during paused targeted retry atomically retires that retry member and empty retry continuation does not consume the five original pending songs
+{"version":"0.214.0","completed":true,"cases":8}

@@ -1,0 +1,13 @@
+three actual repository pages retain205 failures and exact cached progress with no metadata adoption
+failure cursor pagination yields100+100+5 stable ordinals across generations with no duplicate or missing member
+closed readers reject oversized selection, duplicate IDs, foreign fields, malformed cursor and scope
+frequent public progress reads use exact transactional counters and only bounded current-generation aggregation
+explicit cross-page selection snapshots only3 failed members and receipt replay cannot duplicate retry or reset cursor
+retry completion removes only attempted members; pause preserves one unfinished member and original failure cause without moving library cursor
+actual database reopen retains pending retry identity and cause, marks interrupted and requires explicit continuation
+explicit retry continuation processes only unfinished selected member and clears retry mode independently of original cursor
+injected failure after retry insertion rolls back membership, counters, state and original command receipt atomically
+explicit all-failures retry snapshots203 failures on service side without requiring all IDs in renderer
+cancel removes retry intent and preserves remaining failures without implicit metadata changes or revival
+handled-member status and retry removal/counters share the same workflow transaction and roll back together on injected failure
+{"version":"0.214.0","completed":true,"cases":16}
