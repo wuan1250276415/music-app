@@ -1,6 +1,6 @@
 {
   "appId": "dev.aural.music",
-  "appVersion": "0.214.0",
+  "appVersion": "0.215.0",
   "audioProtocol": {
     "major": 1,
     "minor": 23,
@@ -10,6 +10,6 @@
     "min": 0,
     "max": 79
   },
-  "mainBuildId": "aural-main-0.187.0",
-  "hostBuildId": "aural-native-0.187.0"
+  "mainBuildId": "aural-main-0.215.0",
+  "hostBuildId": "aural-native-0.215.0"
 }

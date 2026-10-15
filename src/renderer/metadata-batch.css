@@ -20,3 +20,9 @@
 .catalog-dialog.metadata-batch-dialog .metadata-batch-review select{box-sizing:border-box;min-width:0;font-size:12px}
 
 .metadata-batch-fingerprint{margin:12px 0;padding:12px;border:1px solid var(--aural-ink-muted);border-radius:10px}.metadata-batch-fingerprint-recording{padding:12px 0;border-top:1px solid var(--aural-ink-muted)}.metadata-batch-fingerprint small{overflow-wrap:anywhere}.metadata-batch-progress{font-size:13px;line-height:1.6;color:var(--aural-ink-muted)}
+
+.catalog-dialog.metadata-batch-dialog .metadata-recognition-records article{padding:14px 0;border-bottom:1px solid var(--aural-ink-muted)}
+.catalog-dialog.metadata-batch-dialog .metadata-recognition-records article h4{margin:0 0 8px}
+.catalog-dialog.metadata-batch-dialog .metadata-recognition-records article p{font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+.catalog-dialog.metadata-batch-dialog .metadata-recognition-records article label{display:inline-flex;flex-direction:row;align-items:center;gap:8px;margin:8px 12px 8px 0;width:auto}
+.catalog-dialog.metadata-batch-dialog .metadata-recognition-records input[type=checkbox]{width:16px;height:16px;min-width:16px;margin:0;flex:none}

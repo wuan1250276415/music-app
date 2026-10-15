@@ -6,7 +6,7 @@
     "component": {
       "type": "application",
       "name": "aural-library",
-      "version": "0.214.0",
+      "version": "0.215.0",
       "licenses": [
         {
           "license": {
@@ -3508,7 +3508,7 @@
         },
         {
           "name": "aural:directory-mover-binary-sha256",
-          "value": "639efb6c6b91605ad98c142949d4f2c17a8ec6b821a58f21f368ae6fe14a3ef8"
+          "value": "e93f9914fb940fc2bb67b7a62d1cbbbc1b4eced2ab1fb1f1ff1f3b152ac4f91b"
         },
         {
           "name": "aural:directory-cutover-status",
@@ -3912,7 +3912,7 @@
         },
         {
           "name": "aural:metadata-workflow-source-sha256:src/renderer/metadata-workflow-dialog.tsx",
-          "value": "8a30158ea4bbfc1a4e2a2b198b9a83a264973a6e30cf48529395e481850a23eb"
+          "value": "2888b7c9d99c86be20a642b6475b9293995461733f45f12e920f73a40801c451"
         },
         {
           "name": "aural:metadata-workflow-source-sha256:src/library/metadata-batches.ts",
@@ -4651,7 +4651,7 @@
         },
         {
           "name": "aural:runtime-helper-sha256",
-          "value": "f185f688ff2a7478ed2245eba32714f1456738f8191441598fc6ab6f9f782d53"
+          "value": "f4407e19e3631a3e8049db1b3c0ed5bd500b5c64a6f3813d134a3747612a4126"
         },
         {
           "name": "aural:static-library-sha256",
@@ -4695,7 +4695,7 @@
         },
         {
           "name": "aural:source-sha256:src/renderer/metadata-batch.css",
-          "value": "d67853e9a810a8312ddac331990dab8da2e573aac4a3b607b54b492ab9c3ae4b"
+          "value": "f91e1712897a76cbcf7bfccc3294c1cd1967aa8695c5832f9af7a047bb536fef"
         },
         {
           "name": "aural:source-sha256:src/library/metadata-review-cache.ts",
