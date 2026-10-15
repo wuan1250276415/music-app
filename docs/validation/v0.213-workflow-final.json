@@ -1,0 +1,34 @@
+{
+  "version": "0.213.0",
+  "completed": true,
+  "scope": "production SQLite workflow/schema migration and real backup compatibility, broker/provider with declared synthetic parsed-file/media and network fixtures; no physical100k scan, desktop, original user library or hardware proof",
+  "cases": [
+    "actual SQLite snapshots all205 visible playable items without the100-item UI selection limit",
+    "later additions do not change immutable205-item scope and foreign fields/command mutation are rejected",
+    "first page has exactly100 owned items and concurrent claim cannot evict it",
+    "pause releases unfinished row ownership without losing scope or silently planning data",
+    "explicit skip advances to nonoverlapping next100 rows, preserving immutable order",
+    "final page contains remaining five items, then explicit skip completes exact205-item task",
+    "late failure rolls back both durable plan/receipt and workflow progress in one SQLite transaction",
+    "actual reviewed plan and only selected workflow rows commit atomically, with unselected98 items pending",
+    "task marks saved plan separately from execution; offline text apply/compensation does not rewrite task history",
+    "actual reopen recovers outstanding pages as interrupted, preserving planned rows and rejecting old page token",
+    "expiry reconciliation commits independently before stale revision rejection, allowing refresh and a fresh claim",
+    "removed snapshot member becomes a located failure rather than shifting scope or aborting99 valid peers",
+    "explicit failed-row retry restores only failed items to pending after source visibility recovery",
+    "cancel finalizes only unfinished scope and prevents implicit restart",
+    "actual standalone current-schema backup passes read-only structure/domain inspector with task rows/commands and plan linkage",
+    "actual backup reopen retains immutable task range, selected plan linkage and independent compensation",
+    "constructed schema75 fixture migrates with verified pre-v76 snapshot and no fabricated jobs",
+    "actual source catalog integrity and foreign keys remain consistent"
+  ],
+  "fingerprints": {
+    "src/library/metadata-workflow.ts": "2e65a15ea8e20726b3ebec5affccd19dc52b414579de4cdb6c23185a51aed405",
+    "src/shared/metadata-workflow.ts": "c4af8e1df3f632163051b49c0f65ced4989f8abbf3727cf1fbcb821cf3edb17a",
+    "src/library/metadata-batches.ts": "37e670a555e5d95f1e4a4c3f7e340cd6f7577e8ae3032a3c5edfb79fa0b2b903",
+    "src/library/database.ts": "186cbd3fbc326db86edfab67566b50a18fab98a671d6b5ae41db8a43752aaf17",
+    "src/library/catalog-restore-compatibility.ts": "d25d2bfbd7798d0fd862c74d1c3089aeebb44c4feebae8d3b5874bf101df627f",
+    "src/shared/catalog-restore-compatibility.ts": "deef36ddc98c3f1a3ed062b4c46c403a616bebc0c88c03c93559254df8f56652",
+    "tests/metadata-workflow-mvp.smoke.cjs": "37f49fee70ca9126c10d9f2c51e7ed1c1ac8d5244ae0a9d1c1fc44b174e448c2"
+  }
+}

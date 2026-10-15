@@ -1,0 +1,14 @@
+whole-library recognition preflight refuses disabled source before native reads, external queries or page claims
+{"version":"0.213.0","completed":false,"cases":1,"scratch":"D:\\CodexTestData\\aural-recognition-ui-cxB5BK"}
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+2 !== 1
+
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-library-recognition-mvp.smoke.cjs:22:945) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 2,
+  expected: 1,
+  operator: 'strictEqual',
+  diff: 'simple'
+}

@@ -1,0 +1,48 @@
+{
+  "version": "0.213.0",
+  "completed": true,
+  "scope": "actual supervised WAV/CUE/current native fingerprints, Windows owned dummy credential, Main/preload/Service/background scheduler/rendered task and review UI; network boundary replaced; native compute entry observed and gated before invocation104; actual cross-page native processing and hard termination/restart; no real recognition truth/user credentials/hardware/installation proof",
+  "cases": [
+    "whole-library recognition preflight refuses disabled source before native reads, external queries or page claims",
+    "pause drains active work, releases page and preserves durable completed mapping while all105 songs remain unreviewed and local search stays usable",
+    "actual supervised105-song library advances automatically beyond100 without adopting metadata or holding earlier preview pages",
+    "actual owned main/process-tree crash and restart retain completed cross-page ID mappings and cursor with no automatic external retry",
+    "explicit restart continuation computes only unprocessed tail and completes105 stored mappings with no implicit recording, fields or plans",
+    "second real restart opens100 retained associations with fresh private grants and no audio recomputation, lookup, copied remote text or automatic candidate selection",
+    "physical mutation of an owned copied WAV rejects retained-ID restoration before network or recomputation while the original fixture remains unchanged",
+    "explicit current recording/field review from retained IDs saves one independent plan and offline apply/undo preserves original music and104 pending songs",
+    "explicit review-page skip advances to final4 retained songs beyond first100 without resending or recomputing and preserves original plan"
+  ],
+  "completedBeforeCrash": 102,
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 10124,
+    "ownedProcesses": [
+      10124,
+      25524,
+      32592,
+      7620,
+      3184,
+      29212,
+      8024,
+      20828,
+      30708
+    ]
+  },
+  "deliberateOwnedCopyMutation": true,
+  "sourceUnchanged": true,
+  "actualItems": 105,
+  "fingerprints": {
+    "src/shared/recognition-mapping.ts": "c352a5f4e1b49c07de24b3d246839a1defff22c2cad0525af2e281dc85a7ed0c",
+    "src/library/recognition-mapping.ts": "7cf4a070ec071663cf98bf28be9c047484aba44ca6cf86ff0a6517c92173faa6",
+    "src/library/metadata-recognition.ts": "48273e5c809350c5136afe0903272ca50e41632b0030883c8ca4160725ef2ef1",
+    "src/library/metadata-recognition-manager.ts": "a9a3462dbbd83cc6e6f6a7a4d846d131c949e0a089438e6aada30d9103f4f364",
+    "src/library/acoustid.ts": "746ef139b49aaafac3357588f3316dcf5faafcb8586a2fca2fe34765e99fbc2e",
+    "src/library/service.ts": "9d21bb5d1d05e35994ed533c870d0ced96f5c394da240a7d61425ee01718cd2b",
+    "src/library/database.ts": "186cbd3fbc326db86edfab67566b50a18fab98a671d6b5ae41db8a43752aaf17",
+    "src/renderer/metadata-workflow-dialog.tsx": "18df8190f8a564e32097eb3fbcc0858fe4084435db76c948d655807f29694202",
+    "src/renderer/metadata-batch-fingerprint.tsx": "df87dd8a114da25313d0e4d8581471ae3b9ad8e3fd06da2cdb988dedf83e1d84",
+    "tests/electron-library-recognition-mvp.smoke.cjs": "9ead12fa60bea1d833c7f7b312d35e267ad7e214638b231b0c9a8c6e583c745f"
+  },
+  "ownedDummyCredentialsRemoved": true
+}

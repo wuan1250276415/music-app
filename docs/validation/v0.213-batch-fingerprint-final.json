@@ -1,0 +1,31 @@
+{
+  "version": "0.213.0",
+  "completed": true,
+  "scope": "eight actual scanned playable items/current CUE ranges and production native fingerprint, scoped provider/broker/cache/SQLite; bounded100-row association cache uses declared synthetic item authorities with a real native summary; fixture network only, no matching truth or hardware certification",
+  "cases": [
+    "eight actual native fingerprints retain first and last associations beyond the four independent previews; no MusicBrainz auto-read or selection",
+    "closed readers and private choices reject invalid, omitted, foreign and unowned review scope",
+    "out-of-scope identification is rejected before key/transport",
+    "explicit fingerprint-selected candidates retain private batch provenance through ordinary400-token eviction",
+    "closing owner releases all fingerprint associations and retained candidates without touching durable reviewed plan",
+    "two reviewed fingerprint mappings survive offline apply/compensation without recording identity or original audio changes",
+    "successful re-identification replaces only its row; foreign row and earlier batch remain intact",
+    "closing/canceling live lookup drops late response and all scoped associations",
+    "authoritative owner expiry invalidates associations even before their remote response expiry",
+    "changed recording authority prevents stale batch association selection",
+    "bounded100-row cache accepts and retains all100 explicit associations using declared synthetic authorities and actual native summary",
+    "fifth association scope is rejected rather than evicting reviewed rows",
+    "independent four-preview budget remains separate from scoped batch capacity",
+    "actual large parsed association responses enforce16MiB aggregate budget without evicting completed rows",
+    "SQLite integrity and user-independent source audio preserved"
+  ],
+  "sourceUnchanged": true,
+  "fingerprints": {
+    "src/shared/audio-fingerprint.ts": "64a0a93a8f5ecb559c5b5a316c6d4113e7ec2c295c1c2152760202de940d191f",
+    "src/library/acoustid.ts": "746ef139b49aaafac3357588f3316dcf5faafcb8586a2fca2fe34765e99fbc2e",
+    "src/library/musicbrainz.ts": "f7ae6fd5c515bce2b20e7bb91add0b8a4e6307770e350caa20e48a724d6a32f0",
+    "src/library/metadata-review-cache.ts": "25f1eae1bfd6b5881ce55c46b9ed0ca34cad9f1a053c4b207678bc6a096af8f1",
+    "native/audio-host/build/fingerprint-worker.exe": "f185f688ff2a7478ed2245eba32714f1456738f8191441598fc6ab6f9f782d53",
+    "tests/metadata-batch-fingerprint-mvp.smoke.cjs": "2a0b952ecafbd6218d32cb6e87cef0c79784803ba4d65c62bcc606b36853ece5"
+  }
+}

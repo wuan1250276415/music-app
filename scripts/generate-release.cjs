@@ -11,7 +11,7 @@ if(!Number.isSafeInteger(p.major)||p.major<1||!Number.isSafeInteger(p.minor)||p.
   !Number.isSafeInteger(p.maxMessageBytes)||p.maxMessageBytes<1024||p.maxMessageBytes>1048576)
   throw new Error('invalid audio protocol manifest');
 const s=manifest.librarySchema;
-if(!Number.isSafeInteger(s?.min)||!Number.isSafeInteger(s?.max)||s.min!==0||s.max!==77)
+if(!Number.isSafeInteger(s?.min)||!Number.isSafeInteger(s?.max)||s.min!==0||s.max!==78)
   throw new Error('invalid library schema range');
 for(const key of ['mainBuildId','hostBuildId'])if(typeof manifest[key]!=='string'||!/^[a-z0-9.-]+$/.test(manifest[key]))
   throw new Error(`invalid ${key}`);

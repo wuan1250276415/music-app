@@ -2,7 +2,7 @@ import type {LibraryItem} from './contracts';
 export const FINGERPRINT_RECIPE='chromaprint-1.6.1-default-f32-s16-120s-v1';
 export interface AudioFingerprintSummary {version:1;algorithm:typeof FINGERPRINT_RECIPE;libraryVersion:'1.6.1';algorithmId:number;sha256:string;sampleRate:number;channels:number;startFrame:string;endFrame:string;sampledFrames:string;durationSeconds:number;sampledSeconds:number;rangeKind:'file'|'sample-span'|'cue-frame'|'seconds';fingerprint:string;rawWords:number;decoder:{backend:string;codec:string}}
 export interface FingerprintRecording {acoustidId:string;recordingId:string;title:string|null;artists:string[];score:number;durationSeconds:number|null}
-export interface FingerprintIdentification {itemId:string;requestId:string;identificationToken:string;fingerprint:string;expiresAt:string;fetchedAt:string;cacheHit:boolean;summary:Omit<AudioFingerprintSummary,'fingerprint'|'sha256'|'rawWords'>;recordings:FingerprintRecording[]}
+export interface FingerprintIdentification {restoredFromIds?:true;itemId:string;requestId:string;identificationToken:string;fingerprint:string;expiresAt:string;fetchedAt:string;cacheHit:boolean;summary:Omit<AudioFingerprintSummary,'fingerprint'|'sha256'|'rawWords'>;recordings:FingerprintRecording[]}
 export interface FingerprintFindRequest {itemId:string;requestId:string;fresh?:boolean;reviewToken?:string}
 export interface FingerprintChoiceRequest {identificationToken:string;recordingId:string;requestId:string;reviewToken?:string}
 const uuid=/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i,decimal=(v:unknown):v is string=>typeof v==='string'&&/^(0|[1-9][0-9]{0,15})$/.test(v)&&BigInt(v)<=9007199254740991n;

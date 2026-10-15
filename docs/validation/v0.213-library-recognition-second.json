@@ -1,0 +1,10 @@
+{
+  "version": "0.213.0",
+  "completed": false,
+  "scope": "actual supervised WAV/CUE/current native fingerprints, Windows owned dummy credential, Main/preload/Service/background scheduler/rendered task and review UI; network boundary replaced; native compute entry observed and gated before invocation104; actual cross-page native processing and hard termination/restart; no real recognition truth/user credentials/hardware/installation proof",
+  "cases": [
+    "whole-library recognition preflight refuses disabled source before native reads, external queries or page claims",
+    "pause drains active work, releases page and preserves durable completed mapping while all105 songs remain unreviewed and local search stays usable"
+  ],
+  "ownedDummyCredentialsRemoved": true
+}

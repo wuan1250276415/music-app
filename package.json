@@ -1,7 +1,7 @@
 {
   "name": "aural-library",
   "private": true,
-  "version": "0.212.0",
+  "version": "0.213.0",
   "description": "Local-first desktop music library prototype",
   "license": "GPL-3.0-only",
   "main": "dist/main/main/main.js",
@@ -60,6 +60,7 @@
     "test:fingerprint-mvp": "npm run build && npm run build:native && node tests/audio-fingerprint-mvp.smoke.cjs && node tests/electron-fingerprint-mvp.smoke.cjs",
     "test:fingerprint-flac-reference": "node tests/audio-fingerprint-flac-reference.smoke.cjs",
     "test:batch-fingerprint-mvp": "npm run build && npm run build:native && node tests/metadata-batch-fingerprint-mvp.smoke.cjs && node tests/electron-batch-fingerprint-mvp.smoke.cjs",
+    "test:library-recognition-mvp": "npm run build && npm run build:native && node tests/recognition-mapping-mvp.smoke.cjs && node tests/electron-library-recognition-mvp.smoke.cjs",
     "test:metadata-recognition-mvp": "npm run build && npm run build:native && node tests/metadata-recognition-mvp.smoke.cjs && node tests/electron-metadata-recognition-mvp.smoke.cjs",
     "test:metadata-workflow-mvp": "npm run build && npm run build:native && node tests/metadata-workflow-mvp.smoke.cjs && node tests/electron-metadata-workflow-mvp.smoke.cjs"
   },
