@@ -1,0 +1,11 @@
+{"version":"0.211.0","completed":false,"cases":0,"scratch":"D:\\CodexTestData\\aural-workflow-ui-fOvLiN"}
+locator.click: Timeout 15000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: '任务中心', exact: true })
+
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-metadata-workflow-mvp.smoke.cjs:14:78) {
+  log: [
+    "  - waiting for getByRole('button', { name: '任务中心', exact: true })"
+  ],
+  name: 'TimeoutError'
+}

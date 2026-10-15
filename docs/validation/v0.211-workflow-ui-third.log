@@ -1,0 +1,74 @@
+actual task center creates a persistent105-file whole-library snapshot independently of loaded UI selection
+actual stale revision rejection remains reviewable; read-only receipt reconciliation clears uncommitted action and allows explicit resume
+actual first100-item page starts without network/candidates; explicit scope checkbox advances skipped page without metadata edits
+actual last5-item page explicit lookup/candidate/title selection atomically saves one plan and leaves four pending without executing it
+actual offline execution/undo preserves source files and maintains separate task planned state
+actual Main/Service task pause cancels owned live metadata request and invalidates its memory review lease before late response
+{"version":"0.211.0","completed":false,"cases":6,"scratch":"D:\\CodexTestData\\aural-workflow-ui-3tEv2r"}
+electron.launch: Target page, context or browser has been closed
+Browser logs:
+
+<launching> "C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\node_modules\electron\dist\electron.exe" "--inspect=0" "--remote-debugging-port=0" "D:\CodexTestData\aural-workflow-ui-3tEv2r\main-fixture.cjs" 
+<launched> pid=40640
+[pid=40640][out] 
+[pid=40640][err] Debugger listening on ws://127.0.0.1:58328/2e9b8866-0bbb-4cb0-9295-a439c5033c63
+[pid=40640][err] For help, see: https://nodejs.org/learn/getting-started/debugging
+[pid=40640][err] Debugger attached.
+[pid=40640][err] 
+[pid=40640][err] DevTools listening on ws://127.0.0.1:58330/devtools/browser/fb863654-ccb2-43c3-ad62-fe1c2f5abd78
+[pid=40640][err] [24388:1015/084051.994:ERROR:net\disk_cache\cache_util_win.cc:25] Unable to move the cache: 拒绝访问。 (0x5)
+[pid=40640][err] [24388:1015/084051.995:ERROR:net\disk_cache\disk_cache.cc:290] Unable to create cache
+[pid=40640][err] [24388:1015/084051.995:ERROR:gpu\ipc\host\gpu_disk_cache.cc:737] Gpu Cache Creation failed: -2
+Call log:
+  - <launching> "C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\node_modules\electron\dist\electron.exe" "--inspect=0" "--remote-debugging-port=0" "D:\CodexTestData\aural-workflow-ui-3tEv2r\main-fixture.cjs"
+  - <launched> pid=40640
+  - [pid=40640][out]
+  - [pid=40640][err] Debugger listening on ws://127.0.0.1:58328/2e9b8866-0bbb-4cb0-9295-a439c5033c63
+  - [pid=40640][err] For help, see: https://nodejs.org/learn/getting-started/debugging
+  - <ws connecting> ws://127.0.0.1:58328/2e9b8866-0bbb-4cb0-9295-a439c5033c63
+  - <ws connected> ws://127.0.0.1:58328/2e9b8866-0bbb-4cb0-9295-a439c5033c63
+  - [pid=40640][err] Debugger attached.
+  - [pid=40640][err]
+  - [pid=40640][err] DevTools listening on ws://127.0.0.1:58330/devtools/browser/fb863654-ccb2-43c3-ad62-fe1c2f5abd78
+  - <ws connecting> ws://127.0.0.1:58330/devtools/browser/fb863654-ccb2-43c3-ad62-fe1c2f5abd78
+  - [pid=40640][err] [24388:1015/084051.994:ERROR:net\disk_cache\cache_util_win.cc:25] Unable to move the cache: 拒绝访问。 (0x5)
+  - [pid=40640][err] [24388:1015/084051.995:ERROR:net\disk_cache\disk_cache.cc:290] Unable to create cache
+  - [pid=40640][err] [24388:1015/084051.995:ERROR:gpu\ipc\host\gpu_disk_cache.cc:737] Gpu Cache Creation failed: -2
+  - <ws connected> ws://127.0.0.1:58330/devtools/browser/fb863654-ccb2-43c3-ad62-fe1c2f5abd78
+  - <ws disconnected> ws://127.0.0.1:58328/2e9b8866-0bbb-4cb0-9295-a439c5033c63 code=1005 reason=
+  - <ws disconnected> ws://127.0.0.1:58330/devtools/browser/fb863654-ccb2-43c3-ad62-fe1c2f5abd78 code=1006 reason=
+  - [pid=40640] <kill>
+  - [pid=40640] <will force kill>
+  - [pid=40640] taskkill stderr: ERROR: The process "40640" not found.
+  - [pid=40640] <process did exit: exitCode=0, signal=null>
+  - [pid=40640] starting temporary directories cleanup
+  - [pid=40640] finished temporary directories cleanup
+
+    at async launch (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-metadata-workflow-mvp.smoke.cjs:8:35)
+    at async main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-metadata-workflow-mvp.smoke.cjs:20:394) {
+  log: [
+    '  - <launching> "C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\node_modules\\electron\\dist\\electron.exe" "--inspect=0" "--remote-debugging-port=0" "D:\\CodexTestData\\aural-workflow-ui-3tEv2r\\main-fixture.cjs"',
+    '  - <launched> pid=40640',
+    '  - [pid=40640][out]',
+    '  - [pid=40640][err] Debugger listening on ws://127.0.0.1:58328/2e9b8866-0bbb-4cb0-9295-a439c5033c63',
+    '  - [pid=40640][err] For help, see: https://nodejs.org/learn/getting-started/debugging',
+    '  - <ws connecting> ws://127.0.0.1:58328/2e9b8866-0bbb-4cb0-9295-a439c5033c63',
+    '  - <ws connected> ws://127.0.0.1:58328/2e9b8866-0bbb-4cb0-9295-a439c5033c63',
+    '  - [pid=40640][err] Debugger attached.',
+    '  - [pid=40640][err]',
+    '  - [pid=40640][err] DevTools listening on ws://127.0.0.1:58330/devtools/browser/fb863654-ccb2-43c3-ad62-fe1c2f5abd78',
+    '  - <ws connecting> ws://127.0.0.1:58330/devtools/browser/fb863654-ccb2-43c3-ad62-fe1c2f5abd78',
+    '  - [pid=40640][err] [24388:1015/084051.994:ERROR:net\\disk_cache\\cache_util_win.cc:25] Unable to move the cache: 拒绝访问。 (0x5)',
+    '  - [pid=40640][err] [24388:1015/084051.995:ERROR:net\\disk_cache\\disk_cache.cc:290] Unable to create cache',
+    '  - [pid=40640][err] [24388:1015/084051.995:ERROR:gpu\\ipc\\host\\gpu_disk_cache.cc:737] Gpu Cache Creation failed: -2',
+    '  - <ws connected> ws://127.0.0.1:58330/devtools/browser/fb863654-ccb2-43c3-ad62-fe1c2f5abd78',
+    '  - <ws disconnected> ws://127.0.0.1:58328/2e9b8866-0bbb-4cb0-9295-a439c5033c63 code=1005 reason=',
+    '  - <ws disconnected> ws://127.0.0.1:58330/devtools/browser/fb863654-ccb2-43c3-ad62-fe1c2f5abd78 code=1006 reason=',
+    '  - [pid=40640] <kill>',
+    '  - [pid=40640] <will force kill>',
+    '  - [pid=40640] taskkill stderr: ERROR: The process "40640" not found.',
+    '  - [pid=40640] <process did exit: exitCode=0, signal=null>',
+    '  - [pid=40640] starting temporary directories cleanup',
+    '  - [pid=40640] finished temporary directories cleanup'
+  ]
+}

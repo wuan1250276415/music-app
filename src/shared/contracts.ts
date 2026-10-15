@@ -375,7 +375,7 @@ export interface MetadataMatchResult {
   fingerprint?:string;
 }
 
-export interface MetadataBatchCreateRequest {retryOf?:import('./metadata-batch-recheck').MetadataBatchOrigin;commandId:string;title:string;entries:Array<MetadataApplyRequest&{fingerprint:string}>}
+export interface MetadataBatchCreateRequest {workflow?:import('./metadata-workflow').MetadataWorkflowOrigin;retryOf?:import('./metadata-batch-recheck').MetadataBatchOrigin;commandId:string;title:string;entries:Array<MetadataApplyRequest&{fingerprint:string}>}
 export type MetadataBatchOutcome='pending'|'applied'|'conflict'|'failed'|'expired'|'skipped'|'undone'|'undo_conflict';
 export interface MetadataBatchRow {edition?:import('./metadata-batch-recheck').MetadataBatchEdition;fetchedAt?:string;fieldSourceUrls?:Partial<Record<MetadataField,string>>;lookup?:Omit<import('./metadata-batch-review').MetadataBatchLookup,'sourceFingerprint'|'version'>;albumContext?:import('./metadata-album-review').MetadataAlbumBinding;ordinal:number;itemId:string;before:Record<MetadataField,string>;values:Partial<Record<MetadataField,string>>;fields:MetadataField[];expiresAt:string;sourceUrl:string;outcome:MetadataBatchOutcome;result:MetadataChangeResult|null;undoResult?:MetadataChangeResult|null;error:string|null}
 export interface MetadataBatchSummary {id:string;title:string;createdAt:string;revision:number;status:'ready'|'paused'|'completed'|'cancelled';total:number;counts:Partial<Record<MetadataBatchOutcome,number>>}
@@ -695,7 +695,12 @@ export interface MusicApi extends ProviderManagementApi {
   fingerprintFind(request:import('./audio-fingerprint').FingerprintFindRequest):Promise<import('./audio-fingerprint').FingerprintIdentification>;
   fingerprintChoose(request:import('./audio-fingerprint').FingerprintChoiceRequest):Promise<MetadataMatchResult>;
   fingerprintClose(identificationToken:string):Promise<void>;
-  metadataBatchReviewStart(itemIds:string[]):Promise<import('./metadata-batch-review').MetadataBatchReviewLease>;
+  metadataWorkflow(jobId:string):Promise<import('./metadata-workflow').MetadataWorkflow>;
+  metadataWorkflowReceipt(request:import('./metadata-workflow').MetadataWorkflowCommand):Promise<import('./metadata-workflow').MetadataWorkflowResult|null>;
+  metadataWorkflows(before?:number):Promise<{items:import('./metadata-workflow').MetadataWorkflow[];nextCursor:number|null}>;
+  metadataWorkflowCommand(request:import('./metadata-workflow').MetadataWorkflowCommand):Promise<import('./metadata-workflow').MetadataWorkflowResult>;
+  metadataWorkflowIssues(jobId:string,after?:number):Promise<{items:Array<{ordinal:number;itemId:string;status:string;message:string;batchId:string|null}>;nextCursor:number|null}>;
+  metadataBatchReviewStart(itemIds:string[],workflow?:import('./metadata-workflow').MetadataWorkflowOrigin):Promise<import('./metadata-batch-review').MetadataBatchReviewLease>;
   metadataBatchReviewStatus(reviewToken:string):Promise<import('./metadata-batch-review').MetadataBatchReviewStatus>;
   metadataBatchReviewClose(reviewToken:string):Promise<void>;
   metadataMatch(id:string,requestId?:string,fresh?:boolean,recordingId?:string,isrc?:string,reviewToken?:string):Promise<MetadataMatchResult>;

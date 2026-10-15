@@ -1,0 +1,8 @@
+eight actual native fingerprints retain first and last associations beyond the four independent previews; no MusicBrainz auto-read or selection
+closed readers and private choices reject invalid, omitted, foreign and unowned review scope
+explicit fingerprint-selected candidates retain private batch provenance through ordinary400-token eviction
+closing owner releases all fingerprint associations and retained candidates without touching durable reviewed plan
+two reviewed fingerprint mappings survive offline apply/compensation without recording identity or original audio changes
+successful re-identification replaces only its row; foreign row and earlier batch remain intact
+bounded100-row cache accepts and retains all100 explicit associations using declared synthetic authorities and actual native summary
+{"version":"0.211.0","completed":true,"cases":15}

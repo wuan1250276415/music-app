@@ -1,3 +1,4 @@
+import {MetadataWorkflowRepository,metadataWorkflowSchema} from './metadata-workflow.js';
 import {localISRCs} from '../shared/isrc.js';
 import {clearSqlStatements,sqlStatement} from './sql-statements.js';
 import {CatalogRestorePolicyRepository} from './catalog-restore-policy.js';
@@ -183,6 +184,7 @@ export class LibraryDatabase {
   readonly lyricsPreferences:LyricsPreferenceRepository;
   readonly lyricsDocuments:LyricsDocumentRepository;
   readonly scanJobs:ScanJobRepository;
+  readonly metadataWorkflows:MetadataWorkflowRepository;
   readonly libraryWatch:LibraryWatchStore;
   readonly cueSources:CueSourceHistory;
   readonly embeddedCueSources:EmbeddedCueHistory;
@@ -229,8 +231,8 @@ export class LibraryDatabase {
     this.db.function('aural_cue_path_key_v1',{deterministic:true},value=>{if(typeof value!=='string')throw new Error('CUE 路径索引无效');return cuePathKey(value);});
     this.catalog=new CatalogRepository(this.db);
     try{
-      if(options.restoreDormant){this.db.exec('PRAGMA query_only=ON; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=2000;');if(Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==75)throw new Error('恢复只读启动不允许创建或迁移曲库');}
-      else if(options.restoreWritablePaused||options.restoreNormalPaused){this.db.exec('PRAGMA foreign_keys=ON; PRAGMA synchronous=FULL; PRAGMA busy_timeout=2000;');if(Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==75||(this.db.prepare('PRAGMA journal_mode').get() as {journal_mode:string}).journal_mode!=='delete')throw new Error('恢复可写暂停连接要求现有schema75和DELETE日志，禁止创建或迁移');}
+      if(options.restoreDormant){this.db.exec('PRAGMA query_only=ON; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=2000;');if(Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==76)throw new Error('恢复只读启动不允许创建或迁移曲库');}
+      else if(options.restoreWritablePaused||options.restoreNormalPaused){this.db.exec('PRAGMA foreign_keys=ON; PRAGMA synchronous=FULL; PRAGMA busy_timeout=2000;');if(Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==76||(this.db.prepare('PRAGMA journal_mode').get() as {journal_mode:string}).journal_mode!=='delete')throw new Error('恢复可写暂停连接要求现有schema76和DELETE日志，禁止创建或迁移');}
       else{this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=2000;');this.migrate(options.startupProgress);clearSqlStatements(this.db);}
       this.restorePolicy=new CatalogRestorePolicyRepository(this.db,action=>this.transaction(action));this.restorePolicy.load();
       this.artworkStore=new ArtworkStore(this.db,action=>this.transaction(action));
@@ -282,6 +284,8 @@ export class LibraryDatabase {
         apply:(id,revision,candidate,fields)=>this.applyMetadataInTransaction(id,revision,candidate,fields),
         undo:id=>this.metadataUndo.eligibleInTransaction(id)
       });
+      this.metadataWorkflows=new MetadataWorkflowRepository(this.db,action=>this.transaction(action),id=>this.getItem(id));
+      if(!options.restoreDormant&&!options.restoreWritablePaused&&!options.restoreNormalPaused)this.metadataWorkflows.recover();
       this.metadataAlbums=new MetadataAlbumReviewRepository({snapshot:id=>this.metadataAlbumSnapshot(id),retention:()=>this.requireMetadataRetention(),receipt:r=>this.metadataBatches.albumCreationReceipt(r),create:(r,c,identity)=>this.metadataBatches.createFromAlbum(r,c,identity)});
       this.metadataIdentities=new MetadataIdentityRepository(this.metadataAlbums,this.references);
       this.metadataGroupLinks=new MetadataGroupLinkRepository(this.db,this.metadataAlbums,this.references,this.catalog,id=>this.refreshEffectiveSearch(id));
@@ -299,17 +303,17 @@ export class LibraryDatabase {
 
   prepareRestoreNormal():void{
     if(!this.restoreNormalCandidate||this.restoreNormalPrepared||!this.searchIndex||this.db.isTransaction)throw new Error('普通服务准备不属于当前暂停连接或已经执行');
-    this.searchIndex.prepareAlgorithm();this.tagWriteJobs.recoverInterrupted();this.scanJobs.recover();this.waveforms.interrupted();this.restoreNormalPrepared=true;
+    this.searchIndex.prepareAlgorithm();this.tagWriteJobs.recoverInterrupted();this.scanJobs.recover();this.metadataWorkflows.recover();this.waveforms.interrupted();this.restoreNormalPrepared=true;
   }
   assertRestoreWalReady():void{
-    if(!this.restoreNormalCandidate||!this.restoreWalPrepared||this.db.isTransaction||Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==75||(this.db.prepare('PRAGMA journal_mode').get() as {journal_mode:string}).journal_mode!=='wal'||Number((this.db.prepare('PRAGMA foreign_keys').get() as {foreign_keys:number}).foreign_keys)!==1||Number((this.db.prepare('PRAGMA synchronous').get() as {synchronous:number}).synchronous)!==2)throw new Error('恢复曲库释放前连接已改变或未完成WAL准备');
+    if(!this.restoreNormalCandidate||!this.restoreWalPrepared||this.db.isTransaction||Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==76||(this.db.prepare('PRAGMA journal_mode').get() as {journal_mode:string}).journal_mode!=='wal'||Number((this.db.prepare('PRAGMA foreign_keys').get() as {foreign_keys:number}).foreign_keys)!==1||Number((this.db.prepare('PRAGMA synchronous').get() as {synchronous:number}).synchronous)!==2)throw new Error('恢复曲库释放前连接已改变或未完成WAL准备');
   }
-  prepareRestoreWal():{schema:75;journalMode:'wal';foreignKeys:true;synchronous:2;integrity:'ok';foreignKeyViolations:0}{
+  prepareRestoreWal():{schema:76;journalMode:'wal';foreignKeys:true;synchronous:2;integrity:'ok';foreignKeyViolations:0}{
     if(!this.restoreNormalCandidate||this.restoreWalPrepared||this.db.isTransaction)throw new Error('恢复WAL转换不属于当前暂停连接或已执行');
     const before=this.db.prepare('PRAGMA journal_mode').get() as {journal_mode:string};if(before.journal_mode!=='delete')throw new Error('恢复WAL转换前日志模式不同');
     const mode=this.db.prepare('PRAGMA journal_mode=WAL').get() as {journal_mode:string},schema=this.db.prepare('PRAGMA user_version').get() as {user_version:number},foreign=this.db.prepare('PRAGMA foreign_keys').get() as {foreign_keys:number},sync=this.db.prepare('PRAGMA synchronous').get() as {synchronous:number},integrity=this.db.prepare('PRAGMA integrity_check(1)').get() as {integrity_check:string};
-    if(mode.journal_mode!=='wal'||schema.user_version!==75||foreign.foreign_keys!==1||sync.synchronous!==2||integrity.integrity_check!=='ok'||this.db.prepare('PRAGMA foreign_key_check').get())throw new Error('恢复WAL连接、完整性或外键未确认');this.restoreWalPrepared=true;
-    return {schema:75,journalMode:'wal',foreignKeys:true,synchronous:2,integrity:'ok',foreignKeyViolations:0};
+    if(mode.journal_mode!=='wal'||schema.user_version!==76||foreign.foreign_keys!==1||sync.synchronous!==2||integrity.integrity_check!=='ok'||this.db.prepare('PRAGMA foreign_key_check').get())throw new Error('恢复WAL连接、完整性或外键未确认');this.restoreWalPrepared=true;
+    return {schema:76,journalMode:'wal',foreignKeys:true,synchronous:2,integrity:'ok',foreignKeyViolations:0};
   }
   close(): void {this.releaseFields?.clear();this.metadataAlbums?.clear();this.metadataIdentities?.clear();this.metadataGroupLinks?.clear();this.metadataAlbumCredits?.clear();clearSqlStatements(this.db);this.db.close();}
   catalogMetadata():import('./catalog-backup-database.js').BackupDatabaseMetadata{return sourceMetadata(this.db);}
@@ -325,8 +329,8 @@ export class LibraryDatabase {
 
   private migrate(progress?:(phase:LibraryStartupPhase)=>void): void {
     const version = Number((this.db.prepare('PRAGMA user_version').get() as { user_version: number }).user_version);
-    if (version > 75) throw new Error(`数据库版本 ${version} 高于当前应用支持版本`);
-    if (version === 75) return;
+    if (version > 76) throw new Error(`数据库版本 ${version} 高于当前应用支持版本`);
+    if (version === 76) return;
     if(version<6){
     if (version === 0) this.db.exec(`
       BEGIN;
@@ -851,6 +855,7 @@ export class LibraryDatabase {
       const counts=snapshotQueryIndexUpgrade(this.db,this.filename,version===74,progress,{from:74,to:75});
       this.transaction(()=>{migrateReleaseTrackReferences(this.db);verifyQueryIndexUpgrade(this.db,counts);this.db.exec('PRAGMA user_version=75');});
     }
+    if(version<76){const counts=snapshotQueryIndexUpgrade(this.db,this.filename,version===75,progress,{from:75,to:76});this.transaction(()=>{this.db.exec(metadataWorkflowSchema);verifyQueryIndexUpgrade(this.db,counts);this.db.exec('PRAGMA user_version=76');});}
   }
 
   private transaction<T>(action: () => T): T {

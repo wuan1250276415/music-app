@@ -1,0 +1,13 @@
+actual SQLite snapshots all205 visible playable items without the100-item UI selection limit
+later additions do not change immutable205-item scope and foreign fields/command mutation are rejected
+first page has exactly100 owned items and concurrent claim cannot evict it
+pause releases unfinished row ownership without losing scope or silently planning data
+explicit skip advances to nonoverlapping next100 rows, preserving immutable order
+final page contains remaining five items, then explicit skip completes exact205-item task
+late failure rolls back both durable plan/receipt and workflow progress in one SQLite transaction
+actual reviewed plan and only selected workflow rows commit atomically, with unselected98 items pending
+task marks saved plan separately from execution; offline text apply/compensation does not rewrite task history
+actual reopen recovers outstanding pages as interrupted, preserving planned rows and rejecting old page token
+expiry reconciliation commits independently before stale revision rejection, allowing refresh and a fresh claim
+removed snapshot member becomes a located failure rather than shifting scope or aborting99 valid peers
+{"version":"0.211.0","completed":true,"cases":18}

@@ -1,0 +1,10 @@
+actual supervised CUE scan and native worker measure EOF, preserve0/10/40/70 boundaries and generate separate current-track fingerprints
+CUE current-segment fingerprint agrees with independently cropped physical PCM file, without image-wide substitution
+closed request readers reject arbitrary audio paths, supplied fingerprints and foreign recording choices
+production broker posts only client/fingerprint/whole virtual-track duration; no path/audio/cookies/redirect, and secret buffers are cleared
+all scoped recordings are explicit preview choices; returned mutation cannot forge additional private choices
+explicit authorized fingerprint choice reads MusicBrainz recording; it retains fingerprint evidence and separate unconfirmed edition identity
+parser rejects duplicate/invalid/over-budget identities, invalid scores and server errors without leaking response messages
+persistent plan stores only public-domain ID mapping and local algorithm basis; offline text apply/compensation does not establish identity
+recording source changes invalidate prior fingerprint authority even if the audio is unchanged
+{"version":"0.211.0","completed":true,"cases":18}

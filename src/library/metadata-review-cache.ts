@@ -6,7 +6,7 @@ type Lease={expires:number;bytes:number;rows:Map<string,Row>};
 export class MetadataReviewCache {
  private readonly leases=new Map<string,Lease>();private readonly entries=new Map<string,MusicBrainzEntry>();
  constructor(private readonly authority:(id:string)=>string|null,private readonly metadata:(id:string)=>string|null){}
- start(raw:unknown):MetadataBatchReviewLease {this.prune();const ids=readBatchReviewItems(raw);if(this.leases.size>=4)throw new Error('批量预览会话已达到4份，请先关闭其他审核');const token=randomUUID(),expires=Date.now()+600000;this.leases.set(token,{expires,bytes:0,rows:new Map(ids.map(id=>[id,{tokens:[],authority:null,metadata:null,expired:false}]))});return {reviewToken:token,expiresAt:new Date(expires).toISOString()};}
+ start(raw:unknown,deadline?:number):MetadataBatchReviewLease {this.prune();const ids=readBatchReviewItems(raw);if(this.leases.size>=4)throw new Error('批量预览会话已达到4份，请先关闭其他审核');const token=randomUUID(),expires=Math.min(Date.now()+600000,deadline??Infinity);if(!Number.isFinite(expires)||expires<=Date.now())throw new Error('批量预览期限无效');this.leases.set(token,{expires,bytes:0,rows:new Map(ids.map(id=>[id,{tokens:[],authority:null,metadata:null,expired:false}]))});return {reviewToken:token,expiresAt:new Date(expires).toISOString()};}
  check(raw:unknown,itemId?:string):Lease {this.prune();const token=readBatchReviewToken(raw),lease=this.leases.get(token);if(!lease||itemId!==undefined&&!lease.rows.has(itemId))throw new Error('批量预览已过期、关闭或不包含该歌曲，请重新查询');return lease;}
  get(token:string):MusicBrainzEntry|undefined {return this.entries.get(token);}
  private size(entries:MusicBrainzEntry[]):number{return entries.length?Buffer.byteLength(JSON.stringify(entries)):0;}

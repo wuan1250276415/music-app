@@ -2,6 +2,7 @@ import React,{useEffect,useRef,useState} from 'react';
 import type {ScanJob,ScanJobPage,ScanJobCommand,ScanIssuePage} from '../shared/contracts';
 import {useFocus,trap} from './dialog-focus';
 import './scan-tasks.css';
+import {MetadataWorkflowDialog} from './metadata-workflow-dialog';
 
 const status={queued:'等待中',running:'扫描中',cancelling:'等待取消确认',succeeded:'完成',failed:'失败',cancelled:'已取消',interrupted:'进程中断'};
 const phases={enumerating:'枚举目录',media:'检查音乐文件',cue:'协调 CUE',finalizing:'完成对账'};
@@ -9,6 +10,7 @@ export function ScanTasksDialog({onClose,onWatch,onFiles,onCues}:{onClose:()=>vo
  const [page,setPage]=useState<ScanJobPage|null>(null),[selected,setSelected]=useState<ScanJob|null>(null),[issues,setIssues]=useState<ScanIssuePage|null>(null);
  const [busy,setBusy]=useState(false),[pending,setPending]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState(''),[stale,setStale]=useState(false);
  const dialog=useRef<HTMLDivElement|null>(null),alive=useRef(true),working=useRef(false),attempt=useRef<ScanJobCommand|null>(null),selectedId=useRef<string|null>(null),generation=useRef(0);
+ const [metadataTasks,setMetadataTasks]=useState(false);
  const disabled=busy||pending;useFocus(dialog);
  useEffect(()=>{if(busy&&document.activeElement?.matches(':disabled'))dialog.current?.focus();},[busy]);
  async function refresh():Promise<void>{
@@ -36,6 +38,7 @@ export function ScanTasksDialog({onClose,onWatch,onFiles,onCues}:{onClose:()=>vo
   }catch(e){if(alive.current)setError(e instanceof Error?e.message:String(e));}finally{working.current=false;if(alive.current)setBusy(false);}
  }
  function action(value:'cancel'|'resume'):void{if(disabled||!selected)return;void submit({commandId:crypto.randomUUID(),action:value,jobId:selected.id,baseRevision:selected.revision});}
+ if(metadataTasks)return <MetadataWorkflowDialog onClose={()=>setMetadataTasks(false)}/>;
  return <div className="collection-backdrop"><div className="collection-dialog catalog-dialog scan-tasks-dialog" ref={dialog} tabIndex={-1} role="dialog" aria-modal="true" aria-label="扫描任务中心" onKeyDown={event=>trap(event,dialog.current,onClose,disabled)}>
   <header><div><h2>扫描任务中心</h2><p>查看扫描进度、取消或继续任务，并检查异常文件。</p></div><button aria-label="关闭任务中心" disabled={disabled} onClick={onClose}>×</button></header>
   {error&&<p className="scan-task-error" role="alert">{error}</p>}{notice&&<p className="scan-task-notice" role="status">{notice}</p>}{pending&&<p role="status">操作结果尚未确认，请核对原操作后再继续。</p>}{stale&&<p role="status">任务已变化，正在等待重新读取。</p>}
@@ -49,6 +52,6 @@ export function ScanTasksDialog({onClose,onWatch,onFiles,onCues}:{onClose:()=>vo
     <p>取消只停止后续扫描，不移除已导入音乐。续跑后会重新对账；范围读取不完整时保留旧记录，不判定文件缺失。</p>
     {issues&&<section className="scan-task-issues"><h4>异常记录</h4>{!issues.items.length&&<p>没有记录到异常。</p>}{issues.items.map(issue=><div key={issue.id}><strong>{issue.path||'根目录'}</strong><small>{issue.pass>=1?'对账':'初次检查'} · {issue.kind==='directory'?'目录':issue.kind==='cue'?'CUE':'音乐文件'}{issue.unsafe?' · 本轮不执行缺失清理':''}</small><p>{issue.message}</p></div>)}{issues.nextCursor&&<button disabled={disabled} onClick={()=>void readIssues(issues.nextCursor!)}>更多异常</button>}</section>}
    </section>}
-  </div><footer><button disabled={disabled} onClick={()=>void reading(refresh)}>刷新任务</button>{pending&&<button disabled={busy} onClick={()=>void submit()}>核对上次操作结果</button>}<button disabled={disabled} onClick={onWatch}>目录自动更新</button><button disabled={disabled} onClick={onFiles}>音乐文件管理</button><button disabled={disabled} onClick={onCues}>CUE 原文与编码</button><button disabled={disabled} onClick={onClose}>关闭</button></footer>
+  </div><footer><button disabled={disabled} onClick={()=>void reading(refresh)}>刷新任务</button>{pending&&<button disabled={busy} onClick={()=>void submit()}>核对上次操作结果</button>}<button disabled={disabled} onClick={()=>setMetadataTasks(true)}>整库元数据任务</button><button disabled={disabled} onClick={onWatch}>目录自动更新</button><button disabled={disabled} onClick={onFiles}>音乐文件管理</button><button disabled={disabled} onClick={onCues}>CUE 原文与编码</button><button disabled={disabled} onClick={onClose}>关闭</button></footer>
  </div></div>;
 }

@@ -1,0 +1,27 @@
+{
+  "version": "0.211.0",
+  "completed": true,
+  "scope": "read-only real FLAC copied into isolated library; actual supervised scan and native Chromaprint compared to independently distributed official fpcalc1.6.1; no network query, recognition truth or hardware proof",
+  "cases": [
+    "actual FLAC decode measures full duration and fingerprints only the first120 seconds from the same locked source",
+    "official fpcalc independently agrees byte-for-byte on the actual FLAC fingerprint",
+    "original and copied FLAC contents remain unchanged; raw fingerprints not published"
+  ],
+  "sourceSha256": "b648dfa3538c5e2e5159f38cbf356cc6dfa6796f7058f48631adafaf8e63dbbb",
+  "durationSeconds": 269.74666666666667,
+  "sampledSeconds": 120,
+  "decoder": {
+    "backend": "miniaudio",
+    "codec": "flac"
+  },
+  "sampleRate": 44100,
+  "channels": 2,
+  "officialReferenceExeSha256": "00dcc56d911f2dea84737aa9dc8e2d118c9eb7a037d815d1ed001d8593e8fbee",
+  "rawFingerprintPublished": false,
+  "fingerprints": {
+    "native/audio-host/build/fingerprint-worker.exe": "f185f688ff2a7478ed2245eba32714f1456738f8191441598fc6ab6f9f782d53",
+    "src/library/audio-fingerprint.ts": "340ba51d3e82f6cf96e93a623d0ff86571ad056b4a510f57578af9fc63f8224e",
+    "native/audio-host/fingerprint.cpp": "a4db821b6e73657995f76252e527618744d8639645f7c0f51cd37eb608cfd8af",
+    "tests/audio-fingerprint-flac-reference.smoke.cjs": "2f72e1b520091a6cdc68409ae67eb034be16119581483b2c19be867da05c1fb8"
+  }
+}

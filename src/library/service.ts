@@ -1,3 +1,4 @@
+import {readMetadataWorkflowCommand,workflowOrigin,workflowId,readWorkflowReview} from '../shared/metadata-workflow.js';
 import {readFingerprintFind,readFingerprintChoice,readFingerprintToken} from '../shared/audio-fingerprint.js';
 import {AudioFingerprintWorker} from './audio-fingerprint.js';
 import {AcoustidProvider} from './acoustid.js';
@@ -97,13 +98,16 @@ let waveforms:WaveformManager|undefined;let fingerprints:AudioFingerprintWorker|
 const networkBroker=new ProviderBroker((input,init)=>net.fetch(String(input),{...init,bypassCustomProtocolHandlers:true}),()=>networkChanged());registerProviders(networkBroker);
 const musicBrainz=new MusicBrainzProvider(()=>db?.metadataContact()??'',fetch,networkBroker,itemId=>db?.metadataRecordingLookupContext(itemId).fingerprint??null,itemId=>db?.metadataReviewFingerprint(itemId)??null);
 const coverArtArchive=new CoverArtArchiveProvider(networkBroker);
-const acoustid=new AcoustidProvider(networkBroker,()=>providerCredentials!.acoustidClientKey(),()=>db?.providerSettings.setting('acoustid').enabled===true,id=>db?.metadataRecordingLookupContext(id).fingerprint??null,id=>db?.metadataReviewFingerprint(id)??null,(token,itemId)=>musicBrainz.checkReview(token,itemId));
+const acoustid=new AcoustidProvider(networkBroker,()=>providerCredentials!.acoustidClientKey(),()=>db?.providerSettings.setting('acoustid').enabled===true,id=>db?.metadataRecordingLookupContext(id).fingerprint??null,id=>db?.metadataReviewFingerprint(id)??null,(token,itemId)=>workflowReviewExpiry(token,itemId));
+const workflowReviews=new Map<string,import('../shared/metadata-workflow.js').MetadataWorkflowOrigin>();
+function workflowReviewExpiry(token:string,itemId:string):string{const expires=musicBrainz.checkReview(token,itemId),origin=workflowReviews.get(token);if(!origin)return expires;const claim=db!.metadataWorkflows.assertClaim(origin);if(!claim.items.some(i=>i.id===itemId))throw new Error('歌曲已不在任务审核页');return new Date(Math.min(Date.parse(expires),claim.expiresAt)).toISOString();}
+function closeWorkflowReviews(jobId:string):void{for(const [token,origin] of workflowReviews)if(origin.jobId===jobId){for(const [id,q] of metadataQueries)if(q.reviewToken===token)cancelMetadataQuery(id);acoustid.closeReview(token);musicBrainz.closeReview(token);workflowReviews.delete(token);}}
 const metadataQueries=new Map<string,{itemId:string;controller:AbortController;provider?:'cover-art-archive'|'acoustid';reviewToken?:string}>();
 function networkState():import('../shared/contracts.js').MetadataNetworkState{return {...networkBroker.state('musicbrainz'),provider:'musicbrainz',enabled:db?.metadataNetworkEnabled()??false,retentionMode:db?.metadataRetentionMode()??'preview-only',proxy:'system'};}
 function networkChanged():void{if(db)reply({event:'metadataNetwork',payload:networkState()});}
 function cancelMetadataQuery(requestId:string):void{acoustid.clear(requestId);db?.releaseFields.clear(requestId);db?.metadataAlbums.clear(requestId);db?.metadataIdentities.clear(requestId);db?.metadataGroupLinks.clear(requestId);db?.metadataAlbumCredits.clear(requestId);metadataQueries.get(requestId)?.controller.abort(new Error('在线查询已取消'));musicBrainz.invalidate(requestId);}
 function invalidateCoverArtNetwork():void{for(const query of metadataQueries.values())if(query.provider==='cover-art-archive')query.controller.abort(new Error('封面来源查询状态已变化'));networkBroker.clear('cover-art-archive',true);}
-function invalidateMetadataNetwork():void{acoustid.clear();fingerprints?.clear();networkBroker.clear('acoustid',true);db?.releaseFields.clear();db?.metadataAlbums.clear();db?.metadataIdentities.clear();db?.metadataGroupLinks.clear();db?.metadataAlbumCredits.clear();for(const query of metadataQueries.values())query.controller.abort(new Error('在线查询状态已变化'));musicBrainz.invalidate();networkBroker.clear('musicbrainz',true);invalidateCoverArtNetwork();}
+function invalidateMetadataNetwork():void{workflowReviews.clear();acoustid.clear();fingerprints?.clear();networkBroker.clear('acoustid',true);db?.releaseFields.clear();db?.metadataAlbums.clear();db?.metadataIdentities.clear();db?.metadataGroupLinks.clear();db?.metadataAlbumCredits.clear();for(const query of metadataQueries.values())query.controller.abort(new Error('在线查询状态已变化'));musicBrainz.invalidate();networkBroker.clear('musicbrainz',true);invalidateCoverArtNetwork();}
 let scans:ScanManager|undefined;
 let libraryWatch:LibraryWatchManager|undefined;
 let mediaParser:MediaParser|undefined;
@@ -600,21 +604,21 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
     case 'cancelMetadataMatch': {if(typeof params!=='string'||!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(params))throw new Error('无效在线查询 ID');cancelMetadataQuery(params);return null;}
     case 'fingerprintClose': acoustid.close(readFingerprintToken(params));return null;
     case 'fingerprintFind': {
-      const request=readFingerprintFind(params);if(request.reviewToken)musicBrainz.checkReview(request.reviewToken,request.itemId);if(!db.providerSettings.setting('acoustid').enabled)throw new Error('请先在数据源设置启用AcoustID');if(metadataQueries.has(request.requestId))throw new Error('查询身份已在使用');const item=db.getItem(request.itemId);if(!item)throw new Error('歌曲不存在');const authority=db.metadataRecordingLookupContext(item.id).fingerprint,metadata=db.metadataReviewFingerprint(item.id),controller=new AbortController();for(const [id,q] of metadataQueries)if(q.itemId===item.id)cancelMetadataQuery(id);metadataQueries.set(request.requestId,{itemId:item.id,controller,provider:'acoustid',reviewToken:request.reviewToken});
+      const request=readFingerprintFind(params);if(request.reviewToken)workflowReviewExpiry(request.reviewToken,request.itemId);if(!db.providerSettings.setting('acoustid').enabled)throw new Error('请先在数据源设置启用AcoustID');if(metadataQueries.has(request.requestId))throw new Error('查询身份已在使用');const item=db.getItem(request.itemId);if(!item)throw new Error('歌曲不存在');const authority=db.metadataRecordingLookupContext(item.id).fingerprint,metadata=db.metadataReviewFingerprint(item.id),controller=new AbortController();for(const [id,q] of metadataQueries)if(q.itemId===item.id)cancelMetadataQuery(id);metadataQueries.set(request.requestId,{itemId:item.id,controller,provider:'acoustid',reviewToken:request.reviewToken});
       try{const summary=await fingerprints!.compute(item.id,controller.signal,request.fresh);const result=await acoustid.identify(item.id,request.requestId,summary,authority,metadata,controller.signal,request.fresh,request.reviewToken);await fingerprints!.validateSource(item.id);controller.signal.throwIfAborted();if(db.metadataReviewFingerprint(item.id)!==metadata)throw new Error('识别期间资料已变化，请重新识别');if(request.reviewToken)musicBrainz.retainReview(request.reviewToken,item.id,[],authority,metadata);return result;}catch(e){acoustid.clear(request.requestId);throw e;}finally{metadataQueries.delete(request.requestId);}
     }
     case 'fingerprintChoose': {
       const request=readFingerprintChoice(params);if(!db.metadataNetworkEnabled())throw new Error('请先开启MusicBrainz在线查询');if(metadataQueries.has(request.requestId))throw new Error('查询身份已在使用');const choice=acoustid.choose(request),item=db.getItem(choice.itemId);if(!item)throw new Error('歌曲不存在');const revision=db.metadataRevision(item.id),lockedFields=db.lockedMetadataFields(item.id),controller=new AbortController();for(const [id,q] of metadataQueries)if(q.itemId===item.id)cancelMetadataQuery(id);metadataQueries.set(request.requestId,{itemId:item.id,controller,provider:'acoustid',reviewToken:request.reviewToken});
       try{await fingerprints!.validateSource(item.id);let candidates=await musicBrainz.search(item,{requestId:request.requestId,signal:controller.signal,recordingAuthority:{fingerprint:choice.authority,selectedId:choice.recording.recordingId},fingerprintEvidence:{kind:'fingerprint',recordingId:choice.recording.recordingId,acoustidId:choice.recording.acoustidId,score:choice.recording.score,algorithm:choice.algorithm,metadata:choice.metadata,expiresAt:choice.expiresAt}});await fingerprints!.validateSource(item.id);controller.signal.throwIfAborted();acoustid.choose(request);if(db.metadataRevision(item.id)!==revision||db.metadataReviewFingerprint(item.id)!==choice.metadata)throw new Error('录音读取期间资料已变化，请重新识别');if(request.reviewToken)candidates=musicBrainz.retainReview(request.reviewToken,item.id,candidates,choice.authority,choice.metadata);const refs=db.metadataRecordingLookupContext(item.id).references;for(const c of candidates)if(refs.length&&!refs.includes(c.recordingId))c.matchEvidence?.warnings.push('指纹候选与本地已确认录音不同，不能据此覆盖录音关联');return {itemId:item.id,item,revision,fingerprint:choice.metadata,candidates,lockedFields,requestId:request.requestId,cacheHit:candidates[0]?.cacheHit};}catch(e){musicBrainz.invalidate(request.requestId);throw e;}finally{metadataQueries.delete(request.requestId);}
     }
-    case 'metadataBatchReviewStart': {if(!db.metadataNetworkEnabled())throw new Error('在线查询已暂停');const ids=readBatchReviewItems(params);for(const id of ids)if(!db.getItem(id))throw new Error('审核曲目不存在');return musicBrainz.beginReview(ids);}
+    case 'metadataBatchReviewStart': {if(!db.metadataNetworkEnabled())throw new Error('在线查询已暂停');const request=Array.isArray(params)?{itemIds:readBatchReviewItems(params),workflow:undefined}:readWorkflowReview(params),ids=request.itemIds;for(const id of ids)if(!db.getItem(id))throw new Error('审核曲目不存在');const claim=request.workflow?db.metadataWorkflows.assertClaim(request.workflow):null;if(claim&&(claim.items.length!==ids.length||ids.some(id=>!claim.items.some(i=>i.id===id))))throw new Error('预览曲目与任务审核页不一致');const lease=musicBrainz.beginReview(ids,claim?.expiresAt);if(request.workflow)workflowReviews.set(lease.reviewToken,request.workflow);return lease;}
     case 'metadataBatchReviewStatus':return musicBrainz.reviewStatus(readBatchReviewToken(params));
-    case 'metadataBatchReviewClose':{const token=readBatchReviewToken(params);for(const [id,q] of metadataQueries)if(q.reviewToken===token)cancelMetadataQuery(id);acoustid.closeReview(token);musicBrainz.closeReview(token);return null;}
+    case 'metadataBatchReviewClose':{const token=readBatchReviewToken(params);for(const [id,q] of metadataQueries)if(q.reviewToken===token)cancelMetadataQuery(id);acoustid.closeReview(token);musicBrainz.closeReview(token);workflowReviews.delete(token);return null;}
     case 'metadataMatch': {
       const request=readMetadataMatchRequest(typeof params==='string'?{itemId:params,requestId:randomUUID(),fresh:false}:params);
       if(!request||typeof request.itemId!=='string'||request.itemId.length>128||typeof request.requestId!=='string'||!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(request.requestId)||request.fresh!==undefined&&typeof request.fresh!=='boolean')throw new Error('无效在线查询');
       if(!db.metadataNetworkEnabled())throw new Error('在线查询已暂停，请先开启');if(metadataQueries.has(request.requestId))throw new Error('在线查询 ID 已在使用');
-      if(request.reviewToken)musicBrainz.checkReview(request.reviewToken,request.itemId);
+      if(request.reviewToken)workflowReviewExpiry(request.reviewToken,request.itemId);
       const item=db.getItem(request.itemId);if(!item)throw new Error('曲目不存在');
       const revision=db.metadataRevision(item.id),fingerprint=db.metadataReviewFingerprint(item.id),lockedFields=db.lockedMetadataFields(item.id),controller=new AbortController();
       const referenceContext=db.metadataRecordingLookupContext(item.id),selectedId=request.isrc?undefined:request.recordingId??(referenceContext.references.length===1?referenceContext.references[0]:undefined),recordingLookup={references:referenceContext.references,selectedId:selectedId??null,requiresChoice:referenceContext.references.length>1&&!selectedId&&!request.isrc};
@@ -676,17 +680,22 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
       reply({event:'libraryChanged',payload:{itemId:request.itemId}});
       return result;
     }
+    case 'metadataWorkflow':return db.metadataWorkflows.get(workflowId(params));
+    case 'metadataWorkflowReceipt':return db.metadataWorkflows.receipt(readMetadataWorkflowCommand(params));
+    case 'metadataWorkflows':return db.metadataWorkflows.list((params as {before?:number})?.before);
+    case 'metadataWorkflowCommand':{const request=readMetadataWorkflowCommand(params),result=db.metadataWorkflows.command(request);if(request.action!=='start')for(const origin of workflowReviews.values())if(origin.jobId===result.job.id)try{db.metadataWorkflows.assertClaim(origin);}catch{closeWorkflowReviews(result.job.id);break;}if(!result.replayed)reply({event:'metadataBatch',payload:{workflowId:result.job.id}});return result;}
+    case 'metadataWorkflowIssues':{const r=params as {jobId:string;after?:number};return db.metadataWorkflows.issues(workflowId(r?.jobId),r.after);}
     case 'metadataBatches': return db.metadataBatches.list((params as {cursor?:string})?.cursor);
     case 'metadataBatch': return db.metadataBatches.get(params as string);
     case 'metadataBatchRecheck': return db.metadataBatches.recheck(params);
     case 'metadataBatchCreate': {
       const request=params as import('../shared/contracts.js').MetadataBatchCreateRequest;
       if(!request||!Array.isArray(request.entries)||request.entries.length<1||request.entries.length>100)throw new Error('每次批量审核需选择 1–100 首歌曲');
-      if(request.retryOf!==undefined)readMetadataBatchOrigin(request.retryOf);const prior=db.metadataBatches.creationReceipt(request);if(prior)return prior;
+      if(request.workflow!==undefined)workflowOrigin(request.workflow);if(request.retryOf!==undefined)readMetadataBatchOrigin(request.retryOf);const prior=db.metadataBatches.creationReceipt(request);if(prior)return prior;
       db.requireMetadataRetention();
       if(!db.metadataNetworkEnabled())throw new Error('在线查询已暂停，请重新审核');
       const candidates=request.entries.map(entry=>{if(!entry||typeof entry.itemId!=='string'||entry.itemId.length>128||typeof entry.token!=='string'||entry.token.length>128)throw new Error('无效审核成员');const candidate=musicBrainz.batchCandidate(entry.itemId,entry.token);if(!candidate)throw new Error('候选已过期或取消，请重新搜索');return candidate;});
-      const result=db.metadataBatches.create(request,candidates);reply({event:'metadataBatch',payload:{id:result.id}});return result;
+      const result=request.workflow?db.metadataWorkflows.save(request,()=>db!.metadataBatches.create(request,candidates)):db.metadataBatches.create(request,candidates);if(request.workflow)closeWorkflowReviews(request.workflow.jobId);reply({event:'metadataBatch',payload:{id:result.id}});return result;
     }
     case 'metadataBatchCommand': {
       const request=params as import('../shared/contracts.js').MetadataBatchCommand;const result=db.metadataBatches.execute(request);

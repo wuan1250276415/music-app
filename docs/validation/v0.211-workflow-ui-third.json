@@ -1,0 +1,14 @@
+{
+  "version": "0.211.0",
+  "completed": false,
+  "scope": "105 actual supervised small WAV files and real Main/preload/Service/SQLite/rendered workflow, fixture-only MusicBrainz; hard termination of owned app and restart; no real matching,100k performance or hardware/install acceptance",
+  "cases": [
+    "actual task center creates a persistent105-file whole-library snapshot independently of loaded UI selection",
+    "actual stale revision rejection remains reviewable; read-only receipt reconciliation clears uncommitted action and allows explicit resume",
+    "actual first100-item page starts without network/candidates; explicit scope checkbox advances skipped page without metadata edits",
+    "actual last5-item page explicit lookup/candidate/title selection atomically saves one plan and leaves four pending without executing it",
+    "actual offline execution/undo preserves source files and maintains separate task planned state",
+    "actual Main/Service task pause cancels owned live metadata request and invalidates its memory review lease before late response"
+  ],
+  "hardExitObserved": true
+}

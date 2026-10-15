@@ -1,5 +1,6 @@
 import {readFingerprintFind,readFingerprintChoice,readFingerprintToken} from '../shared/audio-fingerprint.js';
 import {readMetadataBatchOrigin} from '../shared/metadata-batch-recheck.js';
+import {readMetadataWorkflowCommand,workflowId,readWorkflowReview} from '../shared/metadata-workflow.js';
 import {readBatchReviewItems,readBatchReviewToken} from '../shared/metadata-batch-review.js';
 import {readMetadataMatchRequest} from '../shared/metadata-match-request.js';
 import {readMetadataAlbumCreditsPreview,readMetadataAlbumCreditsApply} from '../shared/metadata-album-credits.js';
@@ -742,7 +743,12 @@ function registerIpc(): void {
   handleIpc('metadata:fingerprint-find',(event,request)=>{trusted(event.sender);return serviceCall('fingerprintFind',readFingerprintFind(request),1000000);});
   handleIpc('metadata:fingerprint-choose',(event,request)=>{trusted(event.sender);return serviceCall('fingerprintChoose',readFingerprintChoice(request),60000);});
   handleIpc('metadata:fingerprint-close',(event,token)=>{trusted(event.sender);return serviceCall('fingerprintClose',readFingerprintToken(token));});
-  handleIpc('metadata:batch-review-start',(event,ids)=>{trusted(event.sender);return serviceCall('metadataBatchReviewStart',readBatchReviewItems(ids));});
+  handleIpc('metadata:workflow',(event,id)=>{trusted(event.sender);return serviceCall('metadataWorkflow',workflowId(id));});
+  handleIpc('metadata:workflow-receipt',(event,request)=>{trusted(event.sender);return serviceCall('metadataWorkflowReceipt',readMetadataWorkflowCommand(request));});
+  handleIpc('metadata:workflows',(event,request)=>{trusted(event.sender);return serviceCall('metadataWorkflows',request);});
+  handleIpc('metadata:workflow-command',(event,request)=>{trusted(event.sender);return serviceCall('metadataWorkflowCommand',readMetadataWorkflowCommand(request),60000);});
+  handleIpc('metadata:workflow-issues',(event,request)=>{trusted(event.sender);return serviceCall('metadataWorkflowIssues',{jobId:workflowId(request?.jobId),after:request?.after});});
+  handleIpc('metadata:batch-review-start',(event,ids)=>{trusted(event.sender);return serviceCall('metadataBatchReviewStart',Array.isArray(ids)?readBatchReviewItems(ids):readWorkflowReview(ids));});
   handleIpc('metadata:batch-review-status',(event,token)=>{trusted(event.sender);return serviceCall('metadataBatchReviewStatus',readBatchReviewToken(token));});
   handleIpc('metadata:batch-review-close',(event,token)=>{trusted(event.sender);return serviceCall('metadataBatchReviewClose',readBatchReviewToken(token));});
   handleIpc('metadata:match',(event,id:string,requestId=randomUUID(),fresh=false,recordingId?:string,isrc?:string,reviewToken?:string)=>{

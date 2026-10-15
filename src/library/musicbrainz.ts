@@ -67,7 +67,7 @@ export class MusicBrainzProvider {
   }
 
   private entry(token:string):MusicBrainzEntry|undefined {return this.reviews.get(token)??this.candidates.get(token);}
-  beginReview(ids:string[]){if(!this.referenceAuthority||!this.metadataAuthority)throw new Error('批量预览来源核对未配置');return this.reviews.start(ids);}
+  beginReview(ids:string[],deadline?:number){if(!this.referenceAuthority||!this.metadataAuthority)throw new Error('批量预览来源核对未配置');return this.reviews.start(ids,deadline);}
   reviewStatus(token:string){return this.reviews.status(token);}
   closeReview(token:string):void{this.reviews.close(token);}
   checkReview(token:string,itemId:string):string{return new Date(this.reviews.check(token,itemId).expires).toISOString();}
