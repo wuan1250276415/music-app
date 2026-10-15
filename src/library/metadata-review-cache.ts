@@ -20,6 +20,7 @@ export class MetadataReviewCache {
  }
  close(raw:unknown):void {const token=readBatchReviewToken(raw),lease=this.leases.get(token);if(lease)for(const row of lease.rows.values())for(const id of row.tokens)this.entries.delete(id);this.leases.delete(token);}
  clear():void {this.entries.clear();this.leases.clear();}
+ clearCandidates(token:string):void{const lease=this.check(token);for(const row of lease.rows.values()){for(const id of row.tokens)this.entries.delete(id);row.tokens=[];}lease.bytes=0;}
  invalidate(requestId:string):void {for(const [token,lease] of this.leases)for(const [itemId,row] of lease.rows){const old=row.tokens.map(t=>this.entries.get(t)).filter((e):e is MusicBrainzEntry=>Boolean(e)),next=old.filter(e=>e.requestId!==requestId);if(next.length!==old.length){for(const e of old)if(e.requestId===requestId)this.entries.delete(e.candidate.token);lease.bytes+=this.size(next)-this.size(old);row.tokens=next.map(e=>e.candidate.token);if(!next.length){row.authority=null;row.metadata=null;}}}}
  prune():void {for(const [token,l] of this.leases){if(l.expires<=Date.now()){this.close(token);continue;}for(const row of l.rows.values()){const old=row.tokens.map(t=>this.entries.get(t)).filter((e):e is MusicBrainzEntry=>Boolean(e)),next=old.filter(e=>e.expires>Date.now());if(next.length!==old.length){for(const e of old)if(e.expires<=Date.now())this.entries.delete(e.candidate.token);l.bytes+=this.size(next)-this.size(old);row.tokens=next.map(e=>e.candidate.token);row.expired=true;}}}}
  status(raw:unknown):MetadataBatchReviewStatus {

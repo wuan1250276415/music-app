@@ -2,7 +2,7 @@ import {readBatchReviewItems} from './metadata-batch-review';
 import type {LibraryItem} from './contracts';
 export type MetadataWorkflowStatus='ready'|'paused'|'completed'|'cancelled'|'interrupted';
 export type MetadataWorkflowRowStatus='pending'|'reviewing'|'planned'|'skipped'|'failed';
-export interface MetadataWorkflow {id:string;title:string;createdAt:number;updatedAt:number;revision:number;status:MetadataWorkflowStatus;total:number;counts:Partial<Record<MetadataWorkflowRowStatus,number>>;claimExpiresAt:number|null}
+export interface MetadataWorkflow {recognition?:import('./metadata-recognition').MetadataRecognition|null;id:string;title:string;createdAt:number;updatedAt:number;revision:number;status:MetadataWorkflowStatus;total:number;counts:Partial<Record<MetadataWorkflowRowStatus,number>>;claimExpiresAt:number|null}
 export interface MetadataWorkflowClaim {jobId:string;claimToken:string;expiresAt:number;items:LibraryItem[]}
 export interface MetadataWorkflowResult {job:MetadataWorkflow;claim:MetadataWorkflowClaim|null;replayed?:boolean}
 export type MetadataWorkflowCommand={commandId:string;action:'start';title:string}|{commandId:string;action:'pause'|'resume'|'cancel'|'retry'|'claim';jobId:string;revision:number}|{commandId:string;action:'release'|'skip';jobId:string;revision:number;claimToken:string};

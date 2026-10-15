@@ -18,6 +18,7 @@ export class AcoustidProvider {
  constructor(private readonly broker:ProviderBroker,private readonly key:()=>Promise<Buffer>,private readonly enabled:()=>boolean,private readonly authority:(id:string)=>string|null,private readonly metadata:(id:string)=>string|null,private readonly review?:(token:string,itemId:string)=>string){this.cleanup=setInterval(()=>this.prune(),15000);this.cleanup.unref();}
  clear(requestId?:string):void{for(const [token,g] of this.grants)if(requestId===undefined||g.requestId===requestId)this.grants.delete(token);}
  close(value:unknown):void{this.grants.delete(readFingerprintToken(value));}
+ preview(token:string,reviewToken:string):FingerprintIdentification|null{this.prune();const g=this.grants.get(readFingerprintToken(token));if(!g||g.reviewToken!==reviewToken||!this.enabled()||this.authority(g.value.itemId)!==g.authority||this.metadata(g.value.itemId)!==g.metadata)return null;return structuredClone(g.value);}
  closeReview(value:unknown):void{const token=readFingerprintToken(value);for(const [id,g] of this.grants)if(g.reviewToken===token)this.grants.delete(id);}
  dispose():void{clearInterval(this.cleanup);this.clear();}
  private scopeExpiry(reviewToken:string,itemId:string):number{if(!this.review)throw new Error('批量指纹预览未配置');const expires=Date.parse(this.review(reviewToken,itemId));if(!Number.isFinite(expires)||expires<=Date.now())throw new Error('批量指纹预览已过期或关闭');return expires;}

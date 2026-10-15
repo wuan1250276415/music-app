@@ -2,7 +2,7 @@ param([Parameter(Mandatory=$true)][string]$Entry,[Parameter(Mandatory=$true)][st
 $ErrorActionPreference='Stop'
 $taskEntry=[IO.Path]::GetFullPath($Entry)
 $taskPrefix='D:\CodexTestData\aural-workflow-ui-'
-if(-not $taskEntry.StartsWith($taskPrefix,[StringComparison]::OrdinalIgnoreCase) -or [IO.Path]::GetFileName($taskEntry) -ne 'main-fixture.cjs' -or -not (Test-Path -LiteralPath $taskEntry -PathType Leaf)){throw 'Not an owned workflow fixture entry'}
+if(-not ($taskEntry.StartsWith($taskPrefix,[StringComparison]::OrdinalIgnoreCase) -or $taskEntry.StartsWith('D:\CodexTestData\aural-recognition-ui-',[StringComparison]::OrdinalIgnoreCase)) -or [IO.Path]::GetFileName($taskEntry) -ne 'main-fixture.cjs' -or -not (Test-Path -LiteralPath $taskEntry -PathType Leaf)){throw 'Not an owned metadata fixture entry'}
 $taskExe=[IO.Path]::GetFullPath($ExpectedExe)
 $taskRoots=@(Get-CimInstance Win32_Process -Filter "Name='electron.exe'" | Where-Object {$_.ExecutablePath -ieq $taskExe -and $_.CommandLine.Contains($taskEntry) -and -not $_.CommandLine.Contains('--type=')})
 if($taskRoots.Count -ne 1){throw 'Expected exactly one owned actual Electron main process'}

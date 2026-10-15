@@ -1,3 +1,5 @@
+import {MetadataRecognitionManager,RecognitionFailure,type RecognitionScope} from './metadata-recognition-manager.js';
+import {readRecognitionCommand,readRecognitionResultRequest} from '../shared/metadata-recognition.js';
 import {readMetadataWorkflowCommand,workflowOrigin,workflowId,readWorkflowReview} from '../shared/metadata-workflow.js';
 import {readFingerprintFind,readFingerprintChoice,readFingerprintToken} from '../shared/audio-fingerprint.js';
 import {AudioFingerprintWorker} from './audio-fingerprint.js';
@@ -94,20 +96,37 @@ function restoreFiles():void{
 }
 
 let providerCredentials:ProviderCredentials|undefined;
-let waveforms:WaveformManager|undefined;let fingerprints:AudioFingerprintWorker|undefined;
+let waveforms:WaveformManager|undefined;let fingerprints:AudioFingerprintWorker|undefined;let recognition:MetadataRecognitionManager|undefined;
 const networkBroker=new ProviderBroker((input,init)=>net.fetch(String(input),{...init,bypassCustomProtocolHandlers:true}),()=>networkChanged());registerProviders(networkBroker);
 const musicBrainz=new MusicBrainzProvider(()=>db?.metadataContact()??'',fetch,networkBroker,itemId=>db?.metadataRecordingLookupContext(itemId).fingerprint??null,itemId=>db?.metadataReviewFingerprint(itemId)??null);
 const coverArtArchive=new CoverArtArchiveProvider(networkBroker);
 const acoustid=new AcoustidProvider(networkBroker,()=>providerCredentials!.acoustidClientKey(),()=>db?.providerSettings.setting('acoustid').enabled===true,id=>db?.metadataRecordingLookupContext(id).fingerprint??null,id=>db?.metadataReviewFingerprint(id)??null,(token,itemId)=>workflowReviewExpiry(token,itemId));
 const workflowReviews=new Map<string,import('../shared/metadata-workflow.js').MetadataWorkflowOrigin>();
 function workflowReviewExpiry(token:string,itemId:string):string{const expires=musicBrainz.checkReview(token,itemId),origin=workflowReviews.get(token);if(!origin)return expires;const claim=db!.metadataWorkflows.assertClaim(origin);if(!claim.items.some(i=>i.id===itemId))throw new Error('歌曲已不在任务审核页');return new Date(Math.min(Date.parse(expires),claim.expiresAt)).toISOString();}
-function closeWorkflowReviews(jobId:string):void{for(const [token,origin] of workflowReviews)if(origin.jobId===jobId){for(const [id,q] of metadataQueries)if(q.reviewToken===token)cancelMetadataQuery(id);acoustid.closeReview(token);musicBrainz.closeReview(token);workflowReviews.delete(token);}}
+function closeMetadataScope(token:string):void{for(const [id,q] of metadataQueries)if(q.reviewToken===token)cancelMetadataQuery(id);acoustid.closeReview(token);musicBrainz.closeReview(token);workflowReviews.delete(token);}
+function closeWorkflowReviews(jobId:string):void{for(const [token,origin] of workflowReviews)if(origin.jobId===jobId){recognition?.previewClosed(token);closeMetadataScope(token);}}
 const metadataQueries=new Map<string,{itemId:string;controller:AbortController;provider?:'cover-art-archive'|'acoustid';reviewToken?:string}>();
 function networkState():import('../shared/contracts.js').MetadataNetworkState{return {...networkBroker.state('musicbrainz'),provider:'musicbrainz',enabled:db?.metadataNetworkEnabled()??false,retentionMode:db?.metadataRetentionMode()??'preview-only',proxy:'system'};}
 function networkChanged():void{if(db)reply({event:'metadataNetwork',payload:networkState()});}
 function cancelMetadataQuery(requestId:string):void{acoustid.clear(requestId);db?.releaseFields.clear(requestId);db?.metadataAlbums.clear(requestId);db?.metadataIdentities.clear(requestId);db?.metadataGroupLinks.clear(requestId);db?.metadataAlbumCredits.clear(requestId);metadataQueries.get(requestId)?.controller.abort(new Error('在线查询已取消'));musicBrainz.invalidate(requestId);}
 function invalidateCoverArtNetwork():void{for(const query of metadataQueries.values())if(query.provider==='cover-art-archive')query.controller.abort(new Error('封面来源查询状态已变化'));networkBroker.clear('cover-art-archive',true);}
-function invalidateMetadataNetwork():void{workflowReviews.clear();acoustid.clear();fingerprints?.clear();networkBroker.clear('acoustid',true);db?.releaseFields.clear();db?.metadataAlbums.clear();db?.metadataIdentities.clear();db?.metadataGroupLinks.clear();db?.metadataAlbumCredits.clear();for(const query of metadataQueries.values())query.controller.abort(new Error('在线查询状态已变化'));musicBrainz.invalidate();networkBroker.clear('musicbrainz',true);invalidateCoverArtNetwork();}
+function invalidateMetadataNetwork():void{recognition?.invalidate();workflowReviews.clear();acoustid.clear();fingerprints?.clear();networkBroker.clear('acoustid',true);db?.releaseFields.clear();db?.metadataAlbums.clear();db?.metadataIdentities.clear();db?.metadataGroupLinks.clear();db?.metadataAlbumCredits.clear();for(const query of metadataQueries.values())query.controller.abort(new Error('在线查询状态已变化'));musicBrainz.invalidate();networkBroker.clear('musicbrainz',true);invalidateCoverArtNetwork();}
+async function identifyFingerprint(request:import('../shared/audio-fingerprint.js').FingerprintFindRequest,signal?:AbortSignal,onLookup?:()=>void):Promise<import('../shared/audio-fingerprint.js').FingerprintIdentification>{
+ if(!db)throw new Error('曲库尚未初始化');signal?.throwIfAborted();if(request.reviewToken)workflowReviewExpiry(request.reviewToken,request.itemId);if(!db.providerSettings.setting('acoustid').enabled)throw new Error('请先在数据源设置启用AcoustID');if(metadataQueries.has(request.requestId))throw new Error('查询身份已在使用');const item=db.getItem(request.itemId);if(!item)throw new Error('歌曲不存在');const authority=db.metadataRecordingLookupContext(item.id).fingerprint,metadata=db.metadataReviewFingerprint(item.id),controller=new AbortController(),abort=()=>controller.abort(new Error('后台识别已取消'));signal?.addEventListener('abort',abort,{once:true});for(const [id,q] of metadataQueries)if(q.itemId===item.id)cancelMetadataQuery(id);metadataQueries.set(request.requestId,{itemId:item.id,controller,provider:'acoustid',reviewToken:request.reviewToken});
+ try{const summary=await fingerprints!.compute(item.id,controller.signal,request.fresh);onLookup?.();const result=await acoustid.identify(item.id,request.requestId,summary,authority,metadata,controller.signal,request.fresh,request.reviewToken);await fingerprints!.validateSource(item.id);controller.signal.throwIfAborted();if(db.metadataReviewFingerprint(item.id)!==metadata)throw new Error('识别期间资料已变化，请重新识别');if(request.reviewToken)musicBrainz.retainReview(request.reviewToken,item.id,[],authority,metadata);return result;}catch(error){acoustid.clear(request.requestId);throw error;}finally{signal?.removeEventListener('abort',abort);metadataQueries.delete(request.requestId);}
+}
+function createRecognitionManager(currentDb:LibraryDatabase,dormant:boolean):MetadataRecognitionManager{
+ return new MetadataRecognitionManager(currentDb.metadataRecognitions,{
+  preflight:async signal=>{signal.throwIfAborted();if(!currentDb.metadataNetworkEnabled()||!currentDb.providerSettings.setting('acoustid').enabled)throw new RecognitionFailure('source-disabled');let secret:Buffer|undefined;try{secret=await providerCredentials!.acoustidClientKey();if(!/^[A-Za-z0-9_-]{8,128}$/.test(secret.toString('utf-8').trim()))throw new Error('missing');signal.throwIfAborted();}catch(error){if(signal.aborted)throw error;throw new RecognitionFailure('auth-required');}finally{secret?.fill(0);}},
+  claim:jobId=>{let claim:import('../shared/metadata-workflow.js').MetadataWorkflowClaim|null=null;try{for(let attempt=0;attempt<2;attempt++){const job=currentDb.metadataWorkflows.get(jobId);try{claim=currentDb.metadataWorkflows.command({commandId:randomUUID(),action:'claim',jobId,revision:job.revision}).claim;break;}catch(error){if(attempt||!(error instanceof Error)||!error.message.includes('已变化'))throw error;}}if(!claim?.items.length)throw new RecognitionFailure('scope-unavailable');const lease=musicBrainz.beginReview(claim.items.map(i=>i.id),claim.expiresAt);workflowReviews.set(lease.reviewToken,{jobId,claimToken:claim.claimToken});return {claim,lease};}catch(error){if(claim)currentDb.metadataWorkflows.releaseOwned({jobId,claimToken:claim.claimToken});throw error;}},
+  valid:scope=>{try{const claim=currentDb.metadataWorkflows.assertClaim({jobId:scope.claim.jobId,claimToken:scope.claim.claimToken});return claim.items.length===scope.claim.items.length&&scope.claim.items.every(i=>claim.items.some(c=>c.id===i.id))&&Date.parse(musicBrainz.checkReview(scope.lease.reviewToken,scope.claim.items[0].id))>Date.now();}catch{return false;}},
+  close:(scope,release)=>{closeMetadataScope(scope.lease.reviewToken);if(release)currentDb.metadataWorkflows.releaseOwned({jobId:scope.claim.jobId,claimToken:scope.claim.claimToken});},
+  prepareResume:scope=>{for(const [id,q] of metadataQueries)if(q.reviewToken===scope.lease.reviewToken)cancelMetadataQuery(id);musicBrainz.clearReviewCandidates(scope.lease.reviewToken);},
+  find:(scope,itemId,signal,onLookup)=>identifyFingerprint({itemId,requestId:randomUUID(),reviewToken:scope.lease.reviewToken},signal,onLookup),
+  publicResult:(scope,token)=>acoustid.preview(token,scope.lease.reviewToken),
+  changed:jobId=>reply({event:'metadataRecognitionChanged',payload:{jobId,state:currentDb.metadataRecognitions.get(jobId)?.state}})
+ },dormant);
+}
 let scans:ScanManager|undefined;
 let libraryWatch:LibraryWatchManager|undefined;
 let mediaParser:MediaParser|undefined;
@@ -141,6 +160,7 @@ function constructLibraryRuntime(params:unknown,folder:string,paused:boolean):vo
     const mediaWorkerPath=(params as {mediaWorkerPath?:string}).mediaWorkerPath;if(typeof mediaWorkerPath!=='string'||!path.isAbsolute(mediaWorkerPath))throw new Error('媒体监督组件路径无效');
     waveforms=new WaveformManager(currentDb.waveforms,waveformPath,id=>currentDb.waveformSource(id),id=>currentDb.itemFileId(id),paused);
     const fingerprintPath=(params as {fingerprintPath?:string}).fingerprintPath;if(typeof fingerprintPath!=='string'||!path.isAbsolute(fingerprintPath))throw new Error('指纹组件路径无效');fingerprints=new AudioFingerprintWorker(fingerprintPath,id=>currentDb.waveformSource(id));
+    recognition=createRecognitionManager(currentDb,paused);
     mediaParser=new MediaParser(mediaWorkerPath);
     const tagWorkerPath=(params as {tagWorkerPath?:string}).tagWorkerPath;if(typeof tagWorkerPath!=='string'||!path.isAbsolute(tagWorkerPath))throw new Error('标签暂存监督组件路径无效');
     tagWrite=new TagWriteManager(currentDb,mediaParser,{dataDir:folder,executable:tagWorkerPath,quiesce:async(fileId,filename,owner)=>{await Promise.all([serviceReads.quiesce(filename,owner),scans!.quiesceFile(filename,owner),waveforms!.quiesceFile(fileId),fingerprints!.quiesceFile(fileId)]);},release:(filename,owner)=>{serviceReads.release(filename,owner);scans!.releaseFile(filename,owner);},releaseRecovered:(filename,owner)=>{serviceReads.releaseRecovered(filename,owner);scans!.releaseRecoveredFile(filename,owner);},invalidated:jobId=>{artworkRequests.clear();reply({event:'libraryChanged',payload:{jobId,reason:'tag-commit-review'}});},recovered:jobId=>{artworkRequests.clear();reply({event:'libraryChanged',payload:{jobId,reason:'tag-recovery-rescan'}});},changed:(jobId,error)=>reply({event:'tagWriteJobsChanged',payload:{jobId,...(error?{error}:{})}})});
@@ -603,22 +623,19 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
     case 'clearMetadataNetworkCache': invalidateMetadataNetwork();return null;
     case 'cancelMetadataMatch': {if(typeof params!=='string'||!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(params))throw new Error('无效在线查询 ID');cancelMetadataQuery(params);return null;}
     case 'fingerprintClose': acoustid.close(readFingerprintToken(params));return null;
-    case 'fingerprintFind': {
-      const request=readFingerprintFind(params);if(request.reviewToken)workflowReviewExpiry(request.reviewToken,request.itemId);if(!db.providerSettings.setting('acoustid').enabled)throw new Error('请先在数据源设置启用AcoustID');if(metadataQueries.has(request.requestId))throw new Error('查询身份已在使用');const item=db.getItem(request.itemId);if(!item)throw new Error('歌曲不存在');const authority=db.metadataRecordingLookupContext(item.id).fingerprint,metadata=db.metadataReviewFingerprint(item.id),controller=new AbortController();for(const [id,q] of metadataQueries)if(q.itemId===item.id)cancelMetadataQuery(id);metadataQueries.set(request.requestId,{itemId:item.id,controller,provider:'acoustid',reviewToken:request.reviewToken});
-      try{const summary=await fingerprints!.compute(item.id,controller.signal,request.fresh);const result=await acoustid.identify(item.id,request.requestId,summary,authority,metadata,controller.signal,request.fresh,request.reviewToken);await fingerprints!.validateSource(item.id);controller.signal.throwIfAborted();if(db.metadataReviewFingerprint(item.id)!==metadata)throw new Error('识别期间资料已变化，请重新识别');if(request.reviewToken)musicBrainz.retainReview(request.reviewToken,item.id,[],authority,metadata);return result;}catch(e){acoustid.clear(request.requestId);throw e;}finally{metadataQueries.delete(request.requestId);}
-    }
+    case 'fingerprintFind': {const request=readFingerprintFind(params);if(request.reviewToken)recognition?.assertEditable(request.reviewToken);return identifyFingerprint(request);}
     case 'fingerprintChoose': {
-      const request=readFingerprintChoice(params);if(!db.metadataNetworkEnabled())throw new Error('请先开启MusicBrainz在线查询');if(metadataQueries.has(request.requestId))throw new Error('查询身份已在使用');const choice=acoustid.choose(request),item=db.getItem(choice.itemId);if(!item)throw new Error('歌曲不存在');const revision=db.metadataRevision(item.id),lockedFields=db.lockedMetadataFields(item.id),controller=new AbortController();for(const [id,q] of metadataQueries)if(q.itemId===item.id)cancelMetadataQuery(id);metadataQueries.set(request.requestId,{itemId:item.id,controller,provider:'acoustid',reviewToken:request.reviewToken});
+      const request=readFingerprintChoice(params);if(request.reviewToken)recognition?.assertEditable(request.reviewToken);if(!db.metadataNetworkEnabled())throw new Error('请先开启MusicBrainz在线查询');if(metadataQueries.has(request.requestId))throw new Error('查询身份已在使用');const choice=acoustid.choose(request),item=db.getItem(choice.itemId);if(!item)throw new Error('歌曲不存在');const revision=db.metadataRevision(item.id),lockedFields=db.lockedMetadataFields(item.id),controller=new AbortController();for(const [id,q] of metadataQueries)if(q.itemId===item.id)cancelMetadataQuery(id);metadataQueries.set(request.requestId,{itemId:item.id,controller,provider:'acoustid',reviewToken:request.reviewToken});
       try{await fingerprints!.validateSource(item.id);let candidates=await musicBrainz.search(item,{requestId:request.requestId,signal:controller.signal,recordingAuthority:{fingerprint:choice.authority,selectedId:choice.recording.recordingId},fingerprintEvidence:{kind:'fingerprint',recordingId:choice.recording.recordingId,acoustidId:choice.recording.acoustidId,score:choice.recording.score,algorithm:choice.algorithm,metadata:choice.metadata,expiresAt:choice.expiresAt}});await fingerprints!.validateSource(item.id);controller.signal.throwIfAborted();acoustid.choose(request);if(db.metadataRevision(item.id)!==revision||db.metadataReviewFingerprint(item.id)!==choice.metadata)throw new Error('录音读取期间资料已变化，请重新识别');if(request.reviewToken)candidates=musicBrainz.retainReview(request.reviewToken,item.id,candidates,choice.authority,choice.metadata);const refs=db.metadataRecordingLookupContext(item.id).references;for(const c of candidates)if(refs.length&&!refs.includes(c.recordingId))c.matchEvidence?.warnings.push('指纹候选与本地已确认录音不同，不能据此覆盖录音关联');return {itemId:item.id,item,revision,fingerprint:choice.metadata,candidates,lockedFields,requestId:request.requestId,cacheHit:candidates[0]?.cacheHit};}catch(e){musicBrainz.invalidate(request.requestId);throw e;}finally{metadataQueries.delete(request.requestId);}
     }
     case 'metadataBatchReviewStart': {if(!db.metadataNetworkEnabled())throw new Error('在线查询已暂停');const request=Array.isArray(params)?{itemIds:readBatchReviewItems(params),workflow:undefined}:readWorkflowReview(params),ids=request.itemIds;for(const id of ids)if(!db.getItem(id))throw new Error('审核曲目不存在');const claim=request.workflow?db.metadataWorkflows.assertClaim(request.workflow):null;if(claim&&(claim.items.length!==ids.length||ids.some(id=>!claim.items.some(i=>i.id===id))))throw new Error('预览曲目与任务审核页不一致');const lease=musicBrainz.beginReview(ids,claim?.expiresAt);if(request.workflow)workflowReviews.set(lease.reviewToken,request.workflow);return lease;}
     case 'metadataBatchReviewStatus':return musicBrainz.reviewStatus(readBatchReviewToken(params));
-    case 'metadataBatchReviewClose':{const token=readBatchReviewToken(params);for(const [id,q] of metadataQueries)if(q.reviewToken===token)cancelMetadataQuery(id);acoustid.closeReview(token);musicBrainz.closeReview(token);workflowReviews.delete(token);return null;}
+    case 'metadataBatchReviewClose':{const token=readBatchReviewToken(params);recognition?.previewClosed(token);closeMetadataScope(token);return null;}
     case 'metadataMatch': {
       const request=readMetadataMatchRequest(typeof params==='string'?{itemId:params,requestId:randomUUID(),fresh:false}:params);
       if(!request||typeof request.itemId!=='string'||request.itemId.length>128||typeof request.requestId!=='string'||!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(request.requestId)||request.fresh!==undefined&&typeof request.fresh!=='boolean')throw new Error('无效在线查询');
       if(!db.metadataNetworkEnabled())throw new Error('在线查询已暂停，请先开启');if(metadataQueries.has(request.requestId))throw new Error('在线查询 ID 已在使用');
-      if(request.reviewToken)workflowReviewExpiry(request.reviewToken,request.itemId);
+      if(request.reviewToken){workflowReviewExpiry(request.reviewToken,request.itemId);recognition?.assertEditable(request.reviewToken);}
       const item=db.getItem(request.itemId);if(!item)throw new Error('曲目不存在');
       const revision=db.metadataRevision(item.id),fingerprint=db.metadataReviewFingerprint(item.id),lockedFields=db.lockedMetadataFields(item.id),controller=new AbortController();
       const referenceContext=db.metadataRecordingLookupContext(item.id),selectedId=request.isrc?undefined:request.recordingId??(referenceContext.references.length===1?referenceContext.references[0]:undefined),recordingLookup={references:referenceContext.references,selectedId:selectedId??null,requiresChoice:referenceContext.references.length>1&&!selectedId&&!request.isrc};
@@ -680,10 +697,15 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
       reply({event:'libraryChanged',payload:{itemId:request.itemId}});
       return result;
     }
+    case 'metadataRecognitionDetails':return db.metadataRecognitions.details(workflowId(params)).map(row=>({...row,title:db!.getItem(row.itemId)?.title??'已移除曲目'}));
+    case 'metadataRecognitionCommand':return recognition!.command(readRecognitionCommand(params));
+    case 'metadataRecognitionReceipt':return recognition!.receipt(readRecognitionCommand(params));
+    case 'metadataRecognitionOpen':return recognition!.open(workflowId(params));
+    case 'metadataRecognitionResult':return recognition!.result(readRecognitionResultRequest(params));
     case 'metadataWorkflow':return db.metadataWorkflows.get(workflowId(params));
     case 'metadataWorkflowReceipt':return db.metadataWorkflows.receipt(readMetadataWorkflowCommand(params));
     case 'metadataWorkflows':return db.metadataWorkflows.list((params as {before?:number})?.before);
-    case 'metadataWorkflowCommand':{const request=readMetadataWorkflowCommand(params),result=db.metadataWorkflows.command(request);if(request.action!=='start')for(const origin of workflowReviews.values())if(origin.jobId===result.job.id)try{db.metadataWorkflows.assertClaim(origin);}catch{closeWorkflowReviews(result.job.id);break;}if(!result.replayed)reply({event:'metadataBatch',payload:{workflowId:result.job.id}});return result;}
+    case 'metadataWorkflowCommand':{const request=readMetadataWorkflowCommand(params),result=db.metadataWorkflows.command(request);if(request.action!=='start')for(const origin of workflowReviews.values())if(origin.jobId===result.job.id)try{db.metadataWorkflows.assertClaim(origin);}catch{closeWorkflowReviews(result.job.id);break;}recognition?.reconcile(result.job.id);if(!result.replayed)reply({event:'metadataBatch',payload:{workflowId:result.job.id}});return result;}
     case 'metadataWorkflowIssues':{const r=params as {jobId:string;after?:number};return db.metadataWorkflows.issues(workflowId(r?.jobId),r.after);}
     case 'metadataBatches': return db.metadataBatches.list((params as {cursor?:string})?.cursor);
     case 'metadataBatch': return db.metadataBatches.get(params as string);
@@ -691,7 +713,7 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
     case 'metadataBatchCreate': {
       const request=params as import('../shared/contracts.js').MetadataBatchCreateRequest;
       if(!request||!Array.isArray(request.entries)||request.entries.length<1||request.entries.length>100)throw new Error('每次批量审核需选择 1–100 首歌曲');
-      if(request.workflow!==undefined)workflowOrigin(request.workflow);if(request.retryOf!==undefined)readMetadataBatchOrigin(request.retryOf);const prior=db.metadataBatches.creationReceipt(request);if(prior)return prior;
+      if(request.workflow!==undefined){workflowOrigin(request.workflow);for(const [token,origin] of workflowReviews)if(origin.jobId===request.workflow.jobId&&origin.claimToken===request.workflow.claimToken)recognition?.assertEditable(token);}if(request.retryOf!==undefined)readMetadataBatchOrigin(request.retryOf);const prior=db.metadataBatches.creationReceipt(request);if(prior)return prior;
       db.requireMetadataRetention();
       if(!db.metadataNetworkEnabled())throw new Error('在线查询已暂停，请重新审核');
       const candidates=request.entries.map(entry=>{if(!entry||typeof entry.itemId!=='string'||entry.itemId.length>128||typeof entry.token!=='string'||entry.token.length>128)throw new Error('无效审核成员');const candidate=musicBrainz.batchCandidate(entry.itemId,entry.token);if(!candidate)throw new Error('候选已过期或取消，请重新搜索');return candidate;});
@@ -744,7 +766,7 @@ async function freezeLibraryResources(owner:string,waitRequests:()=>Promise<void
   tagWrite.close();invalidateMetadataNetwork();networkBroker.beginMaintenance(owner);
   // Register all drains immediately, then await every result; one failure cannot
   // release other owners or leave an unobserved rejecting drain.
-  const drains=[libraryWatch.beginMaintenance(owner),scans.beginMaintenance(owner),waveforms.beginMaintenance(owner),fingerprints!.beginMaintenance(owner),mediaParser.beginMaintenance(owner),serviceReads.quiesceAll(owner),networkBroker.waitMaintenance(owner),restoreWork??Promise.resolve(),waitRequests()];
+  const drains=[libraryWatch.beginMaintenance(owner),scans.beginMaintenance(owner),waveforms.beginMaintenance(owner),recognition!.beginMaintenance(owner),fingerprints!.beginMaintenance(owner),mediaParser.beginMaintenance(owner),serviceReads.quiesceAll(owner),networkBroker.waitMaintenance(owner),restoreWork??Promise.resolve(),waitRequests()];
   const results=await Promise.allSettled(drains);
   const failure=results.find((result):result is PromiseRejectedResult=>result.status==='rejected');if(failure)throw failure.reason;
   await tagWrite.beginMaintenance(owner);networkBroker.assertMaintenanceIdle(owner);
@@ -754,7 +776,7 @@ const catalogMaintenance=new CatalogMaintenance({
  release:async(owner,resumeWatch)=>{
   if(!db||!scans||!libraryWatch||!mediaParser||!waveforms||!tagWrite)throw new Error('曲库维护组件已退出');
   tagWrite.endMaintenance(owner);networkBroker.endMaintenance(owner);mediaParser.endMaintenance(owner);serviceReads.releaseAll(owner);
-  libraryWatch.endMaintenance(owner,resumeWatch);waveforms.endMaintenance(owner);fingerprints!.endMaintenance(owner);scans.endMaintenance(owner);
+  libraryWatch.endMaintenance(owner,resumeWatch);waveforms.endMaintenance(owner);recognition!.endMaintenance(owner);fingerprints!.endMaintenance(owner);scans.endMaintenance(owner);
   // Start on a later turn, after the global maintenance gate has published release.
   setImmediate(()=>{if(catalogMaintenance.held)return;scheduleSearchIndex();restoreFiles();if(!restoreTimer){restoreTimer=setInterval(restoreFiles,5000);restoreTimer.unref();}});
  },
@@ -775,7 +797,7 @@ function prepareWritableRestore(value:unknown):Promise<CatalogRestoreActivationP
  const work=catalogMaintenance.prepareFrozen(request,async()=>{
   if(!db||request.instanceId!==serviceInstanceId||catalogMaintenance.snapshot().token!==request.token)throw new Error('恢复激活实例或冻结租约已变化');
   await verifyDormantLibrary(libraryDataDir,boot.request);networkBroker.assertMaintenanceIdle(request.token);
-  libraryWatch?.close();tagWrite?.close();db.close();db=undefined;
+  libraryWatch?.close();tagWrite?.close();await recognition?.dispose();recognition=undefined;db.close();db=undefined;
   let policy:import('../shared/catalog-restore-policy.js').CatalogRestorePolicy|null=null,metadata:import('./catalog-backup-database.js').BackupDatabaseMetadata;
   const writable=new LibraryDatabase(path.join(libraryDataDir,'library.db'),{restoreWritablePaused:true});
   try{if(request.role==='candidate')policy=writable.restorePolicy.apply(request,lifecycleDigest(boot.request.manifest),boot.request.manifest.origin);metadata=writable.catalogMetadata();}finally{writable.close();}
@@ -815,7 +837,7 @@ async function prepareRestoreNormal(value:unknown):Promise<RestoreNormalProof>{
   if(JSON.stringify(await inventoryCatalogLibraryRoot(libraryDataDir,{signal}))!==JSON.stringify(expected))throw new Error('普通服务准备前曲库完整资料变化');
   const snapshot=()=>{if(!db)throw new Error('恢复连接已关闭');return restoreLibrarySnapshot(db);};
   const priorPolicy=lifecycleDigest(db.restorePolicy.load());if(lifecycleDigest(snapshot())!==hydrated.snapshotSha256)throw new Error('普通服务准备前使用状态不同');
-  libraryWatch?.close();tagWrite?.close();db.close();db=undefined;
+  libraryWatch?.close();tagWrite?.close();await recognition?.dispose();recognition=undefined;db.close();db=undefined;
   db=new LibraryDatabase(path.join(libraryDataDir,'library.db'),{restoreNormalPaused:true});db.prepareRestoreNormal();
   const metadata=db.catalogMetadata(),policy=db.restorePolicy.load(),snapshotSha256=lifecycleDigest(snapshot());
   if(metadata.origin!==activation.manifest.origin||JSON.stringify(metadata.counts)!==JSON.stringify(activation.manifest.counts)||lifecycleDigest(policy)!==priorPolicy||snapshotSha256!==hydrated.snapshotSha256)throw new Error('普通服务准备改变曲库来源、数量、权限或使用状态');
@@ -869,7 +891,7 @@ async function closeFrozenService(value:unknown):Promise<CatalogServiceStopRecei
  return catalogMaintenance.closeFrozen(request,async()=>{
   if(!db||await restoreTransactionDirectory(libraryDataDir)!==request.libraryIdentity)throw new Error('受控关闭的原数据库或目录身份不同');
   networkBroker.assertMaintenanceIdle(request.token);const metadata=db.catalogMetadata();if(metadata.origin!==request.manifest.origin||JSON.stringify(metadata.counts)!==JSON.stringify(request.manifest.counts))throw new Error('受控关闭前曲库资料与恢复前快照不同');
-  if(!restoreDormant)db.normalizeBeforeRestoreClose();db.close();db=undefined;
+  if(!restoreDormant)db.normalizeBeforeRestoreClose();await recognition?.dispose();recognition=undefined;db.close();db=undefined;
   libraryWatch?.close();if(searchIndexTimer)clearTimeout(searchIndexTimer);searchIndexTimer=undefined;if(restoreTimer)clearInterval(restoreTimer);restoreTimer=undefined;
   const signal=AbortSignal.timeout(45*60*1000),files=await inventoryCatalogLibraryRoot(libraryDataDir,{signal});if(await restoreTransactionDirectory(libraryDataDir)!==request.libraryIdentity)throw new Error('数据库关闭后的曲库目录身份不同');
   const manifest=readCatalogBackupManifest({...request.manifest,backupId:request.operationId,appVersion:RELEASE.appVersion,plugins:[{id:'aural.core',version:RELEASE.appVersion},...providerBackupComponents()],files:[...files,...request.manifest.files.filter(file=>!file.path.startsWith('library/'))].sort((a,b)=>a.path<b.path?-1:a.path>b.path?1:0)});

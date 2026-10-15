@@ -22,7 +22,7 @@ async function run(source:string,request:HistoryExportRequest,pendingAtRequest:H
   db=new DatabaseSync(source,{readOnly:true,allowExtension:false,timeout:1000});db.exec('PRAGMA query_only=ON; PRAGMA cache_size=-2048; BEGIN');
   // The first read pins the WAL view; all later rows and policies use this connection/transaction.
   const schema=Number((db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version),mode=(db.prepare('PRAGMA journal_mode').get() as {journal_mode:string}).journal_mode;
-  if(schema!==76||mode!=='wal')throw new Error('历史导出需要当前WAL曲库，不能在此进程迁移或更改日志模式');
+  if(schema!==77||mode!=='wal')throw new Error('历史导出需要当前WAL曲库，不能在此进程迁移或更改日志模式');
   const ceiling=Number((db.prepare('SELECT COALESCE(MAX(id),0) n FROM playback_history').get() as {n:number}).n),origin=(db.prepare('SELECT id FROM rule_transfer_origin WHERE slot=1').get() as {id:string}|undefined)?.id;
   const header=readHistoryExportHeader({type:'header',format:'aural-playback-history',version:1,encoding:request.format,snapshotAt:new Date().toISOString(),origin,schema,scope:request.scope,pendingAtRequest,ceiling,legacyRule:'fixed-v1'});
   await send({operationId,sequence:sequence++,kind:'header',header});

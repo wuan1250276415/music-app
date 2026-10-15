@@ -455,7 +455,7 @@ export interface ResponseMessage {
 }
 
 export interface EventMessage {
-  event: 'catalogRestoreApplyChanged' | 'catalogRestoreFinalization' | 'catalogRestoreApplication' | 'catalogRestorePending' | 'catalogRestoreChanged' | 'catalogBackupChanged' | 'catalogBackupFreeze' | 'catalogBackupThaw' | 'historyExportChanged' | 'playbackPolicyChanged' | 'filterPresetsChanged' | 'playbackStatisticsChanged' | 'playbackHistoryChanged' | 'tagWriteJobsChanged' | 'scan' | 'scanJobsChanged' | 'libraryWatchChanged' | 'libraryChanged' | 'searchIndexChanged' | 'queue' | 'metadataNetwork' | 'metadataBatch' | 'providersChanged' | 'lyricsChanged' | 'audioOutputChanged' | 'audioBackendChanged' | 'asioOutputChanged' | 'dsdOutputChanged' | 'asioPanelChanged' | 'audioDevicesChanged' | 'desktopControlError' | 'systemMediaChanged' | 'desktopFilesChanged' | 'appearanceChanged';
+  event: 'catalogRestoreApplyChanged' | 'catalogRestoreFinalization' | 'catalogRestoreApplication' | 'catalogRestorePending' | 'catalogRestoreChanged' | 'catalogBackupChanged' | 'catalogBackupFreeze' | 'catalogBackupThaw' | 'historyExportChanged' | 'playbackPolicyChanged' | 'filterPresetsChanged' | 'playbackStatisticsChanged' | 'playbackHistoryChanged' | 'tagWriteJobsChanged' | 'scan' | 'scanJobsChanged' | 'metadataRecognitionChanged' | 'libraryWatchChanged' | 'libraryChanged' | 'searchIndexChanged' | 'queue' | 'metadataNetwork' | 'metadataBatch' | 'providersChanged' | 'lyricsChanged' | 'audioOutputChanged' | 'audioBackendChanged' | 'asioOutputChanged' | 'dsdOutputChanged' | 'asioPanelChanged' | 'audioDevicesChanged' | 'desktopControlError' | 'systemMediaChanged' | 'desktopFilesChanged' | 'appearanceChanged';
   payload: unknown;
 }
 
@@ -695,6 +695,11 @@ export interface MusicApi extends ProviderManagementApi {
   fingerprintFind(request:import('./audio-fingerprint').FingerprintFindRequest):Promise<import('./audio-fingerprint').FingerprintIdentification>;
   fingerprintChoose(request:import('./audio-fingerprint').FingerprintChoiceRequest):Promise<MetadataMatchResult>;
   fingerprintClose(identificationToken:string):Promise<void>;
+  metadataRecognitionDetails(jobId:string):Promise<Array<{itemId:string;title:string;phase:import('./metadata-recognition').RecognitionPhase;attempts:number;code:import('./metadata-recognition').RecognitionCode}>>;
+  metadataRecognitionCommand(request:import('./metadata-recognition').MetadataRecognitionCommand):Promise<import('./metadata-recognition').MetadataRecognition&{replayed?:boolean}>;
+  metadataRecognitionReceipt(request:import('./metadata-recognition').MetadataRecognitionCommand):Promise<import('./metadata-recognition').MetadataRecognition|null>;
+  metadataRecognitionOpen(jobId:string):Promise<import('./metadata-recognition').MetadataRecognitionOpen>;
+  metadataRecognitionResult(request:{jobId:string;claimToken:string;itemId:string}):Promise<import('./audio-fingerprint').FingerprintIdentification>;
   metadataWorkflow(jobId:string):Promise<import('./metadata-workflow').MetadataWorkflow>;
   metadataWorkflowReceipt(request:import('./metadata-workflow').MetadataWorkflowCommand):Promise<import('./metadata-workflow').MetadataWorkflowResult|null>;
   metadataWorkflows(before?:number):Promise<{items:import('./metadata-workflow').MetadataWorkflow[];nextCursor:number|null}>;

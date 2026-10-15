@@ -1,0 +1,11 @@
+{
+  "appVersion": "0.212.0",
+  "status": "development-in-progress",
+  "checkedAt": "2026-10-15T10:54:22.2525712+08:00",
+  "build": "passed",
+  "typecheck": "passed",
+  "releaseManifest": "passed",
+  "distributionInventory": "passed",
+  "desktopRecognitionSuite": "incomplete: restart continuation timed out after 10 successful cases",
+  "packaging": "not performed"
+}
