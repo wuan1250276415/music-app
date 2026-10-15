@@ -1,0 +1,45 @@
+{
+  "version": "0.212.0",
+  "completed": true,
+  "scope": "105 actual supervised small WAV files and real Main/preload/Service/SQLite/rendered workflow, fixture-only MusicBrainz; hard termination of owned app and restart; no real matching,100k performance or hardware/install acceptance",
+  "cases": [
+    "actual task center creates a persistent105-file whole-library snapshot independently of loaded UI selection",
+    "actual stale revision rejection remains reviewable; read-only receipt reconciliation clears uncommitted action and allows explicit resume",
+    "actual first100-item page starts without network/candidates; explicit scope checkbox advances skipped page without metadata edits",
+    "actual last5-item page explicit lookup/candidate/title selection atomically saves one plan and leaves four pending without executing it",
+    "actual atomic plan save immediately revokes workflow-owned preview tokens before any standalone plan can reuse them",
+    "actual offline execution/undo preserves source files and maintains separate task planned state",
+    "actual Main/Service task pause cancels owned live metadata request and invalidates its memory review lease before late response",
+    "hard termination of owned app and real restart preserve105-item scope/planned history, recover four rows as interrupted and require fresh review"
+  ],
+  "hardExitObserved": true,
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 24368,
+    "ownedProcesses": [
+      24368,
+      18008,
+      34484,
+      24668,
+      8368,
+      20908,
+      25484,
+      12348,
+      8248
+    ]
+  },
+  "sourceUnchanged": true,
+  "fingerprints": {
+    "src/shared/metadata-workflow.ts": "c4af8e1df3f632163051b49c0f65ced4989f8abbf3727cf1fbcb821cf3edb17a",
+    "src/library/metadata-workflow.ts": "8d2190f8dd461acb1abe9e2fd83f941e59e93e1d54e917f36ea75ca63a89e94a",
+    "src/library/service.ts": "34c818e30abc2e4c6c4e9830506f5289674128fa79abef4493f464564fc33ada",
+    "src/library/database.ts": "fd8882bfffe2890427f407ce9b2c50881f5c1a4e9cfd1b6fd8891ae89a79b40c",
+    "src/main/main.ts": "74a84543cac92d508ea4253cc39816f79df6aaa463c95fd6ef27a3cd9857d14d",
+    "src/main/preload.ts": "0b068532c842b34aa252ace827cf943edf3d7378fd4e3971bb85a851e0a12db3",
+    "src/renderer/metadata-workflow-dialog.tsx": "cb4d3f8497082fe3373df6c34f407100cbbca8bfd5e8539ed9bc41df41e61605",
+    "src/renderer/metadata-batch-dialog.tsx": "ce942689425fee5e4347a3716d08474aa304e16247d4e68956c44f878ab798e7",
+    "src/renderer/scan-tasks.tsx": "69c5c23208b1db466102745ffba930882c2f2334468104e1b99326684744a5c5",
+    "tests/electron-metadata-workflow-mvp.smoke.cjs": "a2bca2cc5b505794566a811067846e953cdea5b732cf685365b9bf208ba658df",
+    "tests/stop-owned-workflow-electron.ps1": "3df01f3478bde67c16a206afee9a5062d9260196b37d96d910f554f6495eae9c"
+  }
+}

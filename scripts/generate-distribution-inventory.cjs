@@ -414,6 +414,7 @@ const asioProperties = [
   {name:'aural:online-cover-store-source-sha256',value:sha256(read('src/library/online-artwork-store.ts'))},
   {name:'aural:online-cover-contract-source-sha256',value:sha256(read('src/shared/online-artwork.ts'))},
   {name:'aural:online-cover-controls-source-sha256',value:sha256(read('src/renderer/online-artwork-controls.tsx'))},
+  ...['src/shared/metadata-recognition.ts','src/library/metadata-recognition.ts','src/library/metadata-recognition-manager.ts'].map(file=>({name:'aural:metadata-recognition-source-sha256:'+file,value:sha256(read(file))})),
   ...['src/shared/metadata-workflow.ts','src/library/metadata-workflow.ts','src/renderer/metadata-workflow-dialog.tsx','src/library/metadata-batches.ts','src/renderer/scan-tasks.tsx'].map(file=>({name:'aural:metadata-workflow-source-sha256:'+file,value:sha256(read(file))})),
   {name:'aural:metadata-context-ranking-source-sha256',value:sha256(read('src/library/metadata-match-ranking.ts'))},
   {name:'aural:metadata-release-context-parser-source-sha256',value:sha256(read('src/library/metadata-release-context.ts'))},

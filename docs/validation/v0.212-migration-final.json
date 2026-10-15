@@ -1,0 +1,11 @@
+{
+  "appVersion": "0.212.0",
+  "scope": "fresh schema definition; synthetic migration fixture, not a historical user database",
+  "assertions": [
+    "all required prior schema72 definitions independently match recorded 0.185 digest; SQLite statistics optional under existing schema verifier",
+    "schema73 indexes, exact original records/user state/repeated playlist and immutable schema72 snapshot; reopening does not migrate again",
+    "production SQLite backup API, independent current schema77 snapshot and eleven-domain inspection; historical schema72 metadata preserved but not relabeled or applied as current schema; future schema rejected",
+    "injected failure after first index rolls back DDL and version; original data/schema72 and pre-upgrade snapshot remain"
+  ],
+  "completed": true
+}

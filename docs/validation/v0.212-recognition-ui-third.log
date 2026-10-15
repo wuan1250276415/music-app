@@ -1,0 +1,14 @@
+actual background command persists default-disabled source failure without transmitting or claiming a page
+real Windows vault missing-key preflight is a durable authentication error before audio lookup
+actual owned credential save clears password draft and exposes no key or automatic background transmission
+leaving actual task dialogs keeps native/lookup work alive and local music search remains usable
+actual pause waits for interrupted lookup and preserves prepared associations plus localized per-item attempt/error details
+actual resume prepares six separate current CUE/file associations with credential-only POST, no path/audio upload or automatic recording adoption
+rendered review reads already prepared association without recomputation/network, starts unselected and rejects forged page ownership
+explicit association/recording/title approval atomically saves one public-ID/local-recipe plan, releases raw previews and leaves five unselected songs pending
+actual offline execution and compensation retain task history without music-file changes or implicit recording identity
+hard termination of actual owned main/process tree and real restart retain durable phases/plan, release page and perform no automatic external retry
+{"version":"0.212.0","completed":false,"cases":10,"scratch":"D:\\CodexTestData\\aural-recognition-ui-WZ0MPh"}
+Error: Owned background-recognition UI state did not arrive
+    at until (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-metadata-recognition-mvp.smoke.cjs:4:182)
+    at async main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-metadata-recognition-mvp.smoke.cjs:29:411)
