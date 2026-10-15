@@ -1,0 +1,22 @@
+{
+  "version": "0.210.0",
+  "completed": true,
+  "priorVersion": "0.209.0",
+  "newNativeBuild": false,
+  "scope": "all native sources and binaries represented by0.209 checkpoint remain byte-identical; current actual supervised fingerprint tests reuse those existing binaries, not a new compilation or hardware certification",
+  "fingerprints": {
+    "native/audio-host/build-fingerprint.ps1": "04a94aaad0eaacf1175cf14a2eaf7e06c5e4dfddaed4fa259d70c42ab0678449",
+    "native/audio-host/build.ps1": "de4a9b244634a459f512beeac87c44ebbea58e12faaac7f3a095f063b03931d8",
+    "native/audio-host/build/fingerprint-worker.exe": "f185f688ff2a7478ed2245eba32714f1456738f8191441598fc6ab6f9f782d53",
+    "native/audio-host/fingerprint.cpp": "a4db821b6e73657995f76252e527618744d8639645f7c0f51cd37eb608cfd8af",
+    "native/chromaprint/build.ps1": "a30f25db29a91b2738f3677bb184870db7ad931633b8a510c8b0a7e532d2b5a2",
+    "native/chromaprint/lock.json": "93e1cf15f5d7cde4470efc77a5bcf9433bd25076877ec375b71af23600d98f6d",
+    "native/chromaprint/prepare.py": "821d77fe5a30df7d96f8a0b0c79e2cb44e6a1a57640a7ad0232b94b7e6395ffe",
+    "native/chromaprint/vendor/COPYING.LGPLv2.1": "246041b6ecf9bc32d718a62c57877c78b5eb397b6467e74ed7ae2626ab189c30",
+    "native/chromaprint/vendor/LICENSE-chromaprint.txt": "562cfe59627e0c4e8e3b066f3ff2e9736f83811ffe4c6c2c7796595aa7595ebd",
+    "native/chromaprint/vendor/LICENSE-kissfft-full.txt": "4d6bcab46f27d6d0c878e8305d4bdcfe040d52bf6656b9771f04c9fb9902c0ed",
+    "native/chromaprint/vendor/LICENSE-kissfft.txt": "a2840585f8411be8e6826a31ef15ae65c950bd74a2437a73b013398a934ad0c6",
+    "native/chromaprint/vendor/SOURCE.txt": "ade23cf4cc1627c6b76be9dd2755ece89de635959c60764fbd1cc8bbe4b6b724",
+    "native/media-worker/build/media-worker.exe": "4036f4e5e614fb13a9cc708b85f1d03abec8977dfc21e0ac3bd553f55b865720"
+  }
+}

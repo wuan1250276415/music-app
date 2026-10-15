@@ -1,0 +1,11 @@
+actual batch cancel stops a live association lookup, preserves completed first row and leaves recording/candidate/field choices empty
+actual resume processes seven remaining items, retains all eight private row associations beyond independent four limit and sends no audio/path or automatic recording read
+explicit per-row recording read and candidate/title check preserve peer associations; no recording or edition identity is bound
+actual library-change event clears only stale association row and preserves peer field selection and association
+actual plan save stores two reviewed public ID mappings and local algorithm with only explicitly selected title fields
+actual offline batch execution updates only two local titles, preserving artists/albums/identities and source WAV
+actual offline compensating batch undo restores both titles and durable public provenance
+trusted Main/Service prevent scope omission and forged batch transfer of a real identified audio token
+actual closing owner during live Service lookup cancels its request and rejects late association publication
+media-offline restart retains compensated plan and fingerprint public ID/local recipe provenance without persisting transient associations
+{"version":"0.210.0","completed":true,"cases":10}

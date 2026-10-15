@@ -1,0 +1,7 @@
+{
+  "version": "0.210.0",
+  "completed": false,
+  "scope": "eight actual scanned WAV/CUE items, production native fingerprint/Windows vault/Main/preload/Service/renderer with fixture-only AcoustID and MusicBrainz transport; no live truth, user credentials, hardware or install validation",
+  "cases": [],
+  "ownedDummyCredentialsRemoved": true
+}

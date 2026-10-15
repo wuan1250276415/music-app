@@ -1,0 +1,32 @@
+{
+  "version": "0.210.0",
+  "completed": true,
+  "scope": "eight actual scanned WAV/CUE items, production native fingerprint/Windows vault/Main/preload/Service/renderer with fixture-only AcoustID and MusicBrainz transport; no live truth, user credentials, hardware or install validation",
+  "cases": [
+    "actual batch cancel stops a live association lookup, preserves completed first row and leaves recording/candidate/field choices empty",
+    "actual resume processes seven remaining items, retains all eight private row associations beyond independent four limit and sends no audio/path or automatic recording read",
+    "explicit per-row recording read and candidate/title check preserve peer associations; no recording or edition identity is bound",
+    "actual library-change event clears only stale association row and preserves peer field selection and association",
+    "actual plan save stores two reviewed public ID mappings and local algorithm with only explicitly selected title fields",
+    "actual offline batch execution updates only two local titles, preserving artists/albums/identities and source WAV",
+    "actual offline compensating batch undo restores both titles and durable public provenance",
+    "trusted Main/Service prevent scope omission and forged batch transfer of a real identified audio token",
+    "actual closing owner during live Service lookup cancels its request and rejects late association publication",
+    "media-offline restart retains compensated plan and fingerprint public ID/local recipe provenance without persisting transient associations"
+  ],
+  "sourceUnchanged": true,
+  "fingerprints": {
+    "src/shared/audio-fingerprint.ts": "ae943a5f0871ccb0c290fc1fb4f3e86a82dbbc12c5f6264e207c60ea35a07ca6",
+    "src/library/service.ts": "6a22dadc568ab7245398794af17769eea398715bbfc4cda5477e8fb6a127cb3d",
+    "src/library/acoustid.ts": "58a42f181de361794a606bde6cf16404acefbc9eba9a7987dcc5d1ba8e8eddb5",
+    "src/library/musicbrainz.ts": "26fced7b9ce4ea125b44730f126d028cea11ab33a66404737a670e4e3a1ebf8c",
+    "src/main/main.ts": "a21c32952ab92c5cbe8e82a800b0d7341655dde35b9c64247f0b496cab911e24",
+    "src/main/preload.ts": "6cefcb4a324d2fe4fbac7dcba0e056e47912994d584fe047db0e96afd167460f",
+    "src/renderer/metadata-batch-dialog.tsx": "5ed3352f91166a0143063e2ccfa72ab8795e063cf683f908626e138b0f3e70c4",
+    "src/renderer/metadata-batch-fingerprint.tsx": "3dee6b60ad64ec711838144312cb833929ea36b97cef2bfd2e841656f9ca1687",
+    "src/renderer/metadata-batch.css": "d67853e9a810a8312ddac331990dab8da2e573aac4a3b607b54b492ab9c3ae4b",
+    "native/audio-host/build/fingerprint-worker.exe": "f185f688ff2a7478ed2245eba32714f1456738f8191441598fc6ab6f9f782d53",
+    "tests/electron-batch-fingerprint-mvp.smoke.cjs": "fbb5cd7c01d8ee69e3121ebe35e811db0265c4f3a963e51dee67fa595a48d1e2"
+  },
+  "ownedDummyCredentialsRemoved": true
+}

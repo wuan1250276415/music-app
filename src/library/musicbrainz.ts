@@ -70,7 +70,7 @@ export class MusicBrainzProvider {
   beginReview(ids:string[]){if(!this.referenceAuthority||!this.metadataAuthority)throw new Error('批量预览来源核对未配置');return this.reviews.start(ids);}
   reviewStatus(token:string){return this.reviews.status(token);}
   closeReview(token:string):void{this.reviews.close(token);}
-  checkReview(token:string,itemId:string):void{this.reviews.check(token,itemId);}
+  checkReview(token:string,itemId:string):string{return new Date(this.reviews.check(token,itemId).expires).toISOString();}
   retainReview(token:string,itemId:string,candidates:MetadataCandidate[],authority:string,metadata:string):MetadataCandidate[]{
     const entries=candidates.map(c=>{const entry=this.entry(c.token);if(!entry||!this.resolve(itemId,c.token))throw new Error('批量候选已失效，请重新查询');return entry;});
     const retained=this.reviews.retain(token,itemId,entries,authority,metadata);for(const entry of entries)this.candidates.delete(entry.candidate.token);return retained.map(e=>structuredClone(e.candidate));

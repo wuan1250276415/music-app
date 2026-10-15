@@ -1,0 +1,5 @@
+{"version":"0.210.0","completed":false,"cases":0,"scratch":"D:\\CodexTestData\\aural-batch-fingerprint-ui-vIZrZo"}
+page.evaluate: Error: Error invoking remote method 'provider:credential': Error: 无效凭据请求
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-batch-fingerprint-mvp.smoke.cjs:15:33) {
+  log: []
+}
