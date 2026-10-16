@@ -1,0 +1,9 @@
+{
+  "version": "0.222.0",
+  "completed": false,
+  "scope": "actual production Main/preload/Service/Renderer, normal folder import and supervised metadata previews, real SQLite preparation and native staging; generated FLAC/WAV only; explicit barriers after real preview and real durable preparation, one injected lost acknowledgement; no production commit/restore certification, persistent parent batch, background batch execution, physical power cut or hardware verification",
+  "cases": [
+    "normal import and actual selected-song toolbar open a bounded batch of14 real files with10 per page"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /无变化/. Input:\n\n'批量00\\n预览失败\\n\\n风格：完整集合来源和角色映射尚待接通，可使用手工输入'\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-tag-batch-mvp.smoke.cjs:34:163)"
+}

@@ -1,0 +1,48 @@
+{
+  "version": "0.222.0",
+  "completed": false,
+  "scope": "actual production Main/preload/Service/Renderer, normal folder import and supervised metadata previews, real SQLite preparation and native staging; generated FLAC/WAV only; explicit barriers after real preview and real durable preparation, one injected lost acknowledgement; no production commit/restore certification, persistent parent batch, background batch execution, physical power cut or hardware verification",
+  "cases": [
+    "normal import and actual selected-song toolbar open a bounded batch of14 real files with10 per page",
+    "per-song library-origin permission checks retain current collection-field denial and create no preview token or persistent job",
+    "actual stop button discards a late real preview and stops remaining files without creating persistent jobs",
+    "actual prepare commits once despite an injected lost acknowledgement; confirmation replays its original command and prevents duplicate jobs"
+  ],
+  "error": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '批量文件标签预览', exact: true }).getByRole('button', { name: '保存本页已核对任务', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled class=\"primary-button\">保存本页已核对任务</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    5 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-tag-batch-mvp.smoke.cjs:42:126)",
+  "ui": {
+    "events": [
+      {
+        "event": "libraryChanged",
+        "payload": {
+          "jobId": "4442c827-f3c6-4d5f-84d7-2ff03f6ed249"
+        }
+      },
+      {
+        "event": "libraryChanged",
+        "payload": {
+          "jobId": "4442c827-f3c6-4d5f-84d7-2ff03f6ed249"
+        }
+      },
+      {
+        "event": "libraryChanged",
+        "payload": {
+          "jobId": "4442c827-f3c6-4d5f-84d7-2ff03f6ed249"
+        }
+      },
+      {
+        "event": "libraryChanged",
+        "payload": {
+          "jobId": "586e47d5-592d-472b-8280-5639342566fd"
+        }
+      },
+      {
+        "event": "libraryChanged",
+        "payload": {
+          "jobId": "586e47d5-592d-472b-8280-5639342566fd"
+        }
+      }
+    ],
+    "text": "批量文件标签预览\n×\n\n每页核对 10 首，逐首保存独立任务。支持独立 FLAC；先保存任务，再到标签任务中心生成备份和确认写入。关闭前未保存的预览不会保留，已保存任务会保留。\n\n共 14 首 · 已保存 1 · 无变化 1 · 不支持 0 · 预览失败 0 · 保存待确认 0\n\n选择批量修改的字段\n\n歌曲资料或来源设置已变化，请重新预览本页；保存待确认项仍可核对原结果。\n\n第 1 / 2 页\n上一页\n下一页\n预览本页标签差异\n批量00\n无变化\n\n所选标签与文件原值一致\n\n专辑（无变化）\n原值\n批量专辑\n拟写入\n批量专辑\n批量01\n任务已保存\n\n已保存独立任务，尚未生成备份或修改音乐文件。\n\n批量02\n待核对\n专辑\n原值\n旧专辑2\n拟写入\n批量专辑\n已核对此首差异，保存待写入任务\n批量03\n待核对\n专辑\n原值\n旧专辑3\n拟写入\n批量专辑\n已核对此首差异，保存待写入任务\n批量04\n待核对\n专辑\n原值\n旧专辑4\n拟写入\n批量专辑\n已核对此首差异，保存待写入任务\n批量05\n待核对\n专辑\n原值\n旧专辑5\n拟写入\n批量专辑\n已核对此首差异，保存待写入任务\n批量06\n待核对\n专辑\n原值\n旧专辑6\n拟写入\n批量专辑\n已核对此首差异，保存待写入任务\n批量07\n待核对\n专辑\n原值\n旧专辑7\n拟写入\n批量专辑\n已核对此首差异，保存待写入任务\n批量08\n待核对\n专辑\n原值\n旧专辑8\n拟写入\n批量专辑\n已核对此首差异，保存待写入任务\n批量09\n待核对\n专辑\n原值\n旧专辑9\n拟写入\n批量专辑\n已核对此首差异，保存待写入任务\n已核对本页所有差异\n\n保存处理结束；已保存任务可在标签任务中心继续。\n\n关闭\n停止处理\n查看标签任务\n保存本页已核对任务"
+  },
+  "screenshotError": "TimeoutError: page.screenshot: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n"
+}

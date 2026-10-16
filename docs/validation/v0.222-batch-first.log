@@ -1,0 +1,14 @@
+normal import and actual selected-song toolbar open a bounded batch of14 real files with10 per page
+{"version":"0.222.0","completed":false,"cases":1,"scratch":"D:\\CodexTestData\\aural-workflow-ui-tag-batch-UHJ2s8"}
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /无变化/. Input:
+
+'批量00\n预览失败\n\n风格：完整集合来源和角色映射尚待接通，可使用手工输入'
+
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-tag-batch-mvp.smoke.cjs:34:163) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '批量00\n预览失败\n\n风格：完整集合来源和角色映射尚待接通，可使用手工输入',
+  expected: /无变化/,
+  operator: 'match',
+  diff: 'simple'
+}

@@ -1,0 +1,18 @@
+normal import and actual selected-song toolbar open a bounded batch of14 real files with10 per page
+per-song library-origin permission checks retain current collection-field denial and create no preview token or persistent job
+actual stop button discards a late real preview and stops remaining files without creating persistent jobs
+actual prepare commits once despite an injected lost acknowledgement; confirmation replays its original command and prevents duplicate jobs
+stop during a real durable preparation waits for its result, retains two saved jobs and leaves the other reviewed files untouched
+{"version":"0.222.0","completed":false,"cases":5,"scratch":"D:\\CodexTestData\\aural-workflow-ui-tag-batch-3YTTC1"}
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+10 !== 4
+
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-tag-batch-mvp.smoke.cjs:44:230) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 10,
+  expected: 4,
+  operator: 'strictEqual',
+  diff: 'simple'
+}

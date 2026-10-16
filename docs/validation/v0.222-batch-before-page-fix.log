@@ -1,0 +1,33 @@
+normal import and actual selected-song toolbar open a bounded batch of14 real files with10 per page
+per-song library-origin permission checks retain current collection-field denial and create no preview token or persistent job
+actual stop button discards a late real preview and stops remaining files without creating persistent jobs
+actual prepare commits once despite an injected lost acknowledgement; confirmation replays its original command and prevents duplicate jobs
+stop during a real durable preparation waits for its result, retains two saved jobs and leaves the other reviewed files untouched
+serial preparation completes nine changed files, preserves the unchanged file and advances to the real second page with an unsupported WAV reason
+actual changed physical source is rejected before preparation; exact-command confirmation retains eleven successes and does not create another request or job
+batch preparation changes neither original audio files nor library titles and creates no backup, native commit or automatic write
+{"version":"0.222.0","completed":false,"cases":8,"scratch":"D:\\CodexTestData\\aural-workflow-ui-tag-batch-dzsl7R"}
+locator.click: Timeout 20000ms exceeded.
+Call log:
+  - waiting for getByRole('dialog', { name: '标签任务中心', exact: true }).locator('[data-tag-job-id="fa710126-8deb-48a5-a359-4b0c87597d5f"]').getByRole('button', { name: '生成备份与临时文件', exact: true })
+    - locator resolved to <button>生成备份与临时文件</button>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is not stable
+  - retrying click action
+    - waiting for element to be visible, enabled and stable
+  - element was detached from the DOM, retrying
+
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-tag-batch-mvp.smoke.cjs:53:171) {
+  log: [
+    `  - waiting for getByRole('dialog', { name: '标签任务中心', exact: true }).locator('[data-tag-job-id="fa710126-8deb-48a5-a359-4b0c87597d5f"]').getByRole('button', { name: '生成备份与临时文件', exact: true })`,
+    '    - locator resolved to <button>生成备份与临时文件</button>',
+    '  - attempting click action',
+    '    - waiting for element to be visible, enabled and stable',
+    '    - element is not stable',
+    '  - retrying click action',
+    '    - waiting for element to be visible, enabled and stable',
+    '  - element was detached from the DOM, retrying'
+  ],
+  name: 'TimeoutError'
+}

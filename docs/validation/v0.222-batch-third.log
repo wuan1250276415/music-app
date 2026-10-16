@@ -1,0 +1,45 @@
+normal import and actual selected-song toolbar open a bounded batch of14 real files with10 per page
+per-song library-origin permission checks retain current collection-field denial and create no preview token or persistent job
+actual stop button discards a late real preview and stops remaining files without creating persistent jobs
+actual prepare commits once despite an injected lost acknowledgement; confirmation replays its original command and prevents duplicate jobs
+{"version":"0.222.0","completed":false,"cases":4,"scratch":"D:\\CodexTestData\\aural-workflow-ui-tag-batch-grEfqK"}
+locator.click: Timeout 20000ms exceeded.
+Call log:
+  - waiting for getByRole('dialog', { name: '批量文件标签预览', exact: true }).getByRole('button', { name: '保存本页已核对任务', exact: true })
+    - locator resolved to <button disabled class="primary-button">保存本页已核对任务</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+      - waiting 100ms
+    5 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+      - waiting 500ms
+    - waiting for element to be visible, enabled and stable
+
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-tag-batch-mvp.smoke.cjs:42:126) {
+  log: [
+    "  - waiting for getByRole('dialog', { name: '批量文件标签预览', exact: true }).getByRole('button', { name: '保存本页已核对任务', exact: true })",
+    '    - locator resolved to <button disabled class="primary-button">保存本页已核对任务</button>',
+    '  - attempting click action',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not enabled',
+    '    - retrying click action',
+    '    - waiting 20ms',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not enabled',
+    '    - retrying click action',
+    '      - waiting 100ms',
+    '    5 × waiting for element to be visible, enabled and stable',
+    '      - element is not enabled',
+    '    - retrying click action',
+    '      - waiting 500ms',
+    '    - waiting for element to be visible, enabled and stable'
+  ],
+  name: 'TimeoutError'
+}
