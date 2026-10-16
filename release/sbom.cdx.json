@@ -6,7 +6,7 @@
     "component": {
       "type": "application",
       "name": "aural-library",
-      "version": "0.216.0",
+      "version": "0.217.0",
       "licenses": [
         {
           "license": {
@@ -1496,11 +1496,11 @@
         },
         {
           "name": "aural:tag-write-dialog-source-sha256",
-          "value": "8f8f77f826f30e0cb75f5d270a8bcd638e9a5327808415ab197340ff3d7bd966"
+          "value": "b8bbfd55abff53171e62326e74e484671a96411580133dae7348b6684788a682"
         },
         {
           "name": "aural:tag-write-style-source-sha256",
-          "value": "5d5b4753de8bf9b3b80d31a47a124ff126f7452c5885fc622c559a650afd0bfd"
+          "value": "6d0881cc6c7e88dbf6bcb8e571b6c2daf7a8628dfecedf11e201f9f82038efb5"
         },
         {
           "name": "aural:tag-stage-contract-source-sha256",
@@ -3940,7 +3940,7 @@
         },
         {
           "name": "aural:metadata-workflow-source-sha256:src/renderer/scan-tasks.tsx",
-          "value": "3dd7214ac32e24e8c00b1667d6d2757c3e39cd24b54d5676cd2974ea3750adfe"
+          "value": "d71870fcb38b83c3b95d8413f7e28d9499b82f7e85e689381ecf3801858e572d"
         },
         {
           "name": "aural:metadata-context-ranking-source-sha256",

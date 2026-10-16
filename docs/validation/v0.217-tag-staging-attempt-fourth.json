@@ -1,0 +1,42 @@
+{
+  "version": "0.217.0",
+  "completed": false,
+  "scope": "actual normal folder import, Main/preload/Service, supervised FLAC tag preview, real backup/temporary writes and independent byte checks, actual source playback stop, durable receipts and real process-tree crash/restart; owned generated FLAC only; journal barrier after real fsync before DB receipt; no certified original replacement, MP3 writeback, full fault matrix or hardware/installation certification",
+  "cases": [
+    "normal supervised FLAC/CUE import exposes eligible standalone context and refuses virtual-track write identity",
+    "actual supervised preview handles11 explicit fields, repeated Unicode/space values and clear, preserves picture/unknown-block evidence and leaves original bytes unchanged",
+    "actual unchecked field/confirmation UI saves a durable pending task without changing source tags or library display",
+    "stored task exposes original/proposed values including repeated artists and uses16px inline confirmation controls",
+    "real native staging stops source playback, creates exact backup and changed temporary tags, preserving audio/STREAMINFO/images/opaque blocks/unselected comments and library text",
+    "actual restart retains staged artifacts and task; original cancellation receipt replays without deleting backup or temporary file",
+    "actual owned Main/native process-tree crash after backup fsync preserves original and backup, leaves no temporary file and blocks unsafe reuse after restart"
+  ],
+  "checkboxPixels": {
+    "width": 16,
+    "height": 16
+  },
+  "artifactBytes": {
+    "source": 143884,
+    "backup": 143884,
+    "temporary": 143884
+  },
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 12488,
+    "ownedProcesses": [
+      12488,
+      29504,
+      5180,
+      29560,
+      34784,
+      3844,
+      8068,
+      10768,
+      7540,
+      26692,
+      35060,
+      31000
+    ]
+  },
+  "error": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '文件标签预览', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled class=\"release-refresh\">文件标签预览</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    39 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at openTags (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-tag-staging-mvp.smoke.cjs:16:302)\n    at async main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-tag-staging-mvp.smoke.cjs:29:10)"
+}

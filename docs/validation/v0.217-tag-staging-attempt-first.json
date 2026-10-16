@@ -1,0 +1,9 @@
+{
+  "version": "0.216.0",
+  "completed": false,
+  "scope": "actual normal folder import, Main/preload/Service, supervised FLAC tag preview, real backup/temporary writes and independent byte checks, actual source playback stop, durable receipts and real process-tree crash/restart; owned generated FLAC only; journal barrier after real fsync before DB receipt; no certified original replacement, MP3 writeback, full fault matrix or hardware/installation certification",
+  "cases": [
+    "normal supervised FLAC/CUE import exposes eligible standalone context and refuses virtual-track write identity"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(preview.preview.unknownBlocks>=1)\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-tag-staging-mvp.smoke.cjs:23:1015)"
+}

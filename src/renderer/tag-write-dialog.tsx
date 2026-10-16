@@ -12,7 +12,7 @@ import type {TagRecoveryCancelRequest} from '../shared/tag-recovery';
 type Edit={enabled:boolean;origin:'manual'|'library';text:string;clear:boolean};
 const status={prepared:'待写入',running:'正在写入',cancelled:'已取消',failed:'失败',recovery_required:'等待恢复',completed:'已完成'};
 const phaseLabels:Record<string,string>={starting:'等待文件读取组件退出',planned:'开始核对文件',source:'核对原文件',backup:'生成备份',temporary:'生成临时文件',verify:'回读校验',validated:'源文件已核对',backup_ready:'备份已校验',temp_written:'临时文件已校验',staged:'暂存完成',recovery_required:'等待恢复'};
-export function TagWriteDialog({itemId,onClose}:{itemId:string;onClose:()=>void}):React.JSX.Element {
+export function TagWriteDialog({itemId,onClose}:{itemId?:string;onClose:()=>void}):React.JSX.Element {
  const dialog=useRef<HTMLDivElement|null>(null);useFocus(dialog);
  const epoch=useRef(0),previewRequest=useRef<string|null>(null),attempt=useRef<TagWritePrepareRequest|null>(null),cancelAttempts=useRef(new Map<string,TagWriteCancelRequest>());
  const stageAttempts=useRef(new Map<string,TagWriteCancelRequest>());
@@ -26,7 +26,7 @@ export function TagWriteDialog({itemId,onClose}:{itemId:string;onClose:()=>void}
  }),[]);
  useEffect(()=>{
   let alive=true;const marker=epoch.current;setLoading(true);setError('');setNotice('');setPreview(null);setReviewed(false);setManualConfirmed(false);setEdits({});setStale(false);
-  void Promise.all([window.music.tagWriteContext(itemId),window.music.tagWriteJobs()]).then(([c,p])=>{if(alive){setContext(c);setPage(p);setStale(marker!==epoch.current);}}).catch(e=>{if(alive)setError(String(e));}).finally(()=>{if(alive)setLoading(false);});
+  void Promise.all([itemId?window.music.tagWriteContext(itemId):Promise.resolve(null),window.music.tagWriteJobs()]).then(([c,p])=>{if(alive){setContext(c);setPage(p);setStale(marker!==epoch.current);}}).catch(e=>{if(alive)setError(String(e));}).finally(()=>{if(alive)setLoading(false);});
   return()=>{alive=false;if(previewRequest.current)void window.music.tagWritePreviewCancel(previewRequest.current).catch(()=>{});};
  },[itemId,reload]);
  function edit(field:TagWriteField,patch:Partial<Edit>):void {if(attempt.current)return;setEdits(values=>({...values,[field]:{enabled:false,origin:'manual',text:'',clear:false,...values[field],...patch}}));setPreview(null);setReviewed(false);setManualConfirmed(false);setNotice('');}
@@ -35,7 +35,7 @@ export function TagWriteDialog({itemId,onClose}:{itemId:string;onClose:()=>void}
   if(!context||busy||stale||!context.eligible||!selected.length||attempt.current)return;
   setBusy(true);setError('');setNotice('');setPreview(null);setReviewed(false);
   const requestId=crypto.randomUUID(),marker=epoch.current;previewRequest.current=requestId;
-  const draft:TagWriteDraft={requestId,itemId,fingerprint:context.fingerprint,manualConfirmed,fields:selected.map(f=>{const e=edits[f.field]!;return {field:f.field,origin:e.origin,values:e.origin==='library'?[...f.values]:e.clear?[]:e.text.split('\n')};})};
+  const draft:TagWriteDraft={requestId,itemId:context.itemId,fingerprint:context.fingerprint,manualConfirmed,fields:selected.map(f=>{const e=edits[f.field]!;return {field:f.field,origin:e.origin,values:e.origin==='library'?[...f.values]:e.clear?[]:e.text.split('\n')};})};
   try{const result=await window.music.tagWritePreview(draft);setPreview(result);setStale(epoch.current!==marker);}
   catch(e){setError(String(e));}finally{setBusy(false);}
  }
@@ -64,10 +64,10 @@ export function TagWriteDialog({itemId,onClose}:{itemId:string;onClose:()=>void}
   catch(e){setError(`${String(e)}。请确认原操作结果，避免再次创建暂存工件。`);}finally{setBusy(false);}
  }
  const locked=busy||loading||stale||!context?.eligible||Boolean(attempt.current);
- return <div className="collection-backdrop"><div ref={dialog} className="catalog-dialog collection-dialog tag-write-dialog" role="dialog" aria-modal="true" aria-label="编辑文件标签预览" onKeyDown={event=>trap(event,dialog.current,onClose,busy)}>
-  <header><h2>文件标签预览</h2><button disabled={busy} aria-label="关闭文件标签预览" onClick={onClose}>×</button></header>
-  <p className="collection-note">先核对原标签与修改内容，再保存待写入任务。当前可准备独立 FLAC 文件；文件写入组件和格式校验开放前，歌曲文件不会被修改。</p>
-  {loading&&<p role="status">正在读取歌曲资料与任务…</p>}
+ return <div className="collection-backdrop"><div ref={dialog} className="catalog-dialog collection-dialog tag-write-dialog" role="dialog" aria-modal="true" aria-label={itemId?"编辑文件标签预览":"标签任务中心"} onKeyDown={event=>trap(event,dialog.current,onClose,busy)}>
+  <header><h2>{itemId?"文件标签预览":"标签与恢复任务"}</h2><button disabled={busy} aria-label={itemId?"关闭文件标签预览":"关闭标签任务中心"} onClick={onClose}>×</button></header>
+  <p className="collection-note">{itemId?"先核对原标签与修改内容，再保存待写入任务。当前可准备独立 FLAC 文件；文件写入组件和格式校验开放前，歌曲文件不会被修改。":"查看已保存任务、备份和暂存状态。中断任务可先核对实际文件，再按结果处理；无需选择或播放歌曲。"}</p>
+  {loading&&<p role="status">{itemId?"正在读取歌曲资料与任务…":"正在读取标签任务…"}</p>}
   {context&&<><h3>{context.title}</h3>{context.reason&&<p role="status" className="collection-error">{context.reason}</p>}
    <div className="tag-write-fields">{context.fields.map(f=>{const e=edits[f.field]??{enabled:false,origin:'manual',text:'',clear:false};return <section key={f.field}>
     <label className="tag-write-field-toggle"><input type="checkbox" checked={e.enabled} disabled={locked} onChange={event=>edit(f.field,{enabled:event.target.checked})}/><strong>{TAG_FIELD_LABELS[f.field]}</strong></label>
@@ -83,11 +83,12 @@ export function TagWriteDialog({itemId,onClose}:{itemId:string;onClose:()=>void}
    {now>=preview.expiresAt&&!attempt.current&&<p className="collection-error">此预览已过期，请重新预览。</p>}
    <label className="tag-write-confirm"><input type="checkbox" checked={reviewed} disabled={busy||stale||Boolean(attempt.current)||!preview.preview.changed||now>=preview.expiresAt} onChange={event=>setReviewed(event.target.checked)}/>已核对差异，保存待写入任务</label>
   </section>}
-  {stale&&!attempt.current&&<p role="alert" className="collection-error">歌曲资料或来源设置已变化，请重新读取后再预览。</p>}{error&&<p role="alert" className="collection-error">{error}</p>}{notice&&<p role="status">{notice}</p>}
-  <footer><button disabled={busy} onClick={onClose}>关闭</button><button disabled={busy||Boolean(attempt.current)} onClick={()=>setReload(n=>n+1)}>重新读取</button><button disabled={locked||!selected.length||hasManual&&!manualConfirmed} onClick={()=>void makePreview()}>预览标签差异</button><button className="primary-button" disabled={busy||!preview||!attempt.current&&(stale||!reviewed||!preview.preview.changed||now>=preview.expiresAt)} onClick={()=>void save()}>{busy?'正在处理…':attempt.current?'确认原保存结果':'保存待写入任务'}</button></footer>
-  <section className="tag-write-jobs"><h3>最近的标签任务</h3><p className="collection-note">生成备份与临时文件时，会停止此文件的播放并等待读取组件退出。暂存不替换歌曲文件；取消或中断会保留已有工件，需核对后恢复。</p>{page?.jobs.length? page.jobs.map(job=><article key={job.id}>
-   <div><strong>{job.title}</strong><span>{job.nativeRestore?(job.nativeRestoreReprobe?.state==='completed'?'原来源及曲库已恢复':{reserved:'等待恢复文件核对',running:'正在恢复原文件',native_restored:'原文件已核对，等待曲库恢复',recovery_required:'文件恢复中断，等待核对'}[job.nativeRestore.state]):job.nativeCommit?({reserved:'等待文件核对',running:'正在提交标签',native_verified:'文件已核对，等待曲库更新',recovery_required:'提交中断，等待恢复核对',committed:'标签及曲库已更新',reconciled:'目标及曲库已恢复'}[job.nativeCommit.state]):job.staging?.state==='staged'?'已备份并暂存':job.state==='running'?'正在备份与暂存':status[job.state]}</span></div>
+  {itemId&&stale&&!attempt.current&&<p role="alert" className="collection-error">歌曲资料或来源设置已变化，请重新读取后再预览。</p>}{error&&<p role="alert" className="collection-error">{error}</p>}{notice&&<p role="status">{notice}</p>}
+  <footer><button disabled={busy} onClick={onClose}>关闭</button>{itemId&&<><button disabled={busy||Boolean(attempt.current)} onClick={()=>setReload(n=>n+1)}>重新读取</button><button disabled={locked||!selected.length||hasManual&&!manualConfirmed} onClick={()=>void makePreview()}>预览标签差异</button><button className="primary-button" disabled={busy||!preview||!attempt.current&&(stale||!reviewed||!preview.preview.changed||now>=preview.expiresAt)} onClick={()=>void save()}>{busy?'正在处理…':attempt.current?'确认原保存结果':'保存待写入任务'}</button></>}</footer>
+  <section className="tag-write-jobs"><h3>最近的标签任务</h3><p className="collection-note">生成备份与临时文件时，会停止此文件的播放并等待读取组件退出。暂存不替换歌曲文件；取消或中断会保留已有工件，需核对后恢复。</p>{page?.jobs.length? page.jobs.map(job=><article key={job.id} data-tag-job-id={job.id}>
+   <div><strong>{job.title}</strong><span>{job.nativeRestore?(job.nativeRestoreReprobe?.state==='completed'?'原来源及曲库已恢复':{reserved:'等待恢复文件核对',running:'正在恢复原文件',native_restored:'原文件已核对，等待曲库恢复',recovery_required:'文件恢复中断，等待核对'}[job.nativeRestore.state]):job.nativeCommit?({reserved:'等待文件核对',running:'正在提交标签',native_verified:'文件已核对，等待曲库更新',recovery_required:'提交中断，等待恢复核对',committed:'标签及曲库已更新',reconciled:'目标及曲库已恢复'}[job.nativeCommit.state]):job.state==='cancelled'?'已取消':job.staging?.state==='staged'?'已备份并暂存':job.state==='running'?'正在备份与暂存':status[job.state]}</span></div>
    <small>{new Date(job.createdAt).toLocaleString()} · {job.preview.fields.map(f=>TAG_FIELD_LABELS[f.field]).join('、')}</small><p>{job.reason}</p>
+   <details className="tag-write-saved-preview"><summary>查看任务保存的标签差异</summary><p className="collection-note">这里保留创建任务时核对的内容。文件后续可能变化，继续处理前仍会重新核对。</p>{job.preview.fields.map(field=><div className="tag-write-difference" key={field.field}><strong>{TAG_FIELD_LABELS[field.field]}{field.changed?'':'（无变化）'}</strong><div><span>创建任务时的原标签</span><pre>{field.before.length?field.before.join('\n'):'无标签'}</pre></div><div><span>计划值</span><pre>{field.values.length?field.values.join('\n'):'清空标签'}</pre></div></div>)}</details>
    {!job.nativeCommit&&job.staging&&job.state==='running'&&<div className="tag-write-progress"><span>{phaseLabels[job.staging.phase]??job.staging.phase}</span><progress aria-label="当前暂存步骤进度" max={1} value={Number(job.staging.bytes)/Math.max(1,Number(job.staging.total))}/><small>{(Number(job.staging.bytes)/1048576).toFixed(1)} / {(Number(job.staging.total)/1048576).toFixed(1)} MiB</small></div>}
    {job.nativeRestore&&<TagRestoreRecovery key={job.nativeRestore.id} job={job} disabled={busy||Boolean(attempt.current)} onError={setError} onChange={async()=>setPage(await window.music.tagWriteJobs())}/>}{job.nativeRestore&&<p role="status">{job.nativeRestoreReprobe?.state==='completed'?'原恢复历史：':''}{job.nativeRestore.reason} · {job.nativeRestore.exitConfirmed?'原恢复进程已退出':'原恢复进程退出尚待确认'}。{job.nativeRestoreReprobe?.state==='completed'?'曲库已独立恢复，原历史及全部工件保留。':'恢复记录保留，完成后仍需重新核对和更新曲库。'}</p>}
    {job.nativeCommit&&<p role="status">{job.nativeRestore?'原提交历史：':''}{job.nativeCommit.reason} · {job.nativeCommit.state==='reconciled'?(job.nativeCommit.exitConfirmed?'历史记录：原提交进程已退出':'历史记录：原提交最终退出回执缺失'):job.nativeCommit.exitConfirmed?'文件进程已退出':'文件进程退出尚待确认'}</p>}

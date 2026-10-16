@@ -1,0 +1,47 @@
+normal supervised FLAC/CUE import exposes eligible standalone context and refuses virtual-track write identity
+actual supervised preview handles11 explicit fields, repeated Unicode/space values and clear, preserves picture/unknown-block evidence and leaves original bytes unchanged
+actual unchecked field/confirmation UI saves a durable pending task without changing source tags or library display
+stored task exposes original/proposed values including repeated artists and uses16px inline confirmation controls
+real native staging stops source playback, creates exact backup and changed temporary tags, preserving audio/STREAMINFO/images/opaque blocks/unselected comments and library text
+actual restart retains staged artifacts and task; original cancellation receipt replays without deleting backup or temporary file
+actual owned Main/native process-tree crash after backup fsync preserves original and backup, leaves no temporary file and blocks unsafe reuse after restart
+{"version":"0.217.0","completed":false,"cases":7,"scratch":"D:\\CodexTestData\\aural-workflow-ui-tag-JHdoBV"}
+locator.click: Timeout 20000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: '文件标签预览', exact: true })
+    - locator resolved to <button disabled class="release-refresh">文件标签预览</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+      - waiting 100ms
+    39 × waiting for element to be visible, enabled and stable
+       - element is not enabled
+     - retrying click action
+       - waiting 500ms
+
+    at openTags (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-tag-staging-mvp.smoke.cjs:16:302)
+    at async main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-tag-staging-mvp.smoke.cjs:29:10) {
+  log: [
+    "  - waiting for getByRole('button', { name: '文件标签预览', exact: true })",
+    '    - locator resolved to <button disabled class="release-refresh">文件标签预览</button>',
+    '  - attempting click action',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not enabled',
+    '    - retrying click action',
+    '    - waiting 20ms',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not enabled',
+    '    - retrying click action',
+    '      - waiting 100ms',
+    '    39 × waiting for element to be visible, enabled and stable',
+    '       - element is not enabled',
+    '     - retrying click action',
+    '       - waiting 500ms'
+  ],
+  name: 'TimeoutError'
+}
