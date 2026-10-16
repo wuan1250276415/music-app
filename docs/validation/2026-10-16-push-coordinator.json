@@ -1,0 +1,99 @@
+{
+  "version": "0.221.0",
+  "completed": true,
+  "scope": "owned generated FLAC, byte-identical compiled production coordinator/database/journals/clients with isolated generated certificate catalogs; real supervised parsing/staging, native candidate commit/restore, real SQLite receipts and reprobe; no Main/preload/GUI commit entry, production certification, hard parent crash, power cut or complete filesystem/security matrix",
+  "cases": [
+    {
+      "name": "actual coordinator stages, commits five fsynced/native/SQLite phases, replays original command and keeps changed file unreadable until reconciliation"
+    },
+    {
+      "name": "independent target reparse commits new metadata and releases read owners; actual database reopen preserves available item identity and title"
+    },
+    {
+      "name": "actual victim restoration persists all six native/database phases, independently reparses original tags and survives database reopen with backup retained"
+    },
+    {
+      "name": "actual backup restoration persists all six native/database phases, independently reparses original tags and survives database reopen with backup retained"
+    },
+    {
+      "name": "actual SQLite release-receipt failure retains completed library transaction with a durable outstanding release and blocks normal reads"
+    },
+    {
+      "name": "actual database close and reopen retain pending release and deny ordinary reads before cleanup"
+    },
+    {
+      "name": "retry release after reopen independently rejects changed target observation and marks stale library data unavailable for rescan"
+    },
+    {
+      "name": "real library metadata transaction abort retains old unavailable title and read hold; independent retry applies target once without duplicating the item"
+    },
+    {
+      "name": "actual SQLite rollback after fsynced commit phase 1 retains independent fs-ahead evidence"
+    },
+    {
+      "name": "actual SQLite rollback after fsynced commit phase 2 retains independent fs-ahead evidence"
+    },
+    {
+      "name": "actual SQLite rollback after fsynced commit phase 3 retains independent fs-ahead evidence and restores original file plus library"
+    },
+    {
+      "name": "actual SQLite rollback after fsynced commit phase 4 retains independent fs-ahead evidence and restores original file plus library"
+    },
+    {
+      "name": "actual SQLite rollback after fsynced commit phase 5 retains independent fs-ahead evidence and restores original file plus library"
+    },
+    {
+      "name": "actual victim restore SQLite interruption after phase 1 survives reopen and a fresh immutable restore attempt"
+    },
+    {
+      "name": "actual victim restore SQLite interruption after phase 2 survives reopen and a fresh immutable restore attempt"
+    },
+    {
+      "name": "actual victim restore SQLite interruption after phase 3 survives reopen and a fresh immutable restore attempt"
+    },
+    {
+      "name": "actual victim restore SQLite interruption after phase 4 survives reopen and a fresh immutable restore attempt"
+    },
+    {
+      "name": "actual victim restore SQLite interruption after phase 5 survives reopen and independent restored-source reconciliation"
+    },
+    {
+      "name": "actual victim restore SQLite interruption after phase 6 survives reopen and independent restored-source reconciliation"
+    },
+    {
+      "name": "actual backup restore SQLite interruption after phase 1 survives reopen and a fresh immutable restore attempt"
+    },
+    {
+      "name": "actual backup restore SQLite interruption after phase 2 survives reopen and a fresh immutable restore attempt"
+    },
+    {
+      "name": "actual backup restore SQLite interruption after phase 3 survives reopen and a fresh immutable restore attempt"
+    },
+    {
+      "name": "actual backup restore SQLite interruption after phase 4 survives reopen and a fresh immutable restore attempt"
+    },
+    {
+      "name": "actual backup restore SQLite interruption after phase 5 survives reopen and independent restored-source reconciliation"
+    },
+    {
+      "name": "actual backup restore SQLite interruption after phase 6 survives reopen and independent restored-source reconciliation"
+    },
+    {
+      "name": "explicit partial-copy fixture is retained byte-for-byte while a fresh backup restore copy recovers original audio and library after reopen"
+    },
+    {
+      "name": "two independently interrupted restore attempts survive reopen and a third attempt completes with monotonic lease epochs and immutable attempt history"
+    }
+  ],
+  "compositionSha256": "e4dbda1d2ba64a0ec0679e014e96b9d402c4b0478badffce7c99ed33db4c66ed",
+  "productionCertificationEnabled": false,
+  "compiledProductionUnchanged": true,
+  "fingerprints": {
+    "src/library/tag-write-manager.ts": "b95967efec396f1dde1439ed49f3b350d9ffdab840da8401b7708812a11e2216",
+    "src/library/tag-write-jobs.ts": "1ce7c4a2e51b8d6410e262bfb05003ef173c4757209f67551c4ddb05ad6e9ed0",
+    "src/library/tag-restore-attempt-migration.ts": "b30012a5b8bd6f67fff38e2987698ec5ab4c24741db20b3c5eb0dcea97d0ebb8",
+    "src/shared/tag-restore-journal.ts": "2b0b08f43d755413cf6ae7279133e0f16b9cd4a73776d5c9a337ba7100927042",
+    "tests/tag-coordinator-mvp.smoke.cjs": "d576d4ef718d2e0bb4d90f93513779cb53a7a77d778458b73b411ccbf7268398",
+    "tests/helpers/tag-coordinator-composition.cjs": "7fb931067c34380c5cd56f4671ba69fd93ee03e37feee5931e1daddf677d3dac"
+  }
+}

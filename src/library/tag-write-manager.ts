@@ -276,11 +276,18 @@ export class TagWriteManager {
    const actual=await this.inspector!.runRestore(input,p=>{if(performance.now()-lastNotice>=2000||p.bytes===p.total){lastNotice=performance.now();this.db.tagWriteJobs.restoreInspectionProgress(id,p);this.notify(jobId);}},signal);
    signal.throwIfAborted();await this.recoveryRoot(d);const {binding}=this.db.tagWriteJobs.restoreInspectionBinding(id);
    const report:TagRestoreRecoveryReport={classification:binding?'journal-unconfirmed':'binding-unavailable',journal:'unconfirmed',phase:null,journalEvidence:null,commitJournalSha256:null,stagingJournalSha256:null,reason:binding?'恢复日志尚未核对，文件及恢复占用保留':'恢复尚未冻结实际来源绑定，不以旧提交日志推定恢复结果；文件和占用保留',actual};
+   if(!binding)try{
+    this.db.tagWriteJobs.assertRestoreUnbound(row.id);await this.restoreJournal!.assertUnstarted(row.id);
+    const staged=await this.journal!.read(jobId),original=await this.commitJournal!.read(row.commit_operation_id);
+    const checked=this.db.tagWriteJobs.proveUnstartedRestore(row.id,actual,staged,original);
+    await this.restoreJournal!.assertUnstarted(row.id);this.db.tagWriteJobs.assertRestoreUnbound(row.id);Object.assign(report,checked);
+   }catch(e){report.reason=`恢复准备状态无法确认，现有文件与占用保留：${String(e instanceof Error?e.message:e).slice(0,500)}`;}
    if(binding)try{
     const staged=await this.journal!.read(jobId);this.db.tagWriteJobs.inspectJournal(d.worker.executionId,staged);if(staged.receiptSha256!==binding.request.stagingJournalSha256)throw new Error('原暂存日志与恢复来源不符');
     const original=await this.commitJournal!.read(row.commit_operation_id);this.db.tagWriteJobs.inspectCommitJournal(row.commit_operation_id,original);if(original.revision!==binding.commitJournalRevision||original.sha256!==binding.request.commitJournalSha256)throw new Error('恢复所链接的原提交日志已变化');
     const journal=await this.restoreJournal!.read(row.id),status=this.db.tagWriteJobs.inspectRestoreJournal(row.id,journal),classification=classifyTagRestoreRecovery(actual,binding,journal);
     const reasons:Record<typeof classification,string>={
+     'unstarted-restore':'上次恢复尚未开始移动文件，可确认后继续恢复',
      'unchanged-before-restore':'原路径及保留文件仍符合恢复前状态，尚未观察到恢复移动；恢复占用保留',
      'source-prepared':'恢复来源已准备，实际身份及内容符合持久阶段，尚未放回歌曲原路径',
      'copy-unconfirmed':'观察到恢复副本，但尚无完整准备阶段证据；可能是部分复制，文件和占用保留',
@@ -364,10 +371,12 @@ export class TagWriteManager {
    await this.validateRestoreOwned(id,signal);const three=this.inspectionInput(id,d),input:TagCommitInspectionRequest={...three,version:2,kind:'inspect-commit',files:[...three.files,{role:'victim',path:path.join(path.dirname(w.binding.fullPath),`.aural-${jobId}-${commit.request.victimArtifactId}.victim`)}]};
    const progress=(p:{role:string;bytes:string;total:string})=>{if(performance.now()-lastNotice>=2000||p.bytes===p.total){lastNotice=performance.now();this.db.tagWriteJobs.restoreProgress(id,{role:p.role as import('../shared/tag-restore.js').TagRestoreRole,bytes:p.bytes,total:p.total});this.notify(jobId);}};
    if(row.predecessor_id){
-    const prior=await this.restoreJournal!.read(row.predecessor_id),evidence=this.db.tagWriteJobs.restoreRetryEvidence(id,prior);
-    if(!evidence)throw new Error('恢复续办缺少前次尝试');const p=evidence.binding.request,directory=path.dirname(w.binding.fullPath),prefix=`.aural-${jobId}-`;
-    const before=await this.inspector!.runRestore({version:3,kind:'inspect-restore',inspectionId:id,sourceRoot:p.sourceRoot,backupRoot:p.backupRoot,files:[...p.files,{role:'replacement',path:path.join(directory,`${prefix}${p.replacementArtifactId}.restore`)},{role:'displaced',path:path.join(directory,`${prefix}${p.displacedArtifactId}.displaced`)}]},progress,signal);
-    assertTagRestoreInspectionEqual(evidence.report.actual,before);this.db.tagWriteJobs.restoreRetryEvidence(id,await this.restoreJournal!.read(row.predecessor_id));
+    const unstarted=this.db.tagWriteJobs.restoreRetryUnstarted(id);if(unstarted)await this.restoreJournal!.assertUnstarted(row.predecessor_id);
+    const prior=unstarted?null:await this.restoreJournal!.read(row.predecessor_id),evidence=this.db.tagWriteJobs.restoreRetryEvidence(id,prior);
+    if(!evidence)throw new Error('恢复续办缺少前次尝试');const directory=path.dirname(w.binding.fullPath),prefix=`.aural-${jobId}-`;
+    const before=await this.inspector!.runRestore({version:3,kind:'inspect-restore',inspectionId:id,sourceRoot:input.sourceRoot,backupRoot:input.backupRoot,files:[...input.files,{role:'replacement',path:path.join(directory,`${prefix}${evidence.replacementArtifactId}.restore`)},{role:'displaced',path:path.join(directory,`${prefix}${evidence.displacedArtifactId}.displaced`)}]},progress,signal);
+    assertTagRestoreInspectionEqual(evidence.report.actual,before);if(unstarted)await this.restoreJournal!.assertUnstarted(row.predecessor_id);
+    this.db.tagWriteJobs.restoreRetryEvidence(id,unstarted?null:await this.restoreJournal!.read(row.predecessor_id));
    }
    const actual=await this.inspector!.runCommit(input,progress,signal);await this.validateRestoreOwned(id,signal);
    const staged=await this.journal!.read(jobId),original=await this.commitJournal!.read(row.commit_operation_id),binding=this.db.tagWriteJobs.freezeRestore(id,actual,staged,original);

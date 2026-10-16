@@ -12,6 +12,14 @@ const normalize=(v:string)=>process.platform==='win32'?path.resolve(v).toLowerCa
 export class TagRestoreJournal {
  private readonly root:string;
  constructor(dataDir:string){if(!path.isAbsolute(dataDir))throw new Error('恢复日志目录必须为绝对路径');this.root=path.join(dataDir,'tag-restore');}
+ async assertUnstarted(id:string):Promise<void>{
+  if(!tagWriteUuid(id))throw new Error('恢复日志身份无效');const parent=path.dirname(this.root),base=await fs.lstat(parent);
+  if(!base.isDirectory()||base.isSymbolicLink()||normalize(await fs.realpath(parent))!==normalize(parent))throw new Error('恢复日志上级目录不可确认');
+  try{const stat=await fs.lstat(this.root);if(!stat.isDirectory()||stat.isSymbolicLink()||normalize(await fs.realpath(this.root))!==normalize(this.root))throw new Error('恢复日志根目录不可确认');}
+  catch(error){if((error as NodeJS.ErrnoException).code==='ENOENT')return;throw error;}
+  try{await fs.lstat(path.join(this.root,id));}catch(error){if((error as NodeJS.ErrnoException).code==='ENOENT')return;throw error;}
+  throw new Error('恢复操作已有日志目录，不能按尚未开始处理');
+ }
  private async folder(id:string,create=false):Promise<string>{
   if(!tagWriteUuid(id))throw new Error('恢复日志身份无效');await fs.mkdir(this.root,{recursive:true});
   const base=await fs.lstat(this.root);if(!base.isDirectory()||base.isSymbolicLink()||normalize(await fs.realpath(this.root))!==normalize(this.root))throw new Error('恢复日志根目录不可确认');
