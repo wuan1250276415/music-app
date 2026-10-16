@@ -1,0 +1,12 @@
+{
+  "evidenceType": "captured-console-summary",
+  "result": {
+    "version": "0.224.0",
+    "completed": true,
+    "cases": 11,
+    "runRoot": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-kjne6i"
+  },
+  "detailedReportRequested": false,
+  "logSha256": "217f30943f55f0ee6f32326ad38ed940ddf8973bd5eebf4868d1157b40e06b4b",
+  "scope": "isolated candidate GUI regression; real assertions and two hard-crash scenarios are recorded in the log, not production certification"
+}

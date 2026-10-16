@@ -1,0 +1,42 @@
+{
+  "version": "0.224.0",
+  "completed": true,
+  "scope": "actual supervised WAV/CUE scan and production native fingerprint/broker/provider/recognition scheduler/SQLite, declared fake credential and controlled lookup transport; real backup/domain/migration checks; no real AcoustID truth, hardware or user media mutation",
+  "cases": [
+    "credential preflight failure is durable and occurs before native reads, network or page claim",
+    "production native decoder and current CUE/file fingerprints feed persisted decoding/lookup stages without metadata adoption",
+    "pause acknowledges stopping before actual drain, then retains completed association and interrupted in-flight attempt",
+    "temporary credential preflight failure on resume preserves valid completed associations without extra native reads",
+    "prepared result is a private current-scope public projection with no raw fingerprint or key; mutation cannot authorize foreign recording",
+    "resume skips the already prepared current association and completes remaining five items without auto-reading MusicBrainz or selecting fields",
+    "durable recognition tables store stage/count/error/identity only, with no raw audio fingerprint, key or external recording text",
+    "actual current-schema standalone snapshot and read-only current-domain inspector validate persisted recognition stages and commands",
+    "actual snapshot reopen retains attempts, marks ephemeral results lost and requires explicit task continuation without network",
+    "interactive review close retires prepared cache without releasing a page now owned by the editor",
+    "empty AcoustID responses become explicit no-match records, not automatic title lookup or adopted identity",
+    "cancel during an observed live native read waits for worker completion and actually releases the owned source write lock",
+    "physical file observation failure is located and persisted while five peer associations remain reviewable",
+    "explicit retry after restored/scanned file retries failed source and never silently adopts metadata",
+    "malformed remote association becomes a durable per-item lookup error without copying untrusted response text",
+    "only explicit retry reruns failed lookup and preserves completed peer associations",
+    "expired parent claim revokes prepared associations and releases pending scope without extending candidate lifetime",
+    "four-job recognition queue is bounded and refuses a fifth without evicting current prepared scopes",
+    "maintenance aborts live lookup, drains actual worker, releases claims and interrupts queued jobs before database capture",
+    "maintenance release never silently resumes interrupted external queries",
+    "dormant read-only runtime freeze/dispose preserves a genuine queued recognition row and archive bytes without mutation or scheduling",
+    "constructed schema76 fixture upgrades transactionally with a verified pre-v77 snapshot",
+    "owned source audio and SQLite integrity/foreign keys remain intact"
+  ],
+  "sourceUnchanged": true,
+  "fingerprints": {
+    "src/library/metadata-recognition.ts": "0a58b7c45464a4a28585336b64eadc8b5a85d6b601affe93e7968d862b08a105",
+    "src/library/metadata-recognition-manager.ts": "bc62f08897e35cc1d3b272119169371eb8190ad0157ead37661f67140779412c",
+    "src/shared/metadata-recognition.ts": "3730dc057dfa1bb93b921a90386a51b817f48dddc9c6ce52c167672b53ff6935",
+    "src/library/metadata-workflow.ts": "b9df672b8a1710608ad9f11dd5b4847c88a43579feb63b59e8ceecab38618e5d",
+    "src/library/database.ts": "4a13429e0e5c1be33acfde3dac318fe6e22e1417dda26e1c6e94a5c772237271",
+    "src/library/catalog-restore-compatibility.ts": "ca0ecad292f8c98e7694b41df6cab450fe403d9c6c54ae2df492744345e820a0",
+    "src/shared/catalog-restore-compatibility.ts": "007b4a02a410b4c271b752f9308414b88b21d2ab3c52afac0e2cf7f9d3a0c6ad",
+    "native/audio-host/build/fingerprint-worker.exe": "f4407e19e3631a3e8049db1b3c0ed5bd500b5c64a6f3813d134a3747612a4126",
+    "tests/metadata-recognition-mvp.smoke.cjs": "aaf41df66a580e69e6d650a15c6f52dec1b0f6743fca3501eb53e7675e7d2ea1"
+  }
+}

@@ -1,0 +1,14 @@
+credential preflight failure is durable and occurs before native reads, network or page claim
+production native decoder and current CUE/file fingerprints feed persisted decoding/lookup stages without metadata adoption
+pause acknowledges stopping before actual drain, then retains completed association and interrupted in-flight attempt
+prepared result is a private current-scope public projection with no raw fingerprint or key; mutation cannot authorize foreign recording
+resume skips the already prepared current association and completes remaining five items without auto-reading MusicBrainz or selecting fields
+durable recognition tables store stage/count/error/identity only, with no raw audio fingerprint, key or external recording text
+interactive review close retires prepared cache without releasing a page now owned by the editor
+empty AcoustID responses become explicit no-match records, not automatic title lookup or adopted identity
+cancel during an observed live native read waits for worker completion and actually releases the owned source write lock
+physical file observation failure is located and persisted while five peer associations remain reviewable
+explicit retry after restored/scanned file retries failed source and never silently adopts metadata
+malformed remote association becomes a durable per-item lookup error without copying untrusted response text
+maintenance aborts live lookup, drains actual worker, releases claims and interrupts queued jobs before database capture
+{"version":"0.224.0","completed":true,"cases":23}

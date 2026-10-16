@@ -1,0 +1,33 @@
+{
+  "version": "0.224.0",
+  "completed": true,
+  "scope": "205 declared synthetic parsed-file members through production SQLite worklist/recognition repositories, retry transactions/counters/pagination, actual backup/domain inspection/reopen and constructed78 migration/rollback; no actual media/native/network/desktop or100k performance claim",
+  "cases": [
+    "three actual repository pages retain205 failures and exact cached progress with no metadata adoption",
+    "failure cursor pagination yields100+100+5 stable ordinals across generations with no duplicate or missing member",
+    "closed readers reject oversized selection, duplicate IDs, foreign fields, malformed cursor and scope",
+    "frequent public progress reads use exact transactional counters and only bounded current-generation aggregation",
+    "explicit cross-page selection snapshots only3 failed members and receipt replay cannot duplicate retry or reset cursor",
+    "retry completion removes only attempted members; pause preserves one unfinished member and original failure cause without moving library cursor",
+    "actual current-schema standalone backup and read-only current-domain inspector preserve selected pending retry and exact counters",
+    "actual database reopen retains pending retry identity and cause, marks interrupted and requires explicit continuation",
+    "explicit retry continuation processes only unfinished selected member and clears retry mode independently of original cursor",
+    "injected failure after retry insertion rolls back membership, counters, state and original command receipt atomically",
+    "explicit all-failures retry snapshots203 failures on service side without requiring all IDs in renderer",
+    "cancel removes retry intent and preserves remaining failures without implicit metadata changes or revival",
+    "handled-member status and retry removal/counters share the same workflow transaction and roll back together on injected failure",
+    "independent restore validation rejects tampered cached counters rather than trusting public progress",
+    "constructed populated205-item schema78 upgrades with verified pre-v79 snapshot and independently recounted summaries",
+    "mid-upgrade fault after first ALTER rolls back complete schema78 definitions and version"
+  ],
+  "fingerprints": {
+    "src/shared/metadata-recognition.ts": "3730dc057dfa1bb93b921a90386a51b817f48dddc9c6ce52c167672b53ff6935",
+    "src/library/metadata-recognition.ts": "0a58b7c45464a4a28585336b64eadc8b5a85d6b601affe93e7968d862b08a105",
+    "src/library/recognition-retry.ts": "acb88bc3ce4581753df307bec0d0b4acf5b3145d9eb74a4274df33258acb0b22",
+    "src/library/metadata-workflow.ts": "b9df672b8a1710608ad9f11dd5b4847c88a43579feb63b59e8ceecab38618e5d",
+    "src/library/database.ts": "4a13429e0e5c1be33acfde3dac318fe6e22e1417dda26e1c6e94a5c772237271",
+    "src/library/catalog-restore-compatibility.ts": "ca0ecad292f8c98e7694b41df6cab450fe403d9c6c54ae2df492744345e820a0",
+    "tests/recognition-retry-mvp.smoke.cjs": "527d47c0682b70b8848b827cd4741e37babce8ed86b131ebd42f3d68c35653e7",
+    "tests/recognition-schema-fixture.cjs": "75f32b78777d6675aca1fbe7d32a6313dc02401cd897f72dc71e1b18a3e798a2"
+  }
+}

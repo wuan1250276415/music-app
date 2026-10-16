@@ -1,0 +1,42 @@
+{
+  "version": "0.224.0",
+  "completed": true,
+  "scope": "actual generated FLAC, supervised scan/preview/native backup and staging, SQLite provenance and collection repositories; explicitly controlled provider candidates/genre observations, not real network truth; actual captured/rebuilt0.222 prepared task reopened by current code; restore activation repository and persisted policy only, not a complete OS cutover or production commit certification; actual production Main/preload/Service/Renderer boot and buttons against an owned preseeded approved-metadata library",
+  "cases": [
+    "supervised import preserves multiple physical artists, album artists and genres in structured context while local private rights remain closed",
+    "real online-credit repository maps reviewed source names in current order and filters composer roles and join phrases from repeated ARTIST values",
+    "reviewed album artists, scalar item fields and precision-preserving release date resolve to their own current approved observations",
+    "controlled approved genre observations combine current item and release memberships without duplicating shared values",
+    "one unlicensed current genre denies the whole GENRE writeback instead of silently dropping it or inheriting another membership permission",
+    "selecting a retained manual role wrapper follows its explicit approved parent for the original names while retaining field ownership and physical-source boundaries",
+    "actual provider-retention withdrawal after supervised preview invalidates the frozen authority before any persistent write task is created",
+    "changing the selected collection after preview rejects stale library values and never treats a manual replacement as automatically licensed",
+    "all six approved structured fields prepare and stage through the actual native worker; independent supervised reread matches every repeated value, original and backup bytes and audio remain unchanged",
+    "an actual0.222 runtime creates an unversioned frozen plan; current runtime reopens and stages it with its original fingerprint and byte-identical immutable snapshot",
+    "real restore activation persists a separate collection-observation cutoff and denies inherited name authority instead of comparing unrelated scalar and collection rowids",
+    "fresh reviewed observations after activation receive current field authority while replay preserves the original cutoff and directory authorization remains closed",
+    "persisted legacy activation policy remains readable without fabricating a collection baseline; malformed or future versions cannot authorize new structured writes",
+    "actual production Main/preload/Service/Renderer reviews four approved library fields without manual-origin substitution and stages their saved task through the native worker"
+  ],
+  "screenshot": "D:\\CodexTestData\\aural-workflow-ui-tag-library-fields-yzp01L\\approved-library-preview.png",
+  "previousCompiled": {
+    "version": "0.222.0",
+    "fingerprints": {
+      "library/database.js": "6436d793ae87660d9d17cd73d26ad7da99534f910644fd8ff7a16c4930a78d47",
+      "library/tag-write-manager.js": "194270a02688567ef5cbe0b2878d2ea0915cda5eb3cf1b228e9ab8397f5cc7bd",
+      "library/tag-write-jobs.js": "dc69aaec167b94948db22610d1865e3fa501852b5f4cfd3fe37d3da383687ba3",
+      "shared/release.js": "5b920cb5747660b006e8d6c07ca5c3e3ffcb4b59b20e249149a36b95c5495b0f"
+    }
+  },
+  "productionCertificationEnabled": false,
+  "userOriginalMediaChanged": false,
+  "fingerprints": {
+    "src/library/tag-library-fields.ts": "f7531d21603404de2455e783b5ef8a583638aab4b2ddfa673c26a5ee04202f79",
+    "src/library/database.ts": "4a13429e0e5c1be33acfde3dac318fe6e22e1417dda26e1c6e94a5c772237271",
+    "src/library/tag-write-manager.ts": "b837aae2ca3d3c2d8aca986f0b98e260de176f8b8ce2d3fd6b1f0fa3591a9d4f",
+    "src/library/tag-write-jobs.ts": "22ab157f537d35c8342ad7b0da685c0b6da6f03868ce54a485c0d4ae6960a8c7",
+    "src/library/catalog-restore-policy.ts": "f0c4ecb490a584877ef711dcebfee4a560e5a1d773c775173bba81cc7f5859de",
+    "src/shared/catalog-restore-policy.ts": "6747fa6ca716312039f71056bc709391f9f07bad1158153e6ffdc11793be53a5",
+    "tests/tag-library-fields-mvp.smoke.cjs": "d7f9dd5035411edbb6c690627105b69682b5b04b636a21af2c3c3ae045eefa46"
+  }
+}

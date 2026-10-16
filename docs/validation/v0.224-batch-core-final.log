@@ -1,0 +1,12 @@
+actual0.223 schema80 upgrade fault after new DDL fully rolls back schema and all previously prepared immutable plans
+current upgrade preserves genuine prior schema80 plans and verified pre-v81 snapshots, while the actual old runtime refuses schema81
+creation freezes exact reviewed job order, replays its original receipt, rejects malformed scope and creates no file operation
+real fsynced backup barrier drains only the current file before pause; stale CAS is a typed conflict and original pause receipt replays without new work
+paused batch survives actual close/reopen and stages only its three remaining files sequentially, retaining byte-identical originals and backups
+physical source modification is localized before native staging, successful files continue, failure-only paging and explicit skip retain the original task
+cancel drains the actual current native backup, preserves its artifacts and leaves the undispatched single-song task prepared
+actual restart before dispatch invalidates stale owners and reuses the original stage command; restart after native completion adopts durable success without another copy
+standalone real schema81 backup preserves batch scope, statuses and receipts, passes domain invariants and retains database integrity and foreign keys
+production read-only restore compatibility inspection traverses all twelve domains including nonempty persisted batch graphs
+schema-valid and integrity-valid backups with altered or missing creation receipts are rejected by the production restore inspector before application
+{"version":"0.224.0","completed":true,"cases":11,"scratch":"D:\\CodexTestData\\aural-tag-stage-batch-3Z2VfA"}
