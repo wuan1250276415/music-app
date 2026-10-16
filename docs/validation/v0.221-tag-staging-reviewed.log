@@ -1,0 +1,11 @@
+normal supervised FLAC/CUE import exposes eligible standalone context and refuses virtual-track write identity
+actual supervised preview handles11 explicit fields, repeated Unicode/space values and clear, preserves picture/unknown-block evidence and leaves original bytes unchanged
+actual unchecked field/confirmation UI saves a durable pending task without changing source tags or library display
+stored task exposes original/proposed values including repeated artists and uses16px inline confirmation controls
+real native staging stops source playback, creates exact backup and changed temporary tags, preserving audio/STREAMINFO/images/opaque blocks/unselected comments and library text
+actual restart retains staged artifacts and task; original cancellation receipt replays without deleting backup or temporary file
+actual owned Main/native process-tree crash after backup fsync preserves original and backup, leaves no temporary file and blocks unsafe reuse after restart
+global task-center entry remains usable while the original file is blocked and renders persisted jobs without a current-song editor
+independent native inspection detects filesystem-ahead journal and explicit equality cancellation releases only the resolved lease, rescans and restores current availability
+actual production Main/preload rejects uncertified commit and restore before creating native operations or stopping current source playback
+{"version":"0.221.0","completed":true,"cases":10}

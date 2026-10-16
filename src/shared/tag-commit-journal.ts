@@ -1,6 +1,8 @@
 import {tagWriteKeys,tagWriteUuid,tagWriteHash,readTagWritePlan,readTagWriteFileEvidence,type TagWritePlan} from './tag-write.js';
 import {readTagCommitRequest,readTagCommitMessage,type TagCommitRequest,type TagCommitMessage,type TagCommitProof} from './tag-commit.js';
 export interface TagCommitStart {commandId:string;jobId:string;baseRevision:number;certificateId:string;confirmed:true}
+export interface TagCommitCancel {commandId:string;operationId:string}
+export function readTagCommitCancel(v:unknown):TagCommitCancel {if(!tagWriteKeys(v,['commandId','operationId'])||!tagWriteUuid(v.commandId)||!tagWriteUuid(v.operationId))throw new Error('停止标签提交请求无效');return {commandId:v.commandId.toLowerCase(),operationId:v.operationId.toLowerCase()};}
 export interface TagCommitBinding {version:1;executionId:string;stagingJournalSha256:string;plan:TagWritePlan;request:TagCommitRequest}
 export type TagCommitStageMessage=Extract<TagCommitMessage,{kind:'stage'}>;
 export interface TagCommitJournalSnapshot {binding:TagCommitBinding;revision:number;sha256:string;hashes:string[];stages:TagCommitStageMessage[]}

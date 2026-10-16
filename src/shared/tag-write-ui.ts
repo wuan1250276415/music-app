@@ -4,7 +4,7 @@ export const TAG_FIELD_LABELS:Record<TagWriteField,string>={title:'歌曲名称'
 export interface TagWriteContext {
  itemId:string;fileId:string;title:string;fingerprint:string;contentRevision:number;eligible:boolean;reason:string;
  fields:Array<{field:TagWriteField;values:string[];libraryAllowed:boolean;reason:string;rightsFingerprint:string}>;
- executionReady:false;
+ executionReady:boolean;
 }
 export interface TagWriteDraft {requestId:string;itemId:string;fingerprint:string;fields:Array<TagFieldChange&{origin:'manual'|'library'}>;manualConfirmed:boolean}
 export interface TagWritePreview {token:string;expiresAt:number;context:TagWriteContext;draft:TagWriteDraft;preview:FlacTagPreview}
@@ -13,7 +13,7 @@ export interface TagWriteCancelRequest {commandId:string;jobId:string;baseRevisi
 export type TagWriteStageRequest=TagWriteCancelRequest;
 export type TagWriteJobState='prepared'|'running'|'cancelled'|'failed'|'recovery_required'|'completed';
 export interface TagWriteJob {id:string;itemId:string;fileId:string;title:string;state:TagWriteJobState;revision:number;createdAt:string;updatedAt:string;preview:FlacTagPreview;reason:string;staging?:{executionId:string;state:'starting'|'planned'|'validated'|'backup_ready'|'temp_written'|'staged'|'recovery_required';phase:string;bytes:string;total:string};recovery?:import('./tag-recovery.js').TagRecoveryView;recoveryAction?:import('./tag-recovery.js').TagRecoveryActionView;nativeRestoreReprobe?:import('./tag-restore-reprobe.js').TagRestoreReprobeView;nativeRestoreRecovery?:import('./tag-restore-recovery.js').TagRestoreRecoveryView;nativeRestore?:import('./tag-restore-journal.js').TagRestoreView;nativeRestoreHistory?:import('./tag-restore-journal.js').TagRestoreView[];nativeCommit?:import('./tag-commit-journal.js').TagCommitView;nativeRecovery?:import('./tag-commit-recovery.js').TagCommitRecoveryView;nativeReprobe?:import('./tag-commit-reprobe.js').TagCommitReprobeView}
-export interface TagWriteJobPage {jobs:TagWriteJob[];nextCursor:string|null;executionReady:false}
+export interface TagWriteJobPage {jobs:TagWriteJob[];nextCursor:string|null;executionReady:boolean}
 
 export function readTagWriteDraft(value:unknown):TagWriteDraft {
  if(!tagWriteKeys(value,['requestId','itemId','fingerprint','fields','manualConfirmed'])||!tagWriteUuid(value.requestId)||!tagWriteUuid(value.itemId)||!tagWriteHash(value.fingerprint)||typeof value.manualConfirmed!=='boolean'||!Array.isArray(value.fields))throw new Error('标签预览请求无效');

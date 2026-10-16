@@ -1,0 +1,14 @@
+actual candidate UI imports four owned FLAC files through normal Main/Service scan and opens independent task center
+{"version":"0.220.0","completed":false,"cases":1,"runRoot":"D:\\CodexTestData\\aural-tag-cert-mvp-26u1Fg\\coordinator-run-1mXg4H"}
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'idle' !== 'stopped'
+
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\electron-tag-writeback-mvp.smoke.cjs:26:796) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'idle',
+  expected: 'stopped',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

@@ -167,6 +167,8 @@ const asioProperties = [
   {name:'aural:tag-write-manager-source-sha256',value:sha256(read('src/library/tag-write-manager.ts'))},
   {name:'aural:tag-write-jobs-source-sha256',value:sha256(read('src/library/tag-write-jobs.ts'))},
   {name:'aural:tag-write-dialog-source-sha256',value:sha256(read('src/renderer/tag-write-dialog.tsx'))},
+  {name:'aural:tag-file-actions-source-sha256',value:sha256(read('src/renderer/tag-file-actions.tsx'))},
+  {name:'aural:tag-file-actions-current-status',value:'0.221 schema80: static-catalogue readiness; trusted closed Main/preload/Service commit/start-restore/stop controls and original request receipts; Main same-file playback release after current target review, fresh Library and native file/root/metadata/lease checks; explicit field preview, separate write/restore confirmation and stopped-process recovery; immutable attempt history and retained copy/displaced targets. Production certification catalogues remain empty; isolated candidate UI execution is distinct from production certification, power loss, full-disk, full permissions/concurrency matrix and complete FR12/AC12 acceptance.'},
   {name:'aural:tag-write-style-source-sha256',value:sha256(read('src/renderer/tag-write.css'))},
   {name:'aural:tag-stage-contract-source-sha256',value:sha256(read('src/library/tag-write-worker-protocol.ts'))},
   {name:'aural:tag-stage-client-source-sha256',value:sha256(read('src/library/tag-write-worker-client.ts'))},

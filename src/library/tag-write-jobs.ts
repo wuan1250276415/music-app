@@ -1,4 +1,5 @@
 import {validateTagOriginPolicy} from './tag-origin-policy.js';
+import {TAG_WRITE_CERTIFICATES} from '../shared/tag-write-certification.js';
 import {readTagRestoreReprobeRequest,readTagRestoreReprobeCancel,tagRestoreReprobeMode,type TagRestoreReprobeMode,type TagRestoreReprobeRequest,type TagRestoreReprobeView} from '../shared/tag-restore-reprobe.js';
 import {validateRestoreReprobeProof,type TagRestoreReprobeProof} from './tag-restore-reprobe-proof.js';
 import {readTagRestoreRecoveryReport,type TagRestoreRecoveryReport,type TagRestoreRecoveryView,type TagRestoreInspectionMessage} from '../shared/tag-restore-recovery.js';
@@ -15,7 +16,7 @@ import type {MediaStat} from './media-worker-protocol.js';
 import type {WatchAnchor} from '../shared/library-watch.js';
 import path from 'node:path';
 import {assertTagCommitCertified,type TagCommitProof,type TagCommitMessage} from '../shared/tag-commit.js';
-import {readTagCommitStart,readTagCommitBinding,readTagCommitStage,readTagCommitFinalProof,tagCommitCanonical,type TagCommitBinding,type TagCommitJournalSnapshot,type TagCommitView} from '../shared/tag-commit-journal.js';
+import {readTagCommitCancel,readTagCommitStart,readTagCommitBinding,readTagCommitStage,readTagCommitFinalProof,tagCommitCanonical,type TagCommitBinding,type TagCommitJournalSnapshot,type TagCommitView} from '../shared/tag-commit-journal.js';
 import {readTagWorkerStart,type TagWorkerStart,type TagWorkerMessage} from './tag-write-worker-protocol.js';
 import type {TagWriteJournalSnapshot} from './tag-write-journal.js';
 import {readTagWriteFileEvidence,tagWriteHash} from '../shared/tag-write.js';
@@ -323,6 +324,8 @@ export class TagWriteJobs {
  failCommitInspection(id:string,message:string,cancelled:boolean,exitConfirmed:boolean):void {const row=this.commitInspectionRow(id);if(row.state!=='running')return;this.db.prepare('UPDATE tag_commit_inspection SET state=?,exit_confirmed=?,error=?,updated_at=? WHERE id=?').run(cancelled?'cancelled':'failed',exitConfirmed?1:0,message.slice(0,512),new Date().toISOString(),id);}
  private commitRow(id:string):CommitRow {if(!tagWriteUuid(id))throw new Error('提交操作身份无效');const row=this.db.prepare('SELECT * FROM tag_commit_operation WHERE id=?').get(id) as CommitRow|undefined;if(!row)throw new Error('提交操作不存在');return row;}
  commitReceipt(value:unknown):TagWriteJob|null {return this.receipt({action:'native-commit',...readTagCommitStart(value)});}
+ commitCancelReceipt(value:unknown):TagWriteJob|null {return this.receipt({action:'native-commit-cancel',...readTagCommitCancel(value)});}
+ requestCommitCancel(value:unknown):TagWriteJob {const request={action:'native-commit-cancel',...readTagCommitCancel(value)};return this.transaction(()=>{const known=this.receipt(request);if(known)return known;const {row}=this.commitOwned(request.operationId);this.db.prepare('UPDATE tag_commit_operation SET reason=?,updated_at=? WHERE id=?').run('已请求停止标签提交，等待进程退出并核对保留文件',new Date().toISOString(),row.id);const result=this.view(this.row(row.job_id));this.saveReceipt(request,result);return result;});}
  reserveCommit(value:unknown):TagWriteJob {const request={action:'native-commit',...readTagCommitStart(value)};return this.transaction(()=>{
   const known=this.receipt(request);if(known)return known;assertTagCommitCertified(request.certificateId);const {plan,snapshot,job}=this.material(request.jobId);
   if(job.state!=='prepared'||job.revision!==request.baseRevision||job.staging?.state!=='staged'||job.nativeCommit||this.contentRevision(job.fileId)!==plan.contentRevision)throw new Error('提交要求当前已完成暂存且未过期的文件任务');this.assertReadable(job.fileId);
@@ -503,7 +506,7 @@ export class TagWriteJobs {
   let cursor:{createdAt:string;id:string}|null=null;
   if(value){try{cursor=JSON.parse(Buffer.from(value as string,'base64url').toString('utf8'));}catch{throw new Error('标签任务页标记无效');}if(!cursor||typeof cursor.createdAt!=='string'||cursor.createdAt.length>32||!tagWriteUuid(cursor.id))throw new Error('标签任务页标记无效');}
   const rows=(cursor?this.db.prepare('SELECT * FROM tag_write_job WHERE (created_at,id)<(?,?) ORDER BY created_at DESC,id DESC LIMIT 9').all(cursor.createdAt,cursor.id):this.db.prepare('SELECT * FROM tag_write_job ORDER BY created_at DESC,id DESC LIMIT 9').all()) as Row[];
-  const selected=rows.slice(0,8),last=selected.at(-1);return {jobs:selected.map(r=>this.view(r)),nextCursor:rows.length>8&&last?Buffer.from(JSON.stringify({createdAt:last.created_at,id:last.id})).toString('base64url'):null,executionReady:false};
+  const selected=rows.slice(0,8),last=selected.at(-1);return {jobs:selected.map(r=>this.view(r)),nextCursor:rows.length>8&&last?Buffer.from(JSON.stringify({createdAt:last.created_at,id:last.id})).toString('base64url'):null,executionReady:TAG_WRITE_CERTIFICATES.length>0};
  }
  cancel(value:unknown):TagWriteJob {
   const request={action:'cancel',...readTagWriteCancelRequest(value)};return this.transaction(()=>{

@@ -7,6 +7,7 @@ import {TagRecoveryResult} from './tag-recovery-result';
 import {TagRecoveryActions} from './tag-recovery-actions';
 import {TagCommitRecovery} from './tag-commit-recovery';
 import {TagRestoreRecovery} from './tag-restore-recovery';
+import {TagCommitActions} from './tag-file-actions';
 import type {TagRecoveryCancelRequest} from '../shared/tag-recovery';
 
 type Edit={enabled:boolean;origin:'manual'|'library';text:string;clear:boolean};
@@ -66,7 +67,7 @@ export function TagWriteDialog({itemId,onClose}:{itemId?:string;onClose:()=>void
  const locked=busy||loading||stale||!context?.eligible||Boolean(attempt.current);
  return <div className="collection-backdrop"><div ref={dialog} className="catalog-dialog collection-dialog tag-write-dialog" role="dialog" aria-modal="true" aria-label={itemId?"编辑文件标签预览":"标签任务中心"} onKeyDown={event=>trap(event,dialog.current,onClose,busy)}>
   <header><h2>{itemId?"文件标签预览":"标签与恢复任务"}</h2><button disabled={busy} aria-label={itemId?"关闭文件标签预览":"关闭标签任务中心"} onClick={onClose}>×</button></header>
-  <p className="collection-note">{itemId?"先核对原标签与修改内容，再保存待写入任务。当前可准备独立 FLAC 文件；文件写入组件和格式校验开放前，歌曲文件不会被修改。":"查看已保存任务、备份和暂存状态。中断任务可先核对实际文件，再按结果处理；无需选择或播放歌曲。"}</p>
+  <p className="collection-note">{itemId?(context?.executionReady?"先核对原标签与修改内容，再保存任务并生成备份。写入歌曲文件前需要再次确认。":"先核对原标签与修改内容。目前支持独立 FLAC 的标签预览和备份暂存。"):"查看已保存任务、备份和暂存状态。中断任务可先核对实际文件，再按结果处理；无需选择或播放歌曲。"}</p>
   {loading&&<p role="status">{itemId?"正在读取歌曲资料与任务…":"正在读取标签任务…"}</p>}
   {context&&<><h3>{context.title}</h3>{context.reason&&<p role="status" className="collection-error">{context.reason}</p>}
    <div className="tag-write-fields">{context.fields.map(f=>{const e=edits[f.field]??{enabled:false,origin:'manual',text:'',clear:false};return <section key={f.field}>
@@ -90,9 +91,10 @@ export function TagWriteDialog({itemId,onClose}:{itemId?:string;onClose:()=>void
    <small>{new Date(job.createdAt).toLocaleString()} · {job.preview.fields.map(f=>TAG_FIELD_LABELS[f.field]).join('、')}</small><p>{job.reason}</p>
    <details className="tag-write-saved-preview"><summary>查看任务保存的标签差异</summary><p className="collection-note">这里保留创建任务时核对的内容。文件后续可能变化，继续处理前仍会重新核对。</p>{job.preview.fields.map(field=><div className="tag-write-difference" key={field.field}><strong>{TAG_FIELD_LABELS[field.field]}{field.changed?'':'（无变化）'}</strong><div><span>创建任务时的原标签</span><pre>{field.before.length?field.before.join('\n'):'无标签'}</pre></div><div><span>计划值</span><pre>{field.values.length?field.values.join('\n'):'清空标签'}</pre></div></div>)}</details>
    {!job.nativeCommit&&job.staging&&job.state==='running'&&<div className="tag-write-progress"><span>{phaseLabels[job.staging.phase]??job.staging.phase}</span><progress aria-label="当前暂存步骤进度" max={1} value={Number(job.staging.bytes)/Math.max(1,Number(job.staging.total))}/><small>{(Number(job.staging.bytes)/1048576).toFixed(1)} / {(Number(job.staging.total)/1048576).toFixed(1)} MiB</small></div>}
-   {job.nativeRestore&&<TagRestoreRecovery key={job.nativeRestore.id} job={job} disabled={busy||Boolean(attempt.current)} onError={setError} onChange={async()=>setPage(await window.music.tagWriteJobs())}/>}{job.nativeRestore&&<p role="status">{job.nativeRestoreReprobe?.state==='completed'?'原恢复历史：':''}{job.nativeRestore.reason} · {job.nativeRestore.exitConfirmed?'原恢复进程已退出':'原恢复进程退出尚待确认'}。{job.nativeRestoreReprobe?.state==='completed'?'曲库已独立恢复，原历史及全部工件保留。':'恢复记录保留，完成后仍需重新核对和更新曲库。'}</p>}
-   {job.nativeCommit&&<p role="status">{job.nativeRestore?'原提交历史：':''}{job.nativeCommit.reason} · {job.nativeCommit.state==='reconciled'?(job.nativeCommit.exitConfirmed?'历史记录：原提交进程已退出':'历史记录：原提交最终退出回执缺失'):job.nativeCommit.exitConfirmed?'文件进程已退出':'文件进程退出尚待确认'}</p>}
+   {job.nativeRestore&&<TagRestoreRecovery key={job.nativeRestore.id} job={job} disabled={busy||Boolean(attempt.current)} onError={setError} onChange={async()=>setPage(await window.music.tagWriteJobs())}/>}{job.nativeRestore&&<details><summary>查看恢复执行记录</summary><p>{job.nativeRestore.reason} · {job.nativeRestore.exitConfirmed?"执行进程已退出":"退出状态待核对"}</p></details>}
+   {job.nativeCommit&&<details><summary>查看写入执行记录</summary><p>{job.nativeCommit.reason} · {job.nativeCommit.exitConfirmed?"执行进程已退出":"退出状态待核对"}</p></details>}
    {job.nativeCommit&&!job.nativeRestore&&<TagCommitRecovery key={job.nativeCommit.id} job={job} disabled={busy||Boolean(attempt.current)} onError={setError} onChange={async()=>setPage(await window.music.tagWriteJobs())}/>}
+   {!job.nativeRestore&&<TagCommitActions key={`commit:${job.id}`} job={job} disabled={busy||Boolean(attempt.current)} onError={setError} onChange={async()=>setPage(await window.music.tagWriteJobs())}/>}
    <div className="tag-write-job-actions">
     {!job.nativeCommit&&job.state==='recovery_required'&&job.recoveryAction?.state!=='running'&&(job.recovery?.state!=='running'||inspectionAttempts.current.has(job.id))&&<button disabled={busy||Boolean(attempt.current)} onClick={()=>void inspectJob(job.id,job.revision)}>{inspectionAttempts.current.has(job.id)?'确认原核对请求':job.recovery?'重新核对实际文件':'核对原文件、备份与临时文件'}</button>}
     {!job.nativeCommit&&job.recovery&&(job.recovery.state==='running'||inspectionStops.current.has(job.recovery.id))&&<button disabled={busy||Boolean(attempt.current)} onClick={()=>void stopInspection(job.recovery!.id)}>{inspectionStops.current.has(job.recovery.id)?'确认原停止核对请求':'停止文件核对'}</button>}

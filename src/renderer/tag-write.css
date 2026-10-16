@@ -4,6 +4,7 @@
 
 .catalog-dialog.tag-write-dialog .tag-write-field-toggle,.catalog-dialog.tag-write-dialog .tag-write-confirm,.catalog-dialog.tag-write-dialog .tag-write-fields label:has(>input[type=checkbox]){display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:8px;width:auto;text-align:left}
 .catalog-dialog.tag-write-dialog input[type=checkbox]{width:16px;height:16px;min-width:16px;margin:0;flex:none}
+.catalog-dialog.tag-write-dialog .tag-write-job-actions>label:has(>input[type=checkbox]){display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:8px;width:auto;text-align:left}
 .tag-write-saved-preview{margin:12px 0}.tag-write-saved-preview summary{cursor:pointer}.tag-write-saved-preview .tag-write-difference{font-size:13px;line-height:1.6}
 .tag-recovery-result{margin-top:12px;border-top:1px solid var(--aural-tone-34443e);padding-top:12px;font-size:12px;min-width:0}
 .tag-recovery-result h4{margin:0 0 10px}.tag-recovery-result table{width:100%;border-collapse:collapse;margin:10px 0;text-align:left}

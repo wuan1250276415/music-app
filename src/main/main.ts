@@ -16,6 +16,7 @@ import {readSmartPlaylistPageRequest,readSmartPlaylistMutation,smartPlaylistId} 
 import {readFilePolicyRequest} from '../shared/file-policy.js';
 import {readTagWriteCancelRequest} from '../shared/tag-write-ui.js';
 import {readTagRestoreStart,readTagRestoreCancel} from '../shared/tag-restore-journal.js';
+import {readTagCommitStart,readTagCommitCancel} from '../shared/tag-commit-journal.js';
 import {readCatalogBrowseRequest,readCatalogViewSave} from '../shared/catalog-browse.js';
 import {readLibraryWatchRequest,type LibraryWatchState,type LibraryWatchResult} from '../shared/library-watch.js';
 import {probeWatchRoot,normalizedWatchPath} from '../platform/file-watcher.js';
@@ -722,6 +723,9 @@ function registerIpc(): void {
   handleIpc('tag-write:restore-inspect',(event,value)=>{trusted(event.sender);return serviceCall('tagRestoreInspect',readTagWriteCancelRequest(value));});
   handleIpc('tag-write:restore-inspect-cancel',(event,value)=>{trusted(event.sender);return serviceCall('tagRestoreInspectCancel',value);});
   handleIpc('tag-write:restore-retry',(event,value)=>{trusted(event.sender);return serviceCall('tagRestoreRetry',readTagRestoreStart(value),60000);});
+  handleIpc('tag-write:restore-start',(event,value)=>{trusted(event.sender);return serviceCall('tagRestoreStart',readTagRestoreStart(value),60000);});
+  handleIpc('tag-write:commit-start',async(event,value)=>{trusted(event.sender);const request=readTagCommitStart(value),known=await serviceCall('tagCommitStartReceipt',request);if(known)return known;const target=await serviceCall<{fileId:string;observation:string}>('tagCommitTarget',request,60000);return playback.stageLibraryFile(target.fileId,target.observation,()=>serviceCall('tagCommitStart',request,60000));});
+  handleIpc('tag-write:commit-cancel',(event,value)=>{trusted(event.sender);return serviceCall('tagCommitCancel',readTagCommitCancel(value));});
   handleIpc('tag-write:restore-cancel',(event,value)=>{trusted(event.sender);return serviceCall('tagRestoreCancel',readTagRestoreCancel(value));});
   handleIpc('tag-write:commit-inspect',(event,value)=>{trusted(event.sender);return serviceCall('tagCommitInspect',readTagWriteCancelRequest(value));});
   handleIpc('tag-write:commit-inspect-cancel',(event,value)=>{trusted(event.sender);return serviceCall('tagCommitInspectCancel',value);});

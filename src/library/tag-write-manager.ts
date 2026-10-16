@@ -1,4 +1,6 @@
 import {readTagRestoreReprobeRequest,readTagRestoreReprobeCancel} from '../shared/tag-restore-reprobe.js';
+import {assertTagCommitCertified} from '../shared/tag-commit.js';
+import {readTagCommitCancel} from '../shared/tag-commit-journal.js';
 import {tagRestorePreviewChanges,validateRestoreReprobeProof,type TagRestoreReprobeProof} from './tag-restore-reprobe-proof.js';
 import {readTagRestoreInspectionRequest,classifyTagRestoreRecovery,assertTagRestoreInspectionEqual,type TagRestoreInspectionRequest,type TagRestoreRecoveryReport} from '../shared/tag-restore-recovery.js';
 import {TagRestoreJournal} from './tag-restore-journal.js';
@@ -380,7 +382,17 @@ export class TagWriteManager {
   // Success and interruption retain recovery gates and all artifacts. Fresh
   // six-artifact inspection and source reprobe/library reconciliation follow.
  }
- // Internal coordinator only. No Main/service/renderer command exposes execution.
+ async commitTarget(value:unknown):Promise<{fileId:string;observation:string}> {
+  const request=readTagCommitStart(value);this.db.restorePolicy.assertTagJob(request.jobId);assertTagCommitCertified(request.certificateId);
+  const {plan,snapshot,job}=this.db.tagWriteJobs.material(request.jobId);
+  if(job.state!=='prepared'||job.revision!==request.baseRevision||job.staging?.state!=='staged'||job.nativeCommit||this.db.tagWriteJobs.contentRevision(plan.fileId)!==plan.contentRevision)throw new Error('提交要求当前已完成暂存的标签任务');
+  this.db.tagWriteJobs.assertReadable(plan.fileId);await this.checkSource(snapshot);return {fileId:plan.fileId,observation:snapshot.fileObservation};
+ }
+ cancelCommit(value:unknown):TagWriteJob {
+  const request=readTagCommitCancel(value),known=this.db.tagWriteJobs.commitCancelReceipt(request);if(known)return known;
+  if(!this.activeCommit||this.activeCommit.id!==request.operationId)throw new Error('此标签提交不在当前会话运行，请核对文件状态');
+  const result=this.db.tagWriteJobs.requestCommitCancel(request);this.activeCommit.controller.abort(new Error('用户已停止标签提交，保留全部文件并等待恢复核对'));this.notify(result.id);return result;
+ }
  startCommit(value:unknown):TagWriteJob {
   const request=readTagCommitStart(value);this.db.restorePolicy.assertTagJob(request.jobId);const known=this.db.tagWriteJobs.commitReceipt(request);if(known)return known;
   if(!this.runtime||!this.journal||!this.commitJournal||!this.committer||!this.inspector||!this.writer)throw new Error('原生提交组件尚未配置');

@@ -1,4 +1,5 @@
 import {recognitionRetrySchema} from './recognition-retry.js';
+import {TAG_WRITE_CERTIFICATES} from '../shared/tag-write-certification.js';
 import {recognitionMappingSchema} from './recognition-mapping.js';
 import {MetadataRecognitionRepository,metadataRecognitionSchema} from './metadata-recognition.js';
 import {MetadataWorkflowRepository,metadataWorkflowSchema} from './metadata-workflow.js';
@@ -1462,7 +1463,7 @@ export class LibraryDatabase {
     });
     const contentRevision=this.tagWriteJobs.contentRevision(item.fileId);
     const fingerprint=createHash('sha256').update(JSON.stringify([this.metadataReviewFingerprint(itemId),item.libraryState,item.genre,item.trackNumber,item.discNumber,contentRevision,cue,reviewLeaseRevision??(ownerJobId?(lease!.lease_revision-1):(lease?.lease_revision??0)),ownerJobId?'none':(lease?.lease_state??'none'),this.tagWriteRootBinding(itemId),fields])).digest('hex');
-    return {itemId:item.id,fileId:item.fileId,title:item.title,fingerprint,contentRevision,eligible:!reason,reason,fields,executionReady:false};
+    return {itemId:item.id,fileId:item.fileId,title:item.title,fingerprint,contentRevision,eligible:!reason,reason,fields,executionReady:TAG_WRITE_CERTIFICATES.length>0};
   }
   tagWriteRootBinding(itemId:string):{id:string;path:string;anchor:import('../shared/library-watch.js').WatchAnchor|null} {
     const root=this.db.prepare('SELECT r.id,r.path FROM playable_item p JOIN media_file f ON f.id=p.file_id JOIN library_root r ON r.id=f.root_id WHERE p.id=?').get(itemId) as {id:string;path:string}|undefined;

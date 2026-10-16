@@ -1,0 +1,10 @@
+{
+  "version": "0.220.0",
+  "completed": false,
+  "scope": "actual candidate Main/preload/Service/Renderer/native execution with isolated generated certificate catalogs and byte-identical production code; owned generated FLAC only; normal folder import, real button clicks, muted playback release, commit/reparse, restore/hard process-tree crash/restart/retry/reparse, stop and stale-source rejection; not production certification, physical power cut, full-disk or full security/format matrix",
+  "cases": [
+    "actual candidate UI imports four owned FLAC files through normal Main/Service scan and opens independent task center"
+  ],
+  "compositionSha256": "b78163e5f60dbe4ec847c73ac0b1644568e7a78df9764f3e91c00dd64b8baba4",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'idle' !== 'stopped'\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\electron-tag-writeback-mvp.smoke.cjs:26:796)"
+}

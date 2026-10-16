@@ -503,6 +503,9 @@ export interface MusicApi extends ProviderManagementApi {
   tagRestoreInspect(request:import('./tag-write-ui.js').TagWriteStageRequest):Promise<import('./tag-write-ui.js').TagWriteJob>;
   tagRestoreInspectCancel(request:import('./tag-recovery.js').TagRecoveryCancelRequest):Promise<import('./tag-write-ui.js').TagWriteJob>;
   tagRestoreRetry(request:import('./tag-restore-journal.js').TagRestoreStart):Promise<import('./tag-write-ui.js').TagWriteJob>;
+  tagRestoreStart(request:import('./tag-restore-journal.js').TagRestoreStart):Promise<import('./tag-write-ui.js').TagWriteJob>;
+  tagCommitStart(request:import('./tag-commit-journal.js').TagCommitStart):Promise<import('./tag-write-ui.js').TagWriteJob>;
+  tagCommitCancel(request:import('./tag-commit-journal.js').TagCommitCancel):Promise<import('./tag-write-ui.js').TagWriteJob>;
   tagRestoreCancel(request:import('./tag-restore-journal.js').TagRestoreCancel):Promise<import('./tag-write-ui.js').TagWriteJob>;
   tagCommitInspect(request:import('./tag-write-ui.js').TagWriteStageRequest):Promise<import('./tag-write-ui.js').TagWriteJob>;
   tagCommitInspectCancel(request:import('./tag-recovery.js').TagRecoveryCancelRequest):Promise<import('./tag-write-ui.js').TagWriteJob>;

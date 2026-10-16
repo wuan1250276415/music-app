@@ -1,0 +1,47 @@
+{
+  "version": "0.221.0",
+  "completed": true,
+  "scope": "actual candidate Main/preload/Service/Renderer/native execution with isolated generated certificate catalogs and byte-identical production code; owned generated FLAC only; normal folder import, real button clicks, muted playback release, commit/reparse, restore/hard process-tree crash/restart/retry/reparse, stop and stale-source rejection; not production certification, physical power cut, full-disk or full security/format matrix",
+  "cases": [
+    "actual candidate UI imports four owned FLAC files through normal Main/Service scan and opens independent task center",
+    "real confirmed write button traverses Main/preload/Service, stops same-file looping playback, commits actual tags and preserves audio and backup before library reconciliation",
+    "real four-file inspection and reparse buttons update the same library item; normal Main exit and restart preserve committed title and availability",
+    "actual backup restore button reaches durable displaced phase; real owned Main/native process-tree termination leaves source path absent with original backup retained",
+    "restart and actual six-file UI inspection identify fs-ahead and the missing-path gap from original immutable evidence",
+    "actual retry button creates a fresh restore attempt, restores original bytes, preserves prior copy and target, and renders both attempts",
+    "actual restored-source reparse button restores original library title, releases reconciled reads and replays original restore command without another attempt",
+    "actual stop-write button cancels before moves, waits for native exit and exposes independent unchanged-staged inspection with all artifacts retained",
+    "real Main target review rejects physically changed source before creating a native commit or changing the reviewed backup"
+  ],
+  "compositionSha256": "692a6f008e2e46682caa41f5c666c22dcfcb6aafab11e5933d97ef07cb65efa1",
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 38112,
+    "ownedProcesses": [
+      38112,
+      27360,
+      34456,
+      19412,
+      11496,
+      8988,
+      27756,
+      35276,
+      34696,
+      30476,
+      9808
+    ]
+  },
+  "productionCertificationEnabled": false,
+  "userOriginalMediaChanged": false,
+  "fingerprints": {
+    "src/main/main.ts": "079830cb4830e60da55efa5fce562d38c0c65076fcd198503667407956dcbdeb",
+    "src/main/preload.ts": "c5f2c7ec83cf1cb93a3108aa3c5a747fecbc39289d529ea87c2f20d457a8d0ec",
+    "src/library/service.ts": "d0d00dfd788bfd61648982631a52ca6780beec0ad49fc075fd2958e3640c6604",
+    "src/library/tag-write-manager.ts": "da9f553fce4dc9afb94822e62da671c607cfd6ffba9191132b99434a9f09bc96",
+    "src/library/tag-write-jobs.ts": "ce17128ccadfc88d3e9f05ec2aada552ec91c6666282c0fe40f1c9b28083e0c3",
+    "src/renderer/tag-file-actions.tsx": "87030364035625be6292c46eeecf6e2324422db72fd0a61d9d6f9d6f79ae3d7a",
+    "src/renderer/tag-restore-recovery.tsx": "fba8665f8f23cff5d5411fc0dcc3dd15f023ac9acd91996a8802bc0e22ac248c",
+    "tests/electron-tag-writeback-mvp.smoke.cjs": "24a0406d66717c89ec01869e950028b791fe75eebff805c6a7506c42998f5241",
+    "tests/helpers/tag-ui-composition.cjs": "822bcae71186cd0139964aa0495315b08cda7598d041bcbbcd4b81998c56243f"
+  }
+}
