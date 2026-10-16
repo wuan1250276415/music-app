@@ -1,0 +1,12 @@
+actual candidate UI imports five owned FLAC files through normal Main/Service scan and opens independent task center
+real confirmed write button traverses Main/preload/Service, stops same-file looping playback, commits actual tags and preserves audio and backup before library reconciliation
+real four-file inspection and reparse buttons update the same library item; normal Main exit and restart preserve committed title and availability
+actual backup restore button reaches durable displaced phase; real owned Main/native process-tree termination leaves source path absent with original backup retained
+restart and actual six-file UI inspection identify fs-ahead and the missing-path gap from original immutable evidence
+actual retry button creates a fresh restore attempt, restores original bytes, preserves prior copy and target, and renders both attempts
+actual restored-source reparse button restores original library title, releases reconciled reads and replays original restore command without another attempt
+real Main/native tree crash after independent inspector exit but before restore binding leaves no restore receipts or journal and retains target and source backup
+real UI independently proves unstarted restore, creates version3 predecessor binding, restores original audio and reconciles library while retaining the unbound intent
+actual stop-write button cancels before moves, waits for native exit and exposes independent unchanged-staged inspection with all artifacts retained
+real Main target review rejects physically changed source before creating a native commit or changing the reviewed backup
+{"version":"0.223.0","completed":true,"cases":11,"runRoot":"D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-sQA2jH"}

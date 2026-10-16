@@ -1,0 +1,11 @@
+release files generated
+{"previousVersion":"0.222.0","verifiedSourceFiles":630,"scratch":"D:\\CodexTestData\\aural-tag-library-prior-xfZXw1"}
+{"version":"0.223.0","completed":false,"cases":0,"scratch":"D:\\CodexTestData\\aural-workflow-ui-tag-library-fields-p3Epqo"}
+Error: unable to open database file
+    at new LibraryDatabase (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\dist\main\library\database.js:215:19)
+    at setup (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\tag-library-fields-mvp.smoke.cjs:18:194)
+    at async main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\tag-library-fields-mvp.smoke.cjs:29:3) {
+  code: 'ERR_SQLITE_ERROR',
+  errcode: 14,
+  errstr: 'unable to open database file'
+}

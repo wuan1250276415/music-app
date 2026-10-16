@@ -68,7 +68,8 @@ export class TagWriteManager {
  private sweep():void {for(const [id,p] of this.tokens)if(p.value.expiresAt<=Date.now())this.tokens.delete(id);}
  cancel(requestId:unknown):void {if(!tagWriteUuid(requestId))throw new Error('标签预览任务身份无效');this.requests.get(requestId)?.controller.abort(new Error('标签预览已取消'));for(const [key,p] of this.tokens)if(p.value.draft.requestId===requestId)this.tokens.delete(key);}
  close():void {for(const r of this.requests.values())r.controller.abort(new Error('曲库服务正在关闭'));this.activeStage?.controller.abort(new Error('曲库服务正在关闭'));this.activeInspection?.controller.abort(new Error('曲库服务正在关闭'));this.activeRecoveryAction?.controller.abort(new Error('曲库服务正在关闭'));this.activeCommit?.controller.abort(new Error('曲库服务正在关闭'));this.activeCommitInspection?.controller.abort(new Error('曲库服务正在关闭'));this.activeReprobe?.controller.abort(new Error('曲库服务正在关闭'));this.activeRestore?.controller.abort(new Error('曲库服务正在关闭'));this.activeRestoreInspection?.controller.abort(new Error('曲库服务正在关闭'));this.activeRestoreReprobe?.controller.abort(new Error('曲库服务正在关闭'));this.tokens.clear();}
- private context(draft:TagWriteDraft,ownerJobId?:string,reviewLeaseRevision?:number){const c=this.db.tagWriteContext(draft.itemId,ownerJobId,reviewLeaseRevision);if(!c.eligible)throw new Error(c.reason);if(c.fingerprint!==draft.fingerprint)throw new Error('歌曲资料或来源权限已变化，请重新读取');for(const f of draft.fields)if(f.origin==='library'){const field=c.fields.find(v=>v.field===f.field);if(!field?.libraryAllowed||JSON.stringify(field.values)!==JSON.stringify(f.values))throw new Error('所选曲库值未取得写回权限或已变化');}return c;}
+ private context(draft:TagWriteDraft,ownerJobId?:string,reviewLeaseRevision?:number,basisVersion:1|2=2){const c=this.db.tagWriteContext(draft.itemId,ownerJobId,reviewLeaseRevision,basisVersion);if(!c.eligible)throw new Error(c.reason);if(c.fingerprint!==draft.fingerprint)throw new Error('歌曲资料或来源权限已变化，请重新读取');for(const f of draft.fields)if(f.origin==='library'){const field=c.fields.find(v=>v.field===f.field);if(!field?.libraryAllowed||JSON.stringify(field.values)!==JSON.stringify(f.values))throw new Error('所选曲库值未取得写回权限或已变化');}return c;}
+ private frozenContext(snapshot:TagWriteFrozenSnapshot,ownerJobId?:string,reviewLeaseRevision?:number){const version=snapshot.basisVersion??1;if(version!==1&&version!==2)throw new Error('冻结标签审核依据版本不受支持');return this.context(snapshot.draft,ownerJobId,reviewLeaseRevision,version);}
  private async source(itemId:string,ownerJobId?:string):Promise<{rootPath:string;realRootPath:string;rootAnchor:WatchAnchor;fullPath:string;relativePath:string;before:MediaStat;fileObservation:string}> {
   const {item,rootPath}=this.db.mediaSource(itemId,ownerJobId);if(!item.fileObservation)throw new Error('此文件尚无扫描观察，请重新扫描后再预览');
   const binding=this.db.tagWriteRootBinding(itemId),rootAnchor=await probeWatchRoot(rootPath);
@@ -95,7 +96,7 @@ export class TagWriteManager {
  private async buildPreview(draft:TagWriteDraft,signal:AbortSignal):Promise<TagWritePreview> {
   const context=this.context(draft),source=await this.source(draft.itemId);signal.throwIfAborted();
   const rights=draft.fields.map(f=>({field:f.field,origin:f.origin,fingerprint:f.origin==='manual'?'user-declared-private-tag-v1':context.fields.find(p=>p.field===f.field)!.rightsFingerprint}));
-  const snapshot:TagWriteFrozenSnapshot={draft,fingerprint:context.fingerprint,...source,rights};
+  const snapshot:TagWriteFrozenSnapshot={basisVersion:2,draft,fingerprint:context.fingerprint,...source,rights};
   const changes=readTagFieldChanges(draft.fields.map(f=>({field:f.field,values:f.values})));
   const {rootPath,realRootPath,fullPath,relativePath,before}=source;
   const preview=await this.parser.flacTagPreview({rootPath,realRootPath,fullPath,relativePath,before,tagChanges:changes},signal);
@@ -109,7 +110,7 @@ export class TagWriteManager {
   const request=readTagWritePrepareRequest(value),known=this.db.tagWriteJobs.prepareReceipt(request);if(known)return known;
   this.sweep();const pending=this.tokens.get(request.token);if(!pending)throw new Error('标签预览已过期，请重新预览');
   const {value:preview,snapshot}=pending;if(!preview.preview.changed)throw new Error('所选标签没有变化，无需保存任务');
-  await this.checkSource(snapshot);const current=this.context(snapshot.draft);
+  await this.checkSource(snapshot);const current=this.frozenContext(snapshot);
   if(preview.expiresAt<=Date.now())throw new Error('标签预览已过期，请重新预览');
   const plan:TagWritePlan={version:1,jobId:randomUUID(),itemId:current.itemId,fileId:current.fileId,contentRevision:current.contentRevision,adapter:FLAC_TAG_ADAPTER,certificateId:null,preview:preview.preview,changes:snapshot.draft.fields.map(f=>({field:f.field,values:f.values}))};
   return this.db.tagWriteJobs.prepare(request,plan,snapshot,current.title);
@@ -120,14 +121,14 @@ export class TagWriteManager {
   const active={jobId:request.jobId,controller:new AbortController()} as NonNullable<TagWriteManager['activeStage']>;this.activeStage=active;
   try{
    const {plan,snapshot,job}=this.db.tagWriteJobs.material(request.jobId);if(job.staging)throw new Error('此任务已有暂存或恢复记录，请从任务列表继续处理');
-   this.journal.assertPlanBudget(plan);await this.checkSource(snapshot);this.context(snapshot.draft);active.controller.signal.throwIfAborted();
+   this.journal.assertPlanBudget(plan);await this.checkSource(snapshot);this.frozenContext(snapshot);active.controller.signal.throwIfAborted();
    const backupDir=path.join(this.runtime.dataDir,'tag-backups');await fs.mkdir(backupDir,{recursive:true});active.controller.signal.throwIfAborted();
    // The durable command is committed before any worker can create an artifact.
-   const result=this.db.tagWriteJobs.startStage(request,this.context(snapshot.draft).fingerprint,backupDir),executionId=result.staging!.executionId;
+   const result=this.db.tagWriteJobs.startStage(request,this.frozenContext(snapshot).fingerprint,backupDir),executionId=result.staging!.executionId;
    active.finished=this.runStage(executionId,result.id,active.controller.signal).finally(()=>{if(this.activeStage===active)this.activeStage=null;});void active.finished.catch(()=>{});this.notify(result.id);return result;
   }catch(e){if(this.activeStage===active)this.activeStage=null;throw e;}
  }
- async stageTarget(value:unknown):Promise<{fileId:string;observation:string}> {const request=readTagWriteCancelRequest(value);this.db.restorePolicy.assertTagJob(request.jobId);const {plan,snapshot,job}=this.db.tagWriteJobs.material(request.jobId);if(job.state!=='prepared'||job.revision!==request.baseRevision||job.staging)throw new Error('暂存任务已变化或已有执行记录，请刷新任务列表');this.journal?.assertPlanBudget(plan);await this.checkSource(snapshot);this.context(snapshot.draft);return {fileId:plan.fileId,observation:snapshot.fileObservation};}
+ async stageTarget(value:unknown):Promise<{fileId:string;observation:string}> {const request=readTagWriteCancelRequest(value);this.db.restorePolicy.assertTagJob(request.jobId);const {plan,snapshot,job}=this.db.tagWriteJobs.material(request.jobId);if(job.state!=='prepared'||job.revision!==request.baseRevision||job.staging)throw new Error('暂存任务已变化或已有执行记录，请刷新任务列表');this.journal?.assertPlanBudget(plan);await this.checkSource(snapshot);this.frozenContext(snapshot);return {fileId:plan.fileId,observation:snapshot.fileObservation};}
  startReprobe(value:unknown):TagWriteJob {
   const request=readTagCommitReprobeRequest(value);this.db.restorePolicy.assertTagJob(request.jobId);const known=this.db.tagWriteJobs.reprobeReceipt(request);if(known)return known;
   if(!this.runtime||!this.journal||!this.commitJournal||!this.writer||!this.inspector||!this.committer)throw new Error('曲库重新解析组件尚未配置');
@@ -413,7 +414,7 @@ export class TagWriteManager {
  private async validateCommitOwned(id:string,signal:AbortSignal,checkFile=false):Promise<TagStageDescriptor>{
   signal.throwIfAborted();const {row,descriptor:d}=this.db.tagWriteJobs.commitOwned(id),{snapshot}=this.db.tagWriteJobs.material(row.job_id);
   // Preserve the review epoch before staging; all other rights/metadata fields are live.
-  const c=this.context(snapshot.draft,row.job_id,d.worker.leaseRevision-1);if(c.fileId!==row.file_id)throw new Error('提交曲目已绑定到其他文件');
+  const c=this.frozenContext(snapshot,row.job_id,d.worker.leaseRevision-1);if(c.fileId!==row.file_id)throw new Error('提交曲目已绑定到其他文件');
   await this.recoveryRoot(d);if(checkFile)await this.checkSource(snapshot,row.job_id);signal.throwIfAborted();this.db.tagWriteJobs.commitOwned(id);return d;
  }
  private async runCommit(id:string,jobId:string,signal:AbortSignal):Promise<void>{
@@ -522,7 +523,7 @@ export class TagWriteManager {
   }catch(e){const message=String(e instanceof Error?e.message:e);try{this.db.tagWriteJobs.failInspection(id,message,signal.aborted,this.inspector?.quiescent??false);}catch{}this.notify(jobId,message);}
   // Inspection alone never releases the recovery lease or deletes artifacts.
  }
- private async validateOwned(d:TagStageDescriptor):Promise<void>{const {snapshot}=this.db.tagWriteJobs.material(d.worker.plan.jobId);await this.checkSource(snapshot,d.worker.plan.jobId);this.context(snapshot.draft,d.worker.plan.jobId);}
+ private async validateOwned(d:TagStageDescriptor):Promise<void>{const {snapshot}=this.db.tagWriteJobs.material(d.worker.plan.jobId);await this.checkSource(snapshot,d.worker.plan.jobId);this.frozenContext(snapshot,d.worker.plan.jobId);}
  private async runStage(executionId:string,jobId:string,signal:AbortSignal):Promise<void> {
   let lastNotice=performance.now()-2000;
   try{

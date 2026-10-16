@@ -49,7 +49,7 @@ export const tagWriteJobsSchema=`
  CREATE TRIGGER tag_write_lease_file_update BEFORE UPDATE ON tag_write_file_state WHEN NEW.lease_job_id IS NOT NULL AND NOT EXISTS(SELECT 1 FROM tag_write_job WHERE id=NEW.lease_job_id AND file_id=NEW.file_id) BEGIN SELECT RAISE(ABORT,'标签租约任务不属于当前文件'); END;
  CREATE TRIGGER tag_write_revision_monotonic BEFORE UPDATE ON tag_write_file_state WHEN NEW.content_revision<OLD.content_revision OR NEW.lease_revision<OLD.lease_revision BEGIN SELECT RAISE(ABORT,'标签文件修订不可倒退'); END;
 `;
-export interface TagWriteFrozenSnapshot {draft:TagWriteDraft;fingerprint:string;rootPath:string;realRootPath:string;rootAnchor:WatchAnchor;fullPath:string;relativePath:string;before:MediaStat;fileObservation:string;rights:Array<{field:string;origin:string;fingerprint:string}>}
+export interface TagWriteFrozenSnapshot {basisVersion?:1|2;draft:TagWriteDraft;fingerprint:string;rootPath:string;realRootPath:string;rootAnchor:WatchAnchor;fullPath:string;relativePath:string;before:MediaStat;fileObservation:string;rights:Array<{field:string;origin:string;fingerprint:string}>}
 type Row={id:string;item_id:string;file_id:string;title:string;plan_json:string;snapshot_json:string;state:TagWriteJob['state'];revision:number;created_at:string;updated_at:string;reason:string};
 type FileState={source_stamp:string;content_revision:number;lease_revision:number;lease_state:'none'|'held'|'recovery';lease_job_id:string|null;lease_id:string|null};
 export interface TagStageDescriptor {worker:TagWorkerStart;commands:{validated:string;backup_ready:string;temp_written:string}}

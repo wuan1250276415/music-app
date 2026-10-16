@@ -1,0 +1,7 @@
+{
+  "version": "0.223.0",
+  "completed": false,
+  "scope": "actual generated FLAC, supervised scan/preview/native backup and staging, SQLite provenance and collection repositories; explicitly controlled provider candidates/genre observations, not real network truth; actual captured/rebuilt0.222 prepared task reopened by current code; restore activation repository and persisted policy only, not a complete OS cutover or production commit certification; actual production Main/preload/Service/Renderer boot and buttons against an owned preseeded approved-metadata library",
+  "cases": [],
+  "error": "Error: unable to open database file\n    at new LibraryDatabase (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\dist\\main\\library\\database.js:215:19)\n    at setup (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\tag-library-fields-mvp.smoke.cjs:18:194)\n    at async main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\tag-library-fields-mvp.smoke.cjs:29:3)"
+}

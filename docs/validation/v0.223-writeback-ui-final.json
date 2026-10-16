@@ -1,0 +1,81 @@
+{
+  "version": "0.223.0",
+  "completed": true,
+  "scope": "actual candidate Main/preload/Service/Renderer/native execution with isolated generated certificate catalogs and byte-identical production code; owned generated FLAC only; normal folder import, real button clicks, muted playback release, commit/reparse, restore/hard process-tree crash/restart/retry/reparse, stop and stale-source rejection; not production certification, physical power cut, full-disk or full security/format matrix",
+  "cases": [
+    "actual candidate UI imports five owned FLAC files through normal Main/Service scan and opens independent task center",
+    "real confirmed write button traverses Main/preload/Service, stops same-file looping playback, commits actual tags and preserves audio and backup before library reconciliation",
+    "real four-file inspection and reparse buttons update the same library item; normal Main exit and restart preserve committed title and availability",
+    "actual backup restore button reaches durable displaced phase; real owned Main/native process-tree termination leaves source path absent with original backup retained",
+    "restart and actual six-file UI inspection identify fs-ahead and the missing-path gap from original immutable evidence",
+    "actual retry button creates a fresh restore attempt, restores original bytes, preserves prior copy and target, and renders both attempts",
+    "actual restored-source reparse button restores original library title, releases reconciled reads and replays original restore command without another attempt",
+    "real Main/native tree crash after independent inspector exit but before restore binding leaves no restore receipts or journal and retains target and source backup",
+    "real UI independently proves unstarted restore, creates version3 predecessor binding, restores original audio and reconciles library while retaining the unbound intent",
+    "actual stop-write button cancels before moves, waits for native exit and exposes independent unchanged-staged inspection with all artifacts retained",
+    "real Main target review rejects physically changed source before creating a native commit or changing the reviewed backup"
+  ],
+  "compositionSha256": "00fa273641088cf182c660482e8d8be1aeaa1680d9243f2872bc6a853e9d52af",
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 19416,
+    "ownedProcesses": [
+      19416,
+      37260,
+      36976,
+      28040,
+      35108,
+      27504,
+      34224,
+      13392,
+      37100
+    ]
+  },
+  "actualOwnedTerminations": [
+    {
+      "terminated": true,
+      "actualMainPid": 22636,
+      "ownedProcesses": [
+        22636,
+        26468,
+        11716,
+        36204,
+        38336,
+        36200,
+        26548,
+        31760,
+        26204,
+        26764,
+        7708
+      ]
+    },
+    {
+      "terminated": true,
+      "actualMainPid": 19416,
+      "ownedProcesses": [
+        19416,
+        37260,
+        36976,
+        28040,
+        35108,
+        27504,
+        34224,
+        13392,
+        37100
+      ]
+    }
+  ],
+  "productionCertificationEnabled": false,
+  "userOriginalMediaChanged": false,
+  "fingerprints": {
+    "src/main/main.ts": "079830cb4830e60da55efa5fce562d38c0c65076fcd198503667407956dcbdeb",
+    "src/main/preload.ts": "c5f2c7ec83cf1cb93a3108aa3c5a747fecbc39289d529ea87c2f20d457a8d0ec",
+    "src/library/service.ts": "d0d00dfd788bfd61648982631a52ca6780beec0ad49fc075fd2958e3640c6604",
+    "src/library/tag-write-manager.ts": "74e89afdbd2c52eb87655933ed58224bbfd9a34e943054d646206872bd4c204f",
+    "src/library/tag-write-jobs.ts": "22ab157f537d35c8342ad7b0da685c0b6da6f03868ce54a485c0d4ae6960a8c7",
+    "src/renderer/tag-file-actions.tsx": "87030364035625be6292c46eeecf6e2324422db72fd0a61d9d6f9d6f79ae3d7a",
+    "src/renderer/tag-restore-recovery.tsx": "fba8665f8f23cff5d5411fc0dcc3dd15f023ac9acd91996a8802bc0e22ac248c",
+    "tests/electron-tag-writeback-mvp.smoke.cjs": "97d1d8be9edc95adde6d2defc824b2f2785028fc75d0c26daca69d0bf8660836",
+    "tests/helpers/tag-ui-composition.cjs": "822bcae71186cd0139964aa0495315b08cda7598d041bcbbcd4b81998c56243f"
+  }
+}

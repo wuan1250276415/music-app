@@ -1,0 +1,10 @@
+{
+  "version": "0.222.0",
+  "completed": false,
+  "scope": "actual generated FLAC, supervised scan/preview/native backup and staging, SQLite provenance and collection repositories; explicitly controlled provider candidates/genre observations, not real network truth; actual captured/rebuilt0.222 prepared task reopened by current code; restore activation repository and persisted policy only, not a complete OS cutover or production commit certification",
+  "cases": [
+    "supervised import preserves multiple physical artists, album artists and genres in structured context while local private rights remain closed",
+    "real online-credit repository maps reviewed source names in current order and filters composer roles and join phrases from repeated ARTIST values"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n+   '本地专辑甲',\n+   '本地专辑乙'\n-   '专辑乙署名',\n-   '专辑甲署名'\n  ]\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\tag-library-fields-mvp.smoke.cjs:32:62)"
+}

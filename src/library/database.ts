@@ -1,3 +1,4 @@
+import {tagLibraryFields,legacyTagLibraryFields} from './tag-library-fields.js';
 import {recognitionRetrySchema} from './recognition-retry.js';
 import {TAG_WRITE_CERTIFICATES} from '../shared/tag-write-certification.js';
 import {recognitionMappingSchema} from './recognition-mapping.js';
@@ -86,7 +87,7 @@ import {tagWriteExecutionSchema} from './tag-write-execution-schema.js';
 import {tagRecoverySchema} from './tag-recovery-schema.js';
 import {tagRecoveryActionSchema} from './tag-recovery-action-schema.js';
 import {tagCommitSchema} from './tag-commit-schema.js';
-import {TAG_WRITE_FIELDS,tagWriteUuid,readTagFieldChanges,type TagWriteField} from '../shared/tag-write.js';
+import {tagWriteUuid} from '../shared/tag-write.js';
 import type {TagWriteContext} from '../shared/tag-write-ui.js';
 import type { LibraryItem, LibraryStats, ListRequest, ListResponse, RootStatus, MetadataCandidate, MetadataField, MetadataChangeResult, QueueState, ArtistRole, CatalogFacet } from '../shared/contracts.js';
 import { validQueueState } from '../shared/queue-state.js';
@@ -1434,7 +1435,7 @@ export class LibraryDatabase {
     if(!item||!root)throw new Error('曲目不存在');this.restorePolicy.assertRoot(root);if(ownerJobId){this.restorePolicy.assertTagJob(ownerJobId);this.tagWriteJobs.assertOwner(item.fileId,ownerJobId);}else this.tagWriteJobs.assertReadable(item.fileId);return {item,rootPath:root.path};
   }
 
-  tagWriteContext(itemId:unknown,ownerJobId?:string,reviewLeaseRevision?:number):TagWriteContext {
+  tagWriteContext(itemId:unknown,ownerJobId?:string,reviewLeaseRevision?:number,basisVersion:1|2=2):TagWriteContext {
     if(!tagWriteUuid(itemId))throw new Error('标签编辑曲目身份无效');
     const item=this.getItem(itemId);if(!item)throw new Error('曲目不存在');
     const cue=Boolean(this.db.prepare("SELECT 1 FROM playable_item WHERE file_id=? AND kind='cue' LIMIT 1").get(item.fileId));
@@ -1443,24 +1444,8 @@ export class LibraryDatabase {
     if(reviewLeaseRevision!==undefined&&(!ownerJobId||!Number.isSafeInteger(reviewLeaseRevision)||reviewLeaseRevision<0||reviewLeaseRevision>=lease!.lease_revision))throw new Error('冻结审核租约基准无效');
     const rootBinding=this.tagWriteRootBinding(item.id),restoredPolicy=this.restorePolicy.load();if(ownerJobId)this.restorePolicy.assertTagJob(ownerJobId);
     const reason=!this.restorePolicy.rootAuthorized(rootBinding)?'恢复的目录尚未重新选择并确认':!item.available?'歌曲文件当前不可用':item.libraryState!=='active'?'请先恢复此曲目到音乐库':item.kind!=='file'||cue?'CUE 虚拟轨或共享镜像暂不适用单曲写回':path.extname(item.path).toLowerCase()!=='.flac'?'当前写回预览支持独立 FLAC 文件':!item.fileObservation?'请重新扫描以建立文件观察':!ownerJobId&&lease&&lease.lease_state!=='none'?'文件正在写入或等待恢复':'';
-    const scalar:Partial<Record<TagWriteField,string>>={title:item.title,artists:item.artist,album:item.album,genres:item.genre,date:item.catalog?.releaseDate??'',trackNumber:item.trackNumber===null?'':String(item.trackNumber),discNumber:item.discNumber===null?'':String(item.discNumber)};
-    const retention=retentionState(this.db,'musicbrainz');
-    const fields=(Object.keys(TAG_WRITE_FIELDS) as TagWriteField[]).map(field=>{
-      const sourceField=field==='artists'?'artist':field==='title'||field==='album'?field:null,current=scalar[field]??'';
-      const witness=sourceField?this.db.prepare(`SELECT o.rowid observation_rowid,d.observation_id,d.override_json,d.locked,d.revision,o.value_json,o.source,o.source_ref,o.rights_id,o.fingerprint,r.policy_json
-        FROM field_decision d JOIN metadata_observation o ON o.id=d.observation_id JOIN provider_rights r ON r.id=o.rights_id
-        WHERE d.entity_kind='playable_item' AND d.entity_id=? AND d.field=? AND o.entity_kind=d.entity_kind AND o.entity_id=d.entity_id AND o.field=d.field`).get(itemId,sourceField) as {observation_rowid:number;value_json:string;source:string;policy_json:string;override_json:string|null}|undefined:undefined;
-      let allowed=false;
-      if(witness){try{
-        const policy=JSON.parse(witness.policy_json) as {persist?:boolean;writeback?:boolean;expires?:unknown};
-        const expires=policy.expires===null||typeof policy.expires==='string'&&Number.isFinite(Date.parse(policy.expires))&&Date.parse(policy.expires)>Date.now();
-        allowed=policy.persist===true&&policy.writeback===true&&expires&&JSON.parse(witness.value_json)===current&&(witness.override_json===null||JSON.parse(witness.override_json)===current)&&(witness.source!=='musicbrainz'||retention.mode==='reviewed');
-        if(restoredPolicy&&witness.observation_rowid<=restoredPolicy.observationRowid)allowed=false;
-        if(allowed)readTagFieldChanges([{field,values:[current]}]);
-      }catch{allowed=false;}}
-      const rightsFingerprint=createHash('sha256').update(JSON.stringify([field,current,witness??null,retention,restoredPolicy?.activationId??null])).digest('hex');
-      return {field,values:current?[current]:[],libraryAllowed:allowed,reason:allowed?'此字段当前来源允许保存并写回':sourceField?'此字段当前来源未允许文件写回，可使用明确确认的手工输入':'完整集合来源和角色映射尚待接通，可使用手工输入',rightsFingerprint};
-    });
+    if(basisVersion!==1&&basisVersion!==2)throw new Error('标签审核依据版本不受支持');
+    const fields=basisVersion===1?legacyTagLibraryFields(this.db,item,restoredPolicy?.observationRowid,restoredPolicy?.activationId):tagLibraryFields(this.db,item,restoredPolicy?.observationRowid,restoredPolicy?.activationId,restoredPolicy?(restoredPolicy.version===2?restoredPolicy.collectionObservationRowid:Number.MAX_SAFE_INTEGER):undefined);
     const contentRevision=this.tagWriteJobs.contentRevision(item.fileId);
     const fingerprint=createHash('sha256').update(JSON.stringify([this.metadataReviewFingerprint(itemId),item.libraryState,item.genre,item.trackNumber,item.discNumber,contentRevision,cue,reviewLeaseRevision??(ownerJobId?(lease!.lease_revision-1):(lease?.lease_revision??0)),ownerJobId?'none':(lease?.lease_state??'none'),this.tagWriteRootBinding(itemId),fields])).digest('hex');
     return {itemId:item.id,fileId:item.fileId,title:item.title,fingerprint,contentRevision,eligible:!reason,reason,fields,executionReady:TAG_WRITE_CERTIFICATES.length>0};
