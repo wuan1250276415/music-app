@@ -210,6 +210,15 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
   }
   if (!db) throw new Error('音乐库尚未初始化');
   switch (method) {
+    case 'tagWriteJob':return db.tagWriteJobs.material(params as string).job;
+    case 'tagStageBatchCreate':{const result=db.tagStageBatches.create(params);reply({event:'tagStageBatchChanged',payload:{batchId:result.id}});return result;}
+    case 'tagStageBatchCommand':{const result=db.tagStageBatches.commandReply(params);reply({event:'tagStageBatchChanged',payload:{batchId:result.batch.id}});return result;}
+    case 'tagStageBatchList':return db.tagStageBatches.list(params);
+    case 'tagStageBatchItems':return db.tagStageBatches.items(params);
+    case 'tagStageBatchDrive':{const before=db.tagStageBatches.changes,result=db.tagStageBatches.drive(params,tagWrite!.batchIdle);if(db.tagStageBatches.changes!==before)reply({event:'tagStageBatchChanged',payload:{}});return result;}
+    case 'tagStageBatchTarget':{const claim=db.tagStageBatches.assertClaim(params,true);return tagWrite!.stageTarget(claim.request);}
+    case 'tagStageBatchStartItem':{const claim=db.tagStageBatches.assertClaim(params,true);return tagWrite!.startStage(claim.request);}
+    case 'tagStageBatchRefuse':{const r=restoreTransactionFields(params,['claim','message']);if(typeof r.message!=='string'||r.message.length>600)throw new Error('后台标签错误说明无效');const result=db.tagStageBatches.refuse(r.claim,r.message,tagWrite!.batchIdle);reply({event:'tagStageBatchChanged',payload:{batchId:result.id}});return result;}
     case 'tagWriteContext':return db.tagWriteContext(params);
     case 'tagWritePreview':return tagWrite!.preview(params);
     case 'tagWritePreviewCancel':tagWrite!.cancel(params);return null;

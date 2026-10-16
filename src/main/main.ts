@@ -1,3 +1,4 @@
+import {TagStageBatchController} from './tag-stage-batch-controller.js';
 import {readFingerprintFind,readFingerprintChoice,readFingerprintToken} from '../shared/audio-fingerprint.js';
 import {readMetadataBatchOrigin} from '../shared/metadata-batch-recheck.js';
 import {readRecognitionCommand,readRecognitionIssueRequest,readRecognitionResultRequest} from '../shared/metadata-recognition.js';
@@ -120,6 +121,7 @@ function maintenanceCall<T>(method:string,params?:unknown):Promise<T>{
  return libraryLifecycle.controlCall<T>(method,params);
 }
 
+const tagStageBatches=new TagStageBatchController({available:()=>!rendererQuitting&&serviceReady&&desktopReady&&!mainResources.held&&!catalogRestoreRecovery.active,run:action=>mainResources.run(action),call:serviceCall,stageFile:(fileId,observation,action)=>playback.stageLibraryFile(fileId,observation,action),fault:message=>publish({event:'tagStageBatchChanged',payload:{error:message}})});
 function publish(event: EventMessage | {event:'playback';payload:unknown}): void {
   if(event.event==='libraryChanged'){
     const change=event.payload as {reason?:string;itemId?:string};
@@ -375,7 +377,7 @@ function checkedQueueCommand(value:unknown):QueueCommand {
 }
 
 async function startLibrary(): Promise<void> {
-  await libraryLifecycle.startNormal();
+  await libraryLifecycle.startNormal();tagStageBatches.start();
 }
 
 function registerIpc(): void {
@@ -708,6 +710,11 @@ function registerIpc(): void {
   handleIpc('metadata:contact',event => { trusted(event.sender); return serviceCall('metadataContact'); });
   handleIpc('metadata:review-state',(event,itemId)=>{trusted(event.sender);if(typeof itemId!=='string'||!itemId||itemId.length>128||itemId.includes('\0'))throw new Error('无效审核曲目');return serviceCall('metadataReviewState',itemId);});
   handleIpc('metadata:sources',(event,itemId)=>{trusted(event.sender);return serviceCall('metadataSources',itemId);});
+  handleIpc('tag-write:job',(event,jobId)=>{trusted(event.sender);return serviceCall('tagWriteJob',jobId);});
+  handleIpc('tag-stage-batch:create',async(event,request)=>{trusted(event.sender);const result=await serviceCall('tagStageBatchCreate',request);tagStageBatches.poke();return result;});
+  handleIpc('tag-stage-batch:command',async(event,request)=>{trusted(event.sender);const result=await serviceCall('tagStageBatchCommand',request);tagStageBatches.poke();return result;});
+  handleIpc('tag-stage-batch:list',(event,cursor)=>{trusted(event.sender);return serviceCall('tagStageBatchList',cursor);});
+  handleIpc('tag-stage-batch:items',(event,request)=>{trusted(event.sender);return serviceCall('tagStageBatchItems',request);});
   handleIpc('tag-write:context',(event,itemId)=>{trusted(event.sender);return serviceCall('tagWriteContext',itemId);});
   handleIpc('tag-write:preview',(event,request)=>{trusted(event.sender);return serviceCall('tagWritePreview',request,60000);});
   handleIpc('tag-write:preview-cancel',(event,requestId)=>{trusted(event.sender);return serviceCall('tagWritePreviewCancel',requestId);});
@@ -1034,7 +1041,7 @@ else {
   let quitStarted=false,quitReady=false;
   app.on('before-quit',event => {
     if(quitReady)return;event.preventDefault();if(quitStarted)return;quitStarted=true;rendererQuitting=true;analysisRequested=false;startupWindow.finish('closing');
-    const rendererExit=Promise.allSettled([...rendererRequests]);
+    const rendererExit=Promise.allSettled([...rendererRequests]);const tagBatchExit=tagStageBatches.close();
     const artworkExit=artworkResources.close();
     const backupExit=catalogBackup.close();
     const restoreExit=catalogRestore.close();
@@ -1050,7 +1057,7 @@ else {
     const historyExportExit=historyExporter.close();
     const historyFlush=historyRecorder?.close()??Promise.resolve();
     let timer:NodeJS.Timeout;const deadline=new Promise<void>(resolve=>{timer=setTimeout(resolve,1500);});
-    void Promise.race([Promise.allSettled([flush,historyFlush,historyExportExit,rendererExit,artworkExit,backupExit,restoreExit,directoryMoveExit,restorePreparationExit,restoreCutoverExit,restoreApplyExit,restoreRecoveryExit]),deadline]).finally(()=>{clearTimeout(timer);windowPlacement.close();void libraryLifecycle.close();quitReady=true;app.quit();});
+    void Promise.race([Promise.allSettled([flush,historyFlush,historyExportExit,rendererExit,tagBatchExit,artworkExit,backupExit,restoreExit,directoryMoveExit,restorePreparationExit,restoreCutoverExit,restoreApplyExit,restoreRecoveryExit]),deadline]).finally(()=>{clearTimeout(timer);windowPlacement.close();void libraryLifecycle.close();quitReady=true;app.quit();});
   });
   app.on('window-all-closed',() => {if(!desktop?.hasTray||desktop.isQuitting)app.quit();});
 }

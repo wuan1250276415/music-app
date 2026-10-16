@@ -2,6 +2,7 @@
 const assert=require('node:assert/strict');
 const {tagRestoreSchema}=require('../dist/main/library/tag-restore-schema.js'),{tagRestoreRecoverySchema}=require('../dist/main/library/tag-restore-recovery-schema.js'),{tagRestoreReprobeSchema}=require('../dist/main/library/tag-restore-reprobe-schema.js');
 exports.restoreSchema79=db=>{
+ require('./tag-stage-batch-schema-fixture.cjs').restorePre81(db);
  if(!db.prepare('PRAGMA table_info(tag_restore_operation)').all().some(row=>row.name==='attempt_number'))return;
  const tables=['tag_restore_reprobe_release','tag_restore_reprobe','tag_restore_inspection','tag_restore_receipt','tag_restore_operation'];
  for(const table of tables)assert.equal(db.prepare('SELECT COUNT(*) n FROM '+table).get().n,0,'Historical fixture downgrade cannot remove restore evidence');

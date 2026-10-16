@@ -1,7 +1,7 @@
 import type {CatalogRestoreReview} from '../shared/catalog-restore-review';
 import type {RestoreDomainScope} from '../shared/catalog-restore-compatibility';
 import {useEffect,useState} from 'react';
-const domains:Record<RestoreDomainScope,string>={settings:'应用设置',outputs:'音频输出偏好',providers:'在线数据源设置',playlists:'歌单规则', 'filter-presets':'筛选预设','counting-policy':'播放统计设置','lyrics-preferences':'歌词设置','genre-tree':'风格树','online-artwork':'已保存封面与修改记录','metadata-workflows':'元数据审核任务','background-recognition':'后台音频识别'};
+const domains:Record<RestoreDomainScope,string>={settings:'应用设置',outputs:'音频输出偏好',providers:'在线数据源设置',playlists:'歌单规则', 'filter-presets':'筛选预设','counting-policy':'播放统计设置','lyrics-preferences':'歌词设置','genre-tree':'风格树','online-artwork':'已保存封面与修改记录','metadata-workflows':'元数据审核任务','background-recognition':'后台音频识别','tag-stage-batches':'后台标签备份批次'};
 const providerNames:Record<string,string>={musicbrainz:'MusicBrainz','cover-art-archive':'Cover Art Archive',acoustid:'AcoustID'};
 const pendingName=(key:string)=>key.startsWith('aural-playback-policy-pending-v2.invalid.')?'此前未确认的播放设置':({'aural-filter-preset-pending-v1':'筛选预设','aural-playback-policy-pending-v2':'播放设置','aural-rule-import-pending-v1':'规则导入','aural-smart-playlist-pending-v1':'智能歌单编辑','aural-smart-playlist-restore-pending-v1':'智能歌单恢复'} as Record<string,string>)[key]??'待核对资料';
 export function CatalogRestoreReviewPanel({review}:{review:CatalogRestoreReview}){
