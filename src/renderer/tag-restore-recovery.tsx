@@ -3,6 +3,8 @@ import React,{useRef,useState} from 'react';
 import type {TagWriteJob,TagWriteStageRequest} from '../shared/tag-write-ui';
 import type {TagRecoveryCancelRequest} from '../shared/tag-recovery';
 import type {TagRestoreRole} from '../shared/tag-restore';
+import type {TagRestoreStart,TagRestoreCancel} from '../shared/tag-restore-journal';
+import {TAG_RESTORE_CERTIFICATES} from '../shared/tag-restore-certification';
 
 const roles:Record<TagRestoreRole,string>={original:'歌曲原路径',backup:'来源备份',temporary:'写入临时文件',victim:'保留的旧文件',replacement:'恢复副本',displaced:'恢复时保留的目标文件'};
 const states={running:'正在核对',completed:'核对完成',cancelled:'已停止',failed:'核对未完成',interrupted:'上次核对中断'};
@@ -29,8 +31,27 @@ export function TagRestoreRecovery({job,disabled,onError,onChange}:{job:TagWrite
    {view.error&&<p role="alert">{view.error}</p>}
    {view.report&&<><p>{view.report.reason}</p><ul>{view.report.actual.files.map(file=><li key={file.role}>{roles[file.role]}：{fileStates[file.state]}{file.identity?` · ${(Number(file.identity.bytes)/1048576).toFixed(1)} MiB`:''}{file.state==='present'&&!file.flac?' · 尚未确认 FLAC 结构':''}</li>)}</ul><small>这是本次核对时的状态。完成来源核对、重新解析和曲库更新后才恢复歌曲使用。</small></>}
   </>}
+  {(job.nativeRestoreHistory?.length??0)>0&&<details><summary>查看恢复尝试记录</summary><ol>{job.nativeRestoreHistory!.map(attempt=><li key={attempt.id}>{attempt.mode==='victim'?'从保留的旧文件恢复':'从备份恢复'} · {attempt.state==='native_restored'?'文件已恢复':attempt.state==='recovery_required'?'上次恢复中断':attempt.state==='running'?'正在恢复':'等待恢复'}<p>{attempt.reason}</p></li>)}</ol><small>每次尝试的记录和保留文件都会继续保存。</small></details>}
+  <TagRestoreRetry job={job} disabled={disabled||busy} onError={onError} onChange={onChange}/>
   <TagRestoreReprobe job={job} disabled={disabled||busy} onError={onError} onChange={onChange}/>
  </section>;
+}
+
+function TagRestoreRetry({job,disabled,onError,onChange}:{job:TagWriteJob;disabled:boolean;onError:(error:string)=>void;onChange:()=>Promise<void>}):React.JSX.Element|null {
+ const pending=useRef<TagRestoreStart|null>(null),stopping=useRef<TagRestoreCancel|null>(null),[busy,setBusy]=useState(false),[confirmed,setConfirmed]=useState(false),inspection=job.nativeRestoreRecovery,report=inspection?.report;
+ const eligible=job.state==='recovery_required'&&job.nativeRestore?.state==='recovery_required'&&inspection?.operationId===job.nativeRestore.id&&inspection.state==='completed'&&inspection.exitConfirmed&&report?.journal!=='unconfirmed'&&Boolean(report)&&!['restored-source','binding-unavailable','journal-unconfirmed'].includes(report!.classification)&&job.nativeRestoreReprobe?.state!=='running';
+ const certificates:ReadonlyArray<{id:string;mode:'victim'|'backup';adapter:string}>=TAG_RESTORE_CERTIFICATES;
+ const options=certificates.filter(c=>c.adapter==='aural-flac-restore-v2'&&report?.actual.files[c.mode==='victim'?3:1].state==='present'&&report.actual.files[c.mode==='victim'?3:1].flac);
+ async function resume(option:typeof options[number]):Promise<void>{
+  if(!pending.current){if(!eligible||!confirmed||!inspection)return;pending.current={commandId:crypto.randomUUID(),jobId:job.id,baseRevision:job.revision,inspectionId:inspection.id,certificateId:option.id,mode:option.mode,confirmed:true};}
+  setBusy(true);onError('');try{await window.music.tagRestoreRetry(pending.current);pending.current=null;setConfirmed(false);await onChange();}catch(e){onError(`${String(e)}。再次点击将查询或重试原续办请求。`);}finally{setBusy(false);}
+ }
+ async function cancel():Promise<void>{if(!job.nativeRestore)return;stopping.current??={commandId:crypto.randomUUID(),operationId:job.nativeRestore.id};setBusy(true);onError('');try{await window.music.tagRestoreCancel(stopping.current);stopping.current=null;await onChange();}catch(e){onError(`${String(e)}。再次点击将查询或重试原停止请求。`);}finally{setBusy(false);}}
+ if(stopping.current||job.nativeRestore&&['reserved','running'].includes(job.nativeRestore.state))return <button disabled={disabled||busy} onClick={()=>void cancel()}>{stopping.current?'确认原停止请求':'停止文件恢复'}</button>;
+ if(!eligible&&!pending.current)return null;
+ if(!options.length&&!pending.current)return <p>当前版本尚未开放文件恢复续办。已有备份、文件和恢复记录会继续保留。</p>;
+ const choices=pending.current?[{id:pending.current.certificateId,mode:pending.current.mode,adapter:'aural-flac-restore-v2'}]:options;
+ return <div className="tag-write-job-actions"><label><input type="checkbox" checked={confirmed} disabled={disabled||busy||Boolean(pending.current)} onChange={e=>setConfirmed(e.target.checked)}/>确认继续恢复原文件，并保留前次尝试留下的文件</label>{choices.map(option=><button key={option.id} disabled={disabled||busy||!pending.current&&!confirmed} onClick={()=>void resume(option)}>{pending.current?'确认原续办请求':option.mode==='victim'?'使用旧文件继续恢复':'使用备份继续恢复'}</button>)}</div>;
 }
 
 const reprobePhases:Record<string,string>={waiting:'等待读取组件退出',original:'核对实际原来源文件',backup:'核对来源备份',temporary:'核对临时路径',victim:'核对保留的旧文件',replacement:'核对恢复副本',displaced:'核对恢复时保留的目标',fields:'读取实际目标标签',tags:'重新解析曲库资料',library:'提交曲库资料'};

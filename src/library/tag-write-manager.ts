@@ -336,11 +336,13 @@ export class TagWriteManager {
   // This read-only task cannot clear a lease, release gates, restore or delete.
  }
  // Internal certified restoration only; no external execution IPC is registered.
- startRestore(value:unknown):TagWriteJob {
-  const request=readTagRestoreStart(value);this.db.restorePolicy.assertTagJob(request.jobId);const known=this.db.tagWriteJobs.restoreReceipt(request);if(known)return known;
+ startRestore(value:unknown):TagWriteJob {return this.startRestoreOperation(value,false);}
+ retryRestore(value:unknown):TagWriteJob {return this.startRestoreOperation(value,true);}
+ private startRestoreOperation(value:unknown,retry:boolean):TagWriteJob {
+  const request=readTagRestoreStart(value);this.db.restorePolicy.assertTagJob(request.jobId);const known=retry?this.db.tagWriteJobs.restoreRetryReceipt(request):this.db.tagWriteJobs.restoreReceipt(request);if(known)return known;
   if(!this.runtime||!this.journal||!this.commitJournal||!this.restoreJournal||!this.restorer||!this.inspector||!this.writer||!this.committer)throw new Error('原生恢复组件尚未配置');
   if(this.activeStage||this.activeInspection||this.activeRecoveryAction||this.activeCommit||this.activeCommitInspection||this.activeReprobe||this.activeRestoreReprobe||this.activeRestoreInspection||this.activeRestore||!this.restorer.quiescent||!this.writer.quiescent||!this.inspector.quiescent||!this.committer.quiescent)throw new Error('已有文件操作运行或进程退出尚未确认');
-  const result=this.db.tagWriteJobs.reserveRestore(request),active={id:request.commandId,jobId:result.id,controller:new AbortController()} as NonNullable<TagWriteManager['activeRestore']>;
+  const result=retry?this.db.tagWriteJobs.reserveRestoreRetry(request):this.db.tagWriteJobs.reserveRestore(request),active={id:request.commandId,jobId:result.id,controller:new AbortController()} as NonNullable<TagWriteManager['activeRestore']>;
   this.activeRestore=active;active.finished=this.runRestore(active.id,active.jobId,active.controller.signal).finally(()=>{if(this.activeRestore===active)this.activeRestore=null;});void active.finished.catch(()=>{});this.notify(result.id);return result;
  }
  cancelRestore(value:unknown):TagWriteJob {
@@ -359,6 +361,12 @@ export class TagWriteManager {
    try{await Promise.race([waiting,new Promise<never>((_,reject)=>{timer=setTimeout(()=>reject(new Error('读取组件未在35秒内退出，恢复占用保留')),35000);})]);}finally{if(timer)clearTimeout(timer);}
    await this.validateRestoreOwned(id,signal);const three=this.inspectionInput(id,d),input:TagCommitInspectionRequest={...three,version:2,kind:'inspect-commit',files:[...three.files,{role:'victim',path:path.join(path.dirname(w.binding.fullPath),`.aural-${jobId}-${commit.request.victimArtifactId}.victim`)}]};
    const progress=(p:{role:string;bytes:string;total:string})=>{if(performance.now()-lastNotice>=2000||p.bytes===p.total){lastNotice=performance.now();this.db.tagWriteJobs.restoreProgress(id,{role:p.role as import('../shared/tag-restore.js').TagRestoreRole,bytes:p.bytes,total:p.total});this.notify(jobId);}};
+   if(row.predecessor_id){
+    const prior=await this.restoreJournal!.read(row.predecessor_id),evidence=this.db.tagWriteJobs.restoreRetryEvidence(id,prior);
+    if(!evidence)throw new Error('恢复续办缺少前次尝试');const p=evidence.binding.request,directory=path.dirname(w.binding.fullPath),prefix=`.aural-${jobId}-`;
+    const before=await this.inspector!.runRestore({version:3,kind:'inspect-restore',inspectionId:id,sourceRoot:p.sourceRoot,backupRoot:p.backupRoot,files:[...p.files,{role:'replacement',path:path.join(directory,`${prefix}${p.replacementArtifactId}.restore`)},{role:'displaced',path:path.join(directory,`${prefix}${p.displacedArtifactId}.displaced`)}]},progress,signal);
+    assertTagRestoreInspectionEqual(evidence.report.actual,before);this.db.tagWriteJobs.restoreRetryEvidence(id,await this.restoreJournal!.read(row.predecessor_id));
+   }
    const actual=await this.inspector!.runCommit(input,progress,signal);await this.validateRestoreOwned(id,signal);
    const staged=await this.journal!.read(jobId),original=await this.commitJournal!.read(row.commit_operation_id),binding=this.db.tagWriteJobs.freezeRestore(id,actual,staged,original);
    let journal=await this.restoreJournal!.create(binding);this.db.tagWriteJobs.recordRestoreJournal(id,journal);this.notify(jobId);

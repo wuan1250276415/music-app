@@ -44,7 +44,7 @@ export class CatalogRestoreCompatibilityInspector{
  constructor(){this.reference=LibraryDatabase.restoreSchemaReference();}
  inspect(filename:string,rawManifest:CatalogBackupManifest,signal:AbortSignal):CatalogRestoreCompatibility{
   const manifest=readCatalogBackupManifest(rawManifest),providersSupported=providerBackupComponents(),components=[{id:'aural.core',version:manifest.appVersion},...providersSupported];
-  if(manifest.schema!==79)throw new Error('此备份为旧schema68/69/70/71/72/73/74/75/76/77/78，可核对和保留；整库应用需要先显式迁移，暂停恢复流程不会自动迁移');
+  if(manifest.schema!==80)throw new Error('此备份为旧schema68/69/70/71/72/73/74/75/76/77/78/79，可核对和保留；整库应用需要先显式迁移，暂停恢复流程不会自动迁移');
   if(!restoreAppVersionSupported(manifest.appVersion))throw new Error('备份来自更高版本应用，当前版本不能恢复');
   if(JSON.stringify(components)!==JSON.stringify(manifest.plugins))throw new Error('备份数据源组件及版本与当前构建不一致');
   const rows=Object.fromEntries(RESTORE_DOMAIN_SCOPES.map(id=>[id,0])) as Record<RestoreDomainScope,number>;let totalRows=0,totalBytes=0,schema:{objects:number;sha256:string}|undefined;
@@ -104,6 +104,6 @@ export class CatalogRestoreCompatibilityInspector{
    if(db.prepare('SELECT 1 FROM genre g WHERE g.archived=1 AND (EXISTS(SELECT 1 FROM genre c WHERE c.parent_id=g.id) OR EXISTS(SELECT 1 FROM item_genre i WHERE i.genre_id=g.id) OR EXISTS(SELECT 1 FROM release_genre r WHERE r.genre_id=g.id)) LIMIT 1').get())throw new Error('恢复归档风格仍有成员或子项');
    rows['genre-tree']=Number((db.prepare('SELECT COUNT(*) n FROM genre').get() as {n:number}).n);totalRows+=rows['genre-tree'];if(totalRows>5000000)throw new Error('恢复领域资料超过500万条检查预算');check();
   });
-  if(!schema)throw new Error('恢复结构检查未完成');return assertRestoreCompatibility({version:1,appVersion:RELEASE.appVersion,schema:79,schemaSha256:schema.sha256,schemaObjects:schema.objects,databaseSha256:manifest.files.find(f=>f.role==='database')!.sha256,components,domains:RESTORE_DOMAIN_SCOPES.map(id=>({id,rows:rows[id]}))},manifest);
+  if(!schema)throw new Error('恢复结构检查未完成');return assertRestoreCompatibility({version:1,appVersion:RELEASE.appVersion,schema:80,schemaSha256:schema.sha256,schemaObjects:schema.objects,databaseSha256:manifest.files.find(f=>f.role==='database')!.sha256,components,domains:RESTORE_DOMAIN_SCOPES.map(id=>({id,rows:rows[id]}))},manifest);
  }
 }

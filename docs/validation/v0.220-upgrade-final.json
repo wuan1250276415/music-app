@@ -1,0 +1,12 @@
+{
+  "version": "0.220.0",
+  "completed": true,
+  "scope": "copy of actual prior coordinator schema79 database with persisted restore histories; current LibraryDatabase upgrade/snapshot and independent full-transaction rollback; generated test data only, no user database migration",
+  "cases": [
+    "actual prior schema79 restore operations, receipts, inspections and reprobe releases migrate byte-for-byte with root attempt defaults, integrity and foreign keys",
+    "actual pre-v80 standalone snapshot retains original schema79 and all restore evidence",
+    "verification failure after parent table rebuild and dependent trigger recreation rolls back the complete schema and all restore rows and reenables foreign keys",
+    "original prior-version fixture database remains unchanged"
+  ],
+  "legacyDatabaseSha256": "baa0d408bdce1e297d3bc90bfddab4a06b8aada2b0c55ef561a533fd850994e3"
+}

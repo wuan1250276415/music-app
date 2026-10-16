@@ -1,0 +1,38 @@
+{
+  "mapping": {
+    "exit": 0,
+    "stdoutSummary": {
+      "version": "0.220.0",
+      "completed": true,
+      "cases": 8
+    },
+    "evidence": "actual process exit and terminal JSON summary; original full structured report not captured"
+  },
+  "retry": {
+    "exit": 0,
+    "stdoutSummary": {
+      "version": "0.220.0",
+      "completed": true,
+      "cases": 16
+    },
+    "evidence": "actual process exit and terminal JSON summary; original full structured report not captured"
+  },
+  "workflow": {
+    "exit": 0,
+    "stdoutSummary": {
+      "version": "0.220.0",
+      "completed": true,
+      "cases": 18
+    },
+    "evidence": "actual process exit and terminal JSON summary; original full structured report not captured"
+  },
+  "recognition": {
+    "exit": 0,
+    "stdoutSummary": {
+      "version": "0.220.0",
+      "completed": true,
+      "cases": 23
+    },
+    "evidence": "actual process exit and terminal JSON summary; original full structured report not captured"
+  }
+}

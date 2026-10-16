@@ -226,6 +226,8 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
     case 'tagRestoreReprobeCancel':return tagWrite!.cancelRestoreReprobe(params);
     case 'tagRestoreInspect':return tagWrite!.startRestoreInspection(params);
     case 'tagRestoreInspectCancel':return tagWrite!.cancelRestoreInspection(params);
+    case 'tagRestoreRetry':return tagWrite!.retryRestore(params);
+    case 'tagRestoreCancel':return tagWrite!.cancelRestore(params);
     case 'tagCommitInspect':return tagWrite!.startCommitInspection(params);
     case 'tagCommitInspectCancel':return tagWrite!.cancelCommitInspection(params);
     case 'tagCommitReprobe':return tagWrite!.startReprobe(params);

@@ -612,7 +612,7 @@ if(mediaProtocol!=='16'||!mediaProtocolSource.includes("'flac-tag-preview'")||!r
 if(!mediaProtocolSource.includes("request.kind==='image'")||!read('src/library/media-worker-entry.ts').includes('readWorkerImage')||!read('src/library/media-worker-client.ts').includes("this.execute('image'")||!read('src/library/online-image-converter.ts').includes('parser.image')||!read('src/main/artwork-resources.ts').includes("?'no-store':'private, max-age=31536000, immutable'"))fail('missing supervised neutral image conversion or ephemeral response contract');
 if(!read('src/library/tag-write-journal.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write certification default must remain closed until verified catalog');
 
-if(manifest.librarySchema.max!==79||!read('src/library/database.ts').includes('PRAGMA user_version=79')||!read('src/library/tag-write-jobs.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write schema or certification gate differs');
+if(manifest.librarySchema.max!==80||!read('src/library/tag-restore-attempt-migration.ts').includes('PRAGMA user_version=80')||!read('src/library/tag-write-jobs.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write schema or certification gate differs');
 for(const name of ['context','preview','preview-cancel','prepare','jobs','cancel'])if(!read('src/main/main.ts').includes("'tag-write:"+name+"'")||!read('src/main/preload.ts').includes("'tag-write:"+name+"'"))fail('missing trusted tag write route '+name);
 if(!read('src/renderer/main.tsx').includes('setTagWriteItem(reviewItem.id)')||!read('src/renderer/tag-write-dialog.tsx').includes('保存待写入任务'))fail('missing lazy tag preview entry');
 

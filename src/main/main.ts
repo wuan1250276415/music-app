@@ -15,6 +15,7 @@ import {readFilterPresetPageRequest,readFilterPresetMutation,filterPresetId} fro
 import {readSmartPlaylistPageRequest,readSmartPlaylistMutation,smartPlaylistId} from '../shared/smart-playlists.js';
 import {readFilePolicyRequest} from '../shared/file-policy.js';
 import {readTagWriteCancelRequest} from '../shared/tag-write-ui.js';
+import {readTagRestoreStart,readTagRestoreCancel} from '../shared/tag-restore-journal.js';
 import {readCatalogBrowseRequest,readCatalogViewSave} from '../shared/catalog-browse.js';
 import {readLibraryWatchRequest,type LibraryWatchState,type LibraryWatchResult} from '../shared/library-watch.js';
 import {probeWatchRoot,normalizedWatchPath} from '../platform/file-watcher.js';
@@ -720,6 +721,8 @@ function registerIpc(): void {
   handleIpc('tag-write:restore-reprobe-cancel',(event,value)=>{trusted(event.sender);return serviceCall('tagRestoreReprobeCancel',value);});
   handleIpc('tag-write:restore-inspect',(event,value)=>{trusted(event.sender);return serviceCall('tagRestoreInspect',readTagWriteCancelRequest(value));});
   handleIpc('tag-write:restore-inspect-cancel',(event,value)=>{trusted(event.sender);return serviceCall('tagRestoreInspectCancel',value);});
+  handleIpc('tag-write:restore-retry',(event,value)=>{trusted(event.sender);return serviceCall('tagRestoreRetry',readTagRestoreStart(value),60000);});
+  handleIpc('tag-write:restore-cancel',(event,value)=>{trusted(event.sender);return serviceCall('tagRestoreCancel',readTagRestoreCancel(value));});
   handleIpc('tag-write:commit-inspect',(event,value)=>{trusted(event.sender);return serviceCall('tagCommitInspect',readTagWriteCancelRequest(value));});
   handleIpc('tag-write:commit-inspect-cancel',(event,value)=>{trusted(event.sender);return serviceCall('tagCommitInspectCancel',value);});
   handleIpc('tag-write:commit-reprobe',(event,value)=>{trusted(event.sender);return serviceCall('tagCommitReprobe',value);});
