@@ -1,0 +1,286 @@
+{
+  "version": "0.218.0",
+  "completed": true,
+  "scope": "isolated compiled-owned-root candidate using byte-identical production C++ transaction sources and test-only certificate headers/wrappers; actual local NTFS rename/restore, fsynced phase acknowledgments and real child termination; no production certification enabled, no application database/GUI integration, physical power cut, full-disk or complete platform/ACL matrix",
+  "cases": [
+    {
+      "name": "production native certificate gate rejects candidate identity before any stage or file replacement"
+    },
+    {
+      "name": "candidate actual NTFS commit completes all5 fsynced ACK phases, retains original victim and backup, changes only metadata",
+      "phases": [
+        "locked",
+        "intent",
+        "victim_moved",
+        "replaced",
+        "verified"
+      ],
+      "code": 0
+    },
+    {
+      "name": "actual victim restore completes6 phases and restores original bytes and physical identity while preserving displaced target and backup"
+    },
+    {
+      "name": "actual backup-copy restore retains backup/victim, displaces target and restores original bytes, times and archived security policy"
+    },
+    {
+      "name": "actual commit termination after locked leaves independently inspected recoverable file states",
+      "phase": "locked",
+      "states": [
+        {
+          "role": "original",
+          "state": "present"
+        },
+        {
+          "role": "backup",
+          "state": "present"
+        },
+        {
+          "role": "temporary",
+          "state": "present"
+        },
+        {
+          "role": "victim",
+          "state": "missing"
+        }
+      ],
+      "exitCode": null
+    },
+    {
+      "name": "actual commit termination after intent leaves independently inspected recoverable file states",
+      "phase": "intent",
+      "states": [
+        {
+          "role": "original",
+          "state": "present"
+        },
+        {
+          "role": "backup",
+          "state": "present"
+        },
+        {
+          "role": "temporary",
+          "state": "present"
+        },
+        {
+          "role": "victim",
+          "state": "missing"
+        }
+      ],
+      "exitCode": null
+    },
+    {
+      "name": "actual commit termination after victim_moved leaves independently inspected recoverable file states and actual victim restoration succeeds",
+      "phase": "victim_moved",
+      "states": [
+        {
+          "role": "original",
+          "state": "missing"
+        },
+        {
+          "role": "backup",
+          "state": "present"
+        },
+        {
+          "role": "temporary",
+          "state": "present"
+        },
+        {
+          "role": "victim",
+          "state": "present"
+        }
+      ],
+      "exitCode": null
+    },
+    {
+      "name": "actual commit termination after replaced leaves independently inspected recoverable file states and actual victim restoration succeeds",
+      "phase": "replaced",
+      "states": [
+        {
+          "role": "original",
+          "state": "present"
+        },
+        {
+          "role": "backup",
+          "state": "present"
+        },
+        {
+          "role": "temporary",
+          "state": "missing"
+        },
+        {
+          "role": "victim",
+          "state": "present"
+        }
+      ],
+      "exitCode": null
+    },
+    {
+      "name": "actual commit termination after verified leaves independently inspected recoverable file states and actual victim restoration succeeds",
+      "phase": "verified",
+      "states": [
+        {
+          "role": "original",
+          "state": "present"
+        },
+        {
+          "role": "backup",
+          "state": "present"
+        },
+        {
+          "role": "temporary",
+          "state": "missing"
+        },
+        {
+          "role": "victim",
+          "state": "present"
+        }
+      ],
+      "exitCode": null
+    },
+    {
+      "name": "actual victim restoration termination after locked preserves original and target content with explicit interrupted layout",
+      "mode": "victim",
+      "phase": "locked",
+      "exitCode": null
+    },
+    {
+      "name": "actual victim restoration termination after prepared preserves original and target content with explicit interrupted layout",
+      "mode": "victim",
+      "phase": "prepared",
+      "exitCode": null
+    },
+    {
+      "name": "actual victim restoration termination after intent preserves original and target content with explicit interrupted layout",
+      "mode": "victim",
+      "phase": "intent",
+      "exitCode": null
+    },
+    {
+      "name": "actual victim restoration termination after displaced preserves original and target content with explicit interrupted layout",
+      "mode": "victim",
+      "phase": "displaced",
+      "exitCode": null
+    },
+    {
+      "name": "actual victim restoration termination after restored preserves original and target content with explicit interrupted layout",
+      "mode": "victim",
+      "phase": "restored",
+      "exitCode": null
+    },
+    {
+      "name": "actual victim restoration termination after verified preserves original and target content with explicit interrupted layout",
+      "mode": "victim",
+      "phase": "verified",
+      "exitCode": null
+    },
+    {
+      "name": "actual backup restoration termination after locked preserves original and target content with explicit interrupted layout",
+      "mode": "backup",
+      "phase": "locked",
+      "exitCode": null
+    },
+    {
+      "name": "actual backup restoration termination after prepared preserves original and target content with explicit interrupted layout",
+      "mode": "backup",
+      "phase": "prepared",
+      "exitCode": null
+    },
+    {
+      "name": "actual backup restoration termination after intent preserves original and target content with explicit interrupted layout",
+      "mode": "backup",
+      "phase": "intent",
+      "exitCode": null
+    },
+    {
+      "name": "actual backup restoration termination after displaced preserves original and target content with explicit interrupted layout",
+      "mode": "backup",
+      "phase": "displaced",
+      "exitCode": null
+    },
+    {
+      "name": "actual backup restoration termination after restored preserves original and target content with explicit interrupted layout",
+      "mode": "backup",
+      "phase": "restored",
+      "exitCode": null
+    },
+    {
+      "name": "actual backup restoration termination after verified preserves original and target content with explicit interrupted layout",
+      "mode": "backup",
+      "phase": "verified",
+      "exitCode": null
+    },
+    {
+      "name": "actual Unicode NTFS name commits and restores without changing audio"
+    },
+    {
+      "name": "actual Unicode over-MAX_PATH NTFS name commits and restores without changing audio"
+    },
+    {
+      "name": "actual hard-linked source is rejected before replacement and both names retain original bytes"
+    },
+    {
+      "name": "actual junction in source authorization is rejected by native directory pins without moving the original"
+    },
+    {
+      "name": "actual exclusive source handle blocks native commit, helper exits and original bytes remain unchanged"
+    },
+    {
+      "name": "candidate still rejects an uncompiled certificate identity"
+    },
+    {
+      "name": "test candidate compiled-root guard rejects paths outside its dedicated root before transaction access"
+    },
+    {
+      "name": "actual changed source after independent inspection is rejected without moving or rewriting it"
+    },
+    {
+      "name": "actual changed backup is rejected and retained rather than overwritten"
+    },
+    {
+      "name": "actual differing target audio is rejected even with fresh physical inspection evidence"
+    },
+    {
+      "name": "preexisting victim name is never overwritten and original remains present"
+    },
+    {
+      "name": "wrong durable ACK sequence aborts actual native transaction before any source move"
+    },
+    {
+      "name": "alternate data stream causes real native rejection and remains intact"
+    },
+    {
+      "name": "same native pinned-handle primitive moves an owned directory with stable physical identity"
+    },
+    {
+      "name": "same native pinned-handle primitive refuses occupied directory without overwriting either tree"
+    }
+  ],
+  "candidateSourceHashes": {
+    "native/tag-write-worker/committer.cpp": "40b0f0f77b6350e230f085998540ac3957e3a8e2d472a4d07d8760bd25ba8373",
+    "native/tag-write-worker/tag-file-io.hpp": "5ee933257c4d78e97b9731924b7b56e69e8522944f4171bc29ba75b61a33b68b",
+    "native/tag-write-worker/tag-file-transaction.hpp": "619ee38247bbda8869660bc4f1d392f239f42850c928a8c0b0d506051f1449c5",
+    "native/tag-write-worker/catalog-directory-mover.cpp": "f7f6990406b867b401532769b4002668d857d38337a97b5306e4e068a6c2c1fd",
+    "native/tag-write-worker/restorer.cpp": "0948452430bfe1817eba83bc7672adb5947ea6d001cff26c35836980be6e65e3",
+    "native/audio-host/vendor/json.hpp": "aaf127c04cb31c406e5b04a63f1ae89369fccde6d8fa7cdda1ed4f32dfc5de63",
+    "native/tag-write-worker/tag-origin-policy.hpp": "687a94cb785bd93f0a8437bd76e9fb8c74b9f818a5840fdf8085db75e70530c9"
+  },
+  "candidateBinaries": {
+    "directory-rename-probe.exe": "83d0b90fde53396bb8167f04134da0de1b752805a91df3ba0af8d3ced3510f06",
+    "tag-file-restorer.exe": "154d2a8e81eaffd8e588cf25429be5537ab472c096291a3c4fb645d8c0d96081",
+    "tag-file-committer.exe": "da7d94c68730b4daf380401db091503936ea72d6bd20aecec2b2f7a0c7b5defb"
+  },
+  "productionCertificationEnabled": false,
+  "productionSourcesUnchanged": true,
+  "fingerprints": {
+    "tests/native-tag-commit-recovery-mvp.smoke.cjs": "c9632c4cded2bcfce2cd7f789752cf9075291b1e9e063a99517420012481e907",
+    "tests/helpers/build-tag-certification-candidate.ps1": "f37d0621cd114ec1132dfa1f37233e85c045a0e7d56c61b38ce179e4fb71b99a",
+    "tests/helpers/hold-owned-tag-file.ps1": "0c3fff4c8053f8a41427a89ff95d0f2857266fe1f89630c42594905103e339fb",
+    "scripts/run-tag-native-mvp.cjs": "da1a5435950b1799011b2338b7934e3f4650d88cbf5e26f52cab863d5c4ffe58",
+    "src/shared/tag-commit.ts": "173350a36cbef9cfef205fe63763d32d17d99a23e1c32d8d8c03681cf599f84d",
+    "src/shared/tag-restore.ts": "dd4bfa0cd4052339964c87d1b255ebaaacd7c842da3d8fc93fe190820dfbe8e2",
+    "native/tag-write-worker/build/tag-file-committer.exe": "b7fa00485cefac4e4f391c3fa7f469c15c76fe76891bde5b8b3549770f7dc3d7",
+    "native/tag-write-worker/build/tag-file-restorer.exe": "9bb9d7190b4bf0bc1a905e74d768edd2986d836800279b9b62ccbb0b638a8658",
+    "native/tag-write-worker/build/tag-file-inspector.exe": "4087f644e793e58e26dfaaa3d45e9cde22d371decb5f221035fd326293c3eb71"
+  }
+}

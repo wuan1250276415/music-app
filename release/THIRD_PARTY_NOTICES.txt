@@ -1,4 +1,4 @@
-Aural 0.217.0 — third-party notices
+Aural 0.218.0 — third-party notices
 Generated from package-lock.json and the installed package/license files.
 The npm list is the locked runtime dependency closure; the packager may prune type-only or unused files.
 Electron and Chromium license files are shipped beside the installed executable as LICENSE and LICENSES.chromium.html.

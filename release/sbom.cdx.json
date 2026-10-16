@@ -6,7 +6,7 @@
     "component": {
       "type": "application",
       "name": "aural-library",
-      "version": "0.217.0",
+      "version": "0.218.0",
       "licenses": [
         {
           "license": {
@@ -3492,11 +3492,11 @@
         },
         {
           "name": "aural:directory-cutover-5-sha256",
-          "value": "1a5309142c5c0fd885082844fc187590f8affc684ecec047ff15cf18ed308d13"
+          "value": "f7f6990406b867b401532769b4002668d857d38337a97b5306e4e068a6c2c1fd"
         },
         {
           "name": "aural:directory-cutover-6-sha256",
-          "value": "c520637814e76053ce63efa7878e3e7cb5665123296307131d71219e49b64bc2"
+          "value": "619ee38247bbda8869660bc4f1d392f239f42850c928a8c0b0d506051f1449c5"
         },
         {
           "name": "aural:directory-cutover-7-sha256",
@@ -3508,7 +3508,7 @@
         },
         {
           "name": "aural:directory-mover-binary-sha256",
-          "value": "e93f9914fb940fc2bb67b7a62d1cbbbc1b4eced2ab1fb1f1ff1f3b152ac4f91b"
+          "value": "183e83d966a9217dd5818d7935ccc2a3c31e2ac7ab84b892a1fa3db059679d9a"
         },
         {
           "name": "aural:directory-cutover-status",
@@ -4216,7 +4216,7 @@
         },
         {
           "name": "aural:tag-native-transaction-source-sha256",
-          "value": "c520637814e76053ce63efa7878e3e7cb5665123296307131d71219e49b64bc2"
+          "value": "619ee38247bbda8869660bc4f1d392f239f42850c928a8c0b0d506051f1449c5"
         },
         {
           "name": "aural:tag-restore-status",

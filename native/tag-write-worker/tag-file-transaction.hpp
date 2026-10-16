@@ -82,9 +82,16 @@ static json preparePolicy(Artifact& original,Artifact& temporary){
  if(!SetFileInformationByHandle(temporary.handle.value,FileBasicInfo,&next,sizeof(next))||!FlushFileBuffers(temporary.handle.value))throw std::runtime_error("temporary policy flush failed");
  return {{"origin",origin},{"creation",std::to_string(ticks(old.CreationTime))},{"lastAccess",std::to_string(ticks(old.LastAccessTime))},{"attributes",old.FileAttributes},{"security",security},{"streams","unnamed-only"},{"lastWrite","staged-file-time"},{"audit","not-certified"}};
 }
+static void renamePinnedHandleAbsent(HANDLE source,HANDLE directory,const std::wstring& target){
+ leafOf(target);if(finalPath(directory)!=parentOf(target))throw std::runtime_error("rename target parent differs from pinned directory");
+ // Use the documented absolute-name form. The directory remains pinned against
+ // deletion/rename; a relative name plus RootDirectory failed with Win32 error87.
+ const auto absolute=extended(target);const DWORD bytes=DWORD(absolute.size()*sizeof(wchar_t));std::vector<unsigned char> storage(offsetof(FILE_RENAME_INFO,FileName)+bytes+sizeof(wchar_t));auto* r=reinterpret_cast<FILE_RENAME_INFO*>(storage.data());r->ReplaceIfExists=FALSE;r->RootDirectory=nullptr;r->FileNameLength=bytes;std::memcpy(r->FileName,absolute.data(),bytes);
+ if(!SetFileInformationByHandle(source,FileRenameInfo,r,DWORD(storage.size())))throw std::runtime_error("exclusive handle rename failed: "+std::to_string(GetLastError()));
+ if(finalPath(source)!=target||finalPath(directory)!=parentOf(target))throw std::runtime_error("renamed handle or pinned directory path unconfirmed");
+}
 static void renameAbsent(Artifact& artifact,HANDLE directory,const std::wstring& target){
- const auto leaf=leafOf(target);const DWORD bytes=DWORD(leaf.size()*sizeof(wchar_t));std::vector<unsigned char> storage(offsetof(FILE_RENAME_INFO,FileName)+bytes+sizeof(wchar_t));auto* r=reinterpret_cast<FILE_RENAME_INFO*>(storage.data());r->ReplaceIfExists=FALSE;r->RootDirectory=directory;r->FileNameLength=bytes;std::memcpy(r->FileName,leaf.data(),bytes);
- if(!SetFileInformationByHandle(artifact.handle.value,FileRenameInfo,r,DWORD(storage.size())))throw std::runtime_error("exclusive handle rename failed: "+std::to_string(GetLastError()));artifact.name=target;
+ renamePinnedHandleAbsent(artifact.handle.value,directory,target);artifact.name=target;
  if(finalPath(artifact.handle.value)!=target||!FlushFileBuffers(artifact.handle.value))throw std::runtime_error("renamed handle path or flush unconfirmed");
 }
 static int runTagNativeTransaction(int argc,wchar_t** argv,void (*transaction)(const json&)){
