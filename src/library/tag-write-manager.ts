@@ -41,10 +41,11 @@ export class TagWriteManager {
  private readonly commitJournal:TagCommitJournal|undefined;private readonly committer:TagFileCommitter|undefined;
  private readonly restoreJournal:TagRestoreJournal|undefined;private readonly restorer:TagFileRestorer|undefined;
  private readonly restoreReleases=new Map<string,Promise<void>>();
+ private readonly commitReleases=new Map<string,Promise<void>>();
  private activeRestoreReprobe:{id:string;jobId:string;controller:AbortController;releaseReady?:boolean;finished?:Promise<void>}|null=null;
  private activeRestoreInspection:{id:string;jobId:string;controller:AbortController;finished?:Promise<void>}|null=null;
  private activeRestore:{id:string;jobId:string;controller:AbortController;finished?:Promise<void>}|null=null;
- private activeReprobe:{id:string;jobId:string;controller:AbortController;finished?:Promise<void>}|null=null;
+ private activeReprobe:{id:string;jobId:string;controller:AbortController;releaseReady?:boolean;finished?:Promise<void>}|null=null;
  private activeCommitInspection:{id:string;jobId:string;controller:AbortController;finished?:Promise<void>}|null=null;
  private activeCommit:{id:string;jobId:string;controller:AbortController;finished?:Promise<void>}|null=null;
  private activeInspection:{id:string;jobId:string;controller:AbortController;finished?:Promise<void>}|null=null;
@@ -54,11 +55,11 @@ export class TagWriteManager {
   if(!owner||this.maintenanceOwner&&this.maintenanceOwner!==owner)throw new Error('标签写回维护身份不符');this.maintenanceOwner=owner;this.close();
   const active=[this.activeStage,this.activeInspection,this.activeRecoveryAction,this.activeCommit,this.activeCommitInspection,this.activeReprobe,this.activeRestore,this.activeRestoreInspection,this.activeRestoreReprobe];
   if(active.some(value=>value&&!value.finished))throw new Error('文件操作仍在准备阶段，须先等待原请求结束');
-  await Promise.allSettled([...active.flatMap(value=>value?.finished?[value.finished]:[]),...[...this.requests.values()].map(value=>value.result),...this.restoreReleases.values()]);
+  await Promise.allSettled([...active.flatMap(value=>value?.finished?[value.finished]:[]),...[...this.requests.values()].map(value=>value.result),...this.restoreReleases.values(),...this.commitReleases.values()]);
   this.assertMaintenanceIdle();
  }
  private assertMaintenanceIdle():void{
-  if(this.activeStage||this.activeInspection||this.activeRecoveryAction||this.activeCommit||this.activeCommitInspection||this.activeReprobe||this.activeRestore||this.activeRestoreInspection||this.activeRestoreReprobe||this.requests.size||this.restoreReleases.size||[this.writer,this.inspector,this.committer,this.restorer].some(value=>value&&!value.quiescent))throw new Error('写回或恢复进程未全部确认退出，保留原任务与恢复占用');
+  if(this.activeStage||this.activeInspection||this.activeRecoveryAction||this.activeCommit||this.activeCommitInspection||this.activeReprobe||this.activeRestore||this.activeRestoreInspection||this.activeRestoreReprobe||this.requests.size||this.restoreReleases.size||this.commitReleases.size||[this.writer,this.inspector,this.committer,this.restorer].some(value=>value&&!value.quiescent))throw new Error('写回或恢复进程未全部确认退出，保留原任务与恢复占用');
  }
  endMaintenance(owner:string):void{if(this.maintenanceOwner!==owner)throw new Error('标签维护身份不符');this.assertMaintenanceIdle();this.maintenanceOwner=null;}
  constructor(private readonly db:LibraryDatabase,private readonly parser:MediaParser,private readonly runtime?:TagStageRuntime){if(runtime){this.restoreJournal=new TagRestoreJournal(runtime.dataDir);this.restorer=new TagFileRestorer(path.join(path.dirname(runtime.executable),'tag-file-restorer.exe'));this.commitJournal=new TagCommitJournal(runtime.dataDir);this.committer=new TagFileCommitter(path.join(path.dirname(runtime.executable),'tag-file-committer.exe'));this.journal=new TagWriteJournal(runtime.dataDir);this.writer=new TagWriteWorker(runtime.executable);this.inspector=new TagFileInspector(path.join(path.dirname(runtime.executable),'tag-file-inspector.exe'));}}
@@ -137,9 +138,21 @@ export class TagWriteManager {
   if(!this.activeReprobe||this.activeReprobe.id!==request.reprobeId)throw new Error('此重新解析不在当前会话运行，请刷新任务');
   const job=this.db.tagWriteJobs.requestReprobeCancel(request);this.activeReprobe.controller.abort(new Error('用户已停止重新解析，文件及恢复占用保留'));this.notify(job.id);return job;
  }
- releaseReprobe(id:string):void {
+ releaseReprobe(id:string):Promise<void> {
+  if(this.activeReprobe?.id===id&&!this.activeReprobe.releaseReady)return Promise.resolve();
+  const known=this.commitReleases.get(id);if(known)return known;
+  const work=this.releaseReprobeNow(id).finally(()=>{if(this.commitReleases.get(id)===work)this.commitReleases.delete(id);});this.commitReleases.set(id,work);return work;
+ }
+ private async releaseReprobeNow(id:string):Promise<void>{
   if(!this.runtime)throw new Error('曲库提交释放组件尚未配置');const {row,descriptor:d,apply}=this.db.tagWriteJobs.reprobeReleaseBinding(id);this.db.restorePolicy.assertTagJob(row.job_id);
-  if(apply){this.parser.releaseRecoveredFile(d.worker.binding.fullPath,row.lease_id);this.runtime.releaseRecovered(d.worker.binding.fullPath,row.lease_id);}
+  if(apply){
+   const proof=JSON.parse(row.proof_json!) as TagCommitReprobeProof;
+   // A retry may run long after the DB transaction, including after restart.
+   // Recheck the actual observation before releasing the old read owner.
+   try{await this.reprobeSource(d,proof.observation);}catch(e){this.db.tagWriteJobs.invalidateReprobeObservation(id);this.notify(row.job_id,`曲库已提交，但文件或目录随后变化，需重新扫描：${String(e instanceof Error?e.message:e)}`);}
+   const current=this.db.tagWriteJobs.reprobeReleaseBinding(id);
+   if(current.apply){this.parser.releaseRecoveredFile(d.worker.binding.fullPath,row.lease_id);this.runtime.releaseRecovered(d.worker.binding.fullPath,row.lease_id);}
+  }
   this.db.tagWriteJobs.confirmReprobeRelease(id);this.runtime.invalidated?.(row.job_id);this.notify(row.job_id);
  }
  private async reprobeSource(d:TagStageDescriptor,expected?:string){
@@ -171,7 +184,8 @@ export class TagWriteManager {
    // Snapshot validity ends before the DB transaction; check again before
    // releasing application gates. Later external changes remain watcher work.
    try{await this.reprobeSource(d,source.observation);}catch(e){this.db.tagWriteJobs.invalidateReprobeObservation(id);this.notify(jobId,`曲库已提交，但文件随后变化，需重新扫描：${String(e instanceof Error?e.message:e)}`);}
-   this.releaseReprobe(id);
+   if(this.activeReprobe?.id===id)this.activeReprobe.releaseReady=true;
+   await this.releaseReprobe(id);
   }catch(e){const message=String(e instanceof Error?e.message:e);if(!committed)try{this.db.tagWriteJobs.failReprobe(id,message,signal.aborted);}catch{}this.notify(jobId,message);}
   // Failed/cancelled work keeps recovery gates. A completed DB transaction has
   // a durable cleanup receipt retried by startup/periodic service reconciliation.

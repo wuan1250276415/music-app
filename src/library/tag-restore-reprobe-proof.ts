@@ -17,7 +17,8 @@ export function validateRestoreReprobeProof(proof:TagRestoreReprobeProof,binding
  assertTagRestoreInspectionEqual(proof.before,proof.after);
  const changes=tagRestorePreviewChanges(binding),preview=readFlacTagPreview(proof.preview,changes),original=binding.commit.plan.preview;
  if(preview.embeddedCueSheet||tagCommitCanonical(preview)!==tagCommitCanonical(original)||preview.fields.some((f,i)=>tagCommitCanonical(f.before)!==tagCommitCanonical(original.fields[i].before)))throw new Error('恢复来源实际标签、容器或保留块不属于原文件');
- const request=validateMediaRequest({...paths,before:proof.stat,version:MEDIA_PROTOCOL_VERSION,kind:'tags',id:binding.request.operationId});
+ // Frozen worker bindings carry extra scan evidence, outside the media schema.
+ const request=validateMediaRequest({rootPath:paths.rootPath,realRootPath:paths.realRootPath,fullPath:paths.fullPath,relativePath:paths.relativePath,before:proof.stat,version:MEDIA_PROTOCOL_VERSION,kind:'tags',id:binding.request.operationId});
  validateMediaResponse({version:MEDIA_PROTOCOL_VERSION,id:request.id,kind:'result',file:proof.parsed,after:proof.stat},request);
  if(proof.parsed.parseError||proof.parsed.size!==Number(original.sourceFileBytes)||proof.parsed.relativePath!==paths.relativePath||proof.parsed.mtimeMs!==proof.stat.mtimeMs||proof.parsed.sampleRate!==preview.sampleRate||proof.parsed.bitsPerSample!==preview.bitsPerSample||BigInt(preview.totalSamples)>0n&&(proof.parsed.durationSeconds===null||Math.abs(proof.parsed.durationSeconds-Number(preview.totalSamples)/preview.sampleRate)>1/preview.sampleRate))throw new Error('恢复来源重新解析的文件或技术资料不符合实际FLAC头部');
 }

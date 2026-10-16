@@ -1,0 +1,12 @@
+{
+  "version": "0.218.0",
+  "completed": false,
+  "scope": "owned generated FLAC, byte-identical compiled production coordinator/database/journals/clients with isolated generated certificate catalogs; real supervised parsing/staging, native candidate commit/restore, real SQLite receipts and reprobe; no Main/preload/GUI commit entry, production certification, hard parent crash, power cut or complete filesystem/security matrix",
+  "cases": [
+    {
+      "name": "actual coordinator stages, commits five fsynced/native/SQLite phases, replays original command and keeps changed file unreadable until reconciliation"
+    }
+  ],
+  "compositionSha256": "852fe2396f33d24ce0d0a49958a5d66f5c00530449b81bbbbdb65249fe05b23e",
+  "error": "AssertionError [ERR_ASSERTION]: 无效媒体解析请求\n+ actual - expected\n\n+ 'failed'\n- 'completed'\n\n    at reconcile (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\tag-coordinator-mvp.smoke.cjs:35:78)\n    at async main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\tag-coordinator-mvp.smoke.cjs:44:3)"
+}

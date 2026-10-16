@@ -1,0 +1,15 @@
+{
+  "version": "0.218.0",
+  "completed": false,
+  "scope": "owned generated FLAC, byte-identical compiled production coordinator/database/journals/clients with isolated generated certificate catalogs; real supervised parsing/staging, native candidate commit/restore, real SQLite receipts and reprobe; no Main/preload/GUI commit entry, production certification, hard parent crash, power cut or complete filesystem/security matrix",
+  "cases": [
+    {
+      "name": "actual coordinator stages, commits five fsynced/native/SQLite phases, replays original command and keeps changed file unreadable until reconciliation"
+    },
+    {
+      "name": "independent target reparse commits new metadata and releases read owners; actual database reopen preserves available item identity and title"
+    }
+  ],
+  "compositionSha256": "35c0ff8e51937d52574f979addcf9dd7b551e87ea586ef82a162fc658a16b26e",
+  "error": "Error: 六文件核对尚未确认原来源恢复及完整恢复日志\n    at TagWriteJobs.selectedRestoreReprobe (D:\\CodexTestData\\aural-tag-cert-mvp-9ZdfdI\\coordinator-run-KVzUzM\\app\\dist\\main\\library\\tag-write-jobs.js:335:19)\n    at D:\\CodexTestData\\aural-tag-cert-mvp-9ZdfdI\\coordinator-run-KVzUzM\\app\\dist\\main\\library\\tag-write-jobs.js:344:46\n    at LibraryDatabase.transaction (D:\\CodexTestData\\aural-tag-cert-mvp-9ZdfdI\\coordinator-run-KVzUzM\\app\\dist\\main\\library\\database.js:1151:28)\n    at TagWriteJobs.transaction (D:\\CodexTestData\\aural-tag-cert-mvp-9ZdfdI\\coordinator-run-KVzUzM\\app\\dist\\main\\library\\database.js:250:94)\n    at TagWriteJobs.beginRestoreReprobe (D:\\CodexTestData\\aural-tag-cert-mvp-9ZdfdI\\coordinator-run-KVzUzM\\app\\dist\\main\\library\\tag-write-jobs.js:340:21)\n    at TagWriteManager.startRestoreReprobe (D:\\CodexTestData\\aural-tag-cert-mvp-9ZdfdI\\coordinator-run-KVzUzM\\app\\dist\\main\\library\\tag-write-manager.js:362:42)\n    at reconcile (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\tag-coordinator-mvp.smoke.cjs:34:139)\n    at async main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\tag-coordinator-mvp.smoke.cjs:45:268)"
+}

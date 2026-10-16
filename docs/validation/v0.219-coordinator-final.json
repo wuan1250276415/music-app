@@ -1,0 +1,55 @@
+{
+  "version": "0.219.0",
+  "completed": true,
+  "scope": "owned generated FLAC, byte-identical compiled production coordinator/database/journals/clients with isolated generated certificate catalogs; real supervised parsing/staging, native candidate commit/restore, real SQLite receipts and reprobe; no Main/preload/GUI commit entry, production certification, hard parent crash, power cut or complete filesystem/security matrix",
+  "cases": [
+    {
+      "name": "actual coordinator stages, commits five fsynced/native/SQLite phases, replays original command and keeps changed file unreadable until reconciliation"
+    },
+    {
+      "name": "independent target reparse commits new metadata and releases read owners; actual database reopen preserves available item identity and title"
+    },
+    {
+      "name": "actual victim restoration persists all six native/database phases, independently reparses original tags and survives database reopen with backup retained"
+    },
+    {
+      "name": "actual backup restoration persists all six native/database phases, independently reparses original tags and survives database reopen with backup retained"
+    },
+    {
+      "name": "actual SQLite release-receipt failure retains completed library transaction with a durable outstanding release and blocks normal reads"
+    },
+    {
+      "name": "actual database close and reopen retain pending release and deny ordinary reads before cleanup"
+    },
+    {
+      "name": "retry release after reopen independently rejects changed target observation and marks stale library data unavailable for rescan"
+    },
+    {
+      "name": "real library metadata transaction abort retains old unavailable title and read hold; independent retry applies target once without duplicating the item"
+    },
+    {
+      "name": "actual SQLite rollback after fsynced commit phase 1 retains independent fs-ahead evidence"
+    },
+    {
+      "name": "actual SQLite rollback after fsynced commit phase 2 retains independent fs-ahead evidence"
+    },
+    {
+      "name": "actual SQLite rollback after fsynced commit phase 3 retains independent fs-ahead evidence and restores original file plus library"
+    },
+    {
+      "name": "actual SQLite rollback after fsynced commit phase 4 retains independent fs-ahead evidence and restores original file plus library"
+    },
+    {
+      "name": "actual SQLite rollback after fsynced commit phase 5 retains independent fs-ahead evidence and restores original file plus library"
+    }
+  ],
+  "compositionSha256": "550fdbfbc2766fa0ecfbe9b23b62183512870ef92b1d4f940279c4889a0bc542",
+  "productionCertificationEnabled": false,
+  "compiledProductionUnchanged": true,
+  "fingerprints": {
+    "src/library/tag-write-manager.ts": "a9a087fee233fb707b222f3db6d6e9f6b46c60c9e1c6d721ca096e49c5d9b5d6",
+    "src/library/tag-write-jobs.ts": "2867db985c80d293351dbddd19ce55fcaf5053a08bdd3ec581873dbb82fef183",
+    "tests/tag-coordinator-mvp.smoke.cjs": "dfa2b1107ca80bc534449742ef7d3ff27851ba2cbca4eb26acfd966919c2f426",
+    "tests/helpers/tag-coordinator-composition.cjs": "7fb931067c34380c5cd56f4671ba69fd93ee03e37feee5931e1daddf677d3dac"
+  }
+}

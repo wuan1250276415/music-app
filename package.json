@@ -1,7 +1,7 @@
 {
   "name": "aural-library",
   "private": true,
-  "version": "0.218.0",
+  "version": "0.219.0",
   "description": "Local-first desktop music library prototype",
   "license": "GPL-3.0-only",
   "main": "dist/main/main/main.js",
@@ -63,6 +63,7 @@
     "test:recognition-retry-mvp": "npm run build && npm run build:native && node tests/recognition-retry-mvp.smoke.cjs && node tests/electron-recognition-retry-mvp.smoke.cjs",
     "test:library-recognition-mvp": "npm run build && npm run build:native && node tests/recognition-mapping-mvp.smoke.cjs && node tests/electron-library-recognition-mvp.smoke.cjs",
     "test:metadata-recognition-mvp": "npm run build && npm run build:native && node tests/metadata-recognition-mvp.smoke.cjs && node tests/electron-metadata-recognition-mvp.smoke.cjs",
+    "test:tag-coordinator-mvp": "npm run build && npm run build:native && node scripts/run-tag-native-mvp.cjs --coordinator",
     "test:tag-native-mvp": "npm run build && npm run build:native && node scripts/run-tag-native-mvp.cjs",
     "test:tag-staging-mvp": "npm run build && npm run build:native && node tests/electron-tag-staging-mvp.smoke.cjs",
     "test:provider-extension-mvp": "npm run build && npm run build:native && node tests/provider-extension-mvp.smoke.cjs && node scripts/run-metadata-identities-e2e.cjs && node tests/electron-fingerprint-mvp.smoke.cjs",

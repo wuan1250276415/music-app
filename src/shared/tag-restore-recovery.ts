@@ -54,10 +54,12 @@ export function classifyTagRestoreRecovery(value:TagRestoreInspectionResult,bind
  if(tagCommitCanonical(binding)!==tagCommitCanonical(journal.binding)||journal.revision!==journal.stages.length||journal.revision<0||journal.revision>6||journal.hashes.length!==journal.revision+1||journal.hashes.some(h=>!tagWriteHash(h))||journal.sha256!==journal.hashes.at(-1))throw new Error('六文件分类缺少完整恢复日志');
  journal.stages.forEach((stage,i)=>readTagRestoreStage(stage,binding,journal.stages.slice(0,i)));
  if(actual.files.some(f=>!['present','missing'].includes(f.state))||actual.roots.some((r,i)=>!sameDirectory(r,request.expected.roots[i]))||!sameDirectory(actual.parent,request.expected.parent))return 'recovery-required';
- const [original,backup,temporary,victim,replacement,displaced]=actual.files,[source,,target]=request.baseline.files,expected=request.expected.files,revision=journal.revision;
+ const [original,backup,temporary,victim,replacement,displaced]=actual.files,[source]=request.baseline.files,expected=request.expected.files,revision=journal.revision;
  if(!sameFile(backup,expected[1])||!sameArtifact(temporary,expected[2])||request.mode==='backup'&&!sameArtifact(victim,expected[3])||request.mode==='victim'&&replacement.state!=='missing')return 'recovery-required';
  const prepared=journal.stages[1]?.proof.files[request.mode==='victim'?3:4],candidate=request.mode==='victim'?victim:replacement;
- const displacedMatches=expected[0].state==='missing'?displaced.state==='missing':sameFile(displaced,target);
+ // Commit applies the original creation-time policy to the target. Its observed
+ // destination identity, not the earlier temporary-file timestamps, is frozen here.
+ const displacedMatches=expected[0].state==='missing'?displaced.state==='missing':sameFile(displaced,expected[0]);
  const originalBefore=sameArtifact(original,expected[0]),victimBefore=sameArtifact(victim,expected[3]);
  if(revision>=4&&sameContent(original,source)&&original.identity?.creation===source.identity?.creation&&original.identity?.modified===source.identity?.modified&&prepared&&sameFile(original,prepared)&&displacedMatches&&(request.mode==='victim'?victim.state==='missing':replacement.state==='missing'))return 'restored-source';
  if(revision>=3&&revision<=4&&original.state==='missing'&&prepared&&sameFile(candidate,prepared)&&displacedMatches)return 'target-displaced';

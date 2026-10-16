@@ -1,0 +1,59 @@
+{
+  "version": "0.219.0",
+  "completed": true,
+  "scope": "actual normal folder import, Main/preload/Service, supervised FLAC tag preview, real backup/temporary writes and independent byte checks, actual source playback stop, durable receipts and real process-tree crash/restart; owned generated FLAC only; journal barrier after real fsync before DB receipt; no certified original replacement, MP3 writeback, full fault matrix or hardware/installation certification",
+  "cases": [
+    "normal supervised FLAC/CUE import exposes eligible standalone context and refuses virtual-track write identity",
+    "actual supervised preview handles11 explicit fields, repeated Unicode/space values and clear, preserves picture/unknown-block evidence and leaves original bytes unchanged",
+    "actual unchecked field/confirmation UI saves a durable pending task without changing source tags or library display",
+    "stored task exposes original/proposed values including repeated artists and uses16px inline confirmation controls",
+    "real native staging stops source playback, creates exact backup and changed temporary tags, preserving audio/STREAMINFO/images/opaque blocks/unselected comments and library text",
+    "actual restart retains staged artifacts and task; original cancellation receipt replays without deleting backup or temporary file",
+    "actual owned Main/native process-tree crash after backup fsync preserves original and backup, leaves no temporary file and blocks unsafe reuse after restart",
+    "global task-center entry remains usable while the original file is blocked and renders persisted jobs without a current-song editor",
+    "independent native inspection detects filesystem-ahead journal and explicit equality cancellation releases only the resolved lease, rescans and restores current availability"
+  ],
+  "checkboxPixels": {
+    "width": 16,
+    "height": 16
+  },
+  "artifactBytes": {
+    "source": 143884,
+    "backup": 143884,
+    "temporary": 143884
+  },
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 10252,
+    "ownedProcesses": [
+      10252,
+      11564,
+      25728,
+      26800,
+      36216,
+      25960,
+      24992,
+      26528,
+      4152,
+      540,
+      24692,
+      35716
+    ]
+  },
+  "originalSourceUnchanged": true,
+  "certifiedReplacementEnabled": false,
+  "fingerprints": {
+    "src/library/tag-write-manager.ts": "a9a087fee233fb707b222f3db6d6e9f6b46c60c9e1c6d721ca096e49c5d9b5d6",
+    "src/library/tag-write-jobs.ts": "2867db985c80d293351dbddd19ce55fcaf5053a08bdd3ec581873dbb82fef183",
+    "src/library/tag-write-journal.ts": "bd3cf52767f91bea096d0f5d74425e4fe016c201707be29f7987ab6831d3e9ee",
+    "src/library/service.ts": "7c307c51cfd4b489f877e39a255f957727555e3efc07dc659d8109e08e6cdfe7",
+    "src/main/main.ts": "b5366eb1b0384861951dc3acbe040f5956b4be2297c7f17243a52067c6a02729",
+    "src/renderer/tag-write-dialog.tsx": "b8bbfd55abff53171e62326e74e484671a96411580133dae7348b6684788a682",
+    "src/renderer/tag-write.css": "6d0881cc6c7e88dbf6bcb8e571b6c2daf7a8628dfecedf11e201f9f82038efb5",
+    "src/renderer/tag-recovery-actions.tsx": "549b32c3123d94fe340f597498c8e09de7808037b786a45af2149f4fe928947c",
+    "src/renderer/scan-tasks.tsx": "d71870fcb38b83c3b95d8413f7e28d9499b82f7e85e689381ecf3801858e572d",
+    "tests/electron-tag-staging-mvp.smoke.cjs": "4a3f99913ba13f5604b02d7bab20ca688860f6c5e39c6b0267ee5dae8fc9eef8",
+    "native/tag-write-worker/build/tag-write-worker.exe": "8a0806e7b0e307220c483c2bb54b274eeccf6c2229d4c205f274502ebb66c5aa",
+    "native/tag-write-worker/build/tag-file-inspector.exe": "4087f644e793e58e26dfaaa3d45e9cde22d371decb5f221035fd326293c3eb71"
+  }
+}

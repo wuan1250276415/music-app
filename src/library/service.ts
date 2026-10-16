@@ -88,7 +88,8 @@ function restoreFiles():void{
  restoreWork=(async()=>{
   for(const id of currentDb.tagWriteJobs.pendingRestoreReprobeReleases()){if(catalogMaintenance.held)return;await currentTags.releaseRestoreReprobe(id);}
   if(catalogMaintenance.held||db!==currentDb||scans!==currentScans||tagWrite!==currentTags)return;
-  for(const id of currentDb.tagWriteJobs.pendingReprobeReleases())currentTags.releaseReprobe(id);
+  for(const id of currentDb.tagWriteJobs.pendingReprobeReleases()){if(catalogMaintenance.held)return;await currentTags.releaseReprobe(id);}
+  if(catalogMaintenance.held||db!==currentDb||scans!==currentScans||tagWrite!==currentTags)return;
   for(const id of currentDb.tagWriteJobs.pendingRecoveryReleases())currentTags.releaseResolved(id);
   for(const pending of [...currentDb.tagWriteJobs.pendingRecoveryScans(),...currentDb.filePolicy.pendingRestores(),...currentDb.cueSources.pendingScans()].slice(0,64)){
    if(currentDb.scanJobs.activeForRoot(pending.rootId)||currentDb.scanJobs.startReceipt(pending.commandId))continue;

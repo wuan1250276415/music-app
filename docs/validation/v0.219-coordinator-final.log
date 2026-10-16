@@ -1,0 +1,18 @@
+commit-candidate.cpp
+restore-candidate.cpp
+directory-candidate.cpp
+Built isolated candidate; production certification remains closed
+actual coordinator stages, commits five fsynced/native/SQLite phases, replays original command and keeps changed file unreadable until reconciliation
+independent target reparse commits new metadata and releases read owners; actual database reopen preserves available item identity and title
+actual victim restoration persists all six native/database phases, independently reparses original tags and survives database reopen with backup retained
+actual backup restoration persists all six native/database phases, independently reparses original tags and survives database reopen with backup retained
+actual SQLite release-receipt failure retains completed library transaction with a durable outstanding release and blocks normal reads
+actual database close and reopen retain pending release and deny ordinary reads before cleanup
+retry release after reopen independently rejects changed target observation and marks stale library data unavailable for rescan
+real library metadata transaction abort retains old unavailable title and read hold; independent retry applies target once without duplicating the item
+actual SQLite rollback after fsynced commit phase 1 retains independent fs-ahead evidence
+actual SQLite rollback after fsynced commit phase 2 retains independent fs-ahead evidence
+actual SQLite rollback after fsynced commit phase 3 retains independent fs-ahead evidence and restores original file plus library
+actual SQLite rollback after fsynced commit phase 4 retains independent fs-ahead evidence and restores original file plus library
+actual SQLite rollback after fsynced commit phase 5 retains independent fs-ahead evidence and restores original file plus library
+{"version":"0.219.0","completed":true,"cases":13,"root":"D:\\CodexTestData\\aural-tag-cert-mvp-26u1Fg"}

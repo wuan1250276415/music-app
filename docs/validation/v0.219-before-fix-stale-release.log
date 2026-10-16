@@ -1,0 +1,18 @@
+actual coordinator stages, commits five fsynced/native/SQLite phases, replays original command and keeps changed file unreadable until reconciliation
+independent target reparse commits new metadata and releases read owners; actual database reopen preserves available item identity and title
+actual victim restoration persists all six native/database phases, independently reparses original tags and survives database reopen with backup retained
+actual backup restoration persists all six native/database phases, independently reparses original tags and survives database reopen with backup retained
+actual SQLite release-receipt failure retains completed library transaction with a durable outstanding release and blocks normal reads
+{"version":"0.218.0","completed":false,"cases":5,"root":"D:\\CodexTestData\\aural-tag-cert-mvp-9ZdfdI"}
+AssertionError [ERR_ASSERTION]: changed target must lose its old library observation before retry release
+
+true !== false
+
+    at main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\tag-coordinator-mvp.smoke.cjs:48:108) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual',
+  diff: 'simple'
+}

@@ -1,0 +1,17 @@
+actual coordinator stages, commits five fsynced/native/SQLite phases, replays original command and keeps changed file unreadable until reconciliation
+{"version":"0.218.0","completed":false,"cases":1,"root":"D:\\CodexTestData\\aural-tag-cert-mvp-9ZdfdI"}
+AssertionError [ERR_ASSERTION]: 无效媒体解析请求
++ actual - expected
+
++ 'failed'
+- 'completed'
+
+    at reconcile (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\tag-coordinator-mvp.smoke.cjs:35:78)
+    at async main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\tag-coordinator-mvp.smoke.cjs:44:3) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'failed',
+  expected: 'completed',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

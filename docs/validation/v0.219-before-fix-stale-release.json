@@ -1,0 +1,24 @@
+{
+  "version": "0.218.0",
+  "completed": false,
+  "scope": "owned generated FLAC, byte-identical compiled production coordinator/database/journals/clients with isolated generated certificate catalogs; real supervised parsing/staging, native candidate commit/restore, real SQLite receipts and reprobe; no Main/preload/GUI commit entry, production certification, hard parent crash, power cut or complete filesystem/security matrix",
+  "cases": [
+    {
+      "name": "actual coordinator stages, commits five fsynced/native/SQLite phases, replays original command and keeps changed file unreadable until reconciliation"
+    },
+    {
+      "name": "independent target reparse commits new metadata and releases read owners; actual database reopen preserves available item identity and title"
+    },
+    {
+      "name": "actual victim restoration persists all six native/database phases, independently reparses original tags and survives database reopen with backup retained"
+    },
+    {
+      "name": "actual backup restoration persists all six native/database phases, independently reparses original tags and survives database reopen with backup retained"
+    },
+    {
+      "name": "actual SQLite release-receipt failure retains completed library transaction with a durable outstanding release and blocks normal reads"
+    }
+  ],
+  "compositionSha256": "4958895265bab5a9cfb692ef3eb0b8959302daa02d4a1304ebfd437ed1f0cd08",
+  "error": "AssertionError [ERR_ASSERTION]: changed target must lose its old library observation before retry release\n\ntrue !== false\n\n    at main (C:\\Users\\wuan1\\Documents\\Codex\\2026-09-28\\wo\\outputs\\music-app\\tests\\tag-coordinator-mvp.smoke.cjs:48:108)"
+}

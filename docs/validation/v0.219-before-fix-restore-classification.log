@@ -1,0 +1,12 @@
+actual coordinator stages, commits five fsynced/native/SQLite phases, replays original command and keeps changed file unreadable until reconciliation
+independent target reparse commits new metadata and releases read owners; actual database reopen preserves available item identity and title
+{"version":"0.218.0","completed":false,"cases":2,"root":"D:\\CodexTestData\\aural-tag-cert-mvp-9ZdfdI"}
+Error: 六文件核对尚未确认原来源恢复及完整恢复日志
+    at TagWriteJobs.selectedRestoreReprobe (D:\CodexTestData\aural-tag-cert-mvp-9ZdfdI\coordinator-run-KVzUzM\app\dist\main\library\tag-write-jobs.js:335:19)
+    at D:\CodexTestData\aural-tag-cert-mvp-9ZdfdI\coordinator-run-KVzUzM\app\dist\main\library\tag-write-jobs.js:344:46
+    at LibraryDatabase.transaction (D:\CodexTestData\aural-tag-cert-mvp-9ZdfdI\coordinator-run-KVzUzM\app\dist\main\library\database.js:1151:28)
+    at TagWriteJobs.transaction (D:\CodexTestData\aural-tag-cert-mvp-9ZdfdI\coordinator-run-KVzUzM\app\dist\main\library\database.js:250:94)
+    at TagWriteJobs.beginRestoreReprobe (D:\CodexTestData\aural-tag-cert-mvp-9ZdfdI\coordinator-run-KVzUzM\app\dist\main\library\tag-write-jobs.js:340:21)
+    at TagWriteManager.startRestoreReprobe (D:\CodexTestData\aural-tag-cert-mvp-9ZdfdI\coordinator-run-KVzUzM\app\dist\main\library\tag-write-manager.js:362:42)
+    at reconcile (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\tag-coordinator-mvp.smoke.cjs:34:139)
+    at async main (C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\tests\tag-coordinator-mvp.smoke.cjs:45:268)
