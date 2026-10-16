@@ -711,6 +711,10 @@ function registerIpc(): void {
   handleIpc('metadata:review-state',(event,itemId)=>{trusted(event.sender);if(typeof itemId!=='string'||!itemId||itemId.length>128||itemId.includes('\0'))throw new Error('无效审核曲目');return serviceCall('metadataReviewState',itemId);});
   handleIpc('metadata:sources',(event,itemId)=>{trusted(event.sender);return serviceCall('metadataSources',itemId);});
   handleIpc('tag-write:job',(event,jobId)=>{trusted(event.sender);return serviceCall('tagWriteJob',jobId);});
+  handleIpc('tag-commit-batch:create',async(event,request)=>{trusted(event.sender);const result=await serviceCall('tagCommitBatchCreate',request);tagStageBatches.poke();return result;});
+  handleIpc('tag-commit-batch:command',async(event,request)=>{trusted(event.sender);const result=await serviceCall('tagCommitBatchCommand',request);tagStageBatches.poke();return result;});
+  handleIpc('tag-commit-batch:list',(event,cursor)=>{trusted(event.sender);return serviceCall('tagCommitBatchList',cursor);});
+  handleIpc('tag-commit-batch:items',(event,request)=>{trusted(event.sender);return serviceCall('tagCommitBatchItems',request);});
   handleIpc('tag-stage-batch:create',async(event,request)=>{trusted(event.sender);const result=await serviceCall('tagStageBatchCreate',request);tagStageBatches.poke();return result;});
   handleIpc('tag-stage-batch:command',async(event,request)=>{trusted(event.sender);const result=await serviceCall('tagStageBatchCommand',request);tagStageBatches.poke();return result;});
   handleIpc('tag-stage-batch:list',(event,cursor)=>{trusted(event.sender);return serviceCall('tagStageBatchList',cursor);});

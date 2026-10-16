@@ -211,6 +211,14 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
   if (!db) throw new Error('音乐库尚未初始化');
   switch (method) {
     case 'tagWriteJob':return db.tagWriteJobs.material(params as string).job;
+    case 'tagCommitBatchCreate':{const result=db.tagCommitBatches.create(params);reply({event:'tagCommitBatchChanged',payload:{batchId:result.id}});return result;}
+    case 'tagCommitBatchCommand':{const result=db.tagCommitBatches.command(params);reply({event:'tagCommitBatchChanged',payload:{batchId:result.batch.id}});return result;}
+    case 'tagCommitBatchList':return db.tagCommitBatches.list(params);
+    case 'tagCommitBatchItems':return db.tagCommitBatches.items(params);
+    case 'tagFileBatchDrive':{const stageBefore=db.tagStageBatches.changes,commitBefore=db.tagCommitBatches.changes;let result;if(db.tagStageBatches.active)result={kind:'stage',...db.tagStageBatches.drive(params,tagWrite!.batchIdle)};else{const commit=db.tagCommitBatches.drive(params,tagWrite!.batchIdle);result=commit.claim||commit.waiting?{kind:'commit',...commit}:{kind:'stage',...db.tagStageBatches.drive(params,tagWrite!.batchIdle)};}if(db.tagStageBatches.changes!==stageBefore)reply({event:'tagStageBatchChanged',payload:{}});if(db.tagCommitBatches.changes!==commitBefore)reply({event:'tagCommitBatchChanged',payload:{}});return result;}
+    case 'tagCommitBatchTarget':{const claim=db.tagCommitBatches.assertClaim(params);if(claim.phase!=='commit')throw new Error('当前批次阶段不是文件写入');return tagWrite!.commitTarget(claim.request);}
+    case 'tagCommitBatchStartItem':{const claim=db.tagCommitBatches.assertClaim(params);return claim.phase==='commit'?tagWrite!.startCommit(claim.request):claim.phase==='inspect'?tagWrite!.startCommitInspection(claim.request):tagWrite!.startReprobe(claim.request);}
+    case 'tagCommitBatchRefuse':{const r=restoreTransactionFields(params,['claim','message']);if(typeof r.message!=='string'||r.message.length>600)throw new Error('写入批次错误说明无效');const result=db.tagCommitBatches.refuse(r.claim,r.message,tagWrite!.batchIdle);reply({event:'tagCommitBatchChanged',payload:{batchId:result.id}});return result;}
     case 'tagStageBatchCreate':{const result=db.tagStageBatches.create(params);reply({event:'tagStageBatchChanged',payload:{batchId:result.id}});return result;}
     case 'tagStageBatchCommand':{const result=db.tagStageBatches.commandReply(params);reply({event:'tagStageBatchChanged',payload:{batchId:result.batch.id}});return result;}
     case 'tagStageBatchList':return db.tagStageBatches.list(params);

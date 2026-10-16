@@ -23,6 +23,7 @@ type Member={batch_id:string;ordinal:number;job_id:string;file_id:string;base_re
 const integer=(value:unknown,min=0,max=Number.MAX_SAFE_INTEGER-1):value is number=>typeof value==='number'&&Number.isSafeInteger(value)&&value>=min&&value<=max;
 export class TagStageBatches {
  constructor(private readonly db:DatabaseSync,private readonly transaction:<T>(action:()=>T)=>T,private readonly job:(id:string)=>TagWriteJob,private readonly authorize:(id:string)=>void){}
+ get active():boolean{return Boolean(this.db.prepare('SELECT 1 FROM tag_stage_batch WHERE owner IS NOT NULL LIMIT 1').get());}
  get changes():number{return Number(this.db.prepare('SELECT total_changes() n').get()!.n);}
  private raw(id:string):Row{if(!tagWriteUuid(id))throw new Error('标签批次身份无效');const row=this.db.prepare('SELECT * FROM tag_stage_batch WHERE id=?').get(id) as Row|undefined;if(!row)throw new Error('标签批次不存在');return row;}
  private member(id:string,ordinal:number):Member{const row=this.db.prepare('SELECT * FROM tag_stage_batch_item WHERE batch_id=? AND ordinal=?').get(id,ordinal) as Member|undefined;if(!row)throw new Error('标签批次成员不存在');return row;}

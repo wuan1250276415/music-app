@@ -1,7 +1,7 @@
 {
   "name": "aural-library",
   "private": true,
-  "version": "0.224.0",
+  "version": "0.225.0",
   "description": "Local-first desktop music library prototype",
   "license": "GPL-3.0-only",
   "main": "dist/main/main/main.js",
@@ -67,6 +67,7 @@
     "test:tag-batch-mvp": "npm run build && npm run build:native && node tests/electron-tag-batch-mvp.smoke.cjs",
     "test:tag-library-fields-mvp": "npm run build && npm run build:native && node scripts/run-tag-library-fields-mvp.cjs",
     "test:tag-stage-batch-mvp": "npm run build && npm run build:native && node scripts/run-tag-stage-batch-mvp.cjs && node tests/electron-tag-stage-batch-mvp.smoke.cjs",
+    "test:tag-commit-batch-mvp": "npm run build && npm run build:native && node scripts/run-tag-commit-batch-mvp.cjs",
     "test:tag-coordinator-mvp": "npm run build && npm run build:native && node scripts/run-tag-native-mvp.cjs --coordinator",
     "test:tag-native-mvp": "npm run build && npm run build:native && node scripts/run-tag-native-mvp.cjs",
     "test:tag-staging-mvp": "npm run build && npm run build:native && node tests/electron-tag-staging-mvp.smoke.cjs",

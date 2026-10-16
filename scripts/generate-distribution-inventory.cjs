@@ -169,6 +169,11 @@ const asioProperties = [
   {name:'aural:tag-write-dialog-source-sha256',value:sha256(read('src/renderer/tag-write-dialog.tsx'))},
   {name:'aural:tag-file-actions-source-sha256',value:sha256(read('src/renderer/tag-file-actions.tsx'))},
   {name:'aural:tag-file-actions-current-status',value:'0.221 schema80: static-catalogue readiness; trusted closed Main/preload/Service commit/start-restore/stop controls and original request receipts; Main same-file playback release after current target review, fresh Library and native file/root/metadata/lease checks; explicit field preview, separate write/restore confirmation and stopped-process recovery; immutable attempt history and retained copy/displaced targets. Production certification catalogues remain empty; isolated candidate UI execution is distinct from production certification, power loss, full-disk, full permissions/concurrency matrix and complete FR12/AC12 acceptance.'},
+  {name:'aural:tag-commit-batch-source-sha256',value:sha256(read('src/library/tag-commit-batches.ts'))},
+  {name:'aural:tag-commit-batch-contract-source-sha256',value:sha256(read('src/shared/tag-commit-batch.ts'))},
+  {name:'aural:tag-file-batch-controller-source-sha256',value:sha256(read('src/main/tag-stage-batch-controller.ts'))},
+  {name:'aural:tag-commit-batch-ui-source-sha256',value:sha256(read('src/renderer/tag-commit-batch-dialog.tsx'))},
+  {name:'aural:tag-commit-batch-status',value:'0.225 schema82: persistent confirmed staged-file scope; fixed commit, inspection and reparse command identities; one Main scheduler with Library-owned claims; same-file playback release, per-file certified native commit, matched independent inspection, reprobe and read-release confirmation; drain-current pause/cancel, epoch-fenced explicit restart and retained interrupted recovery. Empty production certification rejects both creation and new start. Isolated generated-certificate candidate validation does not certify production replacement, power loss, full-disk, permissions/concurrency or the full FR12/AC12 matrix.'},
   {name:'aural:tag-write-style-source-sha256',value:sha256(read('src/renderer/tag-write.css'))},
   {name:'aural:tag-stage-contract-source-sha256',value:sha256(read('src/library/tag-write-worker-protocol.ts'))},
   {name:'aural:tag-stage-client-source-sha256',value:sha256(read('src/library/tag-write-worker-client.ts'))},
@@ -614,7 +619,7 @@ if(mediaProtocol!=='16'||!mediaProtocolSource.includes("'flac-tag-preview'")||!r
 if(!mediaProtocolSource.includes("request.kind==='image'")||!read('src/library/media-worker-entry.ts').includes('readWorkerImage')||!read('src/library/media-worker-client.ts').includes("this.execute('image'")||!read('src/library/online-image-converter.ts').includes('parser.image')||!read('src/main/artwork-resources.ts').includes("?'no-store':'private, max-age=31536000, immutable'"))fail('missing supervised neutral image conversion or ephemeral response contract');
 if(!read('src/library/tag-write-journal.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write certification default must remain closed until verified catalog');
 
-if(manifest.librarySchema.max!==81||!read('src/library/tag-restore-attempt-migration.ts').includes('PRAGMA user_version=80')||!read('src/library/tag-write-jobs.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write schema or certification gate differs');
+if(manifest.librarySchema.max!==82||!read('src/library/tag-restore-attempt-migration.ts').includes('PRAGMA user_version=80')||!read('src/library/tag-write-jobs.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write schema or certification gate differs');
 for(const name of ['context','preview','preview-cancel','prepare','jobs','cancel'])if(!read('src/main/main.ts').includes("'tag-write:"+name+"'")||!read('src/main/preload.ts').includes("'tag-write:"+name+"'"))fail('missing trusted tag write route '+name);
 if(!read('src/renderer/main.tsx').includes('setTagWriteItem(reviewItem.id)')||!read('src/renderer/tag-write-dialog.tsx').includes('保存待写入任务'))fail('missing lazy tag preview entry');
 

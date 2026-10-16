@@ -1,0 +1,48 @@
+{
+  "version": "0.225.0",
+  "completed": true,
+  "scope": "actual production Main rejects uncertified batch before interrupting real playback; isolated candidate Main/preload/Service/Renderer and native commit/inspection/reparse with generated FLAC; real pause, restart, cancellation and process-tree crash after victim move; original recovery file retained, not a full power-cut/security/certification matrix",
+  "cases": [
+    "actual production Main rejects uncertified batch creation before reserving operations or stopping live same-file playback and reports unavailable capability",
+    "normal candidate import, real supervised reviews and native backups hand off five immutable staged members through actual confirmation UI without early replacement",
+    "real looping playback is released before commit, and pause drains actual replacement, four-file inspection and library reparse before stopping four later members",
+    "normal restart retains paused scope without another commit; explicit resume and real process-tree termination after victim move preserve original victim and backup while source path is absent",
+    "restart blocks only interrupted member, exact exception opens its independent fs-ahead inspection, and explicit skip retains original recovery task, victim and backup",
+    "cancel after actual commit intent drains current file through reconciliation, preserves two successes and leaves two later staged jobs unstarted",
+    "handoff excludes already written and unresolved members; a fresh explicit batch finishes only the two untouched jobs, with every audio payload and all original backups retained"
+  ],
+  "actualOwnedTerminations": [
+    {
+      "terminated": true,
+      "actualMainPid": 31940,
+      "ownedProcesses": [
+        31940,
+        14632,
+        35588,
+        27620,
+        14192,
+        30988,
+        34136,
+        5992,
+        34052,
+        17892,
+        14728
+      ]
+    }
+  ],
+  "screenshot": "D:\\CodexTestData\\aural-workflow-ui-tag-commit-batch-EjpWP7\\batch-write-completed.png",
+  "productionCertificationEnabled": false,
+  "userOriginalMediaChanged": false,
+  "fingerprints": {
+    "src/library/tag-commit-batches.ts": "b243b74167716271063a37ce682510ec777a8fbeebb0debcc043ee991180b555",
+    "src/library/service.ts": "0d3650939cdc7d89c8babd8bfb92028bc20098b889c8d3327a2eae0962dc0d17",
+    "src/main/tag-stage-batch-controller.ts": "c7c7a0941202510322174a0fa89008a49b31fb37c23e9ebb5531458ea05c45cb",
+    "src/main/main.ts": "4323f7ab9bddefd72e646be49965c2ddc49257026b2c1c95a25a1bac96813e35",
+    "src/main/preload.ts": "7bf1a2af19a4ff0868ef94f164bbb96c495ff52624d5d329f0d6566d93ab9472",
+    "src/renderer/tag-stage-batch-dialog.tsx": "70af0e1357346eaba83f6d8eef52f8471cf5d16befab83537b8ec1098396c999",
+    "src/renderer/tag-commit-batch-dialog.tsx": "10aad0dca25cceaa750abbc9d99d372147130647bc8751761ab2114bd932c3a1",
+    "src/renderer/tag-write-dialog.tsx": "bb19853167a7cf66913e3167e39ab31b1fca4352c5fdc48b61e55da2af206cb1",
+    "src/renderer/tag-write.css": "6416d12942a4f6302537418e31ee3cf9cefbdaa03ebde2d0c98c8bc90cc87d05",
+    "tests/electron-tag-commit-batch-mvp.smoke.cjs": "b051c707555b055c864d061565dacddc1ca2ad08ea853d06607f99e1b91b5f0b"
+  }
+}

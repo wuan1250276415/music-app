@@ -1,0 +1,31 @@
+{
+  "version": "0.225.0",
+  "completed": true,
+  "scope": "actual generated FLAC, real prior0.223 schema80 database and prepared plans; current SQLite migration/snapshot/rollback, durable batch repository and supervised/native staging; core dispatch reproduces service operations without Main playback; graceful database close/reopen only, real Main hard crash/playback covered separately; no physical power cut or production original-file write certification",
+  "cases": [
+    "actual0.223 schema80 upgrade fault after new DDL fully rolls back schema and all previously prepared immutable plans",
+    "current upgrade preserves genuine prior schema80 plans and verified pre-v81 snapshots, while the actual old runtime refuses schema81",
+    "creation freezes exact reviewed job order, replays its original receipt, rejects malformed scope and creates no file operation",
+    "real fsynced backup barrier drains only the current file before pause; stale CAS is a typed conflict and original pause receipt replays without new work",
+    "paused batch survives actual close/reopen and stages only its three remaining files sequentially, retaining byte-identical originals and backups",
+    "physical source modification is localized before native staging, successful files continue, failure-only paging and explicit skip retain the original task",
+    "cancel drains the actual current native backup, preserves its artifacts and leaves the undispatched single-song task prepared",
+    "actual restart before dispatch invalidates stale owners and reuses the original stage command; restart after native completion adopts durable success without another copy",
+    "standalone real current-schema backup preserves batch scope, statuses and receipts, passes domain invariants and retains database integrity and foreign keys",
+    "production read-only restore compatibility inspection traverses all twelve domains including nonempty persisted batch graphs",
+    "schema-valid and integrity-valid backups with altered or missing creation receipts are rejected by the production restore inspector before application"
+  ],
+  "previousCompiled": {
+    "version": "0.223.0",
+    "databaseSha256": "bccbbf567cddff5081d71d18f435b9b11119583e99769f63f920271e2f9b39de"
+  },
+  "productionCertificationEnabled": false,
+  "userOriginalMediaChanged": false,
+  "fingerprints": {
+    "src/library/tag-stage-batches.ts": "c075ee92dad4f7323dec4028f7176500e7bd52a7d075eff14f29513a89d82723",
+    "src/shared/tag-stage-batch.ts": "6341e7cf295b028a8a014d110c6cbc2876baebd8c482eb55cdfa93a1deca1d1c",
+    "src/library/database.ts": "142c5533acd3643e7927bb000aaa7cf8fc7a057d70aab73c3129ab82e5565c98",
+    "src/library/tag-write-manager.ts": "b837aae2ca3d3c2d8aca986f0b98e260de176f8b8ce2d3fd6b1f0fa3591a9d4f",
+    "tests/tag-stage-batch-mvp.smoke.cjs": "cd8ec7ad45a2766d622e0cc11761e174c4a0358d094dd7b4886e9b1827dd04cb"
+  }
+}

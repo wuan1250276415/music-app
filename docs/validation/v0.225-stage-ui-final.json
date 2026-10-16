@@ -1,0 +1,67 @@
+{
+  "version": "0.225.0",
+  "completed": true,
+  "scope": "actual production Main/preload/Service/Renderer, normal import of26 generated FLAC files, real per-file supervised preview/preparation setup; actual batch UI and native backups, live muted loop playback release, real owned Main/Utility/native tree termination at durable backup phase; barrier after real fsync only; no physical power cut, production original-file replacement, complete fault matrix or hardware/installer certification",
+  "cases": [
+    "normal Main import and supervised per-file preparation create26 real reviewed tasks without native writes",
+    "actual task-center checkboxes preserve selection across four8-item pages and save one durable26-task scope without starting files",
+    "actual Main controller releases same-file looping playback and real pause button drains the fsynced native item before stopping25 subsequent files",
+    "normal Main exit/restart retains paused scope and progress, and actual detail paging exposes all26 original members without automatic continuation",
+    "resume processes the next original member and releases its playback; cancel drains that file, preserves two successes and leaves24 leaf tasks untouched",
+    "real owned Main/Utility/native process-tree termination after backup journal fsync preserves original audio and complete backup before its database acknowledgement",
+    "restart invalidates prior ownership and blocks only the interrupted file; actual error filter opens the exact leaf task for fs-ahead inspection without current-song dependence",
+    "explicit skip retains unresolved leaf recovery and its backup, remaining healthy files continue, every original stays byte-identical and no automatic original-file commit occurs"
+  ],
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 33944,
+    "ownedProcesses": [
+      33944,
+      5164,
+      544,
+      16456,
+      29240,
+      24916,
+      32812,
+      34512,
+      3760,
+      18032,
+      7284,
+      24096
+    ]
+  },
+  "recoveryWatchState": {
+    "version": 1,
+    "session": "6a93adcb-2f3b-45ab-8a83-6536577b238a",
+    "revision": 9,
+    "capacity": 64,
+    "roots": [
+      {
+        "rootId": "664548ed-01f0-418e-897f-70c679cd7b92",
+        "path": "D:\\CodexTestData\\aural-workflow-ui-tag-stage-batch-WWfQzH\\music",
+        "revision": 0,
+        "enabled": true,
+        "periodicMinutes": 30,
+        "status": "pending",
+        "message": "变化已保存，等待扫描间隔或目录核对",
+        "pending": true,
+        "jobId": null,
+        "lastSuccessAt": 1792166027132
+      }
+    ],
+    "suspended": false,
+    "error": ""
+  },
+  "screenshot": "D:\\CodexTestData\\aural-workflow-ui-tag-stage-batch-WWfQzH\\batch-recovered.png",
+  "productionCertificationEnabled": false,
+  "userOriginalMediaChanged": false,
+  "fingerprints": {
+    "src/main/tag-stage-batch-controller.ts": "c7c7a0941202510322174a0fa89008a49b31fb37c23e9ebb5531458ea05c45cb",
+    "src/main/main.ts": "4323f7ab9bddefd72e646be49965c2ddc49257026b2c1c95a25a1bac96813e35",
+    "src/library/service.ts": "0d3650939cdc7d89c8babd8bfb92028bc20098b889c8d3327a2eae0962dc0d17",
+    "src/library/tag-stage-batches.ts": "c075ee92dad4f7323dec4028f7176500e7bd52a7d075eff14f29513a89d82723",
+    "src/renderer/tag-stage-batch-dialog.tsx": "70af0e1357346eaba83f6d8eef52f8471cf5d16befab83537b8ec1098396c999",
+    "src/renderer/tag-write-dialog.tsx": "bb19853167a7cf66913e3167e39ab31b1fca4352c5fdc48b61e55da2af206cb1",
+    "tests/electron-tag-stage-batch-mvp.smoke.cjs": "a9c684228340102fb8328553b9033cb2246beca8f323a9c2f1e839217e64bf72"
+  }
+}
