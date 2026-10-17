@@ -1,3 +1,4 @@
+import {TagBackupStorage} from './tag-backup-storage.js';
 import {readTagRestoreReprobeRequest,readTagRestoreReprobeCancel} from '../shared/tag-restore-reprobe.js';
 import {assertTagCommitCertified} from '../shared/tag-commit.js';
 import {readTagCommitCancel} from '../shared/tag-commit-journal.js';
@@ -122,11 +123,12 @@ export class TagWriteManager {
  }
  async startStage(value:unknown):Promise<TagWriteJob> {
   const request=readTagWriteCancelRequest(value);this.db.restorePolicy.assertTagJob(request.jobId);const known=this.db.tagWriteJobs.stageReceipt(request);if(known)return known;
-  if(!this.runtime||!this.journal||!this.writer)throw new Error('标签暂存组件尚未配置');if(this.activeStage||this.activeInspection||this.activeRecoveryAction||this.activeCommit||this.activeCommitInspection||this.activeReprobe||this.activeRestoreReprobe||this.activeRestoreInspection||this.activeRestore||!this.restorer?.quiescent||!this.committer?.quiescent||!this.writer.quiescent||!this.inspector?.quiescent)throw new Error('已有暂存或核对任务在运行，或进程退出尚未确认，请等待完成或重启后恢复');
+  if(this.maintenanceOwner)throw new Error('曲库正在维护或清理备份，暂不能开始标签暂存');if(!this.runtime||!this.journal||!this.writer)throw new Error('标签暂存组件尚未配置');if(this.activeStage||this.activeInspection||this.activeRecoveryAction||this.activeCommit||this.activeCommitInspection||this.activeReprobe||this.activeRestoreReprobe||this.activeRestoreInspection||this.activeRestore||!this.restorer?.quiescent||!this.committer?.quiescent||!this.writer.quiescent||!this.inspector?.quiescent)throw new Error('已有暂存或核对任务在运行，或进程退出尚未确认，请等待完成或重启后恢复');
   const active={jobId:request.jobId,controller:new AbortController()} as NonNullable<TagWriteManager['activeStage']>;this.activeStage=active;
   try{
    const {plan,snapshot,job}=this.db.tagWriteJobs.material(request.jobId);if(job.staging)throw new Error('此任务已有暂存或恢复记录，请从任务列表继续处理');
    this.journal.assertPlanBudget(plan);await this.checkSource(snapshot);this.frozenContext(snapshot);active.controller.signal.throwIfAborted();
+   const capacity=new TagBackupStorage(this.db,this.runtime.dataDir);try{await capacity.assertCapacity(plan.preview.sourceFileBytes,active.controller.signal);}finally{await capacity.close();}
    const backupDir=path.join(this.runtime.dataDir,'tag-backups');await fs.mkdir(backupDir,{recursive:true});active.controller.signal.throwIfAborted();
    // The durable command is committed before any worker can create an artifact.
    const result=this.db.tagWriteJobs.startStage(request,this.frozenContext(snapshot).fingerprint,backupDir),executionId=result.staging!.executionId;

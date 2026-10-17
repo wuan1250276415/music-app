@@ -1,0 +1,6 @@
+actual task-center batch entry defaults automatic cleanup off and saves a backend-derived three-backup scope without deleting or reviving confirmation
+actual pause waits for native completion of exactly the current backup; normal close/restart preserves the paused scope and requires fresh explicit confirmation
+real owned Main/Utility/native process tree dies after deletion before final ACK; restart retains interrupted batch/child and explicit continuation exposes the unresolved original rather than sending another deletion
+actual independent observation records absence while retaining original unconfirmed exit; explicit skip and renewed confirmation process only remaining members and preserve protected backup and all music
+actual schedule controls persist enabling and disabling through production IPC, and a final normal restart retains completed versus explicitly skipped member facts with automatic cleanup disabled
+{"version":"0.230.0","completed":true,"cases":5,"scratch":"D:/CodexTestData/aural-workflow-ui-tag-backup-batch-bdsGaN"}

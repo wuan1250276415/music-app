@@ -714,6 +714,12 @@ function registerIpc(): void {
   handleIpc('tag-backup:cleanup-command',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupCleanupCommand',request,60000);});
   handleIpc('tag-backup:cleanup-get',(event,id)=>{trusted(event.sender);return serviceCall('tagBackupCleanupGet',id);});
   handleIpc('tag-backup:cleanup-list',(event,cursor)=>{trusted(event.sender);return serviceCall('tagBackupCleanupList',cursor);});
+  handleIpc('tag-backup:schedule',event=>{trusted(event.sender);return serviceCall('tagBackupSchedule');});
+  handleIpc('tag-backup:schedule-configure',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupScheduleConfigure',request);});
+  handleIpc('tag-backup:batch-preview',(event,id)=>{trusted(event.sender);return serviceCall('tagBackupBatchPreview',id,60000);});
+  handleIpc('tag-backup:batch-command',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupBatchCommand',request,60000);});
+  handleIpc('tag-backup:batch-list',(event,cursor)=>{trusted(event.sender);return serviceCall('tagBackupBatchList',cursor);});
+  handleIpc('tag-backup:batch-items',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupBatchItems',request);});
   handleIpc('tag-backup:policy',event=>{trusted(event.sender);return serviceCall('tagBackupPolicy');});
   handleIpc('tag-backup:policy-configure',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupPolicyConfigure',request);});
   handleIpc('tag-backup:storage',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupStorage',request,60000);});

@@ -175,6 +175,11 @@ const asioProperties = [
   {name:'aural:tag-backup-cleaner-contract-source-sha256',value:sha256(read('src/shared/tag-backup-cleanup.ts'))},
   {name:'aural:tag-backup-cleaner-client-source-sha256',value:sha256(read('src/library/tag-backup-cleaner.ts'))},
   {name:'aural:tag-backup-cleanup-manager-source-sha256',value:sha256(read('src/library/tag-backup-cleanup-manager.ts'))},
+  {name:'aural:tag-backup-batch-contract-source-sha256',value:sha256(read('src/shared/tag-backup-batch.ts'))},
+  {name:'aural:tag-backup-batch-repository-source-sha256',value:sha256(read('src/library/tag-backup-batches.ts'))},
+  {name:'aural:tag-backup-batch-manager-source-sha256',value:sha256(read('src/library/tag-backup-batch-manager.ts'))},
+  {name:'aural:tag-backup-batch-ui-source-sha256',value:sha256(read('src/renderer/tag-backup-batch-dialog.tsx'))},
+  {name:'aural:tag-backup-batch-development-status',value:'0.230 schema86 retention-batch MVP: immutable fixed-scope cleanup batches, explicit start/pause/continue/cancel/skip, persisted child operation IDs and original-command receipts; default-off opt-in hourly scheduler bound to catalog origin and restore activation, fresh policy/schedule checks at native delete authorization, current-file draining and restart interruption; new backup admission checks complete inventory, logical cap and actual free disk observation before creating an execution. Concentrated core7, actual desktop5, genuine prior229 upgrade4 and manual/migration regression19 passed; generated owned media and controlled32-day retention clock only. Full failure matrix, long-term stress, log archival, production replacement certification and current installer acceptance remain pending.'},
   {name:'aural:tag-backup-cleanup-operations-source-sha256',value:sha256(read('src/library/tag-backup-cleanup-operations.ts'))},
   {name:'aural:tag-backup-cleanup-ui-source-sha256',value:sha256(read('src/renderer/tag-backup-cleanup-dialog.tsx'))},
   {name:'aural:tag-backup-cleaner-journal-source-sha256',value:sha256(read('src/library/tag-backup-cleanup-journal.ts'))},
@@ -640,7 +645,7 @@ if(mediaProtocol!=='16'||!mediaProtocolSource.includes("'flac-tag-preview'")||!r
 if(!mediaProtocolSource.includes("request.kind==='image'")||!read('src/library/media-worker-entry.ts').includes('readWorkerImage')||!read('src/library/media-worker-client.ts').includes("this.execute('image'")||!read('src/library/online-image-converter.ts').includes('parser.image')||!read('src/main/artwork-resources.ts').includes("?'no-store':'private, max-age=31536000, immutable'"))fail('missing supervised neutral image conversion or ephemeral response contract');
 if(!read('src/library/tag-write-journal.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write certification default must remain closed until verified catalog');
 
-if(manifest.librarySchema.max!==85||!read('src/library/tag-restore-attempt-migration.ts').includes('PRAGMA user_version=80')||!read('src/library/tag-write-jobs.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write schema or certification gate differs');
+if(manifest.librarySchema.max!==86||!read('src/library/tag-restore-attempt-migration.ts').includes('PRAGMA user_version=80')||!read('src/library/tag-write-jobs.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write schema or certification gate differs');
 for(const name of ['context','preview','preview-cancel','prepare','jobs','cancel'])if(!read('src/main/main.ts').includes("'tag-write:"+name+"'")||!read('src/main/preload.ts').includes("'tag-write:"+name+"'"))fail('missing trusted tag write route '+name);
 if(!read('src/renderer/main.tsx').includes('setTagWriteItem(reviewItem.id)')||!read('src/renderer/tag-write-dialog.tsx').includes('保存待写入任务'))fail('missing lazy tag preview entry');
 

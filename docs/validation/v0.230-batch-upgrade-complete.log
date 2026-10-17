@@ -1,0 +1,5 @@
+genuine0.229 runtime creates schema85, non-default retention, a real source backup and cancelled staging job, then persists actual native inspection and two immutable cleanup records without changing music
+failure after actual86 batch/schedule DDL rolls back all new objects and preserves original85 cleanup proofs, tag jobs, policy history and genuine pre-v86 snapshot
+actual85 to86 upgrade preserves every original cleanup and staging record while adding default-off scheduling and empty fixed-scope batch tables
+genuine pre-v86 snapshot remains original85, actual old runtime rejects86, current reopen is idempotent and the real generated music remains byte-identical
+{"version":"0.230.0","completed":true,"cases":4,"scratch":"D:/CodexTestData/aural-backup-batch-upgrade-zmplAv"}

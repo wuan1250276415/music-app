@@ -1,0 +1,88 @@
+{
+  "version": "0.230.0",
+  "completed": true,
+  "scope": "actual production Main/preload/Service/Renderer/native backup cleanup; owned generated media prerequisite setup uses isolated candidate-completed jobs; controlled32-day Service clock for retention; actual owned Main/Utility/native tree termination after physical deletion, never user music or production write certification",
+  "cases": [
+    "actual production task-center entry shows four real backups, three controlled-age candidates and one protected staged task with persisted retention settings",
+    "real review checkbox and confirmation button execute handle-bound cleanup, retain four immutable receipts and reconcile original public command replay without a second deletion",
+    "real owned Main/Utility/native process tree terminates after actual backup deletion and durable phase receipt but before final acknowledgement; all current music files remain unchanged",
+    "actual restart marks the original unfinished operation, and a user-initiated fresh native observation records current absence separately without changing the original exit or interruption facts",
+    "actual stop button before deletion authorization preserves the backup, then explicit native observation confirms its original identity without replaying removal",
+    "normal exit and restart retain confirmed removal versus observed absence and stopped-original evidence; protected backup and all current music hashes remain unchanged"
+  ],
+  "fixture": {
+    "data": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-1T4KNg\\userdata\\library",
+    "files": [
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-1T4KNg\\music\\备份0.flac",
+        "originalSha": "aefdacc0a830ebc80a244833ec2b8a17508c59cb661264138d9907ece7e5474a",
+        "jobId": "bb0305b9-3abd-4c7f-977b-29fd45709746",
+        "itemId": "2a06eeb4-5f74-46f3-b6f1-9b46be177074",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-1T4KNg\\userdata\\library\\tag-backups\\bb0305b9-3abd-4c7f-977b-29fd45709746-21873f40-da56-49dd-80b1-e246b70a1c50.bak",
+        "currentSha": "5475137c11e048bae713287ed490373ae1576566bb0b143750aed53fa3a37ed5"
+      },
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-1T4KNg\\music\\备份1.flac",
+        "originalSha": "3583f23244eb82b6588429b55fc685e33ad90d15a4e315d2a996bfda89e78102",
+        "jobId": "cc4d3278-b90a-49a7-8694-820d7204e306",
+        "itemId": "21c30ea3-8bc1-430f-85bf-4823f70183a0",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-1T4KNg\\userdata\\library\\tag-backups\\cc4d3278-b90a-49a7-8694-820d7204e306-337bfcb5-f2a9-448f-b79e-50e70f5010cb.bak",
+        "currentSha": "92f47de6f4a7a8152ce4c689988bb00e49e9d441b1fc50c3cd27382774e061eb"
+      },
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-1T4KNg\\music\\备份2.flac",
+        "originalSha": "77ca037ab1d10d57bbeb34143778f7d2975b86bed3a3ca1dbc16cd57d2b2e927",
+        "jobId": "f34b0910-dc3a-45fc-88ae-5296b7489f20",
+        "itemId": "ffe394dd-ad67-4ba5-a291-ac47a24b3f7d",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-1T4KNg\\userdata\\library\\tag-backups\\f34b0910-dc3a-45fc-88ae-5296b7489f20-af7cb884-d51f-4626-99e4-d8cd8cd27fcd.bak",
+        "currentSha": "fe92b229ff15dfcd9891e3f06dd0248c68367116618df37463e1c2361b99672a"
+      },
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-1T4KNg\\music\\备份3.flac",
+        "originalSha": "3d83e8e84b6c9d6ed95234c5fe13143f916e9c2278cb8afed397caa423f1f553",
+        "jobId": "afe5c117-ad9b-4903-af28-7903b5737c05",
+        "itemId": "6c103d5f-6000-4496-ab4e-3bb5e6e8b8fa",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-1T4KNg\\userdata\\library\\tag-backups\\afe5c117-ad9b-4903-af28-7903b5737c05-633cedec-c142-4eba-ab77-5f097884305b.bak",
+        "currentSha": "3d83e8e84b6c9d6ed95234c5fe13143f916e9c2278cb8afed397caa423f1f553"
+      }
+    ],
+    "candidateEvidenceSha256": "fe5b57a65d9fbbbd70a357653b9a7e1dd90306edda211f02ccb5cb5851bd7f27"
+  },
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 4624,
+    "ownedProcesses": [
+      4624,
+      25328,
+      6532,
+      15088,
+      18024,
+      32916,
+      34140,
+      26988,
+      27740,
+      34396,
+      30976
+    ]
+  },
+  "screenshot": "D:\\CodexTestData\\aural-workflow-ui-tag-backup-cleanup-A5gqpP\\cleanup-recovered.png",
+  "controlledServiceClockOffsetDays": 32,
+  "userOriginalMediaChanged": false,
+  "productionWriteCertificatesEnabled": false,
+  "fingerprints": {
+    "src/library/tag-backup-cleanup-manager.ts": "bf5a62565220be38b33439a9d3d5b316666cf90e56d5e9c690a13b12421ee004",
+    "src/library/tag-backup-cleanup-operations.ts": "f59cec07c8843aca52598e0464b0c158e11c4caf5d8c3efe20140843c3bde1fb",
+    "src/library/tag-backup-cleaner.ts": "34300336c6405b2b9a14f78692c6d21ecd99c14612e7269f7652c5f0f0b28ada",
+    "src/library/tag-backup-cleanup-journal.ts": "f0bffff6b43bbc946345d16632cdd68d0bb0b39c4ca78af1e808ddce1d5565af",
+    "src/library/service.ts": "abe3631b2ec196d8b9518ca5809f4a35b9b840c7f8698b05b567ff805a1fcc86",
+    "src/main/main.ts": "ee64a231547b75bc0784edf75ccf972c85d32f46d3bc670f270740f82c1fe70b",
+    "src/main/preload.ts": "48407eb9bca3cddb807005d056592fbce3a17ede40caeebf61b2633c8262efc5",
+    "src/renderer/tag-backup-cleanup-dialog.tsx": "138d002d20a8e6f09591adbdd84fd0284bcbaf0a4a3e1037b0591f593e740835",
+    "src/renderer/tag-backup-storage-dialog.tsx": "95ad71e4048e0b922ffadeba3e8f269fb1713d62d92c335fb33d8caf2448ac34",
+    "src/shared/tag-backup-cleanup.ts": "a2eaa27395b3fde8d46e84702080cfbd9285a75e9ffa948d5dbf64c0bd952c5a",
+    "native/tag-write-worker/backup-cleaner.cpp": "f1eebc9465146af46d3438bbafb826c9dc5dd867ff032959d922fd43537889a3",
+    "native/tag-write-worker/build/tag-backup-cleaner.exe": "e5cf172a3d003a35db38d717580ee8ca35e605f1d3870b9e555e66f2fc836519",
+    "tests/electron-tag-backup-cleanup-mvp.smoke.cjs": "aeb17a6d6876f03e2b46ff9bed4784fd65d21b66c58f2fbb0aba9998e03781f8",
+    "tests/helpers/tag-backup-cleanup-fixture.cjs": "5fadd67debc8947cc3cc2feace40e83fa2e15efe1f31a62ec504f65f9309bc8b"
+  }
+}

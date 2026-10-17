@@ -1,0 +1,8 @@
+default-off scheduler creates no automatic batch; real production stage admission refuses a new backup above the saved cap before any execution or artifact is created
+backend-derived fixed scope and preview replay create no deletion; explicit batch confirmation runs native inspection/removal, and pause waits for exactly the current file with original-command replay
+real database reopen retains a paused batch without auto-resuming; explicit continuation removes only remaining eligible backups and preserves the unfinished-task backup
+after real eligible backups free space, the exact original refused stage command can create and verify a new backup without changing current music; batch records validate
+actual enabled scheduler creates a durable automatic batch; original setting replay and stale revision refusal work, different activation context is ineffective, and disabling before delete ACK preserves every backup
+explicit independent observation resolves the original held backup without retrying deletion; cancel and renewed enabling create a fresh automatic scope, complete eligible cleanup and retain all music and protected evidence
+actual quiesced whole-catalog capture and twelve-domain restore inspection preserve schedule, fixed scopes and completed children; deleting original batch start authorization is rejected despite valid SQLite integrity
+{"version":"0.230.0","completed":true,"cases":7,"scratch":"D:/CodexTestData/aural-backup-batch-mvp-2dbk6g"}

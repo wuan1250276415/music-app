@@ -1,0 +1,35 @@
+{
+  "version": "0.230.0",
+  "completed": true,
+  "scope": "production repository/manager/native cleanup and actual backup admission with generated owned media and candidate-completed prerequisite jobs; controlled32-day retention clock; no Main UI, real process crash, prior runtime upgrade, full fault matrix or user-library claim",
+  "cases": [
+    "default-off scheduler creates no automatic batch; real production stage admission refuses a new backup above the saved cap before any execution or artifact is created",
+    "backend-derived fixed scope and preview replay create no deletion; explicit batch confirmation runs native inspection/removal, and pause waits for exactly the current file with original-command replay",
+    "real database reopen retains a paused batch without auto-resuming; explicit continuation removes only remaining eligible backups and preserves the unfinished-task backup",
+    "after real eligible backups free space, the exact original refused stage command can create and verify a new backup without changing current music; batch records validate",
+    "actual enabled scheduler creates a durable automatic batch; original setting replay and stale revision refusal work, different activation context is ineffective, and disabling before delete ACK preserves every backup",
+    "explicit independent observation resolves the original held backup without retrying deletion; cancel and renewed enabling create a fresh automatic scope, complete eligible cleanup and retain all music and protected evidence",
+    "actual quiesced whole-catalog capture and twelve-domain restore inspection preserve schedule, fixed scopes and completed children; deleting original batch start authorization is rejected despite valid SQLite integrity"
+  ],
+  "catalogCapture": {
+    "stagePath": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-ZV3bDA\\userdata\\backups\\catalog\\.aural-backup-fc13f0de-5ee3-4295-985c-020781148e6c-lvxQEN",
+    "files": 62
+  },
+  "controlledServiceClockOffsetDays": 32,
+  "userOriginalMediaChanged": false,
+  "productionWriteCertificatesEnabled": false,
+  "fingerprints": {
+    "src/shared/tag-backup-batch.ts": "f97ec538952fd4dc805de64f674bb4bab4d1df578223419a115b5f515a43e4e7",
+    "src/library/tag-backup-batches.ts": "888c1f7e8230676f5d3b0be6b15f1f156f0f727582d6f6144d5c27bdc12659a2",
+    "src/library/tag-backup-batch-manager.ts": "67c8475ce633fdfa3c7b05173a59c157e01ffa1cd4fa448dca3d9165d475736a",
+    "src/library/tag-backup-cleanup-manager.ts": "bf5a62565220be38b33439a9d3d5b316666cf90e56d5e9c690a13b12421ee004",
+    "src/library/tag-backup-storage.ts": "3859882c1dda211d43fa8869d9ba90e7fa3acc021a5801c49105ad7606fbdc1d",
+    "src/library/tag-backup-catalog.ts": "abaf67562b69780568541fd3479f8d89e05dad99a063e89a721f6b4832d1a758",
+    "src/library/tag-write-manager.ts": "c1aba91aaea8647e6432d84730681ded69c77b475b1299db51916594ae82d01b",
+    "src/library/database.ts": "ee87aaecbd5671b7ab8b683b53f5ec4cd35ea9f6a6cc3db95477eb57eb46ac32",
+    "src/library/catalog-restore-compatibility.ts": "ec3520fb38512bad9e48e1942a225843ac247f6e31c0430e5186d349f4ebe5a8",
+    "tests/tag-backup-batch-mvp.smoke.cjs": "65f10ec36525c45576f5e31a092012335f19a024d183d7d17aa556404eb30c78",
+    "tests/helpers/tag-backup-cleanup-fixture.cjs": "5fadd67debc8947cc3cc2feace40e83fa2e15efe1f31a62ec504f65f9309bc8b",
+    "native/tag-write-worker/build/tag-backup-cleaner.exe": "e5cf172a3d003a35db38d717580ee8ca35e605f1d3870b9e555e66f2fc836519"
+  }
+}

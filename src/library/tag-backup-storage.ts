@@ -45,6 +45,12 @@ export class TagBackupStorage {
   const {items:_all,...summary}=snapshot;
   return {...summary,items:items.slice(q.offset,q.offset+PAGE),nextOffset:q.offset+PAGE<items.length?q.offset+PAGE:null,filter:q.filter};
  }
+ async assertCapacity(additional:string,signal:AbortSignal):Promise<void>{
+  if(!/^[1-9][0-9]{0,15}$/.test(additional))throw new Error('新增备份大小不可确认');signal.throwIfAborted();const page=await this.page();signal.throwIfAborted();
+  if(!page.complete||page.policy.revision!==this.db.tagBackupPolicies.load().revision)throw new Error('备份空间未完整核对或保留设置已变化，暂不创建新备份');
+  const needed=BigInt(additional),cap=BigInt(page.policy.maxBytes);if(cap&&BigInt(page.summary.knownBytes)+needed>cap)throw new Error('新增备份将超过空间上限；请先清理到期备份或调整上限，受保护备份不会自动删除');
+  if(page.summary.availableBytes===null)throw new Error('无法确认备份磁盘可用空间，暂不创建新备份');if(BigInt(page.summary.availableBytes)<needed+16777216n)throw new Error('备份磁盘可用空间不足，未创建新备份');
+ }
  private async inspect(signal:AbortSignal):Promise<Snapshot>{
   const deadline=performance.now()+50000,observedAt=Date.now(),policy=this.db.tagBackupPolicies.load(),owned=await this.db.tagBackupCatalog.ownership(this.root,signal,deadline),items:TagBackupEntry[]=[];
   const summary:TagBackupStoragePage['summary']={entries:0,knownBackups:0,candidates:0,protected:0,unmanaged:0,unreadable:0,knownBytes:'0',candidateBytes:'0',otherFileBytes:'0',overBudgetBytes:'0',availableBytes:null};

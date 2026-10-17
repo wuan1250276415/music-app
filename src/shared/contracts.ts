@@ -492,6 +492,12 @@ export interface MusicApi extends ProviderManagementApi {
   tagBackupCleanupCommand(request:import('./tag-backup-cleanup').TagBackupCleanupCommand):Promise<import('./tag-backup-cleanup').TagBackupCleanupView>;
   tagBackupCleanupGet(id:string):Promise<import('./tag-backup-cleanup').TagBackupCleanupView>;
   tagBackupCleanupList(cursor?:number):Promise<import('./tag-backup-cleanup').TagBackupCleanupPage>;
+  tagBackupSchedule():Promise<import('./tag-backup-batch').TagBackupSchedule>;
+  tagBackupScheduleConfigure(request:import('./tag-backup-batch').TagBackupScheduleRequest):Promise<import('./tag-backup-batch').TagBackupSchedule>;
+  tagBackupBatchPreview(commandId:string):Promise<import('./tag-backup-batch').TagBackupBatch>;
+  tagBackupBatchCommand(request:import('./tag-backup-batch').TagBackupBatchCommand):Promise<import('./tag-backup-batch').TagBackupBatch>;
+  tagBackupBatchList(cursor?:number):Promise<import('./tag-backup-batch').TagBackupBatchPage>;
+  tagBackupBatchItems(request:{batchId:string;offset:number}):Promise<import('./tag-backup-batch').TagBackupBatchItems>;
   tagBackupPolicy():Promise<import('./tag-backup-storage').TagBackupPolicy>;
   tagBackupPolicyConfigure(request:import('./tag-backup-storage').TagBackupPolicyRequest):Promise<import('./tag-backup-storage').TagBackupPolicyReply>;
   tagBackupStorage(request?:import('./tag-backup-storage').TagBackupStorageRequest):Promise<import('./tag-backup-storage').TagBackupStoragePage>;

@@ -1,0 +1,18 @@
+{
+  "version": "0.230.0",
+  "completed": true,
+  "scope": "genuine pinned0.229 runtime/schema85, real generated FLAC scan/backup/cancel and independent native inspection; actual86 DDL rollback and upgrade preserving original cleanup receipts; no user library migration",
+  "cases": [
+    "genuine0.229 runtime creates schema85, non-default retention, a real source backup and cancelled staging job, then persists actual native inspection and two immutable cleanup records without changing music",
+    "failure after actual86 batch/schedule DDL rolls back all new objects and preserves original85 cleanup proofs, tag jobs, policy history and genuine pre-v86 snapshot",
+    "actual85 to86 upgrade preserves every original cleanup and staging record while adding default-off scheduling and empty fixed-scope batch tables",
+    "genuine pre-v86 snapshot remains original85, actual old runtime rejects86, current reopen is idempotent and the real generated music remains byte-identical"
+  ],
+  "previousVersion": "0.229.0",
+  "userOriginalMediaChanged": false,
+  "fingerprints": {
+    "src/library/database.ts": "ee87aaecbd5671b7ab8b683b53f5ec4cd35ea9f6a6cc3db95477eb57eb46ac32",
+    "src/library/tag-backup-batches.ts": "888c1f7e8230676f5d3b0be6b15f1f156f0f727582d6f6144d5c27bdc12659a2",
+    "tests/tag-backup-batch-upgrade-mvp.smoke.cjs": "b0537cd0f3ec77fc878de529220595545f688cca609a98c304206cbd120c9d9e"
+  }
+}

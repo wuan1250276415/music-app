@@ -1,0 +1,83 @@
+{
+  "version": "0.230.0",
+  "completed": true,
+  "scope": "actual production Main/preload/Service/Renderer/native batch cleanup on generated owned media with candidate-completed prerequisite jobs and controlled32-day Service clock; actual owned process-tree termination after native deletion, not user music, true elapsed retention or full fault matrix",
+  "cases": [
+    "actual task-center batch entry defaults automatic cleanup off and saves a backend-derived three-backup scope without deleting or reviving confirmation",
+    "actual pause waits for native completion of exactly the current backup; normal close/restart preserves the paused scope and requires fresh explicit confirmation",
+    "real owned Main/Utility/native process tree dies after deletion before final ACK; restart retains interrupted batch/child and explicit continuation exposes the unresolved original rather than sending another deletion",
+    "actual independent observation records absence while retaining original unconfirmed exit; explicit skip and renewed confirmation process only remaining members and preserve protected backup and all music",
+    "actual schedule controls persist enabling and disabling through production IPC, and a final normal restart retains completed versus explicitly skipped member facts with automatic cleanup disabled"
+  ],
+  "fixture": {
+    "data": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-lQPuHD\\userdata\\library",
+    "files": [
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-lQPuHD\\music\\备份0.flac",
+        "originalSha": "aefdacc0a830ebc80a244833ec2b8a17508c59cb661264138d9907ece7e5474a",
+        "jobId": "cd157f3b-fe80-47b9-8c7d-cb4e3b255336",
+        "itemId": "73d6a145-6085-4fb2-9123-6fa385735ff7",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-lQPuHD\\userdata\\library\\tag-backups\\cd157f3b-fe80-47b9-8c7d-cb4e3b255336-65b76736-5f9b-41bf-8ac3-6cb7db1561f4.bak",
+        "currentSha": "5475137c11e048bae713287ed490373ae1576566bb0b143750aed53fa3a37ed5"
+      },
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-lQPuHD\\music\\备份1.flac",
+        "originalSha": "3583f23244eb82b6588429b55fc685e33ad90d15a4e315d2a996bfda89e78102",
+        "jobId": "78304691-670d-4f00-8e86-42e18afc8a96",
+        "itemId": "dc8756e3-b07d-4af0-951e-e1c354efa403",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-lQPuHD\\userdata\\library\\tag-backups\\78304691-670d-4f00-8e86-42e18afc8a96-04bfc34c-2bdc-46d5-a1a3-b5f6a61a0196.bak",
+        "currentSha": "92f47de6f4a7a8152ce4c689988bb00e49e9d441b1fc50c3cd27382774e061eb"
+      },
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-lQPuHD\\music\\备份2.flac",
+        "originalSha": "77ca037ab1d10d57bbeb34143778f7d2975b86bed3a3ca1dbc16cd57d2b2e927",
+        "jobId": "2b8f1ff6-0665-4995-9a9f-e113812b972d",
+        "itemId": "376f86c1-0f3b-475c-af2a-eed7a6a5e313",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-lQPuHD\\userdata\\library\\tag-backups\\2b8f1ff6-0665-4995-9a9f-e113812b972d-49ab68fd-0041-47ce-bbb8-09ae0b3e9f5a.bak",
+        "currentSha": "fe92b229ff15dfcd9891e3f06dd0248c68367116618df37463e1c2361b99672a"
+      },
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-lQPuHD\\music\\备份3.flac",
+        "originalSha": "3d83e8e84b6c9d6ed95234c5fe13143f916e9c2278cb8afed397caa423f1f553",
+        "jobId": "eff0a4c7-73a4-4e76-9237-fc660bdac533",
+        "itemId": "9ebf05fc-cdaa-4639-a587-54562677a012",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-lQPuHD\\userdata\\library\\tag-backups\\eff0a4c7-73a4-4e76-9237-fc660bdac533-3ad440df-5fb8-4b9d-8e04-ae1b95293fc2.bak",
+        "currentSha": "3d83e8e84b6c9d6ed95234c5fe13143f916e9c2278cb8afed397caa423f1f553"
+      }
+    ]
+  },
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 13544,
+    "ownedProcesses": [
+      13544,
+      3492,
+      35388,
+      35724,
+      27336,
+      34424,
+      18752,
+      11436,
+      33296,
+      31180,
+      32464
+    ]
+  },
+  "screenshot": "D:\\CodexTestData\\aural-workflow-ui-tag-backup-batch-bdsGaN\\backup-batch-completed.png",
+  "controlledServiceClockOffsetDays": 32,
+  "userOriginalMediaChanged": false,
+  "productionWriteCertificatesEnabled": false,
+  "fingerprints": {
+    "src/library/tag-backup-batches.ts": "888c1f7e8230676f5d3b0be6b15f1f156f0f727582d6f6144d5c27bdc12659a2",
+    "src/library/tag-backup-batch-manager.ts": "67c8475ce633fdfa3c7b05173a59c157e01ffa1cd4fa448dca3d9165d475736a",
+    "src/library/tag-backup-cleanup-manager.ts": "bf5a62565220be38b33439a9d3d5b316666cf90e56d5e9c690a13b12421ee004",
+    "src/library/service.ts": "abe3631b2ec196d8b9518ca5809f4a35b9b840c7f8698b05b567ff805a1fcc86",
+    "src/main/main.ts": "ee64a231547b75bc0784edf75ccf972c85d32f46d3bc670f270740f82c1fe70b",
+    "src/main/preload.ts": "48407eb9bca3cddb807005d056592fbce3a17ede40caeebf61b2633c8262efc5",
+    "src/renderer/tag-backup-batch-dialog.tsx": "9a71f2eec94a944e221c7e62bb00d31f880fd1fce3b2f9176bb178a9506b9732",
+    "src/renderer/tag-backup-storage-dialog.tsx": "95ad71e4048e0b922ffadeba3e8f269fb1713d62d92c335fb33d8caf2448ac34",
+    "src/shared/tag-backup-batch.ts": "f97ec538952fd4dc805de64f674bb4bab4d1df578223419a115b5f515a43e4e7",
+    "tests/electron-tag-backup-batch-mvp.smoke.cjs": "e17f3342e808181406310a918de04457ed4e48818dc268ad9b3dafdcae1e06ce",
+    "native/tag-write-worker/build/tag-backup-cleaner.exe": "e5cf172a3d003a35db38d717580ee8ca35e605f1d3870b9e555e66f2fc836519"
+  }
+}

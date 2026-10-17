@@ -1,3 +1,4 @@
+import {validateTagBackupBatches} from './tag-backup-batches.js';
 import {validateTagBackupCleanupOperations} from './tag-backup-cleanup-operations.js';
 import {validateTagBackupPolicies} from './tag-backup-policies.js';
 import {validateTagReviewDrafts} from './tag-review-drafts.js';
@@ -49,7 +50,7 @@ export class CatalogRestoreCompatibilityInspector{
  constructor(){this.reference=LibraryDatabase.restoreSchemaReference();}
  inspect(filename:string,rawManifest:CatalogBackupManifest,signal:AbortSignal):CatalogRestoreCompatibility{
   const manifest=readCatalogBackupManifest(rawManifest),providersSupported=providerBackupComponents(),components=[{id:'aural.core',version:manifest.appVersion},...providersSupported];
-  if(manifest.schema!==85)throw new Error('此备份为旧schema68/69/70/71/72/73/74/75/76/77/78/79/80/81/82/83/84，可核对和保留；整库应用需要先显式迁移，暂停恢复流程不会自动迁移');
+  if(manifest.schema!==86)throw new Error('此备份为旧schema68/69/70/71/72/73/74/75/76/77/78/79/80/81/82/83/84/85，可核对和保留；整库应用需要先显式迁移，暂停恢复流程不会自动迁移');
   if(!restoreAppVersionSupported(manifest.appVersion))throw new Error('备份来自更高版本应用，当前版本不能恢复');
   if(JSON.stringify(components)!==JSON.stringify(manifest.plugins))throw new Error('备份数据源组件及版本与当前构建不一致');
   const rows=Object.fromEntries(RESTORE_DOMAIN_SCOPES.map(id=>[id,0])) as Record<RestoreDomainScope,number>;let totalRows=0,totalBytes=0,schema:{objects:number;sha256:string}|undefined;
@@ -105,11 +106,11 @@ export class CatalogRestoreCompatibilityInspector{
    bounded('lyrics_preference','preference_json',65536);
    walk(db,'lyrics-preferences','SELECT scope,revision,preference_json FROM lyrics_preference',r=>{if(typeof r.scope!=='string'||!/^[a-f0-9]{64}$/.test(r.scope))throw new Error('恢复歌词设置范围无效');revision(r.revision);readLyricsPreference(JSON.parse(text(r.preference_json,65536)));});
    rows['online-artwork']=validateOnlineArtworkDatabase(db,check);totalRows+=rows['online-artwork'];
-   for(const table of ['tag_stage_batch','tag_stage_batch_item','tag_stage_batch_command'])walk(db,'tag-stage-batches',`SELECT * FROM ${table}`,()=>{});validateTagStageBatches(db);for(const table of ['tag_commit_batch','tag_commit_batch_item','tag_commit_batch_command'])walk(db,'tag-stage-batches',`SELECT * FROM ${table}`,()=>{});validateTagCommitBatches(db);for(const table of ['tag_review_draft','tag_review_item','tag_review_attempt','tag_review_command'])walk(db,'tag-stage-batches',`SELECT * FROM ${table}`,()=>{});validateTagReviewDrafts(db);walk(db,'tag-stage-batches','SELECT * FROM tag_backup_policy',()=>{});validateTagBackupPolicies(db);for(const table of ['tag_backup_cleanup','tag_backup_cleanup_receipt','tag_backup_cleanup_command'])walk(db,'tag-stage-batches',`SELECT * FROM ${table}`,()=>{});validateTagBackupCleanupOperations(db);check();
+   for(const table of ['tag_stage_batch','tag_stage_batch_item','tag_stage_batch_command'])walk(db,'tag-stage-batches',`SELECT * FROM ${table}`,()=>{});validateTagStageBatches(db);for(const table of ['tag_commit_batch','tag_commit_batch_item','tag_commit_batch_command'])walk(db,'tag-stage-batches',`SELECT * FROM ${table}`,()=>{});validateTagCommitBatches(db);for(const table of ['tag_review_draft','tag_review_item','tag_review_attempt','tag_review_command'])walk(db,'tag-stage-batches',`SELECT * FROM ${table}`,()=>{});validateTagReviewDrafts(db);walk(db,'tag-stage-batches','SELECT * FROM tag_backup_policy',()=>{});validateTagBackupPolicies(db);for(const table of ['tag_backup_cleanup','tag_backup_cleanup_receipt','tag_backup_cleanup_command'])walk(db,'tag-stage-batches',`SELECT * FROM ${table}`,()=>{});validateTagBackupCleanupOperations(db);for(const table of ['tag_backup_schedule','tag_backup_batch','tag_backup_batch_item','tag_backup_batch_command'])walk(db,'tag-stage-batches',`SELECT * FROM ${table}`,()=>{});validateTagBackupBatches(db);check();
    check();validateGenreTree(db);
    if(db.prepare('SELECT 1 FROM genre g WHERE g.archived=1 AND (EXISTS(SELECT 1 FROM genre c WHERE c.parent_id=g.id) OR EXISTS(SELECT 1 FROM item_genre i WHERE i.genre_id=g.id) OR EXISTS(SELECT 1 FROM release_genre r WHERE r.genre_id=g.id)) LIMIT 1').get())throw new Error('恢复归档风格仍有成员或子项');
    rows['genre-tree']=Number((db.prepare('SELECT COUNT(*) n FROM genre').get() as {n:number}).n);totalRows+=rows['genre-tree'];if(totalRows>5000000)throw new Error('恢复领域资料超过500万条检查预算');check();
   });
-  if(!schema)throw new Error('恢复结构检查未完成');return assertRestoreCompatibility({version:1,appVersion:RELEASE.appVersion,schema:85,schemaSha256:schema.sha256,schemaObjects:schema.objects,databaseSha256:manifest.files.find(f=>f.role==='database')!.sha256,components,domains:RESTORE_DOMAIN_SCOPES.map(id=>({id,rows:rows[id]}))},manifest);
+  if(!schema)throw new Error('恢复结构检查未完成');return assertRestoreCompatibility({version:1,appVersion:RELEASE.appVersion,schema:86,schemaSha256:schema.sha256,schemaObjects:schema.objects,databaseSha256:manifest.files.find(f=>f.role==='database')!.sha256,components,domains:RESTORE_DOMAIN_SCOPES.map(id=>({id,rows:rows[id]}))},manifest);
  }
 }

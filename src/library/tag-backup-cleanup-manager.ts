@@ -16,15 +16,15 @@ export class TagBackupCleanupManager {
  private closed=false;private maintenanceOwner:string|null=null;
  constructor(private readonly db:LibraryDatabase,private readonly tags:TagWriteManager,dataDir:string,executable:string,private readonly changed:(id:string)=>void){this.root=path.join(dataDir,'tag-backups');this.cleaner=new TagBackupCleaner(executable);this.journal=new TagBackupCleanupJournal(dataDir);this.original=new TagWriteJournal(dataDir);}
  get busy():boolean{return Boolean(this.preparation||this.active);}
- async command(value:unknown):Promise<TagBackupCleanupView>{
+ async command(value:unknown,batch?:{batchId:string;ordinal:number;check:()=>void}):Promise<TagBackupCleanupView>{
   const q=readTagBackupCleanupCommand(value),known=this.db.tagBackupCleanups.known(q);if(known)return this.get(known.id);
   if(this.closed||this.maintenanceOwner)throw new Error('曲库正在维护，暂不能开始备份清理');
   if(q.action==='stop'){const view=this.db.tagBackupCleanups.stop(q);if(this.active?.id===view.id&&this.active.kind!=='delete-backup')this.active.controller.abort(new Error('已请求停止备份核对'));this.changed(view.id);return view;}
   if(this.preparation||this.active||!this.cleaner.quiescent)throw new Error('请先等待当前备份操作完整结束');
-  const task=this.prepare(q);this.preparation=task;try{return await task;}finally{if(this.preparation===task)this.preparation=null;}
+  const guard=()=>{if(batch){this.db.tagBackupBatches.assertChild(batch.batchId,batch.ordinal,q.commandId);batch.check();}else if(this.db.tagBackupBatches.active()&&['running','pausing','cancelling'].includes(this.db.tagBackupBatches.active()!.state))throw new Error('后台备份批次正在处理，请先暂停批次');};guard();const task=this.prepare(q,guard);this.preparation=task;try{return await task;}finally{if(this.preparation===task)this.preparation=null;}
  }
  get(id:string):TagBackupCleanupView{const row=this.db.tagBackupCleanups.raw(id);if(!this.active&&!this.preparation&&['reserved','running'].includes(row.state))this.db.tagBackupCleanups.fail(row.id,'原意图没有当前进程的在途执行，不会自动重发；请核对原结果');return this.db.tagBackupCleanups.get(row.id);}
- private async prepare(q:Exclude<TagBackupCleanupCommand,{action:'stop'}>):Promise<TagBackupCleanupView>{
+ private async prepare(q:Exclude<TagBackupCleanupCommand,{action:'stop'}>,guard:()=>void):Promise<TagBackupCleanupView>{
   this.db.tagBackupCatalog.assertGlobalIdle();if(!this.tags.batchIdle)throw new Error('标签任务或文件核对仍在进行，请等待原操作结束');const owner=randomUUID();await this.tags.beginMaintenance(owner);let launched=false;
   try{
    let binding:TagBackupCleanupBinding;
@@ -43,8 +43,8 @@ export class TagBackupCleanupManager {
     this.authorize(binding,q.action==='remove');
    }
    if(this.closed||this.maintenanceOwner)throw new Error('曲库维护已开始，未启动新清理');
-   const view=this.db.tagBackupCleanups.create(q,binding),controller=new AbortController();this.db.tagBackupCleanups.start(view.id);
-   const finished=Promise.resolve().then(()=>this.execute(binding,controller.signal)).finally(()=>{this.tags.endMaintenance(owner);this.active=null;this.changed(view.id);});
+   guard();const view=this.db.tagBackupCleanups.create(q,binding),controller=new AbortController();this.db.tagBackupCleanups.start(view.id);
+   const finished=Promise.resolve().then(()=>this.execute(binding,controller.signal,guard)).finally(()=>{this.tags.endMaintenance(owner);this.active=null;this.changed(view.id);});
    void finished.catch(()=>this.changed(view.id));this.active={id:view.id,kind:binding.request.kind,controller,finished};launched=true;this.changed(view.id);return this.db.tagBackupCleanups.get(view.id);
   }finally{if(!launched)this.tags.endMaintenance(owner);}
  }
@@ -57,14 +57,15 @@ export class TagBackupCleanupManager {
   if(binding.catalogOrigin!==this.db.historyExportOrigin()||current.executionId!==binding.executionId||current.jobRevision!==binding.jobRevision||policy.revision!==binding.policyRevision||current.stagingJournalSha256!==binding.stagingJournalSha256||current.backupArtifactId!==binding.request.backupArtifactId||normalize(current.backupRoot)!==normalize(binding.request.backupRoot)||canonical(current.source)!==canonical(binding.request.source))throw new Error('备份清理依据已改变，请重新核对');
   if(expiry){const identity=binding.request.expected?.backup.identity;if(!identity)throw new Error('缺少独立备份创建时间');const createdAt=Number(BigInt(identity.creation)/10000n-11644473600000n),start=Math.max(createdAt,current.endedAt),now=Date.now();if(!Number.isSafeInteger(start)||start>now||now-start<policy.keepDays*86400000)throw new Error(`任务结束后至少保留 ${policy.keepDays} 天，当前不能清理`);}
  }
- private async execute(binding:TagBackupCleanupBinding,signal:AbortSignal):Promise<void>{
+ async wait(id:string):Promise<TagBackupCleanupView>{await this.preparation?.catch(()=>{});if(this.active?.id===id)await this.active.finished;return this.get(id);}
+ private async execute(binding:TagBackupCleanupBinding,signal:AbortSignal,guard:()=>void):Promise<void>{
   const id=binding.request.operationId;
   try{
    let snapshot=await this.journal.create(binding);this.db.tagBackupCleanups.accept(id,snapshot,()=>{});
    const proof=await this.cleaner.run(binding.request,async stage=>{
     if(stage.phase==='delete_ready'){if(this.db.tagBackupCleanups.raw(id).stop_requested)throw new Error('已停止，尚未授权删除');await this.checkOriginal(binding.request.jobId,binding.stagingJournalSha256);}
     snapshot=await this.journal.advance(id,snapshot.revision,stage);
-    const digest=this.db.tagBackupCleanups.accept(id,snapshot,()=>this.authorize(binding,true));this.changed(id);return digest;
+    const digest=this.db.tagBackupCleanups.accept(id,snapshot,()=>{guard();this.authorize(binding,true);});this.changed(id);return digest;
    },()=>{},signal);
    this.db.tagBackupCleanups.finish(id,proof);this.changed(id);
   }catch(error){this.db.tagBackupCleanups.fail(id,error instanceof Error?error.message:String(error));this.changed(id);}

@@ -15,6 +15,7 @@ export class TagBackupCatalog {
   if(!tagWriteUuid(jobId))throw new Error('备份任务身份无效');jobId=jobId.toLowerCase();this.assertOrigin(jobId);
   const row=this.db.prepare('SELECT j.id,j.file_id,j.state,j.revision,j.updated_at,e.id execution_id FROM tag_write_job j JOIN tag_write_execution e ON e.job_id=j.id WHERE j.id=?').get(jobId) as {id:string;file_id:string;state:string;revision:number;updated_at:string;execution_id:string}|undefined;
   if(!row||!['completed','cancelled'].includes(row.state))throw new Error('此任务尚未结束或仍需恢复，备份必须保留');
+  if(this.db.prepare("SELECT 1 FROM tag_backup_cleanup WHERE job_id=? AND state='interrupted' AND reconcile_id IS NULL AND json_extract(binding_json,'$.request.kind')='delete-backup' LIMIT 1").get(jobId))throw new Error('此备份有待核对的原清理结果，请先独立核对');
   this.jobs.assertReadable(row.file_id);
   if(!this.db.prepare("SELECT 1 FROM media_file f JOIN library_root r ON r.id=f.root_id WHERE f.id=? AND f.status='online' AND r.status='online'").get(row.file_id))throw new Error('当前音乐文件或目录不在线，保留备份以便恢复');
   if(this.db.prepare("SELECT 1 FROM tag_stage_batch_item i JOIN tag_stage_batch b ON b.id=i.batch_id WHERE i.job_id=? AND b.status NOT IN('completed','cancelled') UNION ALL SELECT 1 FROM tag_commit_batch_item i JOIN tag_commit_batch b ON b.id=i.batch_id WHERE i.job_id=? AND b.status NOT IN('completed','cancelled') LIMIT 1").get(jobId,jobId))throw new Error('此备份仍属于尚未结束的批次');
@@ -41,6 +42,7 @@ export class TagBackupCatalog {
    if(!reason&&!['completed','cancelled'].includes(row.state))reason=row.state==='recovery_required'?'此任务仍需恢复，备份必须保留':'此任务尚未结束，备份仍被任务使用';
    else if(!reason&&(!Number.isFinite(endedAt)||new Date(endedAt).toISOString()!==row.updated_at))reason='任务结束时间不可确认';
    if(!reason){try{this.jobs.assertReadable(row.file_id);}catch{reason='此文件仍有写入、恢复或读取协调占用';}}
+   if(!reason&&this.db.prepare("SELECT 1 FROM tag_backup_cleanup WHERE job_id=? AND state='interrupted' AND reconcile_id IS NULL AND json_extract(binding_json,'$.request.kind')='delete-backup' LIMIT 1").get(row.id))reason='此备份有待核对的原清理结果，核对前继续保留';
    if(!reason&&!this.db.prepare("SELECT 1 FROM media_file f JOIN library_root r ON r.id=f.root_id WHERE f.id=? AND f.status='online' AND r.status='online'").get(row.file_id))reason='当前音乐文件或目录不在线，保留备份以便恢复';
    if(!reason&&this.db.prepare("SELECT 1 FROM tag_stage_batch_item i JOIN tag_stage_batch b ON b.id=i.batch_id WHERE i.job_id=? AND b.status NOT IN('completed','cancelled') UNION ALL SELECT 1 FROM tag_commit_batch_item i JOIN tag_commit_batch b ON b.id=i.batch_id WHERE i.job_id=? AND b.status NOT IN('completed','cancelled') LIMIT 1").get(row.id,row.id))reason='此备份仍属于尚未结束的批次';
    if(!reason){

@@ -1,0 +1,83 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.230.0 build
+> npm run build:main && npm run build:renderer
+
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.230.0 build:main
+> node scripts/generate-release.cjs && tsc -p tsconfig.main.json
+
+release files generated
+npm warn Unknown env config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.230.0 build:renderer
+> vite build
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 237 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/renderer/index.html                                           0.70 kB │ gzip:   0.42 kB
+dist/renderer/assets/metadata-undo-dialog-Pcp14N8-.css             0.94 kB │ gzip:   0.40 kB
+dist/renderer/assets/cue-history-B1yDqBkt.css                      1.15 kB │ gzip:   0.50 kB
+dist/renderer/assets/catalog-restore-recovery-6nqQiN3R.css         1.59 kB │ gzip:   0.54 kB
+dist/renderer/assets/smart-playlist-history-dialog-h8BlcdUI.css    2.17 kB │ gzip:   0.69 kB
+dist/renderer/assets/provider-manager-DYcHYAOE.css                 2.53 kB │ gzip:   0.81 kB
+dist/renderer/assets/scan-tasks-B0laYMgS.css                       2.60 kB │ gzip:   0.79 kB
+dist/renderer/assets/rule-transfer-dialog-CHAafhXc.css             2.75 kB │ gzip:   0.71 kB
+dist/renderer/assets/metadata-credit-B_MyWTd0.css                  2.95 kB │ gzip:   0.79 kB
+dist/renderer/assets/lyrics-documents-B7s_5J9L.css                 3.80 kB │ gzip:   1.08 kB
+dist/renderer/assets/playback-history-dialog-DwIM8wO8.css          3.81 kB │ gzip:   0.96 kB
+dist/renderer/assets/music-filters-dialog-DEzXYzgm.css             4.66 kB │ gzip:   1.12 kB
+dist/renderer/assets/metadata-review-dialogs-BtMLDGki.css          5.30 kB │ gzip:   1.06 kB
+dist/renderer/assets/metadata-batch-QvSjGWBt.css                   5.76 kB │ gzip:   1.23 kB
+dist/renderer/assets/tag-write-dialog-B42qWSG5.css                 6.07 kB │ gzip:   1.47 kB
+dist/renderer/assets/index-DLp13UMC.css                          117.75 kB │ gzip:  23.46 kB
+dist/renderer/assets/user-error-D2fxFZ8G.js                        0.14 kB │ gzip:   0.13 kB
+dist/renderer/assets/lyrics-documents-Dzopq7HN.js                  1.82 kB │ gzip:   0.88 kB
+dist/renderer/assets/collections-B-cC9akb.js                       3.59 kB │ gzip:   1.59 kB
+dist/renderer/assets/appearance-dialog-CzcqetjC.js                 4.31 kB │ gzip:   1.91 kB
+dist/renderer/assets/metadata-undo-dialog-CeBDPAlK.js              4.48 kB │ gzip:   1.99 kB
+dist/renderer/assets/entity-references-dialog-DjsPjwhA.js          5.08 kB │ gzip:   2.14 kB
+dist/renderer/assets/file-policy-dialog-BjuOGw08.js                5.49 kB │ gzip:   2.25 kB
+dist/renderer/assets/library-watch-dialog-DPR-dhb3.js              6.09 kB │ gzip:   2.59 kB
+dist/renderer/assets/local-lyrics-browser-OP0N2dui.js              6.69 kB │ gzip:   2.69 kB
+dist/renderer/assets/smart-playlist-dialog-zQ4L7OGQ.js             6.73 kB │ gzip:   2.92 kB
+dist/renderer/assets/recording-profile-dialog-CfqGgqoC.js          7.10 kB │ gzip:   2.92 kB
+dist/renderer/assets/artist-dialog-BbY47ZMD.js                     7.57 kB │ gzip:   3.00 kB
+dist/renderer/assets/metadata-release-fields-dialog-DtZaaic8.js    8.79 kB │ gzip:   3.16 kB
+dist/renderer/assets/jsx-runtime-D3jfb0Ew.js                       8.90 kB │ gzip:   3.38 kB
+dist/renderer/assets/artist-manager-BgSGcJTX.js                    9.32 kB │ gzip:   3.36 kB
+dist/renderer/assets/metadata-credit-dialog-BguMMimu.js            9.62 kB │ gzip:   3.68 kB
+dist/renderer/assets/catalog-dialog-DvgiXAnE.js                    9.78 kB │ gzip:   3.34 kB
+dist/renderer/assets/saved-lyrics-BGmpbsQa.js                     10.28 kB │ gzip:   3.52 kB
+dist/renderer/assets/catalog-restore-recovery-CiuxyZOC.js         11.47 kB │ gzip:   4.01 kB
+dist/renderer/assets/metadata-album-review-dialog-CFYyijv3.js     12.65 kB │ gzip:   4.49 kB
+dist/renderer/assets/release-dialog-Bdv7-e1c.js                   12.70 kB │ gzip:   4.33 kB
+dist/renderer/assets/provider-manager-Beg0qOqE.js                 13.43 kB │ gzip:   4.60 kB
+dist/renderer/assets/embedded-cue-history-dialog-DWOUfVwf.js      13.95 kB │ gzip:   4.25 kB
+dist/renderer/assets/smart-playlist-history-dialog-DfX5W0-I.js    14.36 kB │ gzip:   5.14 kB
+dist/renderer/assets/lyrics-documents-BBy0MkbP.js                 15.38 kB │ gzip:   5.01 kB
+dist/renderer/assets/catalog-restore-dialog-BNLqPNiO.js           15.58 kB │ gzip:   5.50 kB
+dist/renderer/assets/metadata-sources-dialog-DAqaCxlC.js          19.95 kB │ gzip:   6.29 kB
+dist/renderer/assets/scan-tasks-DIR8STDv.js                       21.73 kB │ gzip:   6.56 kB
+dist/renderer/assets/playback-history-dialog-DqdQK47M.js          22.89 kB │ gzip:   7.75 kB
+dist/renderer/assets/rule-transfer-dialog-DCe6KMwm.js             24.97 kB │ gzip:   8.53 kB
+dist/renderer/assets/metadata-batch-dialog-Cm4k201v.js            28.61 kB │ gzip:   8.96 kB
+dist/renderer/assets/cue-history-dialog-cpKL3CWt.js               28.99 kB │ gzip:   8.77 kB
+dist/renderer/assets/metadata-identities-dialog-B-aFWW9L.js       31.35 kB │ gzip:   7.33 kB
+dist/renderer/assets/music-filters-dialog-BXDC2q5N.js             34.22 kB │ gzip:  10.44 kB
+dist/renderer/assets/audio-output-dialog-BZoRVSw-.js              42.82 kB │ gzip:  12.90 kB
+dist/renderer/assets/tag-write-dialog-DJBGyQiY.js                103.14 kB │ gzip:  24.12 kB
+dist/renderer/assets/index-AN8oUq-A.js                           500.83 kB │ gzip: 153.40 kB
+
+✓ built in 262ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
