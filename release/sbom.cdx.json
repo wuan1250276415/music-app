@@ -6,7 +6,7 @@
     "component": {
       "type": "application",
       "name": "aural-library",
-      "version": "0.227.0",
+      "version": "0.228.0",
       "licenses": [
         {
           "license": {
@@ -1505,6 +1505,34 @@
         {
           "name": "aural:tag-file-actions-current-status",
           "value": "0.221 schema80: static-catalogue readiness; trusted closed Main/preload/Service commit/start-restore/stop controls and original request receipts; Main same-file playback release after current target review, fresh Library and native file/root/metadata/lease checks; explicit field preview, separate write/restore confirmation and stopped-process recovery; immutable attempt history and retained copy/displaced targets. Production certification catalogues remain empty; isolated candidate UI execution is distinct from production certification, power loss, full-disk, full permissions/concurrency matrix and complete FR12/AC12 acceptance."
+        },
+        {
+          "name": "aural:tag-backup-cleaner-native-source-sha256",
+          "value": "4d684f412e2c23ecd82092717358040e97645781afec9927238bc05a46eb69ca"
+        },
+        {
+          "name": "aural:tag-backup-cleaner-native-sha256",
+          "value": "ffa82e51babe2cc36ed464310cfe70ee70202b3c1a66460b8721710bef04c4c6"
+        },
+        {
+          "name": "aural:tag-backup-cleaner-build-source-sha256",
+          "value": "937ee53c42097bc27c99631ea0f70cff29382f7c55e2705983d52ff09d09237c"
+        },
+        {
+          "name": "aural:tag-backup-cleaner-contract-source-sha256",
+          "value": "75051bf7bb5318bce42ce103bd5939f6f5b6b2a67cc474d619855cf3f6bc7782"
+        },
+        {
+          "name": "aural:tag-backup-cleaner-client-source-sha256",
+          "value": "34300336c6405b2b9a14f78692c6d21ecd99c14612e7269f7652c5f0f0b28ada"
+        },
+        {
+          "name": "aural:tag-backup-cleaner-journal-source-sha256",
+          "value": "f402599a77e6f33fe323de170b27c4857b2df3ede295d7f3740b77e60e9006a9"
+        },
+        {
+          "name": "aural:tag-backup-cleaner-development-status",
+          "value": "0.228 development: local NTFS pinned ancestors and exclusive single-link backup handle; exact whole-file/FLAC payload evidence; acknowledged checked/delete-ready/deleted phases; handle-bound disposition, immutable fsynced hash-chain journal, supervised bounded process transport and actual-close fencing. The client requires durable phase callbacks. Database cleanup intents, public manual/background execution and crash-reconciliation UI remain pending; no component runtime, deletion, full storage MVP or current installer acceptance is claimed."
         },
         {
           "name": "aural:tag-backup-policy-source-sha256",
@@ -3572,11 +3600,11 @@
         },
         {
           "name": "aural:directory-cutover-7-sha256",
-          "value": "fc4be60787434c0d0d8e635edb92eedb8bb846522bbc91c2eae04e083993d435"
+          "value": "375e217642c672c8530e2de50ff33d6b71f36fc0cee243a2957ce296d828a8d1"
         },
         {
           "name": "aural:directory-cutover-8-sha256",
-          "value": "bd257aa4c26c145496073663bd3189a6e440edffc9746389f456258f912e8c99"
+          "value": "0be029848025cea6a23658a1b1f6676bb44a41a1604980ae9020421d16517c60"
         },
         {
           "name": "aural:directory-mover-binary-sha256",
@@ -4424,7 +4452,7 @@
         },
         {
           "name": "aural:tag-stage-build-source-sha256",
-          "value": "fc4be60787434c0d0d8e635edb92eedb8bb846522bbc91c2eae04e083993d435"
+          "value": "375e217642c672c8530e2de50ff33d6b71f36fc0cee243a2957ce296d828a8d1"
         },
         {
           "name": "aural:tag-supervisor-source-sha256",

@@ -169,6 +169,13 @@ const asioProperties = [
   {name:'aural:tag-write-dialog-source-sha256',value:sha256(read('src/renderer/tag-write-dialog.tsx'))},
   {name:'aural:tag-file-actions-source-sha256',value:sha256(read('src/renderer/tag-file-actions.tsx'))},
   {name:'aural:tag-file-actions-current-status',value:'0.221 schema80: static-catalogue readiness; trusted closed Main/preload/Service commit/start-restore/stop controls and original request receipts; Main same-file playback release after current target review, fresh Library and native file/root/metadata/lease checks; explicit field preview, separate write/restore confirmation and stopped-process recovery; immutable attempt history and retained copy/displaced targets. Production certification catalogues remain empty; isolated candidate UI execution is distinct from production certification, power loss, full-disk, full permissions/concurrency matrix and complete FR12/AC12 acceptance.'},
+  {name:'aural:tag-backup-cleaner-native-source-sha256',value:sha256(read('native/tag-write-worker/backup-cleaner.cpp'))},
+  {name:'aural:tag-backup-cleaner-native-sha256',value:sha256(read('native/tag-write-worker/build/tag-backup-cleaner.exe'))},
+  {name:'aural:tag-backup-cleaner-build-source-sha256',value:sha256(read('native/tag-write-worker/build-backup-cleaner.ps1'))},
+  {name:'aural:tag-backup-cleaner-contract-source-sha256',value:sha256(read('src/shared/tag-backup-cleanup.ts'))},
+  {name:'aural:tag-backup-cleaner-client-source-sha256',value:sha256(read('src/library/tag-backup-cleaner.ts'))},
+  {name:'aural:tag-backup-cleaner-journal-source-sha256',value:sha256(read('src/library/tag-backup-cleanup-journal.ts'))},
+  {name:'aural:tag-backup-cleaner-development-status',value:'0.228 development: local NTFS pinned ancestors and exclusive single-link backup handle; exact whole-file/FLAC payload evidence; acknowledged checked/delete-ready/deleted phases; handle-bound disposition, immutable fsynced hash-chain journal, supervised bounded process transport and actual-close fencing. The client requires durable phase callbacks. Database cleanup intents, public manual/background execution and crash-reconciliation UI remain pending; no component runtime, deletion, full storage MVP or current installer acceptance is claimed.'},
   {name:'aural:tag-backup-policy-source-sha256',value:sha256(read('src/library/tag-backup-policies.ts'))},
   {name:'aural:tag-backup-catalog-source-sha256',value:sha256(read('src/library/tag-backup-catalog.ts'))},
   {name:'aural:tag-backup-storage-source-sha256',value:sha256(read('src/library/tag-backup-storage.ts'))},
@@ -640,6 +647,7 @@ if(!read('native/media-worker/main.cpp').includes('AURAL_TAG_WRITE_SUPERVISOR')|
 if(!packaging.extraResources.some(item=>item.from==='native/tag-write-worker/build/tag-file-committer.exe'&&item.to==='tag-file-committer.exe'))fail('tag commit component packaging is missing');
 if(!packaging.extraResources.some(item=>item.from==='native/tag-write-worker/build/tag-file-restorer.exe'&&item.to==='tag-file-restorer.exe')||!packaging.files.includes('release/tag-restore-certification.json'))fail('tag restoration binary or independent catalog packaging is missing');
 if(!read('src/shared/tag-commit.ts').includes('assertTagCommitCertified')||!read('native/tag-write-worker/committer.cpp').includes('tag_certification::permits'))fail('native commit certification checks are missing');
+if(!packaging.extraResources.some(item=>item.from==='native/tag-write-worker/build/tag-backup-cleaner.exe'&&item.to==='tag-backup-cleaner.exe'))fail('backup cleaner packaging is missing');
 if(!packaging.extraResources.some(item=>item.from==='native/tag-write-worker/build/tag-file-inspector.exe'&&item.to==='tag-file-inspector.exe'))fail('tag recovery inspector packaging is missing');
 for(const name of ['inspect','inspect-cancel','recover','recover-cancel'])if(!read('src/main/main.ts').includes("'tag-write:"+name+"'")||!read('src/main/preload.ts').includes("'tag-write:"+name+"'"))fail('missing trusted recovery route '+name);
 const ffBuild = json('native/ffmpeg/build-manifest.json');

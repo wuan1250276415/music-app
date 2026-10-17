@@ -10,6 +10,7 @@ module.exports={
   directories:{output:path.resolve(process.env.AURAL_BUILD_OUTPUT||path.join(__dirname,'build-out'))},
   files:['dist/**/*','release/manifest.json','release/media-formats.json','release/tag-write-certification.json','release/tag-restore-certification.json','package.json','!**/*.map'],
   extraResources:[
+    {from:'native/tag-write-worker/build/tag-backup-cleaner.exe',to:'tag-backup-cleaner.exe'},
     {from:'native/tag-write-worker/build/catalog-directory-mover.exe',to:'catalog-directory-mover.exe'},
     {from:'native/system-media/build/system-media.exe',to:'system-media.exe'},
     {from:'native/audio-host/build/fingerprint-worker.exe',to:'fingerprint-worker.exe'},

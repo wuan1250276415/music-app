@@ -18,6 +18,7 @@ for (const file of ['sbom.cdx.json', 'THIRD_PARTY_NOTICES.txt']) {
   same(path.join(root, 'release', file), path.join(unpacked, 'resources', file));
 }
 same(path.join(root, 'LICENSE'), path.join(unpacked, 'resources/AURAL_LICENSE.txt'));
+same(path.join(root, 'native/tag-write-worker/build/tag-backup-cleaner.exe'), path.join(unpacked, 'resources/tag-backup-cleaner.exe'));
 same(path.join(root, 'native/audio-host/build/audio-host.exe'), path.join(unpacked, 'resources/audio-host.exe'));
 same(path.join(root, 'native/asio-probe/build/asio-probe.exe'), path.join(unpacked, 'resources/asio-probe.exe'));
 same(path.join(root, 'native/credential-vault/build/credential-vault.exe'), path.join(unpacked, 'resources/credential-vault.exe'));

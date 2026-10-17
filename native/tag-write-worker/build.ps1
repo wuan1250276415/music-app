@@ -38,4 +38,5 @@ try {
  & cmd.exe /c $directoryMoverCommand
  if ($LASTEXITCODE -ne 0) { throw "Catalog directory mover build failed with exit code $LASTEXITCODE" }
  Write-Host "Built $directoryMoverOutput (not executed; private restore primitive, no apply entry)"
+ & (Join-Path $tagProject 'build-backup-cleaner.ps1')
 } finally { Pop-Location }
