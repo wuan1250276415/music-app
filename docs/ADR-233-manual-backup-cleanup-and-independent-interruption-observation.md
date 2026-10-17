@@ -21,7 +21,7 @@ schema85新增清理操作、不可变命令和阶段回执，支持原命令幂
 | 范围 | 项数 | 证据 |
 |---|---:|---|
 | 核心原生与协调链路 | 9 | v0.229-core-complete.json |
-| 实际Main／Service／Renderer桌面链路 | 6 | v0.229-ui-final.json |
+| 实际Main／Service／Renderer桌面链路 | 6 | v0.229-ui-complete.json |
 | 固定提交0.228旧运行时升级 | 4 | v0.229-upgrade-complete.json |
 | 历史72迁移及回滚 | 4 | v0.229-migration-complete.json |
 

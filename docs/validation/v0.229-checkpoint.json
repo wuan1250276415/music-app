@@ -334,7 +334,7 @@
     "docs/ADR-230-persistent-tag-backup-batches-and-restart-recovery.md": "464e01b6d2f435f289a256dc8c4b2c516b5b449a3c90d00ee5a34b0e19a66089",
     "docs/ADR-231-persistent-certified-tag-commit-batches.md": "a7a1d91bc5ae3a494ae417f0867d6467c95b7f55bdb62feb2c32c37ecc625d41",
     "docs/ADR-232-persistent-tag-review-drafts-and-original-save-recovery.md": "4073bc4aa023e2bc01df45567866e4af8cbfa93452397beba9ce9bf92290ed3c",
-    "docs/ADR-233-manual-backup-cleanup-and-independent-interruption-observation.md": "6a61873b233b86e124f4d9b9a5d03e3dbc74400e24cebce030ab8731c2b784c6",
+    "docs/ADR-233-manual-backup-cleanup-and-independent-interruption-observation.md": "94f4faa7ddcdfba77962f877bcdad54dacf2258fefe9fc6fb9b61fab1277b57f",
     "docs/architecture.md": "70fe9eddac2a73880eaefcb29b76eac943082bcb8c9e616f137adaeb39c09d0d",
     "docs/current-progress.md": "457db9a64a95a6e721615e0f4cd61c3fc5caa39a0d16e070928b313d4d5b5359",
     "docs/development-0.212.md": "1489a6af900776dc844f15061e6bf707358258893589239bfd70b3c86f88c8b8",
