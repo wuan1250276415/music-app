@@ -1,0 +1,19 @@
+{
+  "version": "0.229.0",
+  "completed": true,
+  "scope": "actual pinned0.228 runtime/schema84 and generated file scan with configured retention and durable review draft; real85 DDL rollback, upgrade snapshot and old-runtime refusal; no cleanup or user library migration",
+  "cases": [
+    "actual0.228 runtime scans a real generated file and persists schema84 non-default retention, original policy receipt and unfinished review inputs",
+    "failure after actual85 cleanup DDL rolls back every new object and retains original84 policy, draft, media and genuine pre-v85 snapshot",
+    "actual84 to85 upgrade preserves original retention history, review draft and media bytes, adding empty cleanup operation/receipt tables",
+    "genuine pre-v85 snapshot reopens as original84, actual old runtime refuses85, new runtime reopens idempotently and original music remains unchanged"
+  ],
+  "previousVersion": "0.228.0",
+  "userOriginalMediaChanged": false,
+  "fingerprints": {
+    "src/library/database.ts": "38e966e07c893d1a0f58bd80426f91dc85d4fcb8d4ad297977863a0529b231e5",
+    "src/library/tag-backup-cleanup-operations.ts": "f59cec07c8843aca52598e0464b0c158e11c4caf5d8c3efe20140843c3bde1fb",
+    "src/library/tag-backup-policies.ts": "7eb67ab91337bfeacf72ee2c97d10f884ca18a69f9d941a55d6b0311e14b2395",
+    "tests/tag-backup-upgrade-mvp.smoke.cjs": "9c486c8831ffbf2002c13f0a00c6bb2fe0dde6852a4653a06b6b485eea500dc1"
+  }
+}

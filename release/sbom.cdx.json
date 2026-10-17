@@ -1512,7 +1512,7 @@
         },
         {
           "name": "aural:tag-backup-cleaner-native-sha256",
-          "value": "7a68153c709c1afdd92bbb64ef73d2b75d4706c68cfd14d3f1c642310675a054"
+          "value": "e5cf172a3d003a35db38d717580ee8ca35e605f1d3870b9e555e66f2fc836519"
         },
         {
           "name": "aural:tag-backup-cleaner-build-source-sha256",
@@ -1527,12 +1527,24 @@
           "value": "34300336c6405b2b9a14f78692c6d21ecd99c14612e7269f7652c5f0f0b28ada"
         },
         {
+          "name": "aural:tag-backup-cleanup-manager-source-sha256",
+          "value": "8132837c8365fb85de411bf047af6a5eb44e5c1e79b5c350c26569bd869d76b6"
+        },
+        {
+          "name": "aural:tag-backup-cleanup-operations-source-sha256",
+          "value": "f59cec07c8843aca52598e0464b0c158e11c4caf5d8c3efe20140843c3bde1fb"
+        },
+        {
+          "name": "aural:tag-backup-cleanup-ui-source-sha256",
+          "value": "138d002d20a8e6f09591adbdd84fd0284bcbaf0a4a3e1037b0591f593e740835"
+        },
+        {
           "name": "aural:tag-backup-cleaner-journal-source-sha256",
           "value": "f0bffff6b43bbc946345d16632cdd68d0bb0b39c4ca78af1e808ddce1d5565af"
         },
         {
           "name": "aural:tag-backup-cleaner-development-status",
-          "value": "0.229 schema85 development: manual inspect, explicitly confirmed single-backup deletion, durable database intents and immutable receipts, supervised native exit, stop and separate post-interruption observations with original exit facts retained. Cleanup journals are included in whole-catalog backup and restore validation. Full storage MVP acceptance, background cleanup, automatic retention and current installer acceptance remain pending."
+          "value": "0.229 schema85 manual cleanup MVP: manual inspect, explicitly confirmed single-backup deletion, durable database intents and immutable receipts, supervised native exit, stop and separate post-interruption observations with original exit facts retained. Cleanup journals are included in whole-catalog backup and restore validation. Full storage management acceptance, background cleanup, automatic retention and current installer acceptance remain pending."
         },
         {
           "name": "aural:tag-backup-policy-source-sha256",
@@ -1556,7 +1568,7 @@
         },
         {
           "name": "aural:tag-backup-storage-status",
-          "value": "0.229 schema85 development: append-only default30-day retention/10GiB target, original-command receipts, bounded protected/eligible/unmanaged inventory and manual cleanup UI; fresh native backup identity and hash checks, task/policy/catalog/age/conflict gates before deletion, immutable operation history and explicit independent reconciliation. Core runtime checks use generated owned media and a controlled retention clock. Automatic retention, background batches, capacity enforcement, full storage MVP and production replacement certification remain pending."
+          "value": "0.229 schema85 manual cleanup MVP: append-only default30-day retention/10GiB target, original-command receipts, bounded protected/eligible/unmanaged inventory and manual cleanup UI; fresh native backup identity and hash checks, task/policy/catalog/age/conflict gates before deletion, immutable operation history and explicit independent reconciliation. Core runtime checks use generated owned media and a controlled retention clock. Automatic retention, background batches, capacity enforcement, full storage MVP and production replacement certification remain pending."
         },
         {
           "name": "aural:tag-review-draft-source-sha256",

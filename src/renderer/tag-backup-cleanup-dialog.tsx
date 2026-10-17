@@ -35,7 +35,7 @@ export function TagBackupCleanupDialog({jobId,onClose}:{jobId?:string;onClose:()
   {jobId&&<button disabled={busy||Boolean(running)||uncertain} onClick={()=>void submit({commandId:crypto.randomUUID(),action:'inspect',jobId})}>独立核对此备份</button>}
   {view&&<section data-tag-cleanup-detail={view.id}>
    <h3>{kinds[view.kind]} · {states[view.state]}</h3><p>{view.reason}</p><p>本份文件大小：{view.total} 字节</p>
-   {view.proof&&<p className="collection-note">{view.proof.backup.state==='missing'?'本次核对时未发现原备份。':view.proof.removed?'原备份已按已核对的文件身份清理。':'内容与原备份记录一致；文件仍保留。'}</p>}
+   {view.proof&&<p className="collection-note">{view.state==='observed_missing'?'独立核对时未发现原备份；原清理结果仍未完整确认。':view.state==='observed_present'?'独立核对确认原备份仍在；原清理操作未重新执行。':view.proof.backup.state==='missing'?'本次核对时未发现原备份。':view.state==='removed'&&view.exitConfirmed?'原备份已按已核对的文件身份清理。':view.proof.removed?'已记录文件删除阶段，最终结果仍待确认。':'内容与原备份记录一致；文件仍保留。'}</p>}
    {canDelete&&<><label className="tag-write-confirm"><input type="checkbox" checked={confirmed} disabled={busy||uncertain} onChange={event=>setConfirmed(event.target.checked)}/>我确认清理此份已核对的备份，清理后不能再从此备份恢复</label><button disabled={busy||uncertain||!confirmed} onClick={()=>void submit({commandId:crypto.randomUUID(),action:'remove',inspectionId:view.id,confirmed:true})}>确认清理此备份</button></>}
    {running&&<button disabled={busy||uncertain||view.stopRequested} onClick={()=>void submit({commandId:crypto.randomUUID(),action:'stop',operationId:view.id})}>{view.stopRequested?'已请求停止，等待当前文件结束':'停止此操作'}</button>}
    {view.kind==='delete-backup'&&['interrupted','failed'].includes(view.state)&&!view.reconcileId&&<button disabled={busy||uncertain} onClick={()=>void submit({commandId:crypto.randomUUID(),action:'observe',operationId:view.id})}>核对原清理结果</button>}
