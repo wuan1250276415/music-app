@@ -1,3 +1,4 @@
+import {TagBackupCleanupDialog} from './tag-backup-cleanup-dialog';
 import React,{useEffect,useRef,useState} from 'react';
 import {trap,useFocus} from './dialog-focus';
 import {userError} from './user-error';
@@ -16,6 +17,7 @@ const labels={candidate:'达到保留期，待核对',protected:'保留',unmanag
 export function TagBackupStorageDialog({onClose}:{onClose:()=>void}):React.JSX.Element{
  const dialog=useRef<HTMLDivElement|null>(null);useFocus(dialog);
  const alive=useRef(true),epoch=useRef(0),pending=useRef<TagBackupPolicyRequest|null>(null);
+ const [cleanup,setCleanup]=useState<{jobId?:string}|null>(null);
  const [policy,setPolicy]=useState<TagBackupPolicy|null>(null),[days,setDays]=useState('30'),[cap,setCap]=useState('10737418240');
  const [page,setPage]=useState<TagBackupStoragePage|null>(null),[offset,setOffset]=useState(0),[filter,setFilter]=useState<TagBackupFilter>('all');
  const [reading,setReading]=useState(false),[saving,setSaving]=useState(false),[uncertain,setUncertain]=useState(false),[stale,setStale]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
@@ -47,9 +49,10 @@ export function TagBackupStorageDialog({onClose}:{onClose:()=>void}):React.JSX.E
   }catch(e){if(alive.current){setUncertain(Boolean(pending.current));setError(`${userError(e)}${pending.current?'。请核对原保存结果，将复用原操作。':''}`);}}
   finally{if(alive.current)setSaving(false);}
  }
+ if(cleanup)return <TagBackupCleanupDialog jobId={cleanup.jobId} onClose={()=>{setCleanup(null);void load(filter);}}/>;
  return <div className="collection-backdrop"><div ref={dialog} className="catalog-dialog collection-dialog tag-write-dialog tag-backup-storage-dialog" role="dialog" aria-modal="true" aria-label="标签备份空间" onKeyDown={event=>trap(event,dialog.current,onClose,false)}>
   <header><h2>标签备份与空间</h2><button aria-label="关闭标签备份空间" onClick={onClose}>×</button></header>
-  <p className="collection-note">这里统计标签写入前保存的来源备份。任务未结束、仍需恢复或仍被批次使用的备份会保留。当前可核对空间并保存保留设置，清理执行流程仍在开发；设置和空间核对均不会删除文件。</p>
+  <p className="collection-note">这里统计标签写入前保存的来源备份。任务未结束、仍需恢复或仍被批次使用的备份会保留。达到保留期的备份须先独立核对，再逐份确认清理；保存设置和核对空间本身不会删除文件。</p>
   {error&&<p role="alert" className="collection-error">{error}</p>}
   <section className="tag-backup-policy"><h3>保留设置</h3>
    <label>任务结束后保留天数<input type="number" aria-label="备份保留天数" min={1} max={36500} step={1} value={days} disabled={!policy||saving||uncertain} onChange={event=>setDays(event.target.value)}/></label>
@@ -62,10 +65,10 @@ export function TagBackupStorageDialog({onClose}:{onClose:()=>void}):React.JSX.E
    <p className={page.complete?'collection-note':'collection-error'} role="status">{page.message}{!page.complete?' 本次清单不完整。':''}</p>
    {stale&&<p role="status" className="collection-note">任务或设置有更新，请重新核对空间。</p>}
    <label>显示范围<select aria-label="备份空间显示范围" value={filter} disabled={reading} onChange={event=>void load(event.target.value as TagBackupFilter,0,page.snapshotId)}><option value="all">全部</option><option value="candidates">达到保留期</option><option value="protected">需保留</option><option value="unmanaged">未关联或无法读取</option></select></label>
-   <section className="tag-backup-entries">{page.items.map(item=><article key={item.name} data-tag-backup-item={item.name}><h3>{item.title} <small>{labels[item.disposition]}</small></h3><p>{bytes(item.bytes)}{item.modifiedAt!==null?` · ${new Date(item.modifiedAt).toLocaleString()}`:''}</p><p className="collection-note">{item.reason}</p>{item.jobId&&<p className="collection-note tag-backup-file-name">{item.name}</p>}</article>)}{!page.items.length&&<p>当前范围没有备份文件。</p>}</section>
+   <section className="tag-backup-entries">{page.items.map(item=><article key={item.name} data-tag-backup-item={item.name}><h3>{item.title} <small>{labels[item.disposition]}</small></h3><p>{bytes(item.bytes)}{item.modifiedAt!==null?` · ${new Date(item.modifiedAt).toLocaleString()}`:''}</p><p className="collection-note">{item.reason}</p>{item.jobId&&<p className="collection-note tag-backup-file-name">{item.name}</p>}{item.jobId&&page.cleanupReady&&item.disposition==='candidate'&&<button disabled={reading} onClick={()=>setCleanup({jobId:item.jobId!})}>核对备份后清理</button>}</article>)}{!page.items.length&&<p>当前范围没有备份文件。</p>}</section>
    <div className="tag-backup-pagination"><button disabled={reading||offset===0} onClick={()=>void load(filter,Math.max(0,offset-20),page.snapshotId)}>上一页</button><span>第 {Math.floor(offset/20)+1} 页</span><button disabled={reading||page.nextOffset===null} onClick={()=>void load(filter,page.nextOffset!,page.snapshotId)}>下一页</button></div>
   </>}
   {notice&&<p role="status">{notice}</p>}
-  <footer><button onClick={onClose}>关闭</button><button disabled={reading} onClick={()=>void load(filter)}>{reading?'正在核对空间…':'重新核对空间'}</button></footer>
+  <footer><button onClick={()=>setCleanup({})}>查看清理记录</button><button onClick={onClose}>关闭</button><button disabled={reading} onClick={()=>void load(filter)}>{reading?'正在核对空间…':'重新核对空间'}</button></footer>
  </div></div>;
 }

@@ -52,7 +52,7 @@ export class TagBackupStorage {
   try{const s=await fs.statfs(this.dataDir,{bigint:true});if(s.bavail>=0n&&s.bsize>0n)summary.availableBytes=String(s.bavail*s.bsize);}catch{/* Unavailable is different from zero free space. */}
   signal.throwIfAborted();
   let before:Awaited<ReturnType<typeof this.rootIdentity>>;
-  try{before=await this.rootIdentity();}catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error;return {snapshotId:randomUUID(),observedAt,policy,complete:owned.size===0,message:owned.size?'备份目录不存在，已有任务的备份位置须到恢复页面核对。':'当前还没有标签备份文件。',summary,items,cleanupReady:false};}
+  try{before=await this.rootIdentity();}catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error;return {snapshotId:randomUUID(),observedAt,policy,complete:owned.size===0,message:owned.size?'备份目录不存在，已有任务的备份位置须到恢复页面核对。':'当前还没有标签备份文件。',summary,items,cleanupReady:process.platform==='win32'};}
   const dir=await fs.opendir(this.root);
   try{
    for await(const entry of dir){
@@ -85,7 +85,7 @@ export class TagBackupStorage {
   summary.knownBytes=String(knownBytes);summary.candidateBytes=String(candidateBytes);summary.otherFileBytes=String(otherBytes);
   summary.overBudgetBytes=policy.maxBytes!=='0'&&knownBytes>BigInt(policy.maxBytes)?String(knownBytes-BigInt(policy.maxBytes)):'0';
   items.sort((a,b)=>a.name<b.name?-1:a.name>b.name?1:0);
-  return {snapshotId:randomUUID(),observedAt,policy,complete,message,summary,items,cleanupReady:false};
+  return {snapshotId:randomUUID(),observedAt,policy,complete,message,summary,items,cleanupReady:process.platform==='win32'};
  }
  private async rootIdentity(){
   const stat=await fs.lstat(this.root,{bigint:true});

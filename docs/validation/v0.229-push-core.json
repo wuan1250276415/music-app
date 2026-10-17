@@ -1,0 +1,86 @@
+{
+  "version": "0.229.0",
+  "completed": true,
+  "scope": "production cleanup repository/manager/client and real new native cleaner, generated owned media with actual candidate-completed prerequisite jobs; controlled32-day service clock for retention rather than claiming real elapsed30-day aging; no Main GUI, true process crash, power loss or full failure matrix",
+  "cases": [
+    "real production inventory protects all four current backups; retention policy original-request replay, stale revision refusal and real reopen retain the saved settings",
+    "real independent native inspection cannot authorize removal of a young backup or a staged unfinished job, and source backup remains byte-identical",
+    "controlled retention aging yields three eligible terminal jobs; actual exclusive native hashes persist with normal exit and duplicate command creates no new inspection",
+    "lost acknowledgement after actual delete-ready database commit cannot delete without ACK; explicit new native observation preserves original exit facts and witnesses the same retained backup",
+    "actual handle deletion followed by lost final ACK survives real database reopen; a fresh native missing-path observation is retained separately without inventing original cleanup success",
+    "explicit single-backup cleanup obtains all four immutable journal records, real handle deletion, normal native exit and an idempotent original result with no repeated removal",
+    "physical backup modification after review fails native revalidation before deletion and preserves the externally changed file",
+    "all current music files and protected backup remain byte-identical; append-only cleanup records, foreign keys and original-versus-observed results survive normal reopen",
+    "actual whole-catalog capture includes immutable cleanup files and85 operation records; twelve-domain read-only restore inspection rejects a missing cleanup receipt even when SQLite integrity remains valid"
+  ],
+  "controlledServiceClockOffsetDays": 32,
+  "fixtureMutation": {
+    "path": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\userdata\\library\\tag-backups\\436cf575-7970-4e8d-aba7-59dbf2e42cb0-bc1b81e0-360b-45e7-91c3-aff3808fbe4a.bak",
+    "beforeSha256": "77ca037ab1d10d57bbeb34143778f7d2975b86bed3a3ca1dbc16cd57d2b2e927",
+    "afterSha256": "225daa19d0d997f04b10e5bea73374e7546b0deebec66e6574004f6de517e8a6",
+    "by": "test-only external backup change"
+  },
+  "catalogCapture": {
+    "stagePath": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\userdata\\backups\\catalog\\.aural-backup-a99d4403-3adf-4b29-87d7-6256ac27c5d4-crWfRA",
+    "files": 64,
+    "cleanupJournals": 26
+  },
+  "userOriginalMediaChanged": false,
+  "productionWriteCertificatesEnabled": false,
+  "fixture": {
+    "scratch": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN",
+    "orchestrationRoot": "D:/CodexTestData/aural-backup-storage-mvp-U40PEM",
+    "data": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\userdata\\library",
+    "music": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\music",
+    "files": [
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\music\\备份0.flac",
+        "originalSha": "aefdacc0a830ebc80a244833ec2b8a17508c59cb661264138d9907ece7e5474a",
+        "jobId": "948f07f1-590a-43bd-88c0-9c8eb67a37fd",
+        "itemId": "e5897e65-afa8-4794-ac13-ea1c6d36efdc",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\userdata\\library\\tag-backups\\948f07f1-590a-43bd-88c0-9c8eb67a37fd-fbb6c3d2-e6ef-470f-82e9-a1f1c06614a5.bak",
+        "currentSha": "5475137c11e048bae713287ed490373ae1576566bb0b143750aed53fa3a37ed5"
+      },
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\music\\备份1.flac",
+        "originalSha": "3583f23244eb82b6588429b55fc685e33ad90d15a4e315d2a996bfda89e78102",
+        "jobId": "6d7cee09-7fbe-4033-8f0f-73521f8a9661",
+        "itemId": "a69bb9f5-d231-4454-928d-de52133c8ac7",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\userdata\\library\\tag-backups\\6d7cee09-7fbe-4033-8f0f-73521f8a9661-25a76efe-2d27-4983-a0e5-3febcc2f3618.bak",
+        "currentSha": "92f47de6f4a7a8152ce4c689988bb00e49e9d441b1fc50c3cd27382774e061eb"
+      },
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\music\\备份2.flac",
+        "originalSha": "77ca037ab1d10d57bbeb34143778f7d2975b86bed3a3ca1dbc16cd57d2b2e927",
+        "jobId": "436cf575-7970-4e8d-aba7-59dbf2e42cb0",
+        "itemId": "8c12256c-f047-4542-a8d9-19cb4e9524bd",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\userdata\\library\\tag-backups\\436cf575-7970-4e8d-aba7-59dbf2e42cb0-bc1b81e0-360b-45e7-91c3-aff3808fbe4a.bak",
+        "currentSha": "fe92b229ff15dfcd9891e3f06dd0248c68367116618df37463e1c2361b99672a"
+      },
+      {
+        "file": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\music\\备份3.flac",
+        "originalSha": "3d83e8e84b6c9d6ed95234c5fe13143f916e9c2278cb8afed397caa423f1f553",
+        "jobId": "cd4c7bce-a9b6-48d9-b0af-16a6312942bd",
+        "itemId": "f89d0264-7933-4a06-826f-fc5c616fb03c",
+        "backup": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\userdata\\library\\tag-backups\\cd4c7bce-a9b6-48d9-b0af-16a6312942bd-cc472178-85f9-46f9-80d3-78de37953bc6.bak",
+        "currentSha": "3d83e8e84b6c9d6ed95234c5fe13143f916e9c2278cb8afed397caa423f1f553"
+      }
+    ],
+    "filename": "D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-iAR0LN\\userdata\\library\\library.db",
+    "candidateEvidenceSha256": "25712bde2c13f84d05b164842ac08313abe8f14eeb9a049393c7bfcb4cee5eca"
+  },
+  "fingerprints": {
+    "src/shared/catalog-backup.ts": "a4c8cbb89fa97485da260c50d26aac44d6bf25d09221fa2bdb3310054ea3bbd7",
+    "src/library/catalog-backup-snapshot.ts": "6133d51ac0423e575759bc2e48cdefe83edf2101b3a5d82e559e9936fb482881",
+    "src/platform/catalog-backup-file.ts": "d8d860643d06a7eb0425ca8109a561228fbf3cd067fccda445230538ce92116f",
+    "src/library/tag-backup-catalog.ts": "3bcdd5ad2051fe8f4d7f87afd8b32e2f7e58c09cb87b62f7a1d7267d840f01e2",
+    "src/library/tag-backup-cleanup-manager.ts": "8132837c8365fb85de411bf047af6a5eb44e5c1e79b5c350c26569bd869d76b6",
+    "src/library/tag-backup-cleanup-operations.ts": "f59cec07c8843aca52598e0464b0c158e11c4caf5d8c3efe20140843c3bde1fb",
+    "src/library/tag-backup-cleaner.ts": "34300336c6405b2b9a14f78692c6d21ecd99c14612e7269f7652c5f0f0b28ada",
+    "src/library/tag-backup-cleanup-journal.ts": "f0bffff6b43bbc946345d16632cdd68d0bb0b39c4ca78af1e808ddce1d5565af",
+    "src/shared/tag-backup-cleanup.ts": "a2eaa27395b3fde8d46e84702080cfbd9285a75e9ffa948d5dbf64c0bd952c5a",
+    "native/tag-write-worker/backup-cleaner.cpp": "f1eebc9465146af46d3438bbafb826c9dc5dd867ff032959d922fd43537889a3",
+    "tests/tag-backup-cleanup-mvp.smoke.cjs": "38b7f3e5db8bc8d0fc87773c89cacb049121939fbfa066d93da68b080a32154d",
+    "tests/helpers/tag-backup-cleanup-fixture.cjs": "5fadd67debc8947cc3cc2feace40e83fa2e15efe1f31a62ec504f65f9309bc8b"
+  }
+}

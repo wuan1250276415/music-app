@@ -1,3 +1,4 @@
+import {TagBackupCleanupManager} from './tag-backup-cleanup-manager.js';
 import {TagBackupStorage} from './tag-backup-storage.js';
 import {TagReviewController} from './tag-review-controller.js';
 import {readRecognitionMapping} from '../shared/recognition-mapping.js';
@@ -142,6 +143,7 @@ let mediaParser:MediaParser|undefined;
 let tagWrite:TagWriteManager|undefined;
 let tagReview:TagReviewController|undefined;
 let tagBackupStorage:TagBackupStorage|undefined;
+let tagBackupCleanup:TagBackupCleanupManager|undefined;
 const serviceReads=new FileReadGate();
 let localLyrics:LocalLyricsLoader|undefined;
 let lastScanLibraryNotice=0;
@@ -176,6 +178,7 @@ function constructLibraryRuntime(params:unknown,folder:string,paused:boolean):vo
     const tagWorkerPath=(params as {tagWorkerPath?:string}).tagWorkerPath;if(typeof tagWorkerPath!=='string'||!path.isAbsolute(tagWorkerPath))throw new Error('标签暂存监督组件路径无效');
     tagWrite=new TagWriteManager(currentDb,mediaParser,{dataDir:folder,executable:tagWorkerPath,quiesce:async(fileId,filename,owner)=>{await Promise.all([serviceReads.quiesce(filename,owner),scans!.quiesceFile(filename,owner),waveforms!.quiesceFile(fileId),fingerprints!.quiesceFile(fileId)]);},release:(filename,owner)=>{serviceReads.release(filename,owner);scans!.releaseFile(filename,owner);},releaseRecovered:(filename,owner)=>{serviceReads.releaseRecovered(filename,owner);scans!.releaseRecoveredFile(filename,owner);},invalidated:jobId=>{artworkRequests.clear();reply({event:'libraryChanged',payload:{jobId,reason:'tag-commit-review'}});},recovered:jobId=>{artworkRequests.clear();reply({event:'libraryChanged',payload:{jobId,reason:'tag-recovery-rescan'}});},changed:(jobId,error)=>reply({event:'tagWriteJobsChanged',payload:{jobId,...(error?{error}:{})}})});
     tagBackupStorage=new TagBackupStorage(currentDb,folder);
+    tagBackupCleanup=new TagBackupCleanupManager(currentDb,tagWrite,folder,path.join(path.dirname(tagWorkerPath),'tag-backup-cleaner.exe'),id=>reply({event:'tagBackupStorageChanged',payload:{operationId:id}}));
     tagReview=new TagReviewController(currentDb,tagWrite,(id,jobId)=>{reply({event:'tagReviewDraftChanged',payload:{draftId:id}});if(jobId)reply({event:'tagWriteJobsChanged',payload:{jobId}});});
     localLyrics=new LocalLyricsLoader(mediaParser);
     scans=new ScanManager(currentDb,state=>reply({event:'scan',payload:state}),(jobId,final)=>{reply({event:'scanJobsChanged',payload:{jobId}});libraryWatch?.observeScan(jobId);if(final||Date.now()-lastScanLibraryNotice>=2000){lastScanLibraryNotice=Date.now();if(final)artworkRequests.clear();reply({event:'libraryChanged',payload:{jobId}});}},mediaParser);
@@ -187,7 +190,7 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
     if(db)throw new Error('曲库已初始化，不能替换活动连接');
     const restore=method==='catalogRestoreInit'?readCatalogRestoreBootRequest((params as {restore?:unknown})?.restore):null;
     if(!restore&&(params as {restore?:unknown})?.restore!==undefined)throw new Error('普通启动不能包含恢复启动指令');
-    await tagBackupStorage?.close();tagReview?.close();tagWrite?.close();
+    await tagBackupCleanup?.close();await tagBackupStorage?.close();tagReview?.close();tagWrite?.close();
     libraryWatch?.close();
     const folder = String((params as { dataDir: string }).dataDir);
     if(!path.isAbsolute(folder)||folder.length>32767)throw new Error('曲库目录无效');libraryDataDir=folder;
@@ -215,7 +218,11 @@ async function dispatch(method: string, params: unknown): Promise<unknown> {
     scheduleSearchIndex();return {version:1,ready:true,instanceId:serviceInstanceId,pid:process.pid,buildId:RELEASE.mainBuildId,...(normalPermission?{existingLibrary:{permissionSha256:lifecycleDigest(normalPermission),libraryIdentity:normalPermission.libraryIdentity,origin:normalPermission.origin}}:{})};
   }
   if (!db) throw new Error('音乐库尚未初始化');
+  if(tagBackupCleanup?.busy&&['tagWriteStageTarget','tagWriteStage','tagWriteInspect','tagWriteRecover','tagRestoreReprobe','tagRestoreInspect','tagRestoreRetry','tagRestoreStart','tagCommitTarget','tagCommitStart','tagCommitInspect','tagCommitReprobe','tagCommitBatchTarget','tagCommitBatchStartItem','tagWritePreview','tagWritePrepare','tagReviewDraftPreview','tagReviewDraftSave'].includes(method))throw new Error('备份核对或清理正在进行，请等待当前备份操作结束');
   switch (method) {
+    case 'tagBackupCleanupCommand':return tagBackupCleanup!.command(params);
+    case 'tagBackupCleanupGet':return tagBackupCleanup!.get(params as string);
+    case 'tagBackupCleanupList':return db.tagBackupCleanups.list(params);
     case 'tagBackupPolicy':return db.tagBackupPolicies.load();
     case 'tagBackupPolicyConfigure':{const result=db.tagBackupPolicies.configure(params);reply({event:'tagBackupStorageChanged',payload:{revision:result.policy.revision}});return result;}
     case 'tagBackupStorage':return tagBackupStorage!.page(params as import('../shared/tag-backup-storage.js').TagBackupStorageRequest);
@@ -816,7 +823,7 @@ async function freezeLibraryResources(owner:string,waitRequests:()=>Promise<void
   tagReview?.close();tagWrite.close();invalidateMetadataNetwork();networkBroker.beginMaintenance(owner);
   // Register all drains immediately, then await every result; one failure cannot
   // release other owners or leave an unobserved rejecting drain.
-  const drains=[tagBackupStorage?.beginMaintenance(owner)??Promise.resolve(),libraryWatch.beginMaintenance(owner),scans.beginMaintenance(owner),waveforms.beginMaintenance(owner),recognition!.beginMaintenance(owner),fingerprints!.beginMaintenance(owner),mediaParser.beginMaintenance(owner),serviceReads.quiesceAll(owner),networkBroker.waitMaintenance(owner),restoreWork??Promise.resolve(),waitRequests()];
+  const drains=[tagBackupCleanup?.beginMaintenance(owner)??Promise.resolve(),tagBackupStorage?.beginMaintenance(owner)??Promise.resolve(),libraryWatch.beginMaintenance(owner),scans.beginMaintenance(owner),waveforms.beginMaintenance(owner),recognition!.beginMaintenance(owner),fingerprints!.beginMaintenance(owner),mediaParser.beginMaintenance(owner),serviceReads.quiesceAll(owner),networkBroker.waitMaintenance(owner),restoreWork??Promise.resolve(),waitRequests()];
   const results=await Promise.allSettled(drains);
   const failure=results.find((result):result is PromiseRejectedResult=>result.status==='rejected');if(failure)throw failure.reason;
   await tagWrite.beginMaintenance(owner);await tagReview?.drain();networkBroker.assertMaintenanceIdle(owner);
@@ -825,7 +832,7 @@ const catalogMaintenance=new CatalogMaintenance({
  freeze:freezeLibraryResources,
  release:async(owner,resumeWatch)=>{
   if(!db||!scans||!libraryWatch||!mediaParser||!waveforms||!tagWrite)throw new Error('曲库维护组件已退出');
-  tagBackupStorage?.endMaintenance(owner);tagWrite.endMaintenance(owner);networkBroker.endMaintenance(owner);mediaParser.endMaintenance(owner);serviceReads.releaseAll(owner);
+  tagBackupCleanup?.endMaintenance(owner);tagBackupStorage?.endMaintenance(owner);tagWrite.endMaintenance(owner);networkBroker.endMaintenance(owner);mediaParser.endMaintenance(owner);serviceReads.releaseAll(owner);
   libraryWatch.endMaintenance(owner,resumeWatch);waveforms.endMaintenance(owner);recognition!.endMaintenance(owner);fingerprints!.endMaintenance(owner);scans.endMaintenance(owner);
   // Start on a later turn, after the global maintenance gate has published release.
   setImmediate(()=>{if(catalogMaintenance.held)return;scheduleSearchIndex();restoreFiles();if(!restoreTimer){restoreTimer=setInterval(restoreFiles,5000);restoreTimer.unref();}});
@@ -847,7 +854,7 @@ function prepareWritableRestore(value:unknown):Promise<CatalogRestoreActivationP
  const work=catalogMaintenance.prepareFrozen(request,async()=>{
   if(!db||request.instanceId!==serviceInstanceId||catalogMaintenance.snapshot().token!==request.token)throw new Error('恢复激活实例或冻结租约已变化');
   await verifyDormantLibrary(libraryDataDir,boot.request);networkBroker.assertMaintenanceIdle(request.token);
-  libraryWatch?.close();await tagBackupStorage?.close();tagReview?.close();tagWrite?.close();await recognition?.dispose();recognition=undefined;db.close();db=undefined;
+  libraryWatch?.close();await tagBackupCleanup?.close();await tagBackupStorage?.close();tagReview?.close();tagWrite?.close();await recognition?.dispose();recognition=undefined;db.close();db=undefined;
   let policy:import('../shared/catalog-restore-policy.js').CatalogRestorePolicy|null=null,metadata:import('./catalog-backup-database.js').BackupDatabaseMetadata;
   const writable=new LibraryDatabase(path.join(libraryDataDir,'library.db'),{restoreWritablePaused:true});
   try{if(request.role==='candidate')policy=writable.restorePolicy.apply(request,lifecycleDigest(boot.request.manifest),boot.request.manifest.origin);metadata=writable.catalogMetadata();}finally{writable.close();}
@@ -887,7 +894,7 @@ async function prepareRestoreNormal(value:unknown):Promise<RestoreNormalProof>{
   if(JSON.stringify(await inventoryCatalogLibraryRoot(libraryDataDir,{signal}))!==JSON.stringify(expected))throw new Error('普通服务准备前曲库完整资料变化');
   const snapshot=()=>{if(!db)throw new Error('恢复连接已关闭');return restoreLibrarySnapshot(db);};
   const priorPolicy=lifecycleDigest(db.restorePolicy.load());if(lifecycleDigest(snapshot())!==hydrated.snapshotSha256)throw new Error('普通服务准备前使用状态不同');
-  libraryWatch?.close();await tagBackupStorage?.close();tagReview?.close();tagWrite?.close();await recognition?.dispose();recognition=undefined;db.close();db=undefined;
+  libraryWatch?.close();await tagBackupCleanup?.close();await tagBackupStorage?.close();tagReview?.close();tagWrite?.close();await recognition?.dispose();recognition=undefined;db.close();db=undefined;
   db=new LibraryDatabase(path.join(libraryDataDir,'library.db'),{restoreNormalPaused:true});db.prepareRestoreNormal();
   const metadata=db.catalogMetadata(),policy=db.restorePolicy.load(),snapshotSha256=lifecycleDigest(snapshot());
   if(metadata.origin!==activation.manifest.origin||JSON.stringify(metadata.counts)!==JSON.stringify(activation.manifest.counts)||lifecycleDigest(policy)!==priorPolicy||snapshotSha256!==hydrated.snapshotSha256)throw new Error('普通服务准备改变曲库来源、数量、权限或使用状态');

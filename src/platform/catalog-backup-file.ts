@@ -50,7 +50,7 @@ function contained(root:string,relative:string):string{
  backupPathRole(relative);const filename=path.resolve(root,...relative.split('/')),suffix=path.relative(root,filename);
  if(!suffix||suffix.startsWith('..'+path.sep)||suffix==='..'||path.isAbsolute(suffix))throw new Error('备份条目越过暂存目录');return filename;
 }
-const allowedDirectory=(relative:string)=>relative==='library'||relative==='state'||/^library\/(tag-write|tag-commit|tag-restore|tag-backups)$/.test(relative)||/^library\/(tag-write|tag-commit|tag-restore)\/[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$/.test(relative);
+const allowedDirectory=(relative:string)=>relative==='library'||relative==='state'||/^library\/(tag-write|tag-commit|tag-restore|tag-backup-cleanup|tag-backups)$/.test(relative)||/^library\/(tag-write|tag-commit|tag-restore|tag-backup-cleanup)\/[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$/.test(relative);
 async function tree(root:string,check:()=>void,prefix=''):Promise<string[]>{
  const rootStat=await directory(root),files:string[]=[];let nodes=0;
  async function walk(folder:string,relative:string):Promise<void>{

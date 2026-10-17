@@ -1,3 +1,4 @@
+import {TagBackupCleanupOperations,tagBackupCleanupSchema,validateTagBackupCleanupOperations} from './tag-backup-cleanup-operations.js';
 import {TagBackupCatalog} from './tag-backup-catalog.js';
 import {TagBackupPolicies,tagBackupPolicySchema,validateTagBackupPolicies} from './tag-backup-policies.js';
 import {TagReviewDrafts,tagReviewDraftSchema,validateTagReviewDrafts} from './tag-review-drafts.js';
@@ -213,6 +214,7 @@ export class LibraryDatabase {
   readonly tagCommitBatches:TagCommitBatches;
   readonly tagReviewDrafts:TagReviewDrafts;
   readonly tagBackupPolicies:TagBackupPolicies;
+  readonly tagBackupCleanups:TagBackupCleanupOperations;
   readonly tagBackupCatalog:TagBackupCatalog;
   private savepointSerial=0;
   private playbackStatsClock:PlaybackStatsClock|undefined;
@@ -248,8 +250,8 @@ export class LibraryDatabase {
     this.db.function('aural_cue_path_key_v1',{deterministic:true},value=>{if(typeof value!=='string')throw new Error('CUE 路径索引无效');return cuePathKey(value);});
     this.catalog=new CatalogRepository(this.db);
     try{
-      if(options.restoreDormant){this.db.exec('PRAGMA query_only=ON; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=2000;');if(Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==84)throw new Error('恢复只读启动不允许创建或迁移曲库');}
-      else if(options.restoreWritablePaused||options.restoreNormalPaused){this.db.exec('PRAGMA foreign_keys=ON; PRAGMA synchronous=FULL; PRAGMA busy_timeout=2000;');if(Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==84||(this.db.prepare('PRAGMA journal_mode').get() as {journal_mode:string}).journal_mode!=='delete')throw new Error('恢复可写暂停连接要求现有schema84和DELETE日志，禁止创建或迁移');}
+      if(options.restoreDormant){this.db.exec('PRAGMA query_only=ON; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=2000;');if(Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==85)throw new Error('恢复只读启动不允许创建或迁移曲库');}
+      else if(options.restoreWritablePaused||options.restoreNormalPaused){this.db.exec('PRAGMA foreign_keys=ON; PRAGMA synchronous=FULL; PRAGMA busy_timeout=2000;');if(Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==85||(this.db.prepare('PRAGMA journal_mode').get() as {journal_mode:string}).journal_mode!=='delete')throw new Error('恢复可写暂停连接要求现有schema85和DELETE日志，禁止创建或迁移');}
       else{this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=2000;');this.migrate(options.startupProgress);clearSqlStatements(this.db);}
       this.restorePolicy=new CatalogRestorePolicyRepository(this.db,action=>this.transaction(action));this.restorePolicy.load();
       this.artworkStore=new ArtworkStore(this.db,action=>this.transaction(action));
@@ -266,7 +268,8 @@ export class LibraryDatabase {
       this.tagWriteJobs=new TagWriteJobs(this.db,action=>this.transaction(action));
       this.tagStageBatches=new TagStageBatches(this.db,action=>this.transaction(action),id=>this.tagWriteJobs.material(id).job,id=>this.restorePolicy.assertTagJob(id));
       this.tagCommitBatches=new TagCommitBatches(this.db,action=>this.transaction(action),id=>this.tagWriteJobs.material(id).job,id=>this.restorePolicy.assertTagJob(id));
-      this.tagBackupCatalog=new TagBackupCatalog(this.db,this.tagWriteJobs);
+      this.tagBackupCatalog=new TagBackupCatalog(this.db,this.tagWriteJobs,id=>this.restorePolicy.assertTagJob(id));
+      this.tagBackupCleanups=new TagBackupCleanupOperations(this.db,action=>this.transaction(action));
       this.tagBackupPolicies=new TagBackupPolicies(this.db,action=>this.transaction(action));
       this.tagReviewDrafts=new TagReviewDrafts(this.db,action=>this.transaction(action),id=>this.getItem(id),request=>this.tagWriteJobs.prepareReceipt(request));
       if(!options.restoreDormant&&!options.restoreWritablePaused&&!options.restoreNormalPaused){this.tagWriteJobs.recoverInterrupted();this.tagStageBatches.recover();this.tagCommitBatches.recover();}
@@ -308,7 +311,7 @@ export class LibraryDatabase {
       });
       this.metadataWorkflows=new MetadataWorkflowRepository(this.db,action=>this.transaction(action),id=>this.getItem(id),id=>this.metadataRecognitions?.get(id)??null);
       this.metadataRecognitions=new MetadataRecognitionRepository(this.db,action=>this.transaction(action));
-      if(!options.restoreDormant&&!options.restoreWritablePaused&&!options.restoreNormalPaused){this.metadataWorkflows.recover();this.metadataRecognitions.recover();this.tagReviewDrafts.recover();}
+      if(!options.restoreDormant&&!options.restoreWritablePaused&&!options.restoreNormalPaused){this.metadataWorkflows.recover();this.metadataRecognitions.recover();this.tagReviewDrafts.recover();this.tagBackupCleanups.recover();}
       this.metadataAlbums=new MetadataAlbumReviewRepository({snapshot:id=>this.metadataAlbumSnapshot(id),retention:()=>this.requireMetadataRetention(),receipt:r=>this.metadataBatches.albumCreationReceipt(r),create:(r,c,identity)=>this.metadataBatches.createFromAlbum(r,c,identity)});
       this.metadataIdentities=new MetadataIdentityRepository(this.metadataAlbums,this.references);
       this.metadataGroupLinks=new MetadataGroupLinkRepository(this.db,this.metadataAlbums,this.references,this.catalog,id=>this.refreshEffectiveSearch(id));
@@ -326,17 +329,17 @@ export class LibraryDatabase {
 
   prepareRestoreNormal():void{
     if(!this.restoreNormalCandidate||this.restoreNormalPrepared||!this.searchIndex||this.db.isTransaction)throw new Error('普通服务准备不属于当前暂停连接或已经执行');
-    this.searchIndex.prepareAlgorithm();{this.tagWriteJobs.recoverInterrupted();this.tagStageBatches.recover();this.tagCommitBatches.recover();this.tagReviewDrafts.recover();}this.scanJobs.recover();this.metadataWorkflows.recover();this.metadataRecognitions.recover();this.waveforms.interrupted();this.restoreNormalPrepared=true;
+    this.searchIndex.prepareAlgorithm();{this.tagWriteJobs.recoverInterrupted();this.tagStageBatches.recover();this.tagCommitBatches.recover();this.tagReviewDrafts.recover();this.tagBackupCleanups.recover();}this.scanJobs.recover();this.metadataWorkflows.recover();this.metadataRecognitions.recover();this.waveforms.interrupted();this.restoreNormalPrepared=true;
   }
   assertRestoreWalReady():void{
-    if(!this.restoreNormalCandidate||!this.restoreWalPrepared||this.db.isTransaction||Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==84||(this.db.prepare('PRAGMA journal_mode').get() as {journal_mode:string}).journal_mode!=='wal'||Number((this.db.prepare('PRAGMA foreign_keys').get() as {foreign_keys:number}).foreign_keys)!==1||Number((this.db.prepare('PRAGMA synchronous').get() as {synchronous:number}).synchronous)!==2)throw new Error('恢复曲库释放前连接已改变或未完成WAL准备');
+    if(!this.restoreNormalCandidate||!this.restoreWalPrepared||this.db.isTransaction||Number((this.db.prepare('PRAGMA user_version').get() as {user_version:number}).user_version)!==85||(this.db.prepare('PRAGMA journal_mode').get() as {journal_mode:string}).journal_mode!=='wal'||Number((this.db.prepare('PRAGMA foreign_keys').get() as {foreign_keys:number}).foreign_keys)!==1||Number((this.db.prepare('PRAGMA synchronous').get() as {synchronous:number}).synchronous)!==2)throw new Error('恢复曲库释放前连接已改变或未完成WAL准备');
   }
-  prepareRestoreWal():{schema:84;journalMode:'wal';foreignKeys:true;synchronous:2;integrity:'ok';foreignKeyViolations:0}{
+  prepareRestoreWal():{schema:85;journalMode:'wal';foreignKeys:true;synchronous:2;integrity:'ok';foreignKeyViolations:0}{
     if(!this.restoreNormalCandidate||this.restoreWalPrepared||this.db.isTransaction)throw new Error('恢复WAL转换不属于当前暂停连接或已执行');
     const before=this.db.prepare('PRAGMA journal_mode').get() as {journal_mode:string};if(before.journal_mode!=='delete')throw new Error('恢复WAL转换前日志模式不同');
     const mode=this.db.prepare('PRAGMA journal_mode=WAL').get() as {journal_mode:string},schema=this.db.prepare('PRAGMA user_version').get() as {user_version:number},foreign=this.db.prepare('PRAGMA foreign_keys').get() as {foreign_keys:number},sync=this.db.prepare('PRAGMA synchronous').get() as {synchronous:number},integrity=this.db.prepare('PRAGMA integrity_check(1)').get() as {integrity_check:string};
-    if(mode.journal_mode!=='wal'||schema.user_version!==84||foreign.foreign_keys!==1||sync.synchronous!==2||integrity.integrity_check!=='ok'||this.db.prepare('PRAGMA foreign_key_check').get())throw new Error('恢复WAL连接、完整性或外键未确认');this.restoreWalPrepared=true;
-    return {schema:84,journalMode:'wal',foreignKeys:true,synchronous:2,integrity:'ok',foreignKeyViolations:0};
+    if(mode.journal_mode!=='wal'||schema.user_version!==85||foreign.foreign_keys!==1||sync.synchronous!==2||integrity.integrity_check!=='ok'||this.db.prepare('PRAGMA foreign_key_check').get())throw new Error('恢复WAL连接、完整性或外键未确认');this.restoreWalPrepared=true;
+    return {schema:85,journalMode:'wal',foreignKeys:true,synchronous:2,integrity:'ok',foreignKeyViolations:0};
   }
   close(): void {this.releaseFields?.clear();this.metadataAlbums?.clear();this.metadataIdentities?.clear();this.metadataGroupLinks?.clear();this.metadataAlbumCredits?.clear();clearSqlStatements(this.db);this.db.close();}
   catalogMetadata():import('./catalog-backup-database.js').BackupDatabaseMetadata{return sourceMetadata(this.db);}
@@ -352,8 +355,8 @@ export class LibraryDatabase {
 
   private migrate(progress?:(phase:LibraryStartupPhase)=>void): void {
     const version = Number((this.db.prepare('PRAGMA user_version').get() as { user_version: number }).user_version);
-    if (version > 84) throw new Error(`数据库版本 ${version} 高于当前应用支持版本`);
-    if (version === 84) return;
+    if (version > 85) throw new Error(`数据库版本 ${version} 高于当前应用支持版本`);
+    if (version === 85) return;
     if(version<6){
     if (version === 0) this.db.exec(`
       BEGIN;
@@ -887,6 +890,7 @@ export class LibraryDatabase {
     if(version<82){const counts=snapshotQueryIndexUpgrade(this.db,this.filename,version===81,progress,{from:81,to:82});this.transaction(()=>{this.db.exec(tagCommitBatchSchema);progress?.('index-verify');verifyQueryIndexUpgrade(this.db,counts);validateTagCommitBatches(this.db);this.db.exec('PRAGMA user_version=82');});}
     if(version<83){const counts=snapshotQueryIndexUpgrade(this.db,this.filename,version===82,progress,{from:82,to:83});this.transaction(()=>{this.db.exec(tagReviewDraftSchema);progress?.('index-verify');verifyQueryIndexUpgrade(this.db,counts);validateTagReviewDrafts(this.db);this.db.exec('PRAGMA user_version=83');});}
     if(version<84){const counts=snapshotQueryIndexUpgrade(this.db,this.filename,version===83,progress,{from:83,to:84});this.transaction(()=>{this.db.exec(tagBackupPolicySchema);progress?.('index-verify');verifyQueryIndexUpgrade(this.db,counts);validateTagBackupPolicies(this.db);this.db.exec('PRAGMA user_version=84');});}
+    if(version<85){const counts=snapshotQueryIndexUpgrade(this.db,this.filename,version===84,progress,{from:84,to:85});this.transaction(()=>{this.db.exec(tagBackupCleanupSchema);progress?.('index-verify');verifyQueryIndexUpgrade(this.db,counts);validateTagBackupCleanupOperations(this.db);this.db.exec('PRAGMA user_version=85');});}
   }
 
   private transaction<T>(action: () => T): T {

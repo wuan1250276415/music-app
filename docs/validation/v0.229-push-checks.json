@@ -1,0 +1,25 @@
+{
+  "version": "0.229.0",
+  "kind": "development-source-push",
+  "checkedAt": "2026-10-17T03:17:30.301714+00:00",
+  "checks": {
+    "applicationBuild": true,
+    "mainAndRendererTypecheck": true,
+    "releaseManifest": true,
+    "distributionInventory": true,
+    "newCjsSyntax": true,
+    "backupCleanupCore": {
+      "completed": true,
+      "passedCases": 9,
+      "report": "v0.229-push-core.json",
+      "sha256": "229ea9acb7d0ba0be14802ee1c4e3cdebf2a862656e31ed2538fb58c41947146"
+    }
+  },
+  "nativeCleanerSha256": "7a68153c709c1afdd92bbb64ef73d2b75d4706c68cfd14d3f1c642310675a054",
+  "limits": [
+    "Development snapshot, not full storage MVP acceptance",
+    "Core tests use generated owned media and controlled32-day service clock",
+    "No current-source GUI, complete fault matrix or hardware acceptance claimed by this push",
+    "No new installer or production write/restore certification"
+  ]
+}

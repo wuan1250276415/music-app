@@ -40,7 +40,7 @@ export async function createCatalogDatabaseSnapshot(db:DatabaseSync,filename:str
  }finally{try{if(target)target.close();}finally{await reservation.close();}}
 }
 type Managed={relative:string;source:string;before:BigIntStats};
-const managedFolders=['tag-backups','tag-write','tag-commit','tag-restore'] as const;
+const managedFolders=['tag-backups','tag-write','tag-commit','tag-restore','tag-backup-cleanup'] as const;
 async function managedFiles(library:string,check:()=>void):Promise<Managed[]>{
  await directory(library);const files:Managed[]=[];let nodes=0;
  async function walk(source:string,relative:string):Promise<void>{

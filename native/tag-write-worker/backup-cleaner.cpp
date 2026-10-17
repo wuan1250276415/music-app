@@ -1,21 +1,28 @@
 #include "tag-file-transaction.hpp"
 
 static void cleanBackup(const json& r){
- if(!keys(r,{"version","kind","operationId","jobId","backupArtifactId","backupRoot","source","expected"})||r.at("version")!=1||(r.at("kind")!="inspect-backup"&&r.at("kind")!="delete-backup")||!uuid(r.at("jobId").get<std::string>())||!uuid(r.at("backupArtifactId").get<std::string>()))throw std::runtime_error("invalid backup cleanup identity");
- const bool removing=r.at("kind")=="delete-backup";const auto expected=r.at("expected"),source=r.at("source");
- if(!keys(source,{"sha256","audioSha256","metadataSha256","byteLength","audioOffset","audioBytes"})||!digest(source.at("sha256"))||!digest(source.at("audioSha256"))||!digest(source.at("metadataSha256"))||(!removing&&!expected.is_null())||(removing&&(!keys(expected,{"root","backup","removed"})||expected.at("removed")!=false||expected.at("backup").at("flac")!=source)))throw std::runtime_error("backup deletion requires verified original content");
+ if(!keys(r,{"version","kind","operationId","jobId","backupArtifactId","backupRoot","source","expected"})||r.at("version")!=1||(r.at("kind")!="inspect-backup"&&r.at("kind")!="delete-backup"&&r.at("kind")!="observe-backup")||!uuid(r.at("jobId").get<std::string>())||!uuid(r.at("backupArtifactId").get<std::string>()))throw std::runtime_error("invalid backup cleanup identity");
+ const bool removing=r.at("kind")=="delete-backup",observing=r.at("kind")=="observe-backup";const auto expected=r.at("expected"),source=r.at("source");
+ if(!keys(source,{"sha256","audioSha256","metadataSha256","byteLength","audioOffset","audioBytes"})||!digest(source.at("sha256"))||!digest(source.at("audioSha256"))||!digest(source.at("metadataSha256"))||(!removing&&!observing&&!expected.is_null())||((removing||observing)&&(!keys(expected,{"root","backup","removed"})||expected.at("removed")!=false||expected.at("backup").at("flac")!=source)))throw std::runtime_error("backup deletion requires verified original content");
  const auto rootName=normal(wide(r.at("backupRoot").get<std::string>()));
  DirectoryPins pins;HANDLE root=pins.pin(rootName);const auto rootId=identity(root,true);
- if(removing)for(const char* k:{"volume","fileId","creation"})if(rootId.at(k)!=expected.at("root").at(k))throw std::runtime_error("backup root changed since review");
+ if(removing||observing)for(const char* k:{"volume","fileId","creation"})if(rootId.at(k)!=expected.at("root").at(k))throw std::runtime_error("backup root changed since review");
  Artifact backup;backup.role="backup";backup.name=rootName+L"\\"+wide(r.at("jobId").get<std::string>())+L"-"+wide(r.at("backupArtifactId").get<std::string>())+L".bak";backup.name=normal(backup.name);leafOf(backup.name);
  if(parentOf(backup.name)!=rootName)throw std::runtime_error("backup path escaped pinned directory");
  backup.handle.value=CreateFileW(extended(backup.name).c_str(),GENERIC_READ|(removing?DELETE:0),0,nullptr,OPEN_EXISTING,FILE_FLAG_OPEN_REPARSE_POINT|FILE_FLAG_SEQUENTIAL_SCAN,nullptr);
+ if(backup.handle.value==INVALID_HANDLE_VALUE&&observing&&GetLastError()==ERROR_FILE_NOT_FOUND){
+  json proof={{"root",rootId},{"backup",{{"role","backup"},{"state","missing"},{"identity",nullptr},{"sha256",nullptr},{"flac",nullptr},{"reason",""}}},{"removed",false}};
+  receipt("checked",proof);
+  Handle check;check.value=CreateFileW(extended(backup.name).c_str(),FILE_READ_ATTRIBUTES,FILE_SHARE_READ|FILE_SHARE_WRITE|FILE_SHARE_DELETE,nullptr,OPEN_EXISTING,FILE_FLAG_OPEN_REPARSE_POINT,nullptr);const DWORD error=GetLastError();
+  if(check.value!=INVALID_HANDLE_VALUE||error!=ERROR_FILE_NOT_FOUND||finalPath(root)!=rootName)throw std::runtime_error("missing backup observation changed");
+  send({{"kind","done"},{"proof",proof}});return;
+ }
  if(backup.handle.value==INVALID_HANDLE_VALUE||finalPath(backup.handle.value)!=backup.name)throw std::runtime_error("backup missing, busy or redirected");
  const auto fileId=identity(backup.handle.value,false);noStreams(backup.handle.value);
  FILE_BASIC_INFO basic{};if(!GetFileInformationByHandleEx(backup.handle.value,FileBasicInfo,&basic,sizeof(basic))||basic.FileAttributes&~(FILE_ATTRIBUTE_NORMAL|FILE_ATTRIBUTE_ARCHIVE|FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM|FILE_ATTRIBUTE_NOT_CONTENT_INDEXED))throw std::runtime_error("unsupported backup attributes");
  if(fileId.at("bytes")!=source.at("byteLength")||std::stoull(fileId.at("bytes").get<std::string>())>68719476736ULL)throw std::runtime_error("backup byte length differs");
  hashArtifact(backup);
- if(backup.result.at("flac")!=source||(removing&&backup.result!=expected.at("backup")))throw std::runtime_error("backup content or exclusive identity differs from original proof");
+ if(backup.result.at("flac")!=source||((removing||observing)&&backup.result!=expected.at("backup")))throw std::runtime_error("backup content or exclusive identity differs from original proof");
  json proof={{"root",rootId},{"backup",backup.result},{"removed",false}};
  receipt("checked",proof);
  if(removing){

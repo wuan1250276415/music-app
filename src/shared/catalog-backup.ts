@@ -1,6 +1,6 @@
 // Portable data backup. This contract never authorizes access to a filesystem path.
 export const CATALOG_BACKUP_VERSION=1 as const;
-export const CATALOG_BACKUP_SCHEMA=84 as const;
+export const CATALOG_BACKUP_SCHEMA=85 as const;
 export const CATALOG_BACKUP_MAX_MANIFEST=2*1024*1024;
 export const CATALOG_BACKUP_MAX_FILES=8192;
 export const CATALOG_BACKUP_MAX_FILE=32*1024*1024*1024;
@@ -20,7 +20,7 @@ export type BackupFile={path:string;role:BackupRole;bytes:number;sha256:string};
 export type BackupCounts=Record<typeof CATALOG_BACKUP_COUNT_TABLES[number],number>;
 export type BackupPlugin={id:string;version:string};
 export type CatalogBackupManifest={
- format:'aural-catalog-backup';version:1;backupId:string;createdAt:string;appVersion:string;schema:68|69|70|71|72|73|74|75|76|77|78|79|80|81|82|83|84;origin:string;
+ format:'aural-catalog-backup';version:1;backupId:string;createdAt:string;appVersion:string;schema:68|69|70|71|72|73|74|75|76|77|78|79|80|81|82|83|84|85;origin:string;
  capture:'quiesced-v1';counts:BackupCounts;plugins:BackupPlugin[];
  // Embedded derived blobs are part of the database in the current implementation.
  cache:'database-resident';externalMedia:'excluded';systemCredentials:'excluded';
@@ -41,8 +41,8 @@ export function backupPathRole(value:unknown):BackupRole{
  if(value==='library/library.db')return 'database';
  if(value==='state/renderer-pending.json')return 'renderer-pending';
  if(value==='state/playback-history-pending.json')return 'history-pending';
- const journal=/^library\/(tag-write|tag-commit|tag-restore)\/([^/]+)\/(\d{4})\.json$/.exec(value);
- if(journal){backupUuid(journal[2]);const revision=Number(journal[3]),max=journal[1]==='tag-write'?31:journal[1]==='tag-commit'?5:6;if(revision>max)throw new Error('备份日志序号无效');return 'writeback-journal';}
+ const journal=/^library\/(tag-write|tag-commit|tag-restore|tag-backup-cleanup)\/([^/]+)\/(\d{4})\.json$/.exec(value);
+ if(journal){backupUuid(journal[2]);const revision=Number(journal[3]),max=journal[1]==='tag-write'?31:journal[1]==='tag-commit'?5:journal[1]==='tag-backup-cleanup'?3:6;if(revision>max)throw new Error('备份日志序号无效');return 'writeback-journal';}
  const artifact=/^library\/tag-backups\/([a-fA-F0-9-]{36})-([a-fA-F0-9-]{36})\.bak$/.exec(value);
  if(artifact){backupUuid(artifact[1]);backupUuid(artifact[2]);return 'writeback-artifact';}
  throw new Error('备份包含未授权的条目路径');
@@ -78,7 +78,7 @@ export function readCatalogBackupManifest(value:unknown):CatalogBackupManifest{
  const pluginIds=new Set<string>();let previousPlugin='';const plugins=v.plugins.map(raw=>{
   const p=fields(raw,['id','version']);if(typeof p.id!=='string'||!/^[a-z][a-z0-9.-]{0,127}$/.test(p.id)||pluginIds.has(p.id)||p.id<=previousPlugin)throw new Error('备份插件清单无效');pluginIds.add(p.id);previousPlugin=p.id;return {id:p.id,version:componentVersion(p.version)};
  });
- const result:CatalogBackupManifest={format:'aural-catalog-backup',version:1,backupId:backupUuid(v.backupId),createdAt:instant(v.createdAt),appVersion:version(v.appVersion),schema:v.schema as 68|69|70|71|72|73|74|75|76|77|78|79|80|81|82|83|84,origin:backupUuid(v.origin),capture:'quiesced-v1',counts:readBackupCounts(v.counts),plugins,cache:'database-resident',externalMedia:'excluded',systemCredentials:'excluded',externalWriteback:'requires-original-source',files};
+ const result:CatalogBackupManifest={format:'aural-catalog-backup',version:1,backupId:backupUuid(v.backupId),createdAt:instant(v.createdAt),appVersion:version(v.appVersion),schema:v.schema as 68|69|70|71|72|73|74|75|76|77|78|79|80|81|82|83|84|85,origin:backupUuid(v.origin),capture:'quiesced-v1',counts:readBackupCounts(v.counts),plugins,cache:'database-resident',externalMedia:'excluded',systemCredentials:'excluded',externalWriteback:'requires-original-source',files};
  if(new TextEncoder().encode(JSON.stringify(result)).byteLength>CATALOG_BACKUP_MAX_MANIFEST)throw new Error('规范备份清单超过2MiB预算');return result;
 }
 export function backupPendingKey(value:unknown):string{

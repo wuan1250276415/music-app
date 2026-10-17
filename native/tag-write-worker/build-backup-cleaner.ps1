@@ -13,5 +13,5 @@ Push-Location $cleanupBuild
 try {
  & cmd.exe /c $cleanupCommand
  if ($LASTEXITCODE -ne 0) { throw "Backup cleanup component build failed with exit code $LASTEXITCODE" }
- Write-Host "Built $cleanupOutput (not executed; no public deletion entry)"
+ Write-Host "Built $cleanupOutput (not executed by build; runtime requires durable cleanup decisions)"
 } finally { Pop-Location }

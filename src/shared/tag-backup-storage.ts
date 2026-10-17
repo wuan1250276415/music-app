@@ -17,7 +17,7 @@ export interface TagBackupStoragePage {
  summary:{entries:number;knownBackups:number;candidates:number;protected:number;unmanaged:number;unreadable:number;knownBytes:string;candidateBytes:string;otherFileBytes:string;overBudgetBytes:string;availableBytes:string|null};
  items:TagBackupEntry[];nextOffset:number|null;filter:TagBackupFilter;
  // Inventory is an observation, never a file-deletion grant.
- cleanupReady:false;
+ cleanupReady:boolean;
 }
 const safe=(v:unknown):v is number=>typeof v==='number'&&Number.isSafeInteger(v)&&v>=0&&v<Number.MAX_SAFE_INTEGER;
 export function readTagBackupPolicy(v:unknown):TagBackupPolicy {

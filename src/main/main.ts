@@ -711,6 +711,9 @@ function registerIpc(): void {
   handleIpc('metadata:review-state',(event,itemId)=>{trusted(event.sender);if(typeof itemId!=='string'||!itemId||itemId.length>128||itemId.includes('\0'))throw new Error('无效审核曲目');return serviceCall('metadataReviewState',itemId);});
   handleIpc('metadata:sources',(event,itemId)=>{trusted(event.sender);return serviceCall('metadataSources',itemId);});
   handleIpc('tag-write:job',(event,jobId)=>{trusted(event.sender);return serviceCall('tagWriteJob',jobId);});
+  handleIpc('tag-backup:cleanup-command',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupCleanupCommand',request,60000);});
+  handleIpc('tag-backup:cleanup-get',(event,id)=>{trusted(event.sender);return serviceCall('tagBackupCleanupGet',id);});
+  handleIpc('tag-backup:cleanup-list',(event,cursor)=>{trusted(event.sender);return serviceCall('tagBackupCleanupList',cursor);});
   handleIpc('tag-backup:policy',event=>{trusted(event.sender);return serviceCall('tagBackupPolicy');});
   handleIpc('tag-backup:policy-configure',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupPolicyConfigure',request);});
   handleIpc('tag-backup:storage',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupStorage',request,60000);});

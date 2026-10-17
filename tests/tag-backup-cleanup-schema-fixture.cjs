@@ -1,0 +1,2 @@
+const assert=require('node:assert/strict');
+exports.restorePre85=db=>{if(!db.prepare("SELECT 1 FROM sqlite_schema WHERE type='table' AND name='tag_backup_cleanup'").get())return;assert.equal(db.isTransaction,false);for(const t of ['tag_backup_cleanup_command','tag_backup_cleanup_receipt','tag_backup_cleanup'])assert.equal(db.prepare('SELECT COUNT(*) n FROM '+t).get().n,0,'Historical fixture cannot discard cleanup evidence');db.exec('DROP TABLE tag_backup_cleanup_command;DROP TABLE tag_backup_cleanup_receipt;DROP TABLE tag_backup_cleanup');};

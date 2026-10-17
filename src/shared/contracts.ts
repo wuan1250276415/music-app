@@ -489,6 +489,9 @@ export interface MusicApi extends ProviderManagementApi {
   cancelCatalogBackup(operationId:string):Promise<boolean>;
   quitCatalogBackup():Promise<void>;
   tagWriteJob(jobId:string):Promise<import('./tag-write-ui').TagWriteJob>;
+  tagBackupCleanupCommand(request:import('./tag-backup-cleanup').TagBackupCleanupCommand):Promise<import('./tag-backup-cleanup').TagBackupCleanupView>;
+  tagBackupCleanupGet(id:string):Promise<import('./tag-backup-cleanup').TagBackupCleanupView>;
+  tagBackupCleanupList(cursor?:number):Promise<import('./tag-backup-cleanup').TagBackupCleanupPage>;
   tagBackupPolicy():Promise<import('./tag-backup-storage').TagBackupPolicy>;
   tagBackupPolicyConfigure(request:import('./tag-backup-storage').TagBackupPolicyRequest):Promise<import('./tag-backup-storage').TagBackupPolicyReply>;
   tagBackupStorage(request?:import('./tag-backup-storage').TagBackupStorageRequest):Promise<import('./tag-backup-storage').TagBackupStoragePage>;
