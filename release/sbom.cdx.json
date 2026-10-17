@@ -6,7 +6,7 @@
     "component": {
       "type": "application",
       "name": "aural-library",
-      "version": "0.231.0",
+      "version": "0.232.0",
       "licenses": [
         {
           "license": {
@@ -246,11 +246,11 @@
       },
       {
         "name": "aural:media-capabilities-sha256",
-        "value": "f81714b5c3bfb2b15e72ab1d56cad5f94666ebb4f6e8b046f303aa42ec8e3c86"
+        "value": "ae2968f45f776d25aaf6e394de6c33323e14709b07645fcb5ac18796f4f4e1ad"
       },
       {
         "name": "aural:media-capability-proof-sha256",
-        "value": "ab3553e2aa0c0a00668a0e78232634508480ab8531e163b15670ef20c20002db"
+        "value": "4f21da43527bb5506d530cff3229b6c9a8217002357254bc602ec3d8e4c994a6"
       },
       {
         "name": "aural:media-capability-registry-source-sha256",
@@ -366,7 +366,7 @@
       },
       {
         "name": "aural:decoder-source-native-sha256",
-        "value": "64ce855851ac8d1d435e0ee050fcc3c0831f5fc2754cb122849b529f3278c2b6"
+        "value": "60a798747e726862b9179791228ef0635a62ff308e3e9b4edb7bae67ab8ff4e9"
       },
       {
         "name": "aural:decoder-source-validator-sha256",
@@ -2624,7 +2624,7 @@
         },
         {
           "name": "aural:source-sample-span-11-sha256",
-          "value": "2d4903f61d74eb2bd7c89d06ff3c2b8daa2ce3d30de3c9ff05525cc2b59e40c4"
+          "value": "0b3408c9992be3e79e422bf9f53672b3cd0213da4d190af10fc11858ebb08061"
         },
         {
           "name": "aural:source-sample-span-12-sha256",
@@ -3544,7 +3544,7 @@
         },
         {
           "name": "aural:restore-library-lifecycle-6-sha256",
-          "value": "2d4903f61d74eb2bd7c89d06ff3c2b8daa2ce3d30de3c9ff05525cc2b59e40c4"
+          "value": "0b3408c9992be3e79e422bf9f53672b3cd0213da4d190af10fc11858ebb08061"
         },
         {
           "name": "aural:restore-library-lifecycle-7-sha256",
@@ -3996,7 +3996,7 @@
         },
         {
           "name": "aural:catalog-maintenance-waveform-sha256",
-          "value": "2d4903f61d74eb2bd7c89d06ff3c2b8daa2ce3d30de3c9ff05525cc2b59e40c4"
+          "value": "0b3408c9992be3e79e422bf9f53672b3cd0213da4d190af10fc11858ebb08061"
         },
         {
           "name": "aural:catalog-maintenance-media-sha256",
@@ -4823,7 +4823,7 @@
         },
         {
           "name": "aural:runtime-helper-sha256",
-          "value": "b39403b11e367fcc4ec94b2c927042b11623b986f873781797375b6389ef7ecd"
+          "value": "8aeecd895cf2a777d6adb478eba716d7089dbdbd6711ae7d66823659f46990b2"
         },
         {
           "name": "aural:static-library-sha256",
@@ -4839,7 +4839,7 @@
         },
         {
           "name": "aural:source-sha256:src/shared/audio-fingerprint.ts",
-          "value": "64a0a93a8f5ecb559c5b5a316c6d4113e7ec2c295c1c2152760202de940d191f"
+          "value": "b9cfb7a82e5da66b04bf2042996cd5d2fa411c3d419ac55a6fe0a850e37b837e"
         },
         {
           "name": "aural:source-sha256:src/library/audio-fingerprint.ts",

@@ -1,0 +1,24 @@
+{
+  "version": "0.232.0",
+  "completed": true,
+  "scope": "actual WAV/CUE scan and one native fingerprint, production provider grants/SQLite/backup inspector and constructed schema77 migration/rollback; controlled network boundary and fake credential; no real matching truth or hardware proof",
+  "cases": [
+    "actual native/provider result persists only local descriptor, source observations and public-ID pairs",
+    "closed mapping reader refuses injected raw fingerprint, response text, scores, duplicated IDs and invalid spans",
+    "new private grant reconstructs IDs with no network, remote text, old token or fabricated source ranking",
+    "changed metadata, disabled source and closed parent page cannot reissue saved-ID grants",
+    "actual current-schema standalone backup and read-only current-domain inspection include retained mappings",
+    "restore domain inspection rejects a structurally valid database carrying forbidden saved response fields",
+    "constructed schema77 upgrades with verified pre-v78 snapshot and creates mapping schema",
+    "injected mid-ALTER upgrade failure rolls back columns, tables and schema version without altering prior schema"
+  ],
+  "fingerprints": {
+    "src/shared/recognition-mapping.ts": "c352a5f4e1b49c07de24b3d246839a1defff22c2cad0525af2e281dc85a7ed0c",
+    "src/library/recognition-mapping.ts": "7cf4a070ec071663cf98bf28be9c047484aba44ca6cf86ff0a6517c92173faa6",
+    "src/library/metadata-recognition.ts": "0a58b7c45464a4a28585336b64eadc8b5a85d6b601affe93e7968d862b08a105",
+    "src/library/acoustid.ts": "237f31fa2ad01b6fb3a60dfbe376879015763f9400f08ca2c86daa21695c127d",
+    "src/library/database.ts": "ee87aaecbd5671b7ab8b683b53f5ec4cd35ea9f6a6cc3db95477eb57eb46ac32",
+    "src/library/catalog-restore-compatibility.ts": "ec3520fb38512bad9e48e1942a225843ac247f6e31c0430e5186d349f4ebe5a8",
+    "tests/recognition-mapping-mvp.smoke.cjs": "b5a95f4aa030e40940c18bbdf0a67f3a9836239df2d15e2e1490840b63872b0c"
+  }
+}

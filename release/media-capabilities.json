@@ -1,17 +1,17 @@
 {
   "format": "aural-media-capabilities",
   "version": 1,
-  "appVersion": "0.231.0",
-  "createdAt": "2026-10-17T15:02:32.208Z",
+  "appVersion": "0.232.0",
+  "createdAt": "2026-10-17T15:38:49.432Z",
   "components": {
-    "audio-host.exe": "bed8cc37ff865525ff3465738c2ffddefd299e18182fbc753e32796cc7caeb07",
+    "audio-host.exe": "9313916a3d670040234018e6eb39f82fcc392edc5f8ee99a881a528d8d5428c6",
     "avutil-60.dll": "3cb04fda030a2328a7617b945e8d76081edf1ebdff6d732255d67406bf114459",
     "swresample-6.dll": "5438f1d328ec7fec3877e927b2ff1c7f3e54df402be6e885abc3d620b1ac580f",
     "avcodec-62.dll": "70211fe0a39a51e7bf486e5060ea55e22dd8817ad0112e28b3f0e9600c4061fc",
     "avformat-62.dll": "96fbbb0a1e4f03bc70145b7d3e4974686d42fbd0d6fca638b1660d55d8cc3008"
   },
-  "probeSha256": "1294d0d9b10001159cd86528e96b16da8b02ffa2fc7f9b617851ae309c01e063",
-  "reportSha256": "ab3553e2aa0c0a00668a0e78232634508480ab8531e163b15670ef20c20002db",
+  "probeSha256": "7676fef94cc633543fcf24bc758c8355bc7d4e726198874162059fc88ec829f3",
+  "reportSha256": "4f21da43527bb5506d530cff3229b6c9a8217002357254bc602ec3d8e4c994a6",
   "combinations": [
     {
       "backend": "ffmpeg-8.1.3",

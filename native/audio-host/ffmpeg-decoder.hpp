@@ -424,5 +424,14 @@ public:
         return rc;
     }
     ma_result length(ma_uint64* length){return builtinReady_?ma_decoder_get_length_in_pcm_frames(&builtin_,length):extendedReady_?extended_.length(length):MA_NOT_IMPLEMENTED;}
+    // Actual decoded PCM layout, for producer-side sequence admission.
+    // Keep the existing optional device override separate from this evidence.
+    std::vector<ma_channel> pcmChannelMap(){
+        if(extendedReady_)return {extended_.channelMap.begin(),extended_.channelMap.begin()+outputChannels};
+        if(!builtinReady_||!outputChannels||outputChannels>16)return {};
+        std::vector<ma_channel> result(outputChannels);
+        if(ma_decoder_get_data_format(&builtin_,nullptr,nullptr,nullptr,result.data(),result.size())!=MA_SUCCESS)return {};
+        return result;
+    }
     ma_channel* channelMap(){return extendedReady_?extended_.channelMap.data():nullptr;}
 };

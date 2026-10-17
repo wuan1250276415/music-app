@@ -1,0 +1,39 @@
+{
+  "version": "0.232.0",
+  "completed": true,
+  "scope": "actual supervised WAV/CUE read and production Chromaprint/native worker, scoped source/credential/broker/metadata pipeline with synthetic lookup network; optional official fpcalc comparison and read-only real FLAC copy; no live AcoustID recognition or hardware proof",
+  "cases": [
+    "actual supervised CUE scan and native worker measure EOF, preserve0/10/40/70 boundaries and generate separate current-track fingerprints",
+    "CUE current-segment fingerprint agrees with independently cropped physical PCM file, without image-wide substitution",
+    "closed request readers reject arbitrary audio paths, supplied fingerprints and foreign recording choices",
+    "production broker posts only client/fingerprint/whole virtual-track duration; no path/audio/cookies/redirect, and secret buffers are cleared",
+    "all scoped recordings are explicit preview choices; returned mutation cannot forge additional private choices",
+    "explicit authorized fingerprint choice reads MusicBrainz recording; it retains fingerprint evidence and separate unconfirmed edition identity",
+    "parser rejects duplicate/invalid/over-budget identities, invalid scores and server errors without leaking response messages",
+    "provider/body constraints reject GET body injection, query-string client leakage and oversized POST before transport",
+    "persistent plan stores only public-domain ID mapping and local algorithm basis; offline text apply/compensation does not establish identity",
+    "recording source changes invalidate prior fingerprint authority even if the audio is unchanged",
+    "disabled fingerprint provider cannot query or silently fall back to title search",
+    "aborted lookup rejects late source response and cannot issue a usable identification",
+    "cancel observed live native child, await actual process exit and release worker before reuse",
+    "changed physical file rejects cached fingerprint even before a library rescan",
+    "maintenance clears previews and has no live native child before releasing file readers",
+    "current-schema snapshot/reopen retains public ID and local fingerprint-basis provenance and compensating receipt",
+    "source WAV content and SQLite integrity/foreign keys remain intact"
+  ],
+  "officialReference": {
+    "performed": false
+  },
+  "sourceUnchanged": true,
+  "fingerprints": {
+    "src/shared/audio-fingerprint.ts": "b9cfb7a82e5da66b04bf2042996cd5d2fa411c3d419ac55a6fe0a850e37b837e",
+    "src/library/audio-fingerprint.ts": "340ba51d3e82f6cf96e93a623d0ff86571ad056b4a510f57578af9fc63f8224e",
+    "src/library/acoustid.ts": "237f31fa2ad01b6fb3a60dfbe376879015763f9400f08ca2c86daa21695c127d",
+    "src/library/provider-broker.ts": "b4085ad85047c4581efd6f27135ad3a838300534f465eef6ee23ccf57870dd1c",
+    "src/library/musicbrainz.ts": "1051c73ed3c1d70b74c15856794e390fc5692e88a63d34cc26cc701314885cbd",
+    "src/shared/metadata-batch-review.ts": "bef4dee890af3bfb88a565e914c5c6a6056b0f19b7586a82bce4795d202505f6",
+    "native/audio-host/fingerprint.cpp": "a4db821b6e73657995f76252e527618744d8639645f7c0f51cd37eb608cfd8af",
+    "native/audio-host/build/fingerprint-worker.exe": "8aeecd895cf2a777d6adb478eba716d7089dbdbd6711ae7d66823659f46990b2",
+    "tests/audio-fingerprint-mvp.smoke.cjs": "cb40d2b1797bba16084a135133f3465901f85df9aad3a7be06ce4ce02e832072"
+  }
+}

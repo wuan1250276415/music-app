@@ -1,3 +1,4 @@
+import {PCM_ANALYSIS_REVISION} from '../shared/pcm-analysis-revision.js';
 import {samplePlayRange} from '../shared/source-sample-range.js';
 import {spawn,type ChildProcessWithoutNullStreams} from 'node:child_process';
 import {createHash} from 'node:crypto';
@@ -7,7 +8,7 @@ import type {DatabaseSync} from 'node:sqlite';
 import type {LibraryItem,WaveformSummary,WaveformJob} from '../shared/contracts.js';
 import {validDsdPcmConversion} from '../shared/dsd-pcm.js';
 const algorithm='minmax-f32-v4-sample-span-ma-0.11.25-ff-8.1.3-dsdpcm-v1',uuid=/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i,hex=/^[0-9a-f]{64}$/;
-const fingerprint=(item:LibraryItem)=>createHash('sha256').update(JSON.stringify([algorithm,item.fileId,item.path,item.kind,item.sourceStartCueFrame,item.sourceEndCueFrame,item.sourceStartSeconds,item.sourceEndSeconds,item.sourceSampleRange??null])).digest('hex');
+const fingerprint=(item:LibraryItem)=>createHash('sha256').update(JSON.stringify([PCM_ANALYSIS_REVISION,algorithm,item.fileId,item.path,item.kind,item.sourceStartCueFrame,item.sourceEndCueFrame,item.sourceStartSeconds,item.sourceEndSeconds,item.sourceSampleRange??null])).digest('hex');
 export const waveformSchema=`
  CREATE TABLE waveform_cache(id TEXT PRIMARY KEY,sha256 TEXT NOT NULL,payload_json TEXT NOT NULL CHECK(json_valid(payload_json)),bytes INTEGER NOT NULL CHECK(bytes>0),last_access INTEGER NOT NULL);
  CREATE TABLE waveform_reference(fingerprint TEXT PRIMARY KEY,cache_id TEXT NOT NULL REFERENCES waveform_cache(id) ON DELETE CASCADE);
@@ -39,7 +40,7 @@ export class WaveformRepository{
  progress(id:string,phase:'hashing'|'decoding',progress:number,stage?:'measuring'|'positioning'|'building'):void{const row=this.row(id);if(row.status!=='running'||row.phase==='decoding'&&phase==='hashing'||row.phase===phase&&progress<row.progress)return;const message=stage==='measuring'?'统计实际音频帧（进度为文件读取估计）':stage==='positioning'?'读取当前曲目起点':null;this.db.prepare('UPDATE waveform_job SET phase=?,progress=?,message=?,updated_at=? WHERE id=?').run(phase,progress,message,Date.now(),id);}
  complete(id:string,summary:WaveformSummary,cached:boolean):void{
   if(!validSummary(summary))throw new Error('无效波形结果');const row=this.row(id);if(row.status!=='running')throw new Error('分析已取消');
-  const payload=JSON.stringify(summary),bytes=Buffer.byteLength(payload);if(bytes>524288)throw new Error('波形结果超限');const key=createHash('sha256').update(JSON.stringify([algorithm,summary.sha256,summary.sampleRate,summary.channels,summary.startFrame,summary.endFrame])).digest('hex');
+  const payload=JSON.stringify(summary),bytes=Buffer.byteLength(payload);if(bytes>524288)throw new Error('波形结果超限');const key=createHash('sha256').update(JSON.stringify([PCM_ANALYSIS_REVISION,algorithm,summary.sha256,summary.sampleRate,summary.channels,summary.startFrame,summary.endFrame])).digest('hex');
   this.db.exec('BEGIN IMMEDIATE');try{
    const now=Date.now();this.db.prepare('INSERT INTO waveform_cache VALUES(?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET payload_json=excluded.payload_json,bytes=excluded.bytes,last_access=excluded.last_access').run(key,summary.sha256,payload,bytes,now);
    this.db.prepare('INSERT INTO waveform_reference VALUES(?,?) ON CONFLICT(fingerprint) DO UPDATE SET cache_id=excluded.cache_id').run(row.fingerprint,key);

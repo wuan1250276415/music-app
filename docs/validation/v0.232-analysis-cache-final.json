@@ -1,0 +1,48 @@
+{
+  "version": "0.232.0",
+  "completed": true,
+  "scope": "actual scanner/SQLite and native waveform workers across restart; constructed valid historical cache namespace and ID-only mapping, not a historical executable upgrade or provider matching truth test",
+  "cases": [
+    "FLAC/MP3/AAC native analyses ignore valid hash-matching legacy caches, create distinct cache IDs, and reuse only the new namespace",
+    "historical waveform jobs retain original payload bytes instead of being overwritten or rejected by a new analysis recipe",
+    "historical ID-only recognition descriptor remains readable while its old source digest no longer matches current review authority",
+    "actual database reopen reuses new native-verified cache and preserves all three legacy historical results",
+    "owned physical media remains byte-identical and SQLite integrity/foreign keys pass"
+  ],
+  "scratch": "C:\\Users\\wuan1\\AppData\\Local\\Temp\\aural-analysis-cache-LhmSD2",
+  "revision": "pcm-logical-seek-aac-tail-v2",
+  "results": [
+    {
+      "name": "aac-m4a-48000.m4a",
+      "firstCached": false,
+      "secondCached": true,
+      "sourceSha256": "bc902b5934e36c33ee5be4cb7d703b73b88191cd414bcf206229600174398a2f",
+      "newJobId": "4872c68a-5b9e-40bb-989f-fda4c36535c8"
+    },
+    {
+      "name": "flac-48000-24.flac",
+      "firstCached": false,
+      "secondCached": true,
+      "sourceSha256": "6b4dc9704c560bdea23b4138a0150097a76223166feeb60fd354caf0ef966dce",
+      "newJobId": "0c46ae30-33b5-4b41-bff5-119055322a97"
+    },
+    {
+      "name": "mp3-mp3-48000.mp3",
+      "firstCached": false,
+      "secondCached": true,
+      "sourceSha256": "ccd9cf95fe2ba7c09482a50925d3b18020d16d011ed8395b1fa04ef4a9673f91",
+      "newJobId": "e4aef517-5f12-477b-bc8b-78f603f11b34"
+    }
+  ],
+  "sourceMediaUnchanged": true,
+  "devicesOpened": 0,
+  "fingerprints": {
+    "src/shared/pcm-analysis-revision.ts": "11e9a959eefdba6307705cd18d8c937d849a1f4e820b56bf10ad229d38449a56",
+    "src/shared/audio-fingerprint.ts": "b9cfb7a82e5da66b04bf2042996cd5d2fa411c3d419ac55a6fe0a850e37b837e",
+    "src/library/waveforms.ts": "0b3408c9992be3e79e422bf9f53672b3cd0213da4d190af10fc11858ebb08061",
+    "src/library/audio-fingerprint.ts": "340ba51d3e82f6cf96e93a623d0ff86571ad056b4a510f57578af9fc63f8224e",
+    "src/library/service.ts": "abe3631b2ec196d8b9518ca5809f4a35b9b840c7f8698b05b567ff805a1fcc86",
+    "tests/analysis-cache-mvp.smoke.cjs": "818dd3cf9a5cb98a916cdce32f5316cf24f32e4361ce6f810917a4c9a9e50da9",
+    "native/audio-host/build/waveform-worker.exe": "aa64c1d1a500c81177370d4cd24c8e1e2ce14590d3ce8e06574eb222cb905ead"
+  }
+}

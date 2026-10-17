@@ -1,6 +1,6 @@
 {
   "appId": "dev.aural.music",
-  "appVersion": "0.231.0",
+  "appVersion": "0.232.0",
   "audioProtocol": {
     "major": 1,
     "minor": 24,

@@ -1,0 +1,17 @@
+{
+  "completed": true,
+  "version": "0.232.0",
+  "combinations": 33,
+  "decodeCases": 34,
+  "decoderSeekWindows": 1190,
+  "nativeSourceInputs": 53,
+  "hostSha256": "9313916a3d670040234018e6eb39f82fcc392edc5f8ee99a881a528d8d5428c6",
+  "manifestSha256": "ae2968f45f776d25aaf6e394de6c33323e14709b07645fcb5ac18796f4f4e1ad",
+  "originalProofSha256": "4f21da43527bb5506d530cff3229b6c9a8217002357254bc602ec3d8e4c994a6",
+  "sequenceCoreCases": 30,
+  "sequenceSeekWindows": 254,
+  "sequenceClockMappings": 1188,
+  "sequenceCoreAudioHostIntegrated": false,
+  "deviceBitPerfectAccepted": false,
+  "crossFileGaplessAccepted": false
+}

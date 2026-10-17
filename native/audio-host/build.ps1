@@ -67,6 +67,8 @@ try {
   Write-Host "Built $analysisOutput (not executed)"
   & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $project 'build-decoder-gold.ps1')
   if($LASTEXITCODE -ne 0){throw 'Decoder gold tool build failed'}
+  & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $project 'build-pcm-sequence-gold.ps1')
+  if($LASTEXITCODE -ne 0){throw 'PCM sequence gold helper build failed'}
   $audioBuildAfter=Get-AudioBuildInputs
   if(($audioBuildBefore|ConvertTo-Json -Compress) -ne ($audioBuildAfter|ConvertTo-Json -Compress)){throw 'Audio sources changed during build'}
   $audioDllHashes=[ordered]@{}

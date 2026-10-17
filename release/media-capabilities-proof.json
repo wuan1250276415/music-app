@@ -1,5 +1,5 @@
 {
-  "version": "0.231.0",
+  "version": "0.232.0",
   "completed": true,
   "scope": "actual production decoder headers in an independent no-device executable; deterministic owned PCM, vendored encoded fixtures, independent lossless integer/float reference and decoded-baseline random seeks; no DAC, full audio-host pipeline or cross-file gapless acceptance",
   "cases": [
@@ -1094,9 +1094,9 @@
   ],
   "fingerprints": {
     "native/audio-host/decoder-gold.cpp": "284d1aadae0042287c28410ad07d85a636e49a9ac8dfbe63be4ed6653bbac48a",
-    "native/audio-host/ffmpeg-decoder.hpp": "64ce855851ac8d1d435e0ee050fcc3c0831f5fc2754cb122849b529f3278c2b6",
+    "native/audio-host/ffmpeg-decoder.hpp": "60a798747e726862b9179791228ef0635a62ff308e3e9b4edb7bae67ab8ff4e9",
     "native/audio-host/vendor/miniaudio.h": "4fa501173fbd953de25330ff03b6de14aa54edc057233d20ef297c32f7467295",
-    "native/audio-host/build/decoder-gold.exe": "1294d0d9b10001159cd86528e96b16da8b02ffa2fc7f9b617851ae309c01e063",
+    "native/audio-host/build/decoder-gold.exe": "7676fef94cc633543fcf24bc758c8355bc7d4e726198874162059fc88ec829f3",
     "tests/fixtures/decoder-gold/manifest.json": "53d831ce0222998767f8dda5d8fb24e59d8e26c433277de83319be52f97d6560",
     "scripts/run-decoder-format-mvp.cjs": "958500291bcd91dc6a5353dca0c07794c14b28d1c90bbb9e9aab437c8130c6ef",
     "native/audio-host/build/avutil-60.dll": "3cb04fda030a2328a7617b945e8d76081edf1ebdff6d732255d67406bf114459",

@@ -1,0 +1,10 @@
+✔ native decoder slices adjacent CUE spans sample for sample (78.5449ms)
+✔ native PCM callback consumes exact ring frames (73.3785ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 147.2224

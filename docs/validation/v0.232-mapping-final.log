@@ -1,0 +1,4 @@
+actual native/provider result persists only local descriptor, source observations and public-ID pairs
+closed mapping reader refuses injected raw fingerprint, response text, scores, duplicated IDs and invalid spans
+new private grant reconstructs IDs with no network, remote text, old token or fabricated source ranking
+{"version":"0.232.0","completed":true,"cases":8}

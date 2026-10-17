@@ -1,7 +1,7 @@
 {
   "name": "aural-library",
   "private": true,
-  "version": "0.231.0",
+  "version": "0.232.0",
   "description": "Local-first desktop music library prototype",
   "license": "GPL-3.0-only",
   "main": "dist/main/main/main.js",
@@ -23,6 +23,7 @@
     "test:flac-cue": "npm run build && npm run build:native && node tests/electron-flac-cue.smoke.cjs",
     "test:search-mvp": "npm run build && npm run build:native && node tests/search-mvp.smoke.cjs",
     "test:collections": "npm run build && npm run build:native && node tests/electron-collections.smoke.cjs",
+    "test:pcm-sequence-mvp": "npm run build:main && powershell -NoProfile -ExecutionPolicy Bypass -File native/audio-host/build.ps1 && node scripts/run-pcm-sequence-mvp.cjs && node tests/analysis-cache-mvp.smoke.cjs",
     "qualify:media": "node scripts/qualify-media-formats.cjs",
     "test:decoder-formats-mvp": "npm run build && npm run build:native && npm run qualify:media && node tests/electron-decoder-format-mvp.smoke.cjs",
     "check:release": "node scripts/generate-release.cjs --check",
