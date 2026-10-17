@@ -1,0 +1,11 @@
+actual0.225 schema82 database with real old reviewed plan and paused batch rolls back all new83 DDL and preserves original frozen plan bytes on verification failure
+upgrade83 retains old batch and frozen review bytes, saves a genuine schema82 snapshot and is refused by actual old runtime
+fixed13-item scope, partial manual input, page checkpoint, cancel/resume and original command receipts survive real reopen; stale revision cannot overwrite another window
+real source-read prepare barrier is tracked across legacy and draft calls; unresolved save blocks settings and token abandonment, and original request replay creates exactly one durable task
+actual job transaction survives parent-link acknowledgement failure; database reopen joins the immutable original receipt without needing the expired preview or creating another task
+unstarted original save is proved absent and its token revoked before re-preview; expired attempt remains immutable beside a fresh explicitly reviewed save
+library definitions persist no borrowed remote text, unlicensed fields and WAV remain localized, and physical source change after preview cannot create a job or modify that file
+unchanged physical tags remain a retained diagnostic without a task; reopening invalidates old approval and explicit skip completes the fixed scope with its original receipt
+three persisted approved draft jobs feed the existing fixed-scope native backup batch; original files stay byte-identical and no original replacement is started
+real standalone83 backup includes drafts and immutable preparation attempts; read-only twelve-domain inspection rejects settings and skipped decisions not witnessed by saved command history
+{"version":"0.226.0","completed":true,"cases":10,"scratch":"D:\\CodexTestData\\aural-tag-review-core-vku54T"}

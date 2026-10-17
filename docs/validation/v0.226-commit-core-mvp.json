@@ -1,0 +1,26 @@
+{
+  "version": "0.226.0",
+  "completed": true,
+  "scope": "actual old0.224 runtime and schema81 with persisted reviewed jobs and stage batch; real migration rollback/snapshot and native candidate batch commit/independent inspection/reparse; production certificates unchanged; no Main playback, hard process crash or complete fault matrix",
+  "cases": [
+    "actual0.224 runtime creates schema81 with real supervised reviewed plans and a paused immutable backup batch",
+    "fault after schema82 DDL rolls back complete original schema81 and preserves the existing batch and plans",
+    "upgrade82 preserves old batch bytes and genuine pre-v82 snapshot while actual0.224 runtime refuses the new schema",
+    "confirmed scope freezes every original commit/inspect/reparse identity, replays creation and rejects changed scope or stale revision without changing files",
+    "opening a genuine saved ready batch in uncertified production refuses explicit start without queueing, reserving native work or changing its frozen scope",
+    "actual two-file candidate pipeline commits, independently inspects and reparses each file in order; a lost real commit acknowledgement neither duplicates writes nor loses the active member",
+    "actual database close/reopen retains completed batch, per-file reconciliation and released read gates with integrity and foreign keys intact",
+    "actual current-schema standalone backup and production twelve-domain read-only inspector retain successful write batches and reject altered creation receipts",
+    "unchanged empty production certification rejects the new batch before scope reservation, file lease or native commit intent"
+  ],
+  "productionCertificationEnabled": false,
+  "previousVersion": "0.224.0",
+  "fingerprints": {
+    "src/library/tag-commit-batches.ts": "b243b74167716271063a37ce682510ec777a8fbeebb0debcc043ee991180b555",
+    "src/shared/tag-commit-batch.ts": "775a1f68db26eb064e3961a6171243977560cbe69e865dd2d364a19b41c14cae",
+    "src/library/database.ts": "975e9b921ebca8b594281a8956ed078644a71825df74536caffa9d6631790269",
+    "src/library/service.ts": "9a9a5d8c1f46fa3ab16d9484c17171af37c772ce232d102e36a4793e994af1cb",
+    "src/main/tag-stage-batch-controller.ts": "c7c7a0941202510322174a0fa89008a49b31fb37c23e9ebb5531458ea05c45cb",
+    "tests/tag-commit-batch-mvp.smoke.cjs": "d0109ed82920027f34587ae99211ffc4475c12b5937af3963473091749704343"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "version": "0.226.0",
+  "completed": true,
+  "scope": "production Main/preload/Service/Renderer, normal15-file import, persisted draft settings/page/decisions, real supervised previews and preparation; real Main/Utility/native tree termination after job SQLite commit before draft binding; no production original-file replacement, power cut or complete fault matrix",
+  "cases": [
+    "normal selected-song toolbar persists15-member scope, actual automatic field settings and second-page checkpoint without creating jobs or changing files",
+    "actual normal restart reopens the saved page and inputs without live previews; current library-source permission refusal and unsupported WAV remain per-member with no borrowed field text or task",
+    "stop rejects a late real preview; a lost actual preparation response is reconciled from the original receipt and public request replay creates no duplicate job",
+    "real Main/Utility/native process-tree termination after durable job commit preserves original media; restart binds the reserved attempt from its original receipt without the old session token or another task",
+    "restart requires fresh differences and fresh review checkboxes; physical file change cannot create a task, both explicit skips persist, and stop while saving drains only the actual current task before leaving nine reviewed members untouched",
+    "explicit continuation finishes all thirteen reviewed FLAC plans and two retained skips across both pages, with no original media or library tag replacement",
+    "actual draft handoff freezes13 saved tasks into the normal backup batch, then real native staging preserves every original and byte-identical source backup without enabling original replacement",
+    "normal application exit and restart retain completed draft, immutable decisions, external-change refusal and native-stage associations while fresh UI contains no revived preview or old approval checkbox"
+  ],
+  "actualOwnedTermination": {
+    "terminated": true,
+    "actualMainPid": 11452,
+    "ownedProcesses": [
+      11452,
+      12456,
+      31156,
+      30024,
+      14636,
+      18740,
+      14724,
+      4948,
+      27460
+    ]
+  },
+  "fixtureMutation": {
+    "path": "D:\\CodexTestData\\aural-workflow-ui-tag-review-draft-Wojf2s\\music\\草稿13.flac",
+    "beforeSha256": "1e2c9816d28d126cd4713e9d544be563b8a4093a996d93ba092101a24b596988",
+    "afterSha256": "5467700d0115f125e6471024a37c3fac2b2071e91b46e6c9327666a9528f7b50",
+    "by": "test-only valid external FLAC metadata rewrite after actual preview"
+  },
+  "screenshot": "D:\\CodexTestData\\aural-workflow-ui-tag-review-draft-Wojf2s\\review-draft-completed.png",
+  "productionCertificationEnabled": false,
+  "userOriginalMediaChanged": false,
+  "fingerprints": {
+    "src/library/tag-review-drafts.ts": "a044692219e61d0cc88f42a5bbf9aebc91f3a92f1a7702ac4ca2e1ca77fba3f2",
+    "src/library/tag-review-controller.ts": "9bf188411895762947a5fd4c6687c5c6beb8f8487a9cf18b90fb1da84ade88f5",
+    "src/library/tag-write-manager.ts": "22ba03adcc2db111fe025fcf46423c11c058dfc73cd7ef6785a63ea4a6afa88a",
+    "src/library/service.ts": "9a9a5d8c1f46fa3ab16d9484c17171af37c772ce232d102e36a4793e994af1cb",
+    "src/main/main.ts": "aeceb1cc6bb974c9921ef02010014aad20a22c2f373060776176ac2c0c8b037a",
+    "src/main/preload.ts": "b54fe65df40c46a2e9993b8d058a2b01c3c298aeee3e0f88ba12efda47efd677",
+    "src/renderer/tag-write-batch-dialog.tsx": "6cf1a04b70c922662522f24197f263698a1e9b18420792244daea8ae02ecdbab",
+    "src/renderer/tag-write-dialog.tsx": "8f69af42bc24ff58f348acd4c0a90c68744d3d71ae6be389c12725d989d1622a",
+    "src/renderer/tag-write.css": "dd8a238be00dd800b05f315c016f5d4ba882fb59abb1c078a0621845389b2156",
+    "tests/electron-tag-review-draft-mvp.smoke.cjs": "73f67f7f3bfcf093f2bec7ddb92df31c874dc216367760e0d01686bad289e134"
+  }
+}

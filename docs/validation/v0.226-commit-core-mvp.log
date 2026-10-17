@@ -1,0 +1,10 @@
+actual0.224 runtime creates schema81 with real supervised reviewed plans and a paused immutable backup batch
+fault after schema82 DDL rolls back complete original schema81 and preserves the existing batch and plans
+upgrade82 preserves old batch bytes and genuine pre-v82 snapshot while actual0.224 runtime refuses the new schema
+confirmed scope freezes every original commit/inspect/reparse identity, replays creation and rejects changed scope or stale revision without changing files
+opening a genuine saved ready batch in uncertified production refuses explicit start without queueing, reserving native work or changing its frozen scope
+actual two-file candidate pipeline commits, independently inspects and reparses each file in order; a lost real commit acknowledgement neither duplicates writes nor loses the active member
+actual database close/reopen retains completed batch, per-file reconciliation and released read gates with integrity and foreign keys intact
+actual current-schema standalone backup and production twelve-domain read-only inspector retain successful write batches and reject altered creation receipts
+unchanged empty production certification rejects the new batch before scope reservation, file lease or native commit intent
+{"version":"0.226.0","completed":true,"cases":9,"runRoot":"D:\\CodexTestData\\aural-tag-cert-mvp-t2OHXV\\coordinator-run-e9Ct7v"}

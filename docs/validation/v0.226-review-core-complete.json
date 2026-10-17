@@ -1,0 +1,28 @@
+{
+  "version": "0.226.0",
+  "completed": true,
+  "scope": "actual generated media, old0.225 schema82 with reviewed plan and paused stage batch, real migration/snapshot/rollback, supervised metadata previews and durable preparation, actual inflight source-read barrier and parent-ack failure/reopen; no Main GUI or process-tree crash; production original replacement remains disabled",
+  "cases": [
+    "actual0.225 schema82 database with real old reviewed plan and paused batch rolls back all new83 DDL and preserves original frozen plan bytes on verification failure",
+    "upgrade83 retains old batch and frozen review bytes, saves a genuine schema82 snapshot and is refused by actual old runtime",
+    "fixed13-item scope, partial manual input, page checkpoint, cancel/resume and original command receipts survive real reopen; stale revision cannot overwrite another window",
+    "real source-read prepare barrier is tracked across legacy and draft calls; unresolved save blocks settings and token abandonment, and original request replay creates exactly one durable task",
+    "actual job transaction survives parent-link acknowledgement failure; database reopen joins the immutable original receipt without needing the expired preview or creating another task",
+    "unstarted original save is proved absent and its token revoked before re-preview; expired attempt remains immutable beside a fresh explicitly reviewed save",
+    "library definitions persist no borrowed remote text, unlicensed fields and WAV remain localized, and physical source change after preview cannot create a job or modify that file",
+    "unchanged physical tags remain a retained diagnostic without a task; reopening invalidates old approval and explicit skip completes the fixed scope with its original receipt",
+    "three persisted approved draft jobs feed the existing fixed-scope native backup batch; original files stay byte-identical and no original replacement is started",
+    "real standalone83 backup includes drafts and immutable preparation attempts; read-only twelve-domain inspection rejects settings and skipped decisions not witnessed by saved command history"
+  ],
+  "previousVersion": "0.225.0",
+  "productionCertificationEnabled": false,
+  "userOriginalMediaChanged": false,
+  "fingerprints": {
+    "src/library/tag-review-drafts.ts": "a044692219e61d0cc88f42a5bbf9aebc91f3a92f1a7702ac4ca2e1ca77fba3f2",
+    "src/library/tag-review-controller.ts": "9bf188411895762947a5fd4c6687c5c6beb8f8487a9cf18b90fb1da84ade88f5",
+    "src/library/tag-write-manager.ts": "22ba03adcc2db111fe025fcf46423c11c058dfc73cd7ef6785a63ea4a6afa88a",
+    "src/library/database.ts": "975e9b921ebca8b594281a8956ed078644a71825df74536caffa9d6631790269",
+    "src/shared/tag-review-draft.ts": "94691e63ccf80351668151b98db207275432d2d9fa897219c5960cef74219181",
+    "tests/tag-review-draft-mvp.smoke.cjs": "25014f737c7677f950c114e5464d64a1a5f72c08d3be42d8096da622c7ad039e"
+  }
+}

@@ -1,0 +1,1 @@
+Schema72 to current schema migration MVP passed: verified prior definitions, real snapshot, data and repeated playlist preservation, current-domain backup inspection, idempotent reopening and mid-DDL rollback
