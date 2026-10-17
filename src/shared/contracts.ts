@@ -455,7 +455,7 @@ export interface ResponseMessage {
 }
 
 export interface EventMessage {
-  event: 'catalogRestoreApplyChanged' | 'catalogRestoreFinalization' | 'catalogRestoreApplication' | 'catalogRestorePending' | 'catalogRestoreChanged' | 'catalogBackupChanged' | 'catalogBackupFreeze' | 'catalogBackupThaw' | 'historyExportChanged' | 'playbackPolicyChanged' | 'filterPresetsChanged' | 'playbackStatisticsChanged' | 'playbackHistoryChanged' | 'tagWriteJobsChanged' | 'tagStageBatchChanged' | 'tagCommitBatchChanged' | 'tagReviewDraftChanged' | 'scan' | 'scanJobsChanged' | 'metadataRecognitionChanged' | 'libraryWatchChanged' | 'libraryChanged' | 'searchIndexChanged' | 'queue' | 'metadataNetwork' | 'metadataBatch' | 'providersChanged' | 'lyricsChanged' | 'audioOutputChanged' | 'audioBackendChanged' | 'asioOutputChanged' | 'dsdOutputChanged' | 'asioPanelChanged' | 'audioDevicesChanged' | 'desktopControlError' | 'systemMediaChanged' | 'desktopFilesChanged' | 'appearanceChanged';
+  event: 'catalogRestoreApplyChanged' | 'catalogRestoreFinalization' | 'catalogRestoreApplication' | 'catalogRestorePending' | 'catalogRestoreChanged' | 'catalogBackupChanged' | 'catalogBackupFreeze' | 'catalogBackupThaw' | 'historyExportChanged' | 'playbackPolicyChanged' | 'filterPresetsChanged' | 'playbackStatisticsChanged' | 'playbackHistoryChanged' | 'tagWriteJobsChanged' | 'tagStageBatchChanged' | 'tagCommitBatchChanged' | 'tagReviewDraftChanged' | 'tagBackupStorageChanged' | 'scan' | 'scanJobsChanged' | 'metadataRecognitionChanged' | 'libraryWatchChanged' | 'libraryChanged' | 'searchIndexChanged' | 'queue' | 'metadataNetwork' | 'metadataBatch' | 'providersChanged' | 'lyricsChanged' | 'audioOutputChanged' | 'audioBackendChanged' | 'asioOutputChanged' | 'dsdOutputChanged' | 'asioPanelChanged' | 'audioDevicesChanged' | 'desktopControlError' | 'systemMediaChanged' | 'desktopFilesChanged' | 'appearanceChanged';
   payload: unknown;
 }
 
@@ -489,6 +489,9 @@ export interface MusicApi extends ProviderManagementApi {
   cancelCatalogBackup(operationId:string):Promise<boolean>;
   quitCatalogBackup():Promise<void>;
   tagWriteJob(jobId:string):Promise<import('./tag-write-ui').TagWriteJob>;
+  tagBackupPolicy():Promise<import('./tag-backup-storage').TagBackupPolicy>;
+  tagBackupPolicyConfigure(request:import('./tag-backup-storage').TagBackupPolicyRequest):Promise<import('./tag-backup-storage').TagBackupPolicyReply>;
+  tagBackupStorage(request?:import('./tag-backup-storage').TagBackupStorageRequest):Promise<import('./tag-backup-storage').TagBackupStoragePage>;
   tagReviewDraftCreate(request:import('./tag-review-draft').TagReviewCreate):Promise<import('./tag-review-draft').TagReviewPage>;
   tagReviewDraftCommand(request:import('./tag-review-draft').TagReviewCommand):Promise<import('./tag-review-draft').TagReviewReply>;
   tagReviewDraftPage(id:string):Promise<import('./tag-review-draft').TagReviewPage>;

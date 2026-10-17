@@ -711,6 +711,9 @@ function registerIpc(): void {
   handleIpc('metadata:review-state',(event,itemId)=>{trusted(event.sender);if(typeof itemId!=='string'||!itemId||itemId.length>128||itemId.includes('\0'))throw new Error('无效审核曲目');return serviceCall('metadataReviewState',itemId);});
   handleIpc('metadata:sources',(event,itemId)=>{trusted(event.sender);return serviceCall('metadataSources',itemId);});
   handleIpc('tag-write:job',(event,jobId)=>{trusted(event.sender);return serviceCall('tagWriteJob',jobId);});
+  handleIpc('tag-backup:policy',event=>{trusted(event.sender);return serviceCall('tagBackupPolicy');});
+  handleIpc('tag-backup:policy-configure',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupPolicyConfigure',request);});
+  handleIpc('tag-backup:storage',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupStorage',request,60000);});
   handleIpc('tag-review-draft:create',(event,request)=>{trusted(event.sender);return serviceCall('tagReviewDraftCreate',request);});
   handleIpc('tag-review-draft:command',(event,request)=>{trusted(event.sender);return serviceCall('tagReviewDraftCommand',request);});
   handleIpc('tag-review-draft:page',(event,id)=>{trusted(event.sender);return serviceCall('tagReviewDraftPage',id);});

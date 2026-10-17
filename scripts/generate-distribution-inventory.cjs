@@ -169,6 +169,12 @@ const asioProperties = [
   {name:'aural:tag-write-dialog-source-sha256',value:sha256(read('src/renderer/tag-write-dialog.tsx'))},
   {name:'aural:tag-file-actions-source-sha256',value:sha256(read('src/renderer/tag-file-actions.tsx'))},
   {name:'aural:tag-file-actions-current-status',value:'0.221 schema80: static-catalogue readiness; trusted closed Main/preload/Service commit/start-restore/stop controls and original request receipts; Main same-file playback release after current target review, fresh Library and native file/root/metadata/lease checks; explicit field preview, separate write/restore confirmation and stopped-process recovery; immutable attempt history and retained copy/displaced targets. Production certification catalogues remain empty; isolated candidate UI execution is distinct from production certification, power loss, full-disk, full permissions/concurrency matrix and complete FR12/AC12 acceptance.'},
+  {name:'aural:tag-backup-policy-source-sha256',value:sha256(read('src/library/tag-backup-policies.ts'))},
+  {name:'aural:tag-backup-catalog-source-sha256',value:sha256(read('src/library/tag-backup-catalog.ts'))},
+  {name:'aural:tag-backup-storage-source-sha256',value:sha256(read('src/library/tag-backup-storage.ts'))},
+  {name:'aural:tag-backup-storage-contract-source-sha256',value:sha256(read('src/shared/tag-backup-storage.ts'))},
+  {name:'aural:tag-backup-storage-ui-source-sha256',value:sha256(read('src/renderer/tag-backup-storage-dialog.tsx'))},
+  {name:'aural:tag-backup-storage-status',value:'0.227 schema84 development: append-only default30-day retention/10GiB target, revision and original-command receipts, restore validation; bounded read-only local backup inventory with protected, age-qualified, unmanaged and unreadable groups, real file lengths and nullable disk-free observation; paginated session snapshots and maintenance cancellation/drain. No cleanup execution, native deletion grant, automatic cleanup, hash verification, current-version migration/runtime/MVP acceptance or production replacement certification is claimed.'},
   {name:'aural:tag-review-draft-source-sha256',value:sha256(read('src/library/tag-review-drafts.ts'))},
   {name:'aural:tag-review-controller-source-sha256',value:sha256(read('src/library/tag-review-controller.ts'))},
   {name:'aural:tag-review-draft-contract-source-sha256',value:sha256(read('src/shared/tag-review-draft.ts'))},
@@ -624,7 +630,7 @@ if(mediaProtocol!=='16'||!mediaProtocolSource.includes("'flac-tag-preview'")||!r
 if(!mediaProtocolSource.includes("request.kind==='image'")||!read('src/library/media-worker-entry.ts').includes('readWorkerImage')||!read('src/library/media-worker-client.ts').includes("this.execute('image'")||!read('src/library/online-image-converter.ts').includes('parser.image')||!read('src/main/artwork-resources.ts').includes("?'no-store':'private, max-age=31536000, immutable'"))fail('missing supervised neutral image conversion or ephemeral response contract');
 if(!read('src/library/tag-write-journal.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write certification default must remain closed until verified catalog');
 
-if(manifest.librarySchema.max!==83||!read('src/library/tag-restore-attempt-migration.ts').includes('PRAGMA user_version=80')||!read('src/library/tag-write-jobs.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write schema or certification gate differs');
+if(manifest.librarySchema.max!==84||!read('src/library/tag-restore-attempt-migration.ts').includes('PRAGMA user_version=80')||!read('src/library/tag-write-jobs.ts').includes('certificates:ReadonlyMap<string,string>=new Map()'))fail('tag write schema or certification gate differs');
 for(const name of ['context','preview','preview-cancel','prepare','jobs','cancel'])if(!read('src/main/main.ts').includes("'tag-write:"+name+"'")||!read('src/main/preload.ts').includes("'tag-write:"+name+"'"))fail('missing trusted tag write route '+name);
 if(!read('src/renderer/main.tsx').includes('setTagWriteItem(reviewItem.id)')||!read('src/renderer/tag-write-dialog.tsx').includes('保存待写入任务'))fail('missing lazy tag preview entry');
 

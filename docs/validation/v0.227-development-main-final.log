@@ -1,0 +1,6 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> aural-library@0.227.0 build:main
+> node scripts/generate-release.cjs && tsc -p tsconfig.main.json
+
+release files generated
