@@ -162,7 +162,7 @@ export interface PlaybackState {
   asioDsd?:import('./asio-dsd.js').AsioDsdPlaybackView;
   clock?:PlaybackClock;
   tail?:PlaybackTail;
-  decodedSource?:{backend:'miniaudio'|'ffmpeg-8.1.3';codec:string;format:'f32'|'s16'|'s32';sampleRate:number;channels:number;certification:'pending';dsdConversion?:DsdPcmConversion|null;opusGain?:OpusGainInfo|null;media?:DecoderSourceEvidence;fileBinding?:PlaybackFileBinding};
+  decodedSource?:{backend:'miniaudio'|'ffmpeg-8.1.3';codec:string;container?:{version:1;family:'wav'|'flac'|'mp3'|'mp4'|'adts'|'ogg'|'dsf'|'dff'|'unknown';profile:number|null};format:'f32'|'s16'|'s32';sampleRate:number;channels:number;certification:'pending';dsdConversion?:DsdPcmConversion|null;opusGain?:OpusGainInfo|null;media?:DecoderSourceEvidence;fileBinding?:PlaybackFileBinding};
   // Callback-side buffer starvation only; this does not measure DAC output.
   diagnostics?: { callbackCount:number; bufferUnderrunCallbacks:number; bufferUnderrunFrames:number };
   message?: string;
@@ -498,6 +498,7 @@ export interface MusicApi extends ProviderManagementApi {
   tagBackupBatchCommand(request:import('./tag-backup-batch').TagBackupBatchCommand):Promise<import('./tag-backup-batch').TagBackupBatch>;
   tagBackupBatchList(cursor?:number):Promise<import('./tag-backup-batch').TagBackupBatchPage>;
   tagBackupBatchItems(request:{batchId:string;offset:number}):Promise<import('./tag-backup-batch').TagBackupBatchItems>;
+  mediaCapabilities():Promise<import('./media-capabilities').MediaCapabilityView>;
   tagBackupPolicy():Promise<import('./tag-backup-storage').TagBackupPolicy>;
   tagBackupPolicyConfigure(request:import('./tag-backup-storage').TagBackupPolicyRequest):Promise<import('./tag-backup-storage').TagBackupPolicyReply>;
   tagBackupStorage(request?:import('./tag-backup-storage').TagBackupStorageRequest):Promise<import('./tag-backup-storage').TagBackupStoragePage>;

@@ -14,9 +14,10 @@ const same = (source, packaged) => {
   }
 };
 
-for (const file of ['sbom.cdx.json', 'THIRD_PARTY_NOTICES.txt']) {
+for (const file of ['sbom.cdx.json', 'THIRD_PARTY_NOTICES.txt','media-capabilities.json','media-capabilities-proof.json']) {
   same(path.join(root, 'release', file), path.join(unpacked, 'resources', file));
 }
+const packagedMedia=require('../dist/main/shared/media-capabilities.js').readMediaCapabilityManifest(JSON.parse(fs.readFileSync(path.join(unpacked,'resources/media-capabilities.json'),'utf8')));if(packagedMedia.appVersion!==manifest.appVersion||hash(path.join(unpacked,'resources/media-capabilities-proof.json'))!==packagedMedia.reportSha256)throw new Error('packaged media proof differs');for(const [name,digest] of Object.entries(packagedMedia.components))if(hash(path.join(unpacked,'resources',name))!==digest)throw new Error('packaged decoder component differs from software qualification: '+name);
 same(path.join(root, 'LICENSE'), path.join(unpacked, 'resources/AURAL_LICENSE.txt'));
 same(path.join(root, 'native/tag-write-worker/build/tag-backup-cleaner.exe'), path.join(unpacked, 'resources/tag-backup-cleaner.exe'));
 same(path.join(root, 'native/audio-host/build/audio-host.exe'), path.join(unpacked, 'resources/audio-host.exe'));

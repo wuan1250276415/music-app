@@ -1,3 +1,4 @@
+import {readDecoderContainer} from '../shared/media-capabilities.js';
 import {adjacentCueItems,samplePlayRange,resolveSamplePlayRange,type SamplePlayRange} from '../shared/source-sample-range.js';
 import {AsioPlaybackTracker,asAsioCounter,type AsioFrameBookmark,type AsioRebuildRequest} from './asio-playback-state.js';
 import {AsioDsdPlaybackTracker,buildDsdRequest} from './asio-dsd-playback-state.js';
@@ -462,10 +463,11 @@ export class AudioController {
           }else if(prepared)throw new Error('未协商的播放前计划');
           this.clearTail(session);this.state={...this.state,tail:undefined};
           const source=payload.decodedSource as PlaybackState['decodedSource'];
-          if(source&&session.preflightRequired&&Object.keys(source).length!==10)throw new Error('解码来源字段与协议不符');
+          if(source&&session.preflightRequired&&Object.keys(source).length!==(Object.hasOwn(source,'container')?11:10))throw new Error('解码来源字段与协议不符');
           if(source!==undefined&&(!source||!['miniaudio','ffmpeg-8.1.3'].includes(source.backend)||typeof source.codec!=='string'||source.codec.length>64||!['f32','s16','s32'].includes(source.format)||!Number.isSafeInteger(source.sampleRate)||source.sampleRate<=0||source.sampleRate>1536000||!Number.isSafeInteger(source.channels)||source.channels<=0||source.channels>16||source.certification!=='pending')){this.fail(session,new Error('解码来源信息无效'));return;}
           if(source&&session.preflightRequired){
             source.media=readSourceEvidence(source.media,source);
+            if(source.container!==undefined)source.container=readDecoderContainer(source.container,source);
             source.fileBinding=readPlaybackFile(source.fileBinding,session.replayGainStamp);
           }
           if(source?.dsdConversion!=null&&(!validDsdPcmConversion(source.dsdConversion)||source.backend!=='ffmpeg-8.1.3'||!source.codec.startsWith('dsd_')||source.sampleRate!==176400||source.format!=='f32'||this.dsdPolicy!=='pcm'||this.mode==='exclusive')||source?.codec.startsWith('dsd_')&&!source.dsdConversion){this.fail(session,new Error('DSD 转换来源或播放策略无效'));return;}

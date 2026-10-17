@@ -229,6 +229,7 @@ const api: MusicApi = {
   tagBackupBatchCommand:request=>ipcRenderer.invoke('tag-backup:batch-command',request),
   tagBackupBatchList:cursor=>ipcRenderer.invoke('tag-backup:batch-list',cursor),
   tagBackupBatchItems:request=>ipcRenderer.invoke('tag-backup:batch-items',request),
+  mediaCapabilities:()=>ipcRenderer.invoke('media:capabilities'),
   tagBackupPolicy:()=>ipcRenderer.invoke('tag-backup:policy'),
   tagBackupPolicyConfigure:request=>ipcRenderer.invoke('tag-backup:policy-configure',request),
   tagBackupStorage:request=>ipcRenderer.invoke('tag-backup:storage',request),

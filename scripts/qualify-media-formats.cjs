@@ -1,0 +1,4 @@
+const fs=require('node:fs'),os=require('node:os'),path=require('node:path'),{spawnSync}=require('node:child_process');
+const project=path.resolve(__dirname,'..'),scratch=fs.mkdtempSync(path.join(os.tmpdir(),'aural-media-qualification-')),report=path.join(scratch,'decoder-formats.json');
+for(const [script,args,env] of [['run-decoder-format-mvp.cjs',[],{...process.env,AURAL_DECODER_FORMAT_REPORT:report}],['generate-media-capabilities.cjs',['--report',report],process.env],['generate-distribution-inventory.cjs',[],process.env]]){const result=spawnSync(process.execPath,[path.join(__dirname,script),...args],{cwd:project,env,stdio:'inherit',windowsHide:true});if(result.error)throw result.error;if(result.status!==0)process.exit(result.status??1);}
+console.log('Software media capability proof generated for current binaries; no device or gapless acceptance: '+scratch);

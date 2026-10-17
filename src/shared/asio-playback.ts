@@ -1,3 +1,4 @@
+import {readDecoderContainer} from './media-capabilities.js';
 import type {PlaybackState,ProcessingPlan,AudioProcessing,ReplayGainTags} from './contracts.js';
 import {readSourceEvidence} from './decoder-source.js';
 import {readPlaybackFile} from './playback-file.js';
@@ -51,8 +52,9 @@ export function asioSessionConfiguration(value:unknown):{configurationRevision:n
  return {configurationRevision:p.revision,registryName:p.driver.registryName,clsid:p.driver.clsid,outputChannels:[...p.outputChannels],bufferFrames:p.bufferFrames,allowConversion:p.allowConversion};
 }
 export function readAsioDecodedSource(value:unknown,dsdPolicy:'stop'|'pcm',allowConversion:boolean,tagStamp:string|null):AsioDecodedSource {
- if(!keys(value,['backend','codec','format','sampleRate','channels','certification','media','fileBinding','dsdConversion','opusGain'])||!['miniaudio','ffmpeg-8.1.3'].includes(String(value.backend))||typeof value.codec!=='string'||!value.codec.length||value.codec.length>64||/[\u0000-\u001f\u007f]/.test(value.codec)||!['s16','s32','f32'].includes(String(value.format))||!int(value.sampleRate,8000,1536000)||!int(value.channels,1,16)||value.certification!=='pending')throw new Error('ASIO 解码来源回执无效');
+ if(!keys(value,['backend','codec','format','sampleRate','channels','certification','media','fileBinding','dsdConversion','opusGain',...(value&&typeof value==='object'&&Object.hasOwn(value,'container')?['container']:[])])||!['miniaudio','ffmpeg-8.1.3'].includes(String(value.backend))||typeof value.codec!=='string'||!value.codec.length||value.codec.length>64||/[\u0000-\u001f\u007f]/.test(value.codec)||!['s16','s32','f32'].includes(String(value.format))||!int(value.sampleRate,8000,1536000)||!int(value.channels,1,16)||value.certification!=='pending')throw new Error('ASIO 解码来源回执无效');
  const source=structuredClone(value) as unknown as AsioDecodedSource;
+ if(source.container!==undefined)source.container=readDecoderContainer(source.container,source);
  source.media=readSourceEvidence(value.media,source);source.fileBinding=readPlaybackFile(value.fileBinding,tagStamp);
  if(source.codec.startsWith('dsd_')){
   if(!validDsdPcmConversion(value.dsdConversion)||source.backend!=='ffmpeg-8.1.3'||source.format!=='f32'||source.sampleRate!==176400||dsdPolicy!=='pcm'||!allowConversion)throw new Error('ASIO DSD 转 PCM 来源或授权无效');

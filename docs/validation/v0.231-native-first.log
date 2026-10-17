@@ -1,0 +1,39 @@
+FFmpeg build artifacts match the controlled recipe
+Verified and prepared Chromaprint 1.6.1
+-- Could not find FFMPEG
+-- Using kissfft for FFT calculations
+-- Building without audio conversion support, please install FFmpeg with libswresample
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/cmake
+[ 90%] Built target chromaprint_objs
+[100%] Built target chromaprint
+Install the project...
+-- Install configuration: "Release"
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/pkgconfig/libchromaprint.pc
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintConfig.cmake
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintConfigVersion.cmake
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintTargets.cmake
+-- Installing: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/cmake/Chromaprint/ChromaprintTargets-release.cmake
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/lib/chromaprint.lib
+-- Up-to-date: C:/Users/wuan1/Documents/Codex/2026-09-28/wo/outputs/music-app/native/chromaprint/build/install/include/chromaprint.h
+fingerprint.cpp
+main.cpp
+device-capabilities.cpp
+device-notifications.cpp
+device-clock.cpp
+asio-backend.cpp
+正在生成代码...
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\audio-host.exe
+cue-gold.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\cue-gold.exe
+pcm-ring-gold.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\pcm-ring-gold.exe
+dsd-gold.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\dsd-gold.exe (not executed)
+waveform.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\waveform-worker.exe
+dsd-analysis-worker.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\dsd-analysis-worker.exe (not executed)
+decoder-gold.cpp
+Built C:\Users\wuan1\Documents\Codex\2026-09-28\wo\outputs\music-app\native\audio-host\build\decoder-gold.exe (software decode only; not executed by build)

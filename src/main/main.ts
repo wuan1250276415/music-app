@@ -1,3 +1,4 @@
+import {MediaCapabilityRegistry} from './media-capabilities.js';
 import {TagStageBatchController} from './tag-stage-batch-controller.js';
 import {readFingerprintFind,readFingerprintChoice,readFingerprintToken} from '../shared/audio-fingerprint.js';
 import {readMetadataBatchOrigin} from '../shared/metadata-batch-recheck.js';
@@ -167,6 +168,7 @@ function refreshAnalysisVisibility():void{
 const nativeAudioHost=app.isPackaged
   ?path.join(process.resourcesPath,'audio-host.exe')
   :path.resolve(__dirname,'../../../native/audio-host/build/audio-host.exe');
+const mediaCapabilityRegistry=new MediaCapabilityRegistry(app.isPackaged?path.join(process.resourcesPath,'media-capabilities.json'):path.resolve(__dirname,'../../../release/media-capabilities.json'),nativeAudioHost);
 const credentialVaultPath=app.isPackaged?path.join(process.resourcesPath,'credential-vault.exe'):path.resolve(__dirname,'../../../native/credential-vault/build/credential-vault.exe');
 const fingerprintPath=app.isPackaged?path.join(process.resourcesPath,'fingerprint-worker.exe'):path.resolve(__dirname,'../../../native/audio-host/build/fingerprint-worker.exe');
 const waveformPath=app.isPackaged?path.join(process.resourcesPath,'waveform-worker.exe'):path.resolve(__dirname,'../../../native/audio-host/build/waveform-worker.exe');
@@ -720,6 +722,7 @@ function registerIpc(): void {
   handleIpc('tag-backup:batch-command',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupBatchCommand',request,60000);});
   handleIpc('tag-backup:batch-list',(event,cursor)=>{trusted(event.sender);return serviceCall('tagBackupBatchList',cursor);});
   handleIpc('tag-backup:batch-items',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupBatchItems',request);});
+  handleIpc('media:capabilities',event=>{trusted(event.sender);return mediaCapabilityRegistry.current();});
   handleIpc('tag-backup:policy',event=>{trusted(event.sender);return serviceCall('tagBackupPolicy');});
   handleIpc('tag-backup:policy-configure',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupPolicyConfigure',request);});
   handleIpc('tag-backup:storage',(event,request)=>{trusted(event.sender);return serviceCall('tagBackupStorage',request,60000);});

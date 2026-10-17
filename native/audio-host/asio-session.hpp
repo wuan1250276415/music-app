@@ -320,7 +320,7 @@ public:
             {"driverName",prepared.driverName},{"driverVersion",prepared.driverVersion},{"format",formatName(player->format)},{"validBits",configuration.source.validBits},
             {"sampleRate",prepared.sampleRate},{"channels",layouts},{"bufferFrames",prepared.bufferFrames},{"outputLatencyFrames",prepared.outputLatency},
             {"numericConversion",prepared.numericConversion},{"exactPackingCandidate",prepared.exactPackingCandidate},{"allowConversion",allowConversion},{"hardwareVerified",false}};
-        decodedSource={{"backend",player->decoder.backend},{"codec",player->decoder.codecName},{"format",formatName(player->format)},{"sampleRate",player->sampleRate},{"channels",player->channels},
+        decodedSource={{"backend",player->decoder.backend},{"codec",player->decoder.codecName},{"container",player->decoder.containerEvidence()},{"format",formatName(player->format)},{"sampleRate",player->sampleRate},{"channels",player->channels},
             {"certification","pending"},{"media",media},{"fileBinding",player->decoder.fileBinding()},{"dsdConversion",auralDsdDescription(player->decoder.dsd)},{"opusGain",opusGain}};
         outputLabel="ASIO · "+(prepared.driverName.empty()?prepared.identity.registryName:prepared.driverName)+" · "+formatName(player->format)+" · "+std::to_string(player->sampleRate)+" Hz (unverified)";
         planToken=channel.session+"-"+stringField(hello,"nonce")+"-asio-pcm-1";channel.generation=1;channel.receipt(request,command,true);

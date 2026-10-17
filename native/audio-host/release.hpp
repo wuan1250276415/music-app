@@ -3,7 +3,7 @@
 #include <cstdint>
 namespace aural_release {
 constexpr uint32_t protocol_major = 1;
-constexpr uint32_t protocol_minor = 23;
+constexpr uint32_t protocol_minor = 24;
 constexpr uint32_t max_message_bytes = 1048576;
 constexpr const char* main_build_id = "aural-main-0.215.0";
 constexpr const char* host_build_id = "aural-native-0.215.0";

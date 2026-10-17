@@ -1,0 +1,13 @@
+{
+  "completed": true,
+  "version": "0.231.0",
+  "combinations": 33,
+  "decodeCases": 34,
+  "seekWindows": 1190,
+  "nativeSourceInputs": 50,
+  "hostSha256": "bed8cc37ff865525ff3465738c2ffddefd299e18182fbc753e32796cc7caeb07",
+  "manifestSha256": "f81714b5c3bfb2b15e72ab1d56cad5f94666ebb4f6e8b046f303aa42ec8e3c86",
+  "originalProofSha256": "ab3553e2aa0c0a00668a0e78232634508480ab8531e163b15670ef20c20002db",
+  "deviceBitPerfectAccepted": false,
+  "crossFileGaplessAccepted": false
+}

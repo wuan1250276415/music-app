@@ -43,7 +43,7 @@ class AuralFfmpegDecoder {
     int stream_=-1;uint64_t deadline_=0,cursor_=0;bool draining_=false,eof_=false,apiAvailable_=false;
     int64_t origin_=AV_NOPTS_VALUE;AVRational timeBase_{};AVSampleFormat inputFormat_=AV_SAMPLE_FMT_NONE;
     AVChannelLayout layout_{};std::atomic<bool>* cancel_=nullptr;
-    uint32_t inputRate_=0;uint64_t sourceDecodedFrames_=0;
+    uint32_t inputRate_=0;uint64_t sourceDecodedFrames_=0,knownLength_=0;
     std::vector<uint8_t> block_;uint64_t blockFrames_=0,blockOffset_=0;
     std::vector<uint8_t> opusHeader_;
     int64_t verifiedOpusPage_=-1;
@@ -119,7 +119,7 @@ class AuralFfmpegDecoder {
     }
 public:
     ma_format format=ma_format_unknown,nativeIntegerFormat=ma_format_unknown;
-    uint32_t channels=0,sampleRate=0,validBits=0;std::string codecName;
+    uint32_t channels=0,sampleRate=0,validBits=0;std::string codecName,containerName;int codecProfile=-99;
     AuralDsdInfo dsd;std::string failureReason;
     aural_opus::Info opusGain;
     std::array<ma_channel,16> channelMap{};
@@ -131,8 +131,8 @@ public:
         avformat_close_input(&demux_);if(io_){av_freep(&io_->buffer);avio_context_free(&io_);}
         av_channel_layout_uninit(&layout_);if(file_!=INVALID_HANDLE_VALUE){if(ownsFile_&&file_)CloseHandle(file_);file_=INVALID_HANDLE_VALUE;}ownsFile_=false;
         block_.clear();blockFrames_=blockOffset_=cursor_=0;origin_=AV_NOPTS_VALUE;stream_=-1;draining_=eof_=false;
-        format=nativeIntegerFormat=ma_format_unknown;channels=sampleRate=validBits=0;codecName.clear();
-        dsd={};opusGain={};opusHeader_.clear();verifiedOpusPage_=-1;inputRate_=0;sourceDecodedFrames_=0;
+        format=nativeIntegerFormat=ma_format_unknown;channels=sampleRate=validBits=0;codecName.clear();containerName.clear();codecProfile=-99;
+        dsd={};opusGain={};opusHeader_.clear();verifiedOpusPage_=-1;inputRate_=0;sourceDecodedFrames_=0;knownLength_=0;
     }
     ma_result open(const std::wstring& filename,ma_format wanted,bool preferInteger,std::atomic<bool>* cancellation,bool allowDsdPcm=false){
         if(!auralFfmpegRuntime())return MA_NOT_IMPLEMENTED;
@@ -163,6 +163,7 @@ public:
         if(avformat_open_input(&demux_,nullptr,nullptr,nullptr)<0||avformat_find_stream_info(demux_,nullptr)<0)return MA_INVALID_FILE;
         const AVCodec* decoder=nullptr;stream_=av_find_best_stream(demux_,AVMEDIA_TYPE_AUDIO,-1,-1,&decoder,0);
         if(stream_<0||!decoder)return MA_INVALID_DATA;
+        const std::string demuxName=demux_->iformat->name;containerName=demuxName=="aac"?"adts":demuxName=="ogg"?"ogg":demuxName=="dsf"?"dsf":demuxName=="iff"?"dff":demuxName.find("mov")!=std::string::npos?"mp4":"unknown";
         const auto id=decoder->id;const bool isDsd=id==AV_CODEC_ID_DSD_LSBF||id==AV_CODEC_ID_DSD_MSBF||id==AV_CODEC_ID_DSD_LSBF_PLANAR||id==AV_CODEC_ID_DSD_MSBF_PLANAR;
         if(id!=AV_CODEC_ID_AAC&&id!=AV_CODEC_ID_ALAC&&id!=AV_CODEC_ID_VORBIS&&id!=AV_CODEC_ID_OPUS&&!isDsd)return MA_FORMAT_NOT_SUPPORTED;
         if(isDsd!=(dsd.bitRate!=0))return MA_INVALID_DATA;
@@ -215,19 +216,49 @@ public:
         if(isDsd&&(av_opt_set_int(conversion_,"filter_size",128,0)<0||av_opt_set_double(conversion_,"cutoff",.5,0)<0||av_opt_set_int(conversion_,"filter_type",SWR_FILTER_TYPE_KAISER,0)<0||av_opt_set_double(conversion_,"kaiser_beta",9.,0)<0))return MA_INVALID_DATA;
         if(swr_init(conversion_)<0)return MA_INVALID_DATA;
         frame_=av_frame_alloc();packet_=av_packet_alloc();if(!frame_||!packet_)return MA_OUT_OF_MEMORY;
-        // libavcodec owns encoder delay/padding removal. Do not trim it a second time.
-        return nextBlock(&origin_);
+        codecProfile=codec_->profile;
+        // Decoder handles leading priming; exact MP4 duration additionally bounds residual tail padding.
+        const auto first=nextBlock(&origin_);if(first!=MA_SUCCESS)return first;
+        const auto* stream=demux_->streams[stream_];
+        // Some AAC/MP4 decodes leave a partial final codec frame. An exact
+        // authoritative stream duration bounds it without trimming twice.
+        if(id==AV_CODEC_ID_AAC&&containerName=="mp4"&&stream->duration>0&&stream->start_time==origin_){
+            const auto frames=av_rescale_q(stream->duration,stream->time_base,AVRational{1,int(sampleRate)});
+            if(frames>0&&av_rescale_q(frames,AVRational{1,int(sampleRate)},stream->time_base)==stream->duration)knownLength_=uint64_t(frames);
+        }
+        return MA_SUCCESS;
     }
     ma_result read(void* output,ma_uint64 wanted,ma_uint64* got){
         *got=0;deadline_=GetTickCount64()+20000;const size_t bytes=size_t(channels)*ma_get_bytes_per_sample(format);
         while(*got<wanted){
+            if(knownLength_&&cursor_>=knownLength_)return MA_AT_END;
             if(blockOffset_==blockFrames_){if(eof_)return MA_AT_END;const auto result=nextBlock();if(result!=MA_SUCCESS)return result;}
-            const auto count=std::min<uint64_t>(wanted-*got,blockFrames_-blockOffset_);
+            const auto count=std::min<uint64_t>(std::min<uint64_t>(wanted-*got,blockFrames_-blockOffset_),knownLength_?knownLength_-cursor_:UINT64_MAX);
             std::memcpy(static_cast<uint8_t*>(output)+size_t(*got)*bytes,block_.data()+size_t(blockOffset_)*bytes,size_t(count)*bytes);
             *got+=count;blockOffset_+=count;cursor_+=count;
         }return MA_SUCCESS;
     }
+    ma_result replaySeek(ma_uint64 target,bool force=false){
+        if(force||target<cursor_){
+            const HANDLE handle=file_;const bool ownership=ownsFile_;auto* cancellation=cancel_;const auto selected=format;const bool isDsd=dsd.bitRate!=0;ownsFile_=false;
+            if(openHandle(handle,selected,selected!=ma_format_f32,cancellation,ownership,isDsd)!=MA_SUCCESS)return MA_BAD_SEEK;
+        }
+        const uint64_t limit=GetTickCount64()+20000;std::vector<uint8_t> scratch(size_t(4096)*channels*ma_get_bytes_per_sample(format));
+        while(cursor_<target&&!interrupted(this)&&GetTickCount64()<=limit){ma_uint64 got=0;const auto result=read(scratch.data(),std::min<uint64_t>(4096,target-cursor_),&got);if(!got||(result!=MA_SUCCESS&&result!=MA_AT_END))return MA_BAD_SEEK;}
+        return cursor_==target?MA_SUCCESS:MA_BAD_SEEK;
+    }
+    ma_result length(ma_uint64* result)const{if(!knownLength_)return MA_NOT_IMPLEMENTED;*result=knownLength_;return MA_SUCCESS;}
     ma_result seek(ma_uint64 target){
+        deadline_=GetTickCount64()+20000;
+        if(knownLength_&&target>=knownLength_)return MA_BAD_SEEK;
+        // AAC noise synthesis/priming state is not reconstructed by codec flush.
+        // Preserve it on forward seeks and replay the pinned origin backwards.
+        if(!dsd.bitRate&&(codecName=="aac"||codecName!="alac"&&target<=uint64_t(sampleRate)*2))return replaySeek(target);
+        const auto result=indexedSeek(target);return result==MA_SUCCESS||dsd.bitRate?result:replaySeek(target,true);
+    }
+    ma_result indexedSeek(ma_uint64 target){
+        // Initial codec priming is reconstructed from the original demuxer state.
+        // A timestamp-zero demux seek is not equivalent to reopening the stream.
         if(dsd.bitRate){
             // Stateful DSD FIR has no decoder flush hook. Reinitialize and discard from the actual origin.
             const HANDLE handle=file_;const bool ownership=ownsFile_;auto* cancellation=cancel_;ownsFile_=false;
@@ -246,10 +277,10 @@ public:
         draining_=eof_=false;blockFrames_=blockOffset_=0;verifiedOpusPage_=-1;
         while(!interrupted(this)){
             int64_t pts=AV_NOPTS_VALUE;const auto result=nextBlock(&pts);if(result!=MA_SUCCESS)return MA_BAD_SEEK;
-            if(pts==AV_NOPTS_VALUE||pts<origin_||origin_<0&&pts>INT64_MAX+origin_)return MA_BAD_SEEK;
+            if(pts==AV_NOPTS_VALUE||origin_>0&&pts<INT64_MIN+origin_||origin_<0&&pts>INT64_MAX+origin_)return MA_BAD_SEEK;
             const int64_t begin=av_rescale_q(pts-origin_,timeBase_,AVRational{1,int(sampleRate)});
-            if(begin<0||uint64_t(begin)>target)return MA_BAD_SEEK;
-            const auto drop=target-uint64_t(begin);
+            if(begin>=0&&uint64_t(begin)>target)return MA_BAD_SEEK;
+            const auto drop=begin<0?target+uint64_t(-(begin+1))+1:target-uint64_t(begin);
             if(drop>=blockFrames_)continue;
             blockOffset_=drop;cursor_=target;return MA_SUCCESS;
         }return MA_BAD_SEEK;
@@ -260,7 +291,7 @@ class AuralPcmDecoder {
     AuralPlaybackFile ownedFile_;
     HANDLE sourceHandle_=INVALID_HANDLE_VALUE;ma_vfs* sourceVfs_=nullptr;
     std::atomic<bool>* cancel_=nullptr;bool allowDsd_=false;
-    ma_decoder builtin_{};bool builtinReady_=false,extendedReady_=false;
+    ma_decoder builtin_{};bool builtinReady_=false,extendedReady_=false;uint64_t logicalCursor_=0;
     AuralFfmpegDecoder extended_;
     void builtinCodec(){
         codecName="builtin-unknown";
@@ -277,7 +308,7 @@ class AuralPcmDecoder {
 
 public:
     ma_format outputFormat=ma_format_unknown,nativeIntegerFormat=ma_format_unknown;
-    uint32_t outputChannels=0,outputSampleRate=0;std::string backend="miniaudio",codecName;
+    uint32_t outputChannels=0,outputSampleRate=0;std::string backend="miniaudio",codecName,containerName;
     AuralDsdInfo dsd;std::string failureReason;
     aural_opus::Info opusGain;
     ~AuralPcmDecoder(){uninit();}
@@ -314,21 +345,22 @@ public:
         const char* conversion=kind=="pcm-integer"||kind=="lossless-integer"?(outputFormat==ma_format_f32?"integer-to-float":"integer-output"):kind=="pcm-float"?"float-output":kind=="lossy"?"lossy-decode":kind=="dsd"?"dsd-to-pcm":"unknown";
         return {{"version",1},{"encoding",encoding},{"validBits",valid?nlohmann::json(valid):nlohmann::json(nullptr)},{"containerBits",container?nlohmann::json(container):nlohmann::json(nullptr)},{"evidence",evidence},{"decoderConversion",conversion}};
     }
+    nlohmann::json containerEvidence()const{return {{"version",1},{"family",containerName},{"profile",extendedReady_&&extended_.codecProfile!=-99?nlohmann::json(extended_.codecProfile):nlohmann::json(nullptr)}};}
     nlohmann::json fileBinding()const{return ownedFile_.binding();}
     ma_result validateSource(){return ownedFile_.handle!=INVALID_HANDLE_VALUE?ownedFile_.begin(true):MA_SUCCESS;}
     void closeCodec(){
         if(builtinReady_)ma_decoder_uninit(&builtin_);if(extendedReady_)extended_.close();builtinReady_=extendedReady_=false;
-        outputFormat=nativeIntegerFormat=ma_format_unknown;outputChannels=outputSampleRate=0;backend="miniaudio";codecName.clear();dsd={};opusGain={};failureReason.clear();
+        outputFormat=nativeIntegerFormat=ma_format_unknown;outputChannels=outputSampleRate=0;backend="miniaudio";codecName.clear();containerName.clear();dsd={};opusGain={};failureReason.clear();
     }
     ma_result openCodec(ma_format wanted,bool preferInteger){
-        closeCodec();if(sourceHandle_==INVALID_HANDLE_VALUE||!sourceVfs_)return MA_INVALID_OPERATION;
+        closeCodec();logicalCursor_=0;if(sourceHandle_==INVALID_HANDLE_VALUE||!sourceVfs_)return MA_INVALID_OPERATION;
         if(ownedFile_.handle!=INVALID_HANDLE_VALUE){const auto rc=ownedFile_.begin(true);if(rc!=MA_SUCCESS)return rc;}
         const auto reset=[&](){LARGE_INTEGER zero{};return SetFilePointerEx(sourceHandle_,zero,nullptr,FILE_BEGIN)!=FALSE;};
         if(!reset())return MA_BAD_SEEK;
         auto config=ma_decoder_config_init(preferInteger?ma_format_s32:wanted,0,0);
         auto result=ma_decoder_init_vfs(sourceVfs_,ownedFile_.handle!=INVALID_HANDLE_VALUE?"aural-playback":"locked-media",&config,&builtin_);
         if(result==MA_SUCCESS){
-            builtinReady_=true;builtinCodec();outputFormat=builtin_.outputFormat;outputChannels=builtin_.outputChannels;outputSampleRate=builtin_.outputSampleRate;
+            builtinReady_=true;builtinCodec();containerName=codecName;outputFormat=builtin_.outputFormat;outputChannels=builtin_.outputChannels;outputSampleRate=builtin_.outputSampleRate;
             const auto evidence=sourceEvidence();const std::string encoding=evidence.at("encoding").get<std::string>();
             const unsigned valid=evidence.at("validBits").is_null()?0:evidence.at("validBits").get<unsigned>();
             const unsigned container=evidence.at("containerBits").is_null()?0:evidence.at("containerBits").get<unsigned>();
@@ -345,7 +377,7 @@ public:
                 config=ma_decoder_config_init(selected,0,0);
                 result=ma_decoder_init_vfs(sourceVfs_,ownedFile_.handle!=INVALID_HANDLE_VALUE?"aural-playback":"locked-media",&config,&builtin_);
                 if(result!=MA_SUCCESS)return result;
-                builtinReady_=true;builtinCodec();outputFormat=builtin_.outputFormat;outputChannels=builtin_.outputChannels;outputSampleRate=builtin_.outputSampleRate;
+                builtinReady_=true;builtinCodec();containerName=codecName;outputFormat=builtin_.outputFormat;outputChannels=builtin_.outputChannels;outputSampleRate=builtin_.outputSampleRate;
                 auto currentEvidence=sourceEvidence(),expectedEvidence=evidence;currentEvidence.erase("decoderConversion");expectedEvidence.erase("decoderConversion");
                 if(codecName!=codec||outputSampleRate!=rate||outputChannels!=channels||currentEvidence!=expectedEvidence)return MA_INVALID_DATA;
             }
@@ -361,7 +393,7 @@ public:
         const auto expanded=extended_.openHandle(sourceHandle_,wanted,preferInteger,cancel_,false,allowDsd_);
         if(expanded!=MA_SUCCESS){failureReason=extended_.failureReason;extended_.close();return expanded;}
         extendedReady_=true;outputFormat=extended_.format;outputChannels=extended_.channels;outputSampleRate=extended_.sampleRate;
-        nativeIntegerFormat=extended_.nativeIntegerFormat;backend="ffmpeg-8.1.3";codecName=extended_.codecName;dsd=extended_.dsd;opusGain=extended_.opusGain;return MA_SUCCESS;
+        nativeIntegerFormat=extended_.nativeIntegerFormat;backend="ffmpeg-8.1.3";codecName=extended_.codecName;containerName=extended_.containerName;dsd=extended_.dsd;opusGain=extended_.opusGain;return MA_SUCCESS;
     }
     ma_result init(const std::wstring& filename,ma_format format,bool preferInteger,std::atomic<bool>* cancel,bool allowDsdPcm=false){
         uninit();const auto rc=ownedFile_.open(filename,cancel);if(rc!=MA_SUCCESS)return rc;
@@ -377,14 +409,20 @@ public:
         *got=0;if(ownedFile_.handle!=INVALID_HANDLE_VALUE){const auto rc=ownedFile_.begin();if(rc!=MA_SUCCESS)return rc;}
         const auto rc=builtinReady_?ma_decoder_read_pcm_frames(&builtin_,output,frames,got):extendedReady_?extended_.read(output,frames,got):MA_INVALID_OPERATION;
         if(ownedFile_.handle!=INVALID_HANDLE_VALUE){if(ownedFile_.ioError!=MA_SUCCESS)return ownedFile_.ioError;if(!ownedFile_.allowed())return MA_CANCELLED;}
-        return rc;
+        if(builtinReady_&&codecName=="mp3")logicalCursor_+=*got;return rc;
     }
     ma_result seek(ma_uint64 frame){
         if(ownedFile_.handle!=INVALID_HANDLE_VALUE){const auto rc=ownedFile_.begin(true);if(rc!=MA_SUCCESS)return rc;}
+        if(builtinReady_&&codecName=="mp3"){
+            if(frame<logicalCursor_){const auto selected=outputFormat;if(openCodec(selected,false)!=MA_SUCCESS)return MA_BAD_SEEK;}
+            const auto limit=GetTickCount64()+20000;std::vector<uint8_t> scratch(size_t(4096)*outputChannels*ma_get_bytes_per_sample(outputFormat));
+            while(logicalCursor_<frame&&GetTickCount64()<=limit){ma_uint64 got=0;const auto result=read(scratch.data(),std::min<uint64_t>(4096,frame-logicalCursor_),&got);if(!got||(result!=MA_SUCCESS&&result!=MA_AT_END))return MA_BAD_SEEK;}
+            return logicalCursor_==frame?MA_SUCCESS:MA_BAD_SEEK;
+        }
         const auto rc=builtinReady_?ma_decoder_seek_to_pcm_frame(&builtin_,frame):extendedReady_?extended_.seek(frame):MA_INVALID_OPERATION;
         if(ownedFile_.handle!=INVALID_HANDLE_VALUE){if(ownedFile_.ioError!=MA_SUCCESS)return ownedFile_.ioError;if(!ownedFile_.allowed())return MA_CANCELLED;}
         return rc;
     }
-    ma_result length(ma_uint64* length){return builtinReady_?ma_decoder_get_length_in_pcm_frames(&builtin_,length):MA_NOT_IMPLEMENTED;}
+    ma_result length(ma_uint64* length){return builtinReady_?ma_decoder_get_length_in_pcm_frames(&builtin_,length):extendedReady_?extended_.length(length):MA_NOT_IMPLEMENTED;}
     ma_channel* channelMap(){return extendedReady_?extended_.channelMap.data():nullptr;}
 };

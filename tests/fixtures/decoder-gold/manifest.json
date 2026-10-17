@@ -1,0 +1,343 @@
+{
+  "version": 1,
+  "algorithm": "integer-ramp-stereo-v1",
+  "encoder": "ffmpeg version 8.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "cases": [
+    {
+      "id": "wav-44100-16",
+      "rate": 44100,
+      "bits": 16,
+      "codec": "wav",
+      "extension": "wav",
+      "integer": true,
+      "encoder": null,
+      "file": "wav-44100-16.wav",
+      "sha256": "99b477230de78e91de2be10b5abe4d2010bdb2618148419ab0c056adbcff5f5a"
+    },
+    {
+      "id": "flac-44100-16",
+      "rate": 44100,
+      "bits": 16,
+      "codec": "flac",
+      "extension": "flac",
+      "integer": true,
+      "encoder": [
+        "-c:a",
+        "flac",
+        "-sample_fmt",
+        "s16"
+      ],
+      "file": "flac-44100-16.flac",
+      "sha256": "58ca668b99a4bf121ee4656a8ef8674a908334370a5619aad1b3b7ca08d2c030"
+    },
+    {
+      "id": "alac-44100-16",
+      "rate": 44100,
+      "bits": 16,
+      "codec": "alac",
+      "extension": "m4a",
+      "integer": true,
+      "encoder": [
+        "-c:a",
+        "alac",
+        "-sample_fmt",
+        "s16p"
+      ],
+      "file": "alac-44100-16.m4a",
+      "sha256": "7572372af34be407c52b9af3f6c1c08119764fdd293e74a598053318d5710f6b"
+    },
+    {
+      "id": "wav-44100-24",
+      "rate": 44100,
+      "bits": 24,
+      "codec": "wav",
+      "extension": "wav",
+      "integer": true,
+      "encoder": null,
+      "file": "wav-44100-24.wav",
+      "sha256": "d26097eabe83cc7c0f76501373e0659204afa973327bad85f6d55494ff834969"
+    },
+    {
+      "id": "flac-44100-24",
+      "rate": 44100,
+      "bits": 24,
+      "codec": "flac",
+      "extension": "flac",
+      "integer": true,
+      "encoder": [
+        "-c:a",
+        "flac",
+        "-sample_fmt",
+        "s32"
+      ],
+      "file": "flac-44100-24.flac",
+      "sha256": "78ac49ea3532e78b21d8fe5a3a8bb548fe40958c130030a5b9fbbd1d11489d1c"
+    },
+    {
+      "id": "alac-44100-24",
+      "rate": 44100,
+      "bits": 24,
+      "codec": "alac",
+      "extension": "m4a",
+      "integer": true,
+      "encoder": [
+        "-c:a",
+        "alac",
+        "-sample_fmt",
+        "s32p"
+      ],
+      "file": "alac-44100-24.m4a",
+      "sha256": "ec4571cf25b7b697fee17edaa788a64aa218c41575e18b68eb5029e255cb4ac4"
+    },
+    {
+      "id": "wav-48000-16",
+      "rate": 48000,
+      "bits": 16,
+      "codec": "wav",
+      "extension": "wav",
+      "integer": true,
+      "encoder": null,
+      "file": "wav-48000-16.wav",
+      "sha256": "faee2a8b6939db2b0865e4884da4152f1ae6081ed87858c498121f7a5ba24087"
+    },
+    {
+      "id": "flac-48000-16",
+      "rate": 48000,
+      "bits": 16,
+      "codec": "flac",
+      "extension": "flac",
+      "integer": true,
+      "encoder": [
+        "-c:a",
+        "flac",
+        "-sample_fmt",
+        "s16"
+      ],
+      "file": "flac-48000-16.flac",
+      "sha256": "719fc2e64f881a74798d21dd46cee1bc07b1d71aa9e23cf01b51fc9242f58daf"
+    },
+    {
+      "id": "alac-48000-16",
+      "rate": 48000,
+      "bits": 16,
+      "codec": "alac",
+      "extension": "m4a",
+      "integer": true,
+      "encoder": [
+        "-c:a",
+        "alac",
+        "-sample_fmt",
+        "s16p"
+      ],
+      "file": "alac-48000-16.m4a",
+      "sha256": "a353d0eb44f7dacee003a530aaeb1eef3699a0dc6fb20416c5f1ddd596c05f27"
+    },
+    {
+      "id": "wav-48000-24",
+      "rate": 48000,
+      "bits": 24,
+      "codec": "wav",
+      "extension": "wav",
+      "integer": true,
+      "encoder": null,
+      "file": "wav-48000-24.wav",
+      "sha256": "951117c56e81f324fd47589202be7f9af00dad773e4a7632e5e773694845f3dc"
+    },
+    {
+      "id": "flac-48000-24",
+      "rate": 48000,
+      "bits": 24,
+      "codec": "flac",
+      "extension": "flac",
+      "integer": true,
+      "encoder": [
+        "-c:a",
+        "flac",
+        "-sample_fmt",
+        "s32"
+      ],
+      "file": "flac-48000-24.flac",
+      "sha256": "6b4dc9704c560bdea23b4138a0150097a76223166feeb60fd354caf0ef966dce"
+    },
+    {
+      "id": "alac-48000-24",
+      "rate": 48000,
+      "bits": 24,
+      "codec": "alac",
+      "extension": "m4a",
+      "integer": true,
+      "encoder": [
+        "-c:a",
+        "alac",
+        "-sample_fmt",
+        "s32p"
+      ],
+      "file": "alac-48000-24.m4a",
+      "sha256": "81345c14ad158814acf53992abb25fc909690ed727edb0f0a099962d956efb4f"
+    },
+    {
+      "id": "mp3-mp3-44100",
+      "rate": 44100,
+      "bits": 16,
+      "codec": "mp3",
+      "extension": "mp3",
+      "integer": false,
+      "encoder": [
+        "-c:a",
+        "libmp3lame",
+        "-b:a",
+        "192k"
+      ],
+      "file": "mp3-mp3-44100.mp3",
+      "sha256": "a4fe6575fbf282321d2906a74f0e94ba1d4f22dbdc3df425dbe5cb375c4b5dc3"
+    },
+    {
+      "id": "aac-m4a-44100",
+      "rate": 44100,
+      "bits": 16,
+      "codec": "aac",
+      "extension": "m4a",
+      "integer": false,
+      "encoder": [
+        "-c:a",
+        "aac",
+        "-b:a",
+        "192k"
+      ],
+      "file": "aac-m4a-44100.m4a",
+      "sha256": "b9eb500ca765efdf4be044dc5869924b58fa4b66096ab6e945b0d1749e98ede2"
+    },
+    {
+      "id": "aac-aac-44100",
+      "rate": 44100,
+      "bits": 16,
+      "codec": "aac",
+      "extension": "aac",
+      "integer": false,
+      "encoder": [
+        "-c:a",
+        "aac",
+        "-b:a",
+        "192k",
+        "-f",
+        "adts"
+      ],
+      "file": "aac-aac-44100.aac",
+      "sha256": "8ff82da52682f36383b7025dd60e87502e8642231f226a7165e153b41129d81d"
+    },
+    {
+      "id": "vorbis-ogg-44100",
+      "rate": 44100,
+      "bits": 16,
+      "codec": "vorbis",
+      "extension": "ogg",
+      "integer": false,
+      "encoder": [
+        "-c:a",
+        "libvorbis",
+        "-q:a",
+        "5"
+      ],
+      "file": "vorbis-ogg-44100.ogg",
+      "sha256": "fca59c6094b76673e7d53b87cee773bc1caf62b81cbd39700215b1f7bf3bbe8b"
+    },
+    {
+      "id": "opus-opus-44100",
+      "rate": 44100,
+      "bits": 16,
+      "codec": "opus",
+      "extension": "opus",
+      "integer": false,
+      "encoder": [
+        "-c:a",
+        "libopus",
+        "-b:a",
+        "160k"
+      ],
+      "file": "opus-opus-44100.opus",
+      "sha256": "d2ebcac004989436fed76b164796549c94e1120338801f1c4f237f3d94e4050a"
+    },
+    {
+      "id": "mp3-mp3-48000",
+      "rate": 48000,
+      "bits": 16,
+      "codec": "mp3",
+      "extension": "mp3",
+      "integer": false,
+      "encoder": [
+        "-c:a",
+        "libmp3lame",
+        "-b:a",
+        "192k"
+      ],
+      "file": "mp3-mp3-48000.mp3",
+      "sha256": "ccd9cf95fe2ba7c09482a50925d3b18020d16d011ed8395b1fa04ef4a9673f91"
+    },
+    {
+      "id": "aac-m4a-48000",
+      "rate": 48000,
+      "bits": 16,
+      "codec": "aac",
+      "extension": "m4a",
+      "integer": false,
+      "encoder": [
+        "-c:a",
+        "aac",
+        "-b:a",
+        "192k"
+      ],
+      "file": "aac-m4a-48000.m4a",
+      "sha256": "bc902b5934e36c33ee5be4cb7d703b73b88191cd414bcf206229600174398a2f"
+    },
+    {
+      "id": "aac-aac-48000",
+      "rate": 48000,
+      "bits": 16,
+      "codec": "aac",
+      "extension": "aac",
+      "integer": false,
+      "encoder": [
+        "-c:a",
+        "aac",
+        "-b:a",
+        "192k",
+        "-f",
+        "adts"
+      ],
+      "file": "aac-aac-48000.aac",
+      "sha256": "48f2eb9c9a362a283de8f588b257a6651c860278e79d439cf3e96dbdbb5a96b1"
+    },
+    {
+      "id": "vorbis-ogg-48000",
+      "rate": 48000,
+      "bits": 16,
+      "codec": "vorbis",
+      "extension": "ogg",
+      "integer": false,
+      "encoder": [
+        "-c:a",
+        "libvorbis",
+        "-q:a",
+        "5"
+      ],
+      "file": "vorbis-ogg-48000.ogg",
+      "sha256": "3d4303514c2ae05c2a53231643ac274b610a44330d00f3b9ea4b3663f4f377bb"
+    },
+    {
+      "id": "opus-opus-48000",
+      "rate": 48000,
+      "bits": 16,
+      "codec": "opus",
+      "extension": "opus",
+      "integer": false,
+      "encoder": [
+        "-c:a",
+        "libopus",
+        "-b:a",
+        "160k"
+      ],
+      "file": "opus-opus-48000.opus",
+      "sha256": "ecf4698fd229ec623baf3b7d14036d9fcf4974c3f08bf857d172b48bdea0f04f"
+    }
+  ]
+}

@@ -1,0 +1,779 @@
+{
+  "format": "aural-media-capabilities",
+  "version": 1,
+  "appVersion": "0.231.0",
+  "createdAt": "2026-10-17T15:02:32.208Z",
+  "components": {
+    "audio-host.exe": "bed8cc37ff865525ff3465738c2ffddefd299e18182fbc753e32796cc7caeb07",
+    "avutil-60.dll": "3cb04fda030a2328a7617b945e8d76081edf1ebdff6d732255d67406bf114459",
+    "swresample-6.dll": "5438f1d328ec7fec3877e927b2ff1c7f3e54df402be6e885abc3d620b1ac580f",
+    "avcodec-62.dll": "70211fe0a39a51e7bf486e5060ea55e22dd8817ad0112e28b3f0e9600c4061fc",
+    "avformat-62.dll": "96fbbb0a1e4f03bc70145b7d3e4974686d42fbd0d6fca638b1660d55d8cc3008"
+  },
+  "probeSha256": "1294d0d9b10001159cd86528e96b16da8b02ffa2fc7f9b617851ae309c01e063",
+  "reportSha256": "ab3553e2aa0c0a00668a0e78232634508480ab8531e163b15670ef20c20002db",
+  "combinations": [
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "aac",
+      "container": {
+        "family": "adts",
+        "profile": 1,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossy",
+        "validBits": null,
+        "containerBits": null
+      },
+      "independentReference": false,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "aac-aac-44100"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "aac",
+      "container": {
+        "family": "adts",
+        "profile": 1,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossy",
+        "validBits": null,
+        "containerBits": null
+      },
+      "independentReference": false,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "aac-aac-48000"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "aac",
+      "container": {
+        "family": "mp4",
+        "profile": 1,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossy",
+        "validBits": null,
+        "containerBits": null
+      },
+      "independentReference": false,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "aac-m4a-44100"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "aac",
+      "container": {
+        "family": "mp4",
+        "profile": 1,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossy",
+        "validBits": null,
+        "containerBits": null
+      },
+      "independentReference": false,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "aac-m4a-48000"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "alac",
+      "container": {
+        "family": "mp4",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 16,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "alac-44100-16-float"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "alac",
+      "container": {
+        "family": "mp4",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 24,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "alac-44100-24-float"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "alac",
+      "container": {
+        "family": "mp4",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "s16",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 16,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "alac-44100-16"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "alac",
+      "container": {
+        "family": "mp4",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "s32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 24,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "alac-44100-24"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "alac",
+      "container": {
+        "family": "mp4",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 16,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "alac-48000-16-float"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "alac",
+      "container": {
+        "family": "mp4",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 24,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "alac-48000-24-float"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "alac",
+      "container": {
+        "family": "mp4",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "s16",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 16,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "alac-48000-16"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "alac",
+      "container": {
+        "family": "mp4",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "s32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 24,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "alac-48000-24"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "opus",
+      "container": {
+        "family": "ogg",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossy",
+        "validBits": null,
+        "containerBits": null
+      },
+      "independentReference": false,
+      "seekCases": 70,
+      "maxSeekError": 0,
+      "fixtures": [
+        "opus-opus-44100",
+        "opus-opus-48000"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "vorbis",
+      "container": {
+        "family": "ogg",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossy",
+        "validBits": null,
+        "containerBits": null
+      },
+      "independentReference": false,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "vorbis-ogg-44100"
+      ]
+    },
+    {
+      "backend": "ffmpeg-8.1.3",
+      "codec": "vorbis",
+      "container": {
+        "family": "ogg",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossy",
+        "validBits": null,
+        "containerBits": null
+      },
+      "independentReference": false,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "vorbis-ogg-48000"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "flac",
+      "container": {
+        "family": "flac",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 16,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "flac-44100-16-float"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "flac",
+      "container": {
+        "family": "flac",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 24,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "flac-44100-24-float"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "flac",
+      "container": {
+        "family": "flac",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "s16",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 16,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "flac-44100-16"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "flac",
+      "container": {
+        "family": "flac",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "s32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 24,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "flac-44100-24"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "flac",
+      "container": {
+        "family": "flac",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 16,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "flac-48000-16-float"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "flac",
+      "container": {
+        "family": "flac",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 24,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "flac-48000-24-float"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "flac",
+      "container": {
+        "family": "flac",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "s16",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 16,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "flac-48000-16"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "flac",
+      "container": {
+        "family": "flac",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "s32",
+      "media": {
+        "encoding": "lossless-integer",
+        "validBits": 24,
+        "containerBits": null
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "flac-48000-24"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "mp3",
+      "container": {
+        "family": "mp3",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossy",
+        "validBits": null,
+        "containerBits": null
+      },
+      "independentReference": false,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "mp3-mp3-44100"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "mp3",
+      "container": {
+        "family": "mp3",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "lossy",
+        "validBits": null,
+        "containerBits": null
+      },
+      "independentReference": false,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "mp3-mp3-48000"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "wav",
+      "container": {
+        "family": "wav",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "pcm-integer",
+        "validBits": 16,
+        "containerBits": 16
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "wav-44100-16-float"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "wav",
+      "container": {
+        "family": "wav",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "pcm-integer",
+        "validBits": 24,
+        "containerBits": 24
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "wav-44100-24-float"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "wav",
+      "container": {
+        "family": "wav",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "s16",
+      "media": {
+        "encoding": "pcm-integer",
+        "validBits": 16,
+        "containerBits": 16
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "wav-44100-16"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "wav",
+      "container": {
+        "family": "wav",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 44100,
+      "channels": 2,
+      "format": "s32",
+      "media": {
+        "encoding": "pcm-integer",
+        "validBits": 24,
+        "containerBits": 24
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "wav-44100-24"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "wav",
+      "container": {
+        "family": "wav",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "pcm-integer",
+        "validBits": 16,
+        "containerBits": 16
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "wav-48000-16-float"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "wav",
+      "container": {
+        "family": "wav",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "f32",
+      "media": {
+        "encoding": "pcm-integer",
+        "validBits": 24,
+        "containerBits": 24
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "wav-48000-24-float"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "wav",
+      "container": {
+        "family": "wav",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "s16",
+      "media": {
+        "encoding": "pcm-integer",
+        "validBits": 16,
+        "containerBits": 16
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "wav-48000-16"
+      ]
+    },
+    {
+      "backend": "miniaudio",
+      "codec": "wav",
+      "container": {
+        "family": "wav",
+        "profile": null,
+        "version": 1
+      },
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "s32",
+      "media": {
+        "encoding": "pcm-integer",
+        "validBits": 24,
+        "containerBits": 24
+      },
+      "independentReference": true,
+      "seekCases": 35,
+      "maxSeekError": 0,
+      "fixtures": [
+        "wav-48000-24"
+      ]
+    }
+  ],
+  "hardwareVerified": false,
+  "crossFileGaplessVerified": false
+}

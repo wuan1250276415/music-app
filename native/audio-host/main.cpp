@@ -600,7 +600,7 @@ int wmain(int argc,wchar_t** argv) {
                              {"allowConversion",allowConversion},
                              {"dsdConversion",auralDsdDescription(player.decoder.dsd)},{"opusGain",opusGain},
                              {"hardwareVerified",false}};
-    const json decodedSource={{"backend",player.decoder.backend},{"codec",player.decoder.codecName},{"format",formatName(player.format)},{"sampleRate",player.sampleRate},{"channels",player.channels},{"certification","pending"},{"media",player.decoder.sourceEvidence()},{"fileBinding",player.decoder.fileBinding()},{"dsdConversion",auralDsdDescription(player.decoder.dsd)},{"opusGain",opusGain}};
+    const json decodedSource={{"backend",player.decoder.backend},{"codec",player.decoder.codecName},{"container",player.decoder.containerEvidence()},{"format",formatName(player.format)},{"sampleRate",player.sampleRate},{"channels",player.channels},{"certification","pending"},{"media",player.decoder.sourceEvidence()},{"fileBinding",player.decoder.fileBinding()},{"dsdConversion",auralDsdDescription(player.decoder.dsd)},{"opusGain",opusGain}};
     const json conversionPlan=aural_pipeline::report(player.device.playback.converter),pipelineOutput=aural_pipeline::canonicalOutput(actualOutput);
     const json pipelineBuffers={{"preReadFrames",std::to_string(player.capacityFrames)},{"preReadBytes",player.capacityFrames*player.bytesPerFrame},{"deviceFrames",std::to_string(player.device.wasapi.actualBufferSizeInFramesPlayback)}};
     const auto pipelineDescription=[&]()->json{
