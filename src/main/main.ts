@@ -711,6 +711,15 @@ function registerIpc(): void {
   handleIpc('metadata:review-state',(event,itemId)=>{trusted(event.sender);if(typeof itemId!=='string'||!itemId||itemId.length>128||itemId.includes('\0'))throw new Error('无效审核曲目');return serviceCall('metadataReviewState',itemId);});
   handleIpc('metadata:sources',(event,itemId)=>{trusted(event.sender);return serviceCall('metadataSources',itemId);});
   handleIpc('tag-write:job',(event,jobId)=>{trusted(event.sender);return serviceCall('tagWriteJob',jobId);});
+  handleIpc('tag-review-draft:create',(event,request)=>{trusted(event.sender);return serviceCall('tagReviewDraftCreate',request);});
+  handleIpc('tag-review-draft:command',(event,request)=>{trusted(event.sender);return serviceCall('tagReviewDraftCommand',request);});
+  handleIpc('tag-review-draft:page',(event,id)=>{trusted(event.sender);return serviceCall('tagReviewDraftPage',id);});
+  handleIpc('tag-review-draft:list',(event,cursor)=>{trusted(event.sender);return serviceCall('tagReviewDraftList',cursor);});
+  handleIpc('tag-review-draft:saved-jobs',(event,id)=>{trusted(event.sender);return serviceCall('tagReviewDraftSavedJobs',id);});
+  handleIpc('tag-review-draft:preview',(event,request)=>{trusted(event.sender);return serviceCall('tagReviewDraftPreview',request,60000);});
+  handleIpc('tag-review-draft:preview-cancel',(event,requestId)=>{trusted(event.sender);return serviceCall('tagReviewDraftPreviewCancel',requestId);});
+  handleIpc('tag-review-draft:save',(event,request)=>{trusted(event.sender);return serviceCall('tagReviewDraftSave',request,60000);});
+  handleIpc('tag-review-draft:resolve',(event,commandId)=>{trusted(event.sender);return serviceCall('tagReviewDraftResolve',commandId);});
   handleIpc('tag-commit-batch:create',async(event,request)=>{trusted(event.sender);const result=await serviceCall('tagCommitBatchCreate',request);tagStageBatches.poke();return result;});
   handleIpc('tag-commit-batch:command',async(event,request)=>{trusted(event.sender);const result=await serviceCall('tagCommitBatchCommand',request);tagStageBatches.poke();return result;});
   handleIpc('tag-commit-batch:list',(event,cursor)=>{trusted(event.sender);return serviceCall('tagCommitBatchList',cursor);});

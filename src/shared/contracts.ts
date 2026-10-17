@@ -455,7 +455,7 @@ export interface ResponseMessage {
 }
 
 export interface EventMessage {
-  event: 'catalogRestoreApplyChanged' | 'catalogRestoreFinalization' | 'catalogRestoreApplication' | 'catalogRestorePending' | 'catalogRestoreChanged' | 'catalogBackupChanged' | 'catalogBackupFreeze' | 'catalogBackupThaw' | 'historyExportChanged' | 'playbackPolicyChanged' | 'filterPresetsChanged' | 'playbackStatisticsChanged' | 'playbackHistoryChanged' | 'tagWriteJobsChanged' | 'tagStageBatchChanged' | 'tagCommitBatchChanged' | 'scan' | 'scanJobsChanged' | 'metadataRecognitionChanged' | 'libraryWatchChanged' | 'libraryChanged' | 'searchIndexChanged' | 'queue' | 'metadataNetwork' | 'metadataBatch' | 'providersChanged' | 'lyricsChanged' | 'audioOutputChanged' | 'audioBackendChanged' | 'asioOutputChanged' | 'dsdOutputChanged' | 'asioPanelChanged' | 'audioDevicesChanged' | 'desktopControlError' | 'systemMediaChanged' | 'desktopFilesChanged' | 'appearanceChanged';
+  event: 'catalogRestoreApplyChanged' | 'catalogRestoreFinalization' | 'catalogRestoreApplication' | 'catalogRestorePending' | 'catalogRestoreChanged' | 'catalogBackupChanged' | 'catalogBackupFreeze' | 'catalogBackupThaw' | 'historyExportChanged' | 'playbackPolicyChanged' | 'filterPresetsChanged' | 'playbackStatisticsChanged' | 'playbackHistoryChanged' | 'tagWriteJobsChanged' | 'tagStageBatchChanged' | 'tagCommitBatchChanged' | 'tagReviewDraftChanged' | 'scan' | 'scanJobsChanged' | 'metadataRecognitionChanged' | 'libraryWatchChanged' | 'libraryChanged' | 'searchIndexChanged' | 'queue' | 'metadataNetwork' | 'metadataBatch' | 'providersChanged' | 'lyricsChanged' | 'audioOutputChanged' | 'audioBackendChanged' | 'asioOutputChanged' | 'dsdOutputChanged' | 'asioPanelChanged' | 'audioDevicesChanged' | 'desktopControlError' | 'systemMediaChanged' | 'desktopFilesChanged' | 'appearanceChanged';
   payload: unknown;
 }
 
@@ -489,6 +489,15 @@ export interface MusicApi extends ProviderManagementApi {
   cancelCatalogBackup(operationId:string):Promise<boolean>;
   quitCatalogBackup():Promise<void>;
   tagWriteJob(jobId:string):Promise<import('./tag-write-ui').TagWriteJob>;
+  tagReviewDraftCreate(request:import('./tag-review-draft').TagReviewCreate):Promise<import('./tag-review-draft').TagReviewPage>;
+  tagReviewDraftCommand(request:import('./tag-review-draft').TagReviewCommand):Promise<import('./tag-review-draft').TagReviewReply>;
+  tagReviewDraftPage(id:string):Promise<import('./tag-review-draft').TagReviewPage>;
+  tagReviewDraftList(cursor?:number):Promise<import('./tag-review-draft').TagReviewList>;
+  tagReviewDraftSavedJobs(id:string):Promise<string[]>;
+  tagReviewDraftPreview(request:{requestId:string;draftId:string;ordinal:number;settingsRevision:number}):Promise<import('./tag-review-draft').TagReviewPreviewResult>;
+  tagReviewDraftPreviewCancel(requestId:string):Promise<void>;
+  tagReviewDraftSave(request:import('./tag-review-draft').TagReviewSave):Promise<import('./tag-review-draft').TagReviewReply>;
+  tagReviewDraftResolve(commandId:string):Promise<import('./tag-review-draft').TagReviewReply>;
   tagCommitBatchCreate(request:import('./tag-commit-batch').TagCommitBatchCreate):Promise<import('./tag-commit-batch').TagCommitBatch>;
   tagCommitBatchCommand(request:import('./tag-commit-batch').TagCommitBatchCommand):Promise<import('./tag-commit-batch').TagCommitBatchReply>;
   tagCommitBatchList(cursor?:number):Promise<import('./tag-commit-batch').TagCommitBatchPage>;

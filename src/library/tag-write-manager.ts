@@ -43,6 +43,7 @@ export class TagWriteManager {
  private readonly commitJournal:TagCommitJournal|undefined;private readonly committer:TagFileCommitter|undefined;
  private readonly restoreJournal:TagRestoreJournal|undefined;private readonly restorer:TagFileRestorer|undefined;
  private readonly restoreReleases=new Map<string,Promise<void>>();
+ private readonly prepareFlights=new Map<string,{identity:string;result:Promise<TagWriteJob>}>();
  private readonly commitReleases=new Map<string,Promise<void>>();
  private activeRestoreReprobe:{id:string;jobId:string;controller:AbortController;releaseReady?:boolean;finished?:Promise<void>}|null=null;
  private activeRestoreInspection:{id:string;jobId:string;controller:AbortController;finished?:Promise<void>}|null=null;
@@ -57,17 +58,17 @@ export class TagWriteManager {
   if(!owner||this.maintenanceOwner&&this.maintenanceOwner!==owner)throw new Error('标签写回维护身份不符');this.maintenanceOwner=owner;this.close();
   const active=[this.activeStage,this.activeInspection,this.activeRecoveryAction,this.activeCommit,this.activeCommitInspection,this.activeReprobe,this.activeRestore,this.activeRestoreInspection,this.activeRestoreReprobe];
   if(active.some(value=>value&&!value.finished))throw new Error('文件操作仍在准备阶段，须先等待原请求结束');
-  await Promise.allSettled([...active.flatMap(value=>value?.finished?[value.finished]:[]),...[...this.requests.values()].map(value=>value.result),...this.restoreReleases.values(),...this.commitReleases.values()]);
+  await Promise.allSettled([...active.flatMap(value=>value?.finished?[value.finished]:[]),...[...this.requests.values()].map(value=>value.result),...this.restoreReleases.values(),...this.commitReleases.values(),...[...this.prepareFlights.values()].map(f=>f.result)]);
   this.assertMaintenanceIdle();
  }
  private assertMaintenanceIdle():void{
-  if(this.activeStage||this.activeInspection||this.activeRecoveryAction||this.activeCommit||this.activeCommitInspection||this.activeReprobe||this.activeRestore||this.activeRestoreInspection||this.activeRestoreReprobe||this.requests.size||this.restoreReleases.size||this.commitReleases.size||[this.writer,this.inspector,this.committer,this.restorer].some(value=>value&&!value.quiescent))throw new Error('写回或恢复进程未全部确认退出，保留原任务与恢复占用');
+  if(this.activeStage||this.activeInspection||this.activeRecoveryAction||this.activeCommit||this.activeCommitInspection||this.activeReprobe||this.activeRestore||this.activeRestoreInspection||this.activeRestoreReprobe||this.requests.size||this.prepareFlights.size||this.restoreReleases.size||this.commitReleases.size||[this.writer,this.inspector,this.committer,this.restorer].some(value=>value&&!value.quiescent))throw new Error('写回或恢复进程未全部确认退出，保留原任务与恢复占用');
  }
  endMaintenance(owner:string):void{if(this.maintenanceOwner!==owner)throw new Error('标签维护身份不符');this.assertMaintenanceIdle();this.maintenanceOwner=null;}
  get batchIdle():boolean{if(this.maintenanceOwner)return false;try{this.assertMaintenanceIdle();return true;}catch{return false;}}
  constructor(private readonly db:LibraryDatabase,private readonly parser:MediaParser,private readonly runtime?:TagStageRuntime){if(runtime){this.restoreJournal=new TagRestoreJournal(runtime.dataDir);this.restorer=new TagFileRestorer(path.join(path.dirname(runtime.executable),'tag-file-restorer.exe'));this.commitJournal=new TagCommitJournal(runtime.dataDir);this.committer=new TagFileCommitter(path.join(path.dirname(runtime.executable),'tag-file-committer.exe'));this.journal=new TagWriteJournal(runtime.dataDir);this.writer=new TagWriteWorker(runtime.executable);this.inspector=new TagFileInspector(path.join(path.dirname(runtime.executable),'tag-file-inspector.exe'));}}
  private sweep():void {for(const [id,p] of this.tokens)if(p.value.expiresAt<=Date.now())this.tokens.delete(id);}
- cancel(requestId:unknown):void {if(!tagWriteUuid(requestId))throw new Error('标签预览任务身份无效');this.requests.get(requestId)?.controller.abort(new Error('标签预览已取消'));for(const [key,p] of this.tokens)if(p.value.draft.requestId===requestId)this.tokens.delete(key);}
+ cancel(value:unknown):void {if(!tagWriteUuid(value))throw new Error('标签预览任务身份无效');const requestId=value.toLowerCase();this.requests.get(requestId)?.controller.abort(new Error('标签预览已取消'));for(const [key,p] of this.tokens)if(p.value.draft.requestId===requestId)this.tokens.delete(key);}
  close():void {for(const r of this.requests.values())r.controller.abort(new Error('曲库服务正在关闭'));this.activeStage?.controller.abort(new Error('曲库服务正在关闭'));this.activeInspection?.controller.abort(new Error('曲库服务正在关闭'));this.activeRecoveryAction?.controller.abort(new Error('曲库服务正在关闭'));this.activeCommit?.controller.abort(new Error('曲库服务正在关闭'));this.activeCommitInspection?.controller.abort(new Error('曲库服务正在关闭'));this.activeReprobe?.controller.abort(new Error('曲库服务正在关闭'));this.activeRestore?.controller.abort(new Error('曲库服务正在关闭'));this.activeRestoreInspection?.controller.abort(new Error('曲库服务正在关闭'));this.activeRestoreReprobe?.controller.abort(new Error('曲库服务正在关闭'));this.tokens.clear();}
  private context(draft:TagWriteDraft,ownerJobId?:string,reviewLeaseRevision?:number,basisVersion:1|2=2){const c=this.db.tagWriteContext(draft.itemId,ownerJobId,reviewLeaseRevision,basisVersion);if(!c.eligible)throw new Error(c.reason);if(c.fingerprint!==draft.fingerprint)throw new Error('歌曲资料或来源权限已变化，请重新读取');for(const f of draft.fields)if(f.origin==='library'){const field=c.fields.find(v=>v.field===f.field);if(!field?.libraryAllowed||JSON.stringify(field.values)!==JSON.stringify(f.values))throw new Error('所选曲库值未取得写回权限或已变化');}return c;}
  private frozenContext(snapshot:TagWriteFrozenSnapshot,ownerJobId?:string,reviewLeaseRevision?:number){const version=snapshot.basisVersion??1;if(version!==1&&version!==2)throw new Error('冻结标签审核依据版本不受支持');return this.context(snapshot.draft,ownerJobId,reviewLeaseRevision,version);}
@@ -107,12 +108,15 @@ export class TagWriteManager {
   if(this.tokens.size>=64||[...this.tokens.values()].reduce((sum,p)=>sum+p.bytes,0)+bytes>8*1024*1024)throw new Error('标签预览缓存已满，请等待旧预览过期');
   this.tokens.set(result.token,{value:structuredClone(result),snapshot:structuredClone(snapshot),bytes});return result;
  }
- async prepare(value:unknown):Promise<TagWriteJob> {
+ prepareInFlight(id:string):boolean{return this.prepareFlights.has(id);}
+ abandonPrepareToken(value:unknown):void{const q=readTagWritePrepareRequest(value);if(this.prepareFlights.has(q.commandId))throw new Error('原保存仍在进行，不能放弃原预览');if(this.db.tagWriteJobs.prepareReceipt(q))throw new Error('原任务已经保存');this.tokens.delete(q.token);}
+ async prepare(value:unknown):Promise<TagWriteJob>{const q=readTagWritePrepareRequest(value),identity=JSON.stringify(q),known=this.db.tagWriteJobs.prepareReceipt(q);if(known)return Promise.resolve(known);const flight=this.prepareFlights.get(q.commandId);if(flight){if(flight.identity!==identity)throw new Error('原保存命令内容已经变化');return flight.result;}if(this.maintenanceOwner||this.prepareFlights.size>=8)throw new Error('曲库正在维护或保存请求过多，请等待原请求');const result=this.performPrepare(q).finally(()=>this.prepareFlights.delete(q.commandId));this.prepareFlights.set(q.commandId,{identity,result});return result;}
+ private async performPrepare(value:unknown):Promise<TagWriteJob> {
   const request=readTagWritePrepareRequest(value),known=this.db.tagWriteJobs.prepareReceipt(request);if(known)return known;
   this.sweep();const pending=this.tokens.get(request.token);if(!pending)throw new Error('标签预览已过期，请重新预览');
   const {value:preview,snapshot}=pending;if(!preview.preview.changed)throw new Error('所选标签没有变化，无需保存任务');
   await this.checkSource(snapshot);const current=this.frozenContext(snapshot);
-  if(preview.expiresAt<=Date.now())throw new Error('标签预览已过期，请重新预览');
+  if(this.maintenanceOwner||this.tokens.get(request.token)!==pending||preview.expiresAt<=Date.now())throw new Error('标签预览已过期或已取消，请重新预览');
   const plan:TagWritePlan={version:1,jobId:randomUUID(),itemId:current.itemId,fileId:current.fileId,contentRevision:current.contentRevision,adapter:FLAC_TAG_ADAPTER,certificateId:null,preview:preview.preview,changes:snapshot.draft.fields.map(f=>({field:f.field,values:f.values}))};
   return this.db.tagWriteJobs.prepare(request,plan,snapshot,current.title);
  }
